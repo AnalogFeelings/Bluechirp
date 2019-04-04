@@ -11,20 +11,20 @@
     </Style>
 
     
-    <Style x:Key="NameTextBlock"
+    <Style x:Key="NameTextBlockButton"
            TargetType="Button"
-           BasedOn="{StaticResource TextBlockButton}">
+           BasedOn="{StaticResource TextBlockButtonStyle}">
         <Setter Property="FontWeight"
                 Value="Bold"/>
         <Setter Property="FontSize"
                 Value="20"/>
         <Setter Property="Foreground"
-                Value="{ThemeResource DefaultTextForeground}"/>
+                Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
     </Style>
 
-    <Style x:Key="UsernameTextBlock"
+    <Style x:Key="UsernameTextBlockButton"
            TargetType="Button"
-           BasedOn="{StaticResource NameTextBlock}">
+           BasedOn="{StaticResource NameTextBlockButton}">
         <Setter Property="FontWeight"
                 Value="Normal"/>
         <Setter Property="Foreground"

@@ -7,8 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.Resources>
+        <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+    </Page.Resources>
     <Grid>
-
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+            <Button Style="{StaticResource NameTextBlockButton}">Olea</Button>
+                <Button Style="{StaticResource UsernameTextBlockButton}">@ironychild</Button>
+            </StackPanel>
+            <TextBlock FontSize="20"
+                       Margin="8,0,0,0">Remember when I was on Twitter?</TextBlock>
+        </StackPanel>
     </Grid>
 </Page>
