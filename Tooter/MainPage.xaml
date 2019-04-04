@@ -18,6 +18,10 @@
             </StackPanel>
             <TextBlock FontSize="20"
                        Margin="8,0,0,0">Remember when I was on Twitter?</TextBlock>
+            <Button Style="{StaticResource BlockButton}">Settings</Button>
+            <Button Style="{StaticResource BlockButton}">Messages</Button>
+            <Button Style="{StaticResource BlockButton}">Message</Button>
+            
         </StackPanel>
     </Grid>
 </Page>
