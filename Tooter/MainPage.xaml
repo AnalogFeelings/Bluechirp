@@ -5,23 +5,24 @@
     xmlns:local="using:Tooter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:localcontrols="using:Tooter.LocalControls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
     </Page.Resources>
     <Grid>
-        <StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-            <Button Style="{StaticResource NameTextBlockButton}">Olea</Button>
-                <Button Style="{StaticResource UsernameTextBlockButton}">@ironychild</Button>
-            </StackPanel>
-            <TextBlock FontSize="20"
-                       Margin="8,0,0,0">Remember when I was on Twitter?</TextBlock>
-            <Button Style="{StaticResource BlockButton}">Settings</Button>
-            <Button Style="{StaticResource BlockButton}">Messages</Button>
-            <Button Style="{StaticResource BlockButton}">Message</Button>
-            
-        </StackPanel>
+
+        <Button Style="{ThemeResource CircleButtonStyle}"
+                Foreground="White"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                    Width="100"
+                    Height="100"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,20,20">
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE104;" />
+        </Button>
+
     </Grid>
 </Page>

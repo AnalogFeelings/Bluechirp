@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Tooter.Styles">
+    xmlns:local="using:Tooter.Styles"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
     <Style x:Key="ViewTitleTextBlock"
            TargetType="TextBlock">
         <Setter Property="FontWeight"
@@ -44,5 +45,7 @@
                 Value="44"/>
     </Style>
 
+
     
+
 </ResourceDictionary>
