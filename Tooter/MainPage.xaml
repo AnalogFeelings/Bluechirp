@@ -13,9 +13,13 @@
     </Page.Resources>
     <Grid>
 
+        <Button Style="{ThemeResource RoundButtonStyle}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="156"
+                Height="50">Settings</Button>
         <Button Style="{ThemeResource CircleButtonStyle}"
                 Foreground="White"
-                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                     Width="70"
                     Height="70"
                 HorizontalAlignment="Right"

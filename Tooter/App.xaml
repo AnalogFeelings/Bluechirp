@@ -9,7 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <Style x:Key="CircleButtonStyle" TargetType="Button">
-                        <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                        <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                         <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
                         <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
                         <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
@@ -28,7 +28,7 @@
                                             <VisualStateGroup x:Name="CommonStates">
                                                 <VisualState x:Name="Normal">
                                                     <Storyboard>
-                                                        <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="BlurRadius" Storyboard.TargetName="BorderCircleDropShadow"
+                                                        <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="BlurRadius" Storyboard.TargetName="CircleAreaDropShadow"
                                                                          To="12"
                                                                          EnableDependentAnimation="True">
                                                             <DoubleAnimation.EasingFunction>
@@ -40,7 +40,7 @@
                                                 </VisualState>
                                                 <VisualState x:Name="PointerOver">
                                                     <Storyboard>
-                                                        <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="BlurRadius" Storyboard.TargetName="BorderCircleDropShadow"
+                                                        <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="BlurRadius" Storyboard.TargetName="CircleAreaDropShadow"
                                                                          To="20.0"
                                                                          EnableDependentAnimation="True">
                                                             <DoubleAnimation.EasingFunction>
@@ -53,7 +53,7 @@
                                                 </VisualState>
                                                 <VisualState x:Name="Pressed">
                                                     <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="BorderCircle">
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CircleArea">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemAccentColorDark1}"/>
                                                         </ObjectAnimationUsingKeyFrames>
                                                         <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
@@ -61,21 +61,21 @@
                                                 </VisualState>
                                                 <VisualState x:Name="Disabled">
                                                     <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="BorderCircle">
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CircleArea">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
                                                         </ObjectAnimationUsingKeyFrames>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
                                                         </ObjectAnimationUsingKeyFrames>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="BorderCircle">
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="CircleArea">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledTransparentBrush}"/>
                                                         </ObjectAnimationUsingKeyFrames>
                                                     </Storyboard>
                                                 </VisualState>
                                             </VisualStateGroup>
                                         </VisualStateManager.VisualStateGroups>
-                                        <controls:DropShadowPanel OffsetY="4" x:Name="BorderCircleDropShadow" ShadowOpacity="0.8">
-                                            <Ellipse x:Name="BorderCircle" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="2"
+                                        <controls:DropShadowPanel OffsetY="4" x:Name="CircleAreaDropShadow" ShadowOpacity="0.8">
+                                            <Ellipse x:Name="CircleArea" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="2"
                                                      Width="{TemplateBinding Width}"
                                                      Height="{TemplateBinding Height}"/>        
                                         </controls:DropShadowPanel>

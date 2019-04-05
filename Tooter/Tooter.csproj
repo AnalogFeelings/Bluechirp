@@ -120,7 +120,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\HalfConverter.cs" />
+    <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
     <Compile Include="LocalControls\TootTemplate.xaml.cs">
       <DependentUpon>TootTemplate.xaml</DependentUpon>
     </Compile>
