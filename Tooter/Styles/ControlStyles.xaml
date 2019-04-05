@@ -108,6 +108,54 @@
         </Setter>
     </Style>
 
+    <Style TargetType="CommandBar" x:Key="UnrestrictedCommandBar">
+        <Setter Property="Background" Value="{ThemeResource CommandBarBackground}" />
+        <Setter Property="Foreground" Value="{ThemeResource CommandBarForeground}" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="ClosedDisplayMode" Value="Compact" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CommandBar">
+                    <Grid x:Name="LayoutRoot">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Disabled">
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="ContentRoot"
+                          VerticalAlignment="Stretch"
+                          Margin="{TemplateBinding Padding}"
+                          Height="{TemplateBinding Height}"
+                          
+                          Background="{TemplateBinding Background}">
+
+                            <Grid.RenderTransform>
+                                <TranslateTransform x:Name="ContentTransform" />
+                            </Grid.RenderTransform>
+                            <ContentControl x:Name="ContentControl"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              ContentTransitions="{TemplateBinding ContentTransitions}"
+                              Foreground="{TemplateBinding Foreground}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                              IsTabStop="False" />
+
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
 
 

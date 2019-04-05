@@ -13,44 +13,27 @@
     </Page.Resources>
     <Grid>
 
-        <ScrollViewer>
-            <StackPanel>
-                <localcontrols:TootTemplate 
-                                    MinHeight="100"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Top"/>
-                <localcontrols:TootTemplate 
-                                    MinHeight="100"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Top"/>
-                <localcontrols:TootTemplate 
-                                    MinHeight="100"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Top"/>
-                <localcontrols:TootTemplate 
-                                    MinHeight="100"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Top"/>
-                <localcontrols:TootTemplate 
-                                    MinHeight="100"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Top"/>
-                <localcontrols:TootTemplate 
-                                    MinHeight="100"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Top"/>
-                <localcontrols:TootTemplate 
-                                    MinHeight="100"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Top"/>
-                <localcontrols:TootTemplate 
-                                    MinHeight="100"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Top"/>
-            </StackPanel>
-        </ScrollViewer>
-        <localcontrols:TabBar VerticalAlignment="Bottom"
-                              HorizontalAlignment="Stretch"
-                              Height="60"/>
+        
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar Style="{StaticResource UnrestrictedCommandBar}" Height="60">
+            <CommandBar.Content>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top">
+                    <TextBlock Text="HEllo"
+                               VerticalAlignment="Bottom"/>
+                    <TextBlock Text="HEllo"
+                               HorizontalAlignment="Right"/>
+                    <TextBlock Text="HEllo"/>
+                    <TextBlock Text="HEllo"/>
+                    <TextBlock Text="HEllo"/>
+                    <TextBlock Text="HEllo"/>
+                    <TextBlock Text="HEllo"/>
+                    <TextBlock Text="HEllo"/>
+                    <TextBlock Text="HEllo"/>
+                    
+                </StackPanel>
+            </CommandBar.Content>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
