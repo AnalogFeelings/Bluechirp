@@ -16,10 +16,12 @@
         
     </Grid>
     <Page.BottomAppBar>
-        <CommandBar Style="{StaticResource UnrestrictedCommandBar}" Height="60">
+        <CommandBar Style="{StaticResource UnrestrictedCommandBar}" Height="60"
+                    Background="White">
             <CommandBar.Content>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"
-                            VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Background="White">
                     <TextBlock Text="HEllo"
                                VerticalAlignment="Bottom"/>
                     <TextBlock Text="HEllo"

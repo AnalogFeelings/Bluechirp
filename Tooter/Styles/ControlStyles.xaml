@@ -138,6 +138,13 @@
                             <Grid.RenderTransform>
                                 <TranslateTransform x:Name="ContentTransform" />
                             </Grid.RenderTransform>
+                            <controls:DropShadowPanel HorizontalAlignment="Stretch"
+                                                      VerticalAlignment="Stretch"
+                                                      HorizontalContentAlignment="Stretch"
+                                                      VerticalContentAlignment="Stretch"
+                                                      BlurRadius="20"
+                                                      OffsetY="-4"
+                                                      ShadowOpacity="0.25">
                             <ContentControl x:Name="ContentControl"
                               Content="{TemplateBinding Content}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -148,7 +155,7 @@
                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                               IsTabStop="False" />
-
+                            </controls:DropShadowPanel>
                         </Grid>
                     </Grid>
                 </ControlTemplate>
