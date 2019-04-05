@@ -49,5 +49,8 @@
                                     VerticalAlignment="Top"/>
             </StackPanel>
         </ScrollViewer>
+        <localcontrols:TabBar VerticalAlignment="Bottom"
+                              HorizontalAlignment="Stretch"
+                              Height="60"/>
     </Grid>
 </Page>
