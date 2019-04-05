@@ -13,20 +13,41 @@
     </Page.Resources>
     <Grid>
 
-        <Button Style="{ThemeResource RoundButtonStyle}"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Width="156"
-                Height="50">Settings</Button>
-        <Button Style="{ThemeResource CircleButtonStyle}"
-                Foreground="White"
-                    Width="70"
-                    Height="70"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Margin="0,0,20,20">
-            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE104;" />
-        </Button>
-
+        <ScrollViewer>
+            <StackPanel>
+                <localcontrols:TootTemplate 
+                                    MinHeight="100"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Top"/>
+                <localcontrols:TootTemplate 
+                                    MinHeight="100"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Top"/>
+                <localcontrols:TootTemplate 
+                                    MinHeight="100"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Top"/>
+                <localcontrols:TootTemplate 
+                                    MinHeight="100"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Top"/>
+                <localcontrols:TootTemplate 
+                                    MinHeight="100"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Top"/>
+                <localcontrols:TootTemplate 
+                                    MinHeight="100"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Top"/>
+                <localcontrols:TootTemplate 
+                                    MinHeight="100"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Top"/>
+                <localcontrols:TootTemplate 
+                                    MinHeight="100"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Top"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
