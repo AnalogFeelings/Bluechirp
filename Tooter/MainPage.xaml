@@ -20,7 +20,7 @@
                     Background="White">
             <CommandBar.Content>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"
-                            VerticalAlignment="Top"
+                            VerticalAlignment="Stretch"
                             Background="White">
                     <TextBlock Text="HEllo"
                                VerticalAlignment="Bottom"/>
