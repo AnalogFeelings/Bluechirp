@@ -74,7 +74,7 @@
                                                 </VisualState>
                                             </VisualStateGroup>
                                         </VisualStateManager.VisualStateGroups>
-                                        <controls:DropShadowPanel OffsetY="4" x:Name="BorderCircleDropShadow">
+                                        <controls:DropShadowPanel OffsetY="4" x:Name="BorderCircleDropShadow" ShadowOpacity="0.8">
                                             <Ellipse x:Name="BorderCircle" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="2"
                                                      Width="{TemplateBinding Width}"
                                                      Height="{TemplateBinding Height}"/>        
