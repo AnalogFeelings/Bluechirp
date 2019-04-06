@@ -13,7 +13,8 @@
     </Page.Resources>
     <Grid>
 
-        
+        <localcontrols:MessageTemplate VerticalAlignment="Top"
+                                       HorizontalAlignment="Stretch"/>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar Style="{StaticResource UnrestrictedCommandBar}" Height="60"
