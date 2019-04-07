@@ -36,6 +36,14 @@
                 Value="#434343"/>
     </Style>
 
+    <Style x:Key="ReplyNameTextBlockButton"
+           TargetType="Button" BasedOn="{StaticResource NameTextBlockButton}">
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
+    <Style x:Key="ReplyUsernameTextBlockButton"
+           TargetType="Button" BasedOn="{StaticResource UsernameTextBlockButton}">
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
     <Style x:Key="BlockButton"
            TargetType="Button">
         <Setter Property="Foreground" Value="White"/>

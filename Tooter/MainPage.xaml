@@ -12,9 +12,7 @@
         <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
     </Page.Resources>
     <Grid>
-
-        <localcontrols:MessageTemplate VerticalAlignment="Top"
-                                       HorizontalAlignment="Stretch"/>
+        <localcontrols:TootReplyTemplate Width="300"/>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar Style="{StaticResource UnrestrictedCommandBar}" Height="60"
