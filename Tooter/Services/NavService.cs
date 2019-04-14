@@ -13,11 +13,10 @@ namespace Tooter.Services
     {
         private static Frame _frame = null;
         internal static NavService Instance = new NavService();
-        private NavService() { }
-
-        internal static void CreateInstance(Frame frame)
+        public static void CreateInstance(Frame frame)
         {
             _frame = frame;
+
         }
 
         public void GoBack()
@@ -36,66 +35,20 @@ namespace Tooter.Services
             }
         }
 
-
-        public bool Navigate(Type viewModelType)
+        public bool Navigate(Type sourcePageType)
         {
-            
-            
-            bool validNavigation = false;
-            string viewName = viewModelType.Name.Replace("ViewModel", "");
-            try
-            {
-                Type viewType = Type.GetType(viewName);
-                validNavigation = _frame.Navigate(viewType);
-            }
-            catch (Exception)
-            {
-
-                
-            }
-           
-            return validNavigation;
+            return _frame.Navigate(sourcePageType);
         }
 
-        public bool Navigate(Type viewModelType, object parameter)
+        public bool Navigate(Type sourcePageType, object parameter)
         {
-
-            bool validNavigation = false;
-            string viewName = viewModelType.Name.Replace("ViewModel", "");
-            try
-            {
-                Type viewType = Type.GetType(viewName);
-                validNavigation = _frame.Navigate(viewType, parameter);
-            }
-            catch (Exception)
-            {
-
-
-            }
-
-            return validNavigation;
+            return _frame.Navigate(sourcePageType, parameter);
         }
 
-        public bool Navigate(Type viewModelType, object parameter, NavigationTransitionInfo infoOverride)
+        public bool Navigate(Type sourcePageType, object parameter, NavigationTransitionInfo infoOverride)
         {
-
-            bool validNavigation = false;
-            string viewName = viewModelType.Name.Replace("ViewModel", "");
-            try
-            {
-                Type viewType = Type.GetType(viewName);
-                validNavigation = _frame.Navigate(viewType, parameter, infoOverride);
-            }
-            catch (Exception)
-            {
-
-
-            }
-
-            return validNavigation;
+            return _frame.Navigate(sourcePageType, parameter, infoOverride);
         }
-
-       
 
         public bool IsCurrentPageOfType(Type typeQuery)
         {

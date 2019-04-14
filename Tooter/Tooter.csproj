@@ -120,6 +120,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Commands\RelayCommandWithParameter.cs" />
     <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
     <Compile Include="LocalControls\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
@@ -142,9 +144,16 @@
     <Compile Include="Model\Notifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\NavService.cs" />
+    <Compile Include="ViewModel\FederatedViewModel.cs" />
+    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\LocalViewModel.cs" />
     <Compile Include="ViewModel\ShellViewModel.cs" />
+    <Compile Include="ViewModel\TimelineViewModelBase.cs" />
     <Compile Include="View\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TimelineView.xaml.cs">
+      <DependentUpon>TimelineView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TootView.xaml.cs">
       <DependentUpon>TootView.xaml</DependentUpon>
@@ -250,6 +259,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TimelineView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

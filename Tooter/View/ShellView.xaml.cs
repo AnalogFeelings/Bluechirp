@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tooter.Services;
+using Tooter.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -27,6 +28,13 @@ namespace Tooter.View
         {
             this.InitializeComponent();
             NavService.CreateInstance(ContentFrame);
+            
         }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            NavService.Instance.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+        }
+
     }
 }
