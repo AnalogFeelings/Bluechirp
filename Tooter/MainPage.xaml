@@ -15,39 +15,9 @@
         <localcontrols:TootReplyTemplate Width="300"/>
     </Grid>
     <Page.BottomAppBar>
-        <CommandBar Style="{StaticResource UnrestrictedCommandBar}" Height="60"
-                    Background="White">
+        <CommandBar Style="{StaticResource UnrestrictedCommandBar}">
             <CommandBar.Content>
-                <Grid HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch"
-                      Background="{ThemeResource AppBarBackgroundThemeBrush}">
-                    <Grid HorizontalAlignment="Center">
-                        <Grid.Resources>
-                            <Style TargetType="Button" BasedOn="{StaticResource TextBlockButtonStyle}">
-                                <Setter Property="Foreground" Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
-                                <Setter Property="Margin" Value="24,0"/>
-                            </Style>
-                        </Grid.Resources>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Button>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE722;" />
-                        </Button >
-                        <Button Grid.Column="1" FontSize="18"  FontWeight="Bold">
-                            <TextBlock Text="GIF"/>
-                        </Button>
-                        <Button Grid.Column="2">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE899;" />
-                        </Button>
-                        <Button Grid.Column="3" Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE725;" />
-                        </Button>
-                    </Grid>
-                </Grid>
+                <localcontrols:TabBar/>
             </CommandBar.Content>
         </CommandBar>
     </Page.BottomAppBar>

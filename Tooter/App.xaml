@@ -7,7 +7,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
+                <ResourceDictionary x:Name="GlobalButtonStyles">
                     <Style x:Key="CircleButtonStyle" TargetType="Button">
                         <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                         <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
@@ -77,7 +77,7 @@
                                         <controls:DropShadowPanel OffsetY="4" x:Name="CircleAreaDropShadow" ShadowOpacity="0.8">
                                             <Ellipse x:Name="CircleArea" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="2"
                                                      Width="{TemplateBinding Width}"
-                                                     Height="{TemplateBinding Height}"/>        
+                                                     Height="{TemplateBinding Height}"/>
                                         </controls:DropShadowPanel>
                                         <ContentPresenter x:Name="ContentPresenter" Foreground="{TemplateBinding Foreground}"
                                           VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -87,6 +87,7 @@
                         </Setter>
                     </Style>
                 </ResourceDictionary>
+                <ResourceDictionary Source="ms-appx:///Styles/GlobalTextStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
