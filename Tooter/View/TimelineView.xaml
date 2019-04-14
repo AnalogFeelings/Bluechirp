@@ -8,13 +8,35 @@
     xmlns:localcontrols="using:Tooter.LocalControls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+    </Page.Resources>
     <Grid Padding="40">
         <Grid.RowDefinitions>
-            <RowDefinition/>
             <RowDefinition Height="auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource ViewTitleTextBlock}"
                    Text="{x:Bind ViewModel.ViewTitle, Mode=OneWay}"/>
+        <ListView Grid.Row="1" ItemContainerStyle="{ThemeResource NoPaddingAccentSelectionListViewItemStyle}"
+                  SelectionMode="None"
+                  IsItemClickEnabled="True">
+            <ListViewItem>
+                <TextBlock Text="Hello"/>
+            </ListViewItem>
+            <ListViewItem>
+                <TextBlock Text="Hello"/>
+            </ListViewItem>
+            <ListViewItem>
+                <TextBlock Text="Hello"/>
+            </ListViewItem>
+            <ListViewItem>
+                <TextBlock Text="Hello"/>
+            </ListViewItem>
+            <ListViewItem>
+                <TextBlock Text="Hello"/>
+            </ListViewItem>
+        </ListView>
     </Grid>
 </Page>
     
