@@ -134,7 +134,6 @@
                           VerticalAlignment="Stretch"
                           Margin="{TemplateBinding Padding}"
                           Height="{TemplateBinding Height}"
-                          
                           Background="{TemplateBinding Background}">
 
                             <Grid.RenderTransform>

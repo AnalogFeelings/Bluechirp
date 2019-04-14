@@ -22,9 +22,10 @@
         <RelativePanel HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch"
                        Grid.Row="1">
-            <Rectangle Height="88" Width="88" Fill="Black"
+            <Rectangle Height="88" Width="88"
                        Name="ProfileImage"
-                       Margin="0,40,0,0"/>
+                       Margin="0,40,0,0"
+                       Fill="{ThemeResource SystemAccentColor}"/>
             <TextBox PlaceholderText="Write your toot here!"
                      RelativePanel.Below="ProfileImage"
                      RelativePanel.AlignBottomWithPanel="True"
@@ -38,7 +39,7 @@
     <Page.BottomAppBar>
         <CommandBar Style="{StaticResource UnrestrictedCommandBar}">
             <CommandBar.Content>
-            <localcontrols:TabBar/>
+            <localcontrols:TootBar/>
             </CommandBar.Content>
         </CommandBar>
     </Page.BottomAppBar>

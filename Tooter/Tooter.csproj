@@ -127,6 +127,9 @@
     <Compile Include="LocalControls\TabBar.xaml.cs">
       <DependentUpon>TabBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LocalControls\TootBar.xaml.cs">
+      <DependentUpon>TootBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LocalControls\TootReplyTemplate.xaml.cs">
       <DependentUpon>TootReplyTemplate.xaml</DependentUpon>
     </Compile>
@@ -219,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LocalControls\TabBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LocalControls\TootBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
