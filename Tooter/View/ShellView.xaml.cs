@@ -33,7 +33,7 @@ namespace Tooter.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            NavService.Instance.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+            ContentFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
         }
 
     }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Tooter.ViewModel
 {
-    class FederatedViewModel
+    class FederatedViewModel : TimelineViewModelBase
     {
+        public override string ViewTitle { get; protected set; } = "Federated Timeline";
     }
 }
