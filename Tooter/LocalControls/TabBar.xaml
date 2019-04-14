@@ -11,39 +11,33 @@
     d:DesignWidth="400">
 
     <controls:DropShadowPanel BlurRadius="20" OffsetY="-4" HorizontalContentAlignment="Stretch">
-        <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+        <Grid HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="{ThemeResource AppBarBackgroundThemeBrush}">
             <Grid HorizontalAlignment="Center">
                 <Grid.Resources>
-                    <Style TargetType="Button"
-                           BasedOn="{StaticResource TextBlockButtonStyle}">
-                        <Setter Property="Foreground"
-                                Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
-                        <Setter Property="Margin"
-                                Value="20,0"/>
+                    <Style TargetType="Button" BasedOn="{StaticResource TextBlockButtonStyle}">
+                        <Setter Property="Foreground" Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
+                        <Setter Property="Margin" Value="24,0"/>
                     </Style>
                 </Grid.Resources>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
                 <Button>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" />
-                </Button>
-                <Button Grid.Column="1">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE910;" />
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE722;" />
+                </Button >
+                <Button Grid.Column="1" FontSize="18"  FontWeight="Bold">
+                    <TextBlock Text="GIF"/>
                 </Button>
                 <Button Grid.Column="2">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE716;" /> 
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE899;" />
                 </Button>
-                <Button Grid.Column="3">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;" />
-                </Button>
-                <Button Grid.Column="4">
-                    <Rectangle Fill="Black" Width="20"
-                               Height="20"/>
+                <Button Grid.Column="3" Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE725;" />
                 </Button>
             </Grid>
         </Grid>

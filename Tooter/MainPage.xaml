@@ -15,7 +15,8 @@
         <localcontrols:TootReplyTemplate Width="300"/>
     </Grid>
     <Page.BottomAppBar>
-        <CommandBar Style="{StaticResource UnrestrictedCommandBar}">
+        <CommandBar Style="{StaticResource UnrestrictedCommandBar}" Height="60"
+                    Background="White">
             <CommandBar.Content>
                 <localcontrols:TabBar/>
             </CommandBar.Content>
