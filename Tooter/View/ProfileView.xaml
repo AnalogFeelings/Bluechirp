@@ -6,16 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Tooter.Converters"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        
+        <Border Background="DarkGray" Name="ProfileBackgroundImage"/>
         <Button HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Margin="0,40,40,0"
@@ -26,5 +27,24 @@
                 <TextBlock Text="Edit Profile"/>
             </Button.Content>
         </Button>
+        <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  ShadowOpacity="0.4"
+                                  HorizontalContentAlignment="Stretch"
+                                  VerticalContentAlignment="Stretch">
+            <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+                <controls:DropShadowPanel VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   Margin="20,-44,0,0"
+                                  Grid.Row="1"
+                                  ShadowOpacity="0.7">
+                    <Rectangle Width="88" Height="88"
+                   Fill="{ThemeResource SystemAccentColor}"
+                   
+                   />
+                </controls:DropShadowPanel>
+            </Grid>
+        </controls:DropShadowPanel>
+
     </Grid>
 </Page>
