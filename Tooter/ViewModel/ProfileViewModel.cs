@@ -8,5 +8,6 @@ namespace Tooter.ViewModel
 {
     class ProfileViewModel
     {
+
     }
 }

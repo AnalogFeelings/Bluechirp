@@ -5,10 +5,26 @@
     xmlns:local="using:Tooter.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    xmlns:converters="using:Tooter.Converters"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+    </Page.Resources>
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        
+        <Button HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,40,40,0"
+                Style="{StaticResource RoundButtonStyle}"
+                Width="100"
+                Height="30">
+            <Button.Content>
+                <TextBlock Text="Edit Profile"/>
+            </Button.Content>
+        </Button>
     </Grid>
 </Page>
