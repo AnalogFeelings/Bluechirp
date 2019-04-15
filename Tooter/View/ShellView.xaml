@@ -15,7 +15,19 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Frame x:Name="ContentFrame"/>
+        <Button Style="{ThemeResource CircleButtonStyle}"
+                Width="72"
+                Height="72"
+                Foreground="White"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,40,40">
+            <Button.Content>
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" />
+            </Button.Content>
+        </Button>
         <localcontrols:TabBar Grid.Row="1"
                               HorizontalAlignment="Stretch"/>
+        
     </Grid>
 </Page>
