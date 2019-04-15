@@ -32,18 +32,60 @@
                                   ShadowOpacity="0.4"
                                   HorizontalContentAlignment="Stretch"
                                   VerticalContentAlignment="Stretch">
-            <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+            <RelativePanel Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
                 <controls:DropShadowPanel VerticalAlignment="Top"
                    HorizontalAlignment="Left"
-                   Margin="20,-44,0,0"
-                                  Grid.Row="1"
-                                  ShadowOpacity="0.7">
+                   Margin="40,-44,0,0"
+                   Grid.Row="1"
+                   ShadowOpacity="0.7"
+                   Name="ProfileImageArea">
                     <Rectangle Width="88" Height="88"
-                   Fill="{ThemeResource SystemAccentColor}"
-                   
-                   />
+                               Fill="{ThemeResource SystemAccentColor}"/>
                 </controls:DropShadowPanel>
-            </Grid>
+                <StackPanel RelativePanel.Below="ProfileImageArea"
+                            RelativePanel.AlignLeftWith="ProfileImageArea"
+                            Margin="40,12,0,0"
+                            Name="NameStackPanel">
+                    <TextBlock Text="Bruh"
+                           FontWeight="SemiBold"
+                           Name="ProfileNameTextBlock"/>
+                    <TextBlock Text="@ironychild"
+                               Foreground="Gray"
+                               Name="ProfileUserNameTextBlock"/>
+                </StackPanel>
+
+                <StackPanel Name="PeopleCountStackPanel" Orientation="Horizontal"
+                            RelativePanel.AlignRightWithPanel="True"
+                            Padding="12">
+                    <Button FontWeight="SemiBold"
+                            Style="{StaticResource TextBlockButtonStyle}"
+                            Foreground="{ThemeResource DefaultTextForegroundThemeBrush}">
+                        <Button.Content>
+                            <StackPanel>
+                                <TextBlock Text="202" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Followers"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button FontWeight="SemiBold"
+                            Style="{StaticResource TextBlockButtonStyle}"
+                            Foreground="{ThemeResource DefaultTextForegroundThemeBrush}">
+                        <Button.Content>
+                            <StackPanel>
+                                <TextBlock Text="43" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Following"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <TextBlock Text="This whole layout looks familiar 🤔"
+                           RelativePanel.Below="NameStackPanel"
+                           Margin="40,20"
+                           FontSize="18"/>
+            </RelativePanel>
         </controls:DropShadowPanel>
 
     </Grid>
