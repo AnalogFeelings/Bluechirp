@@ -9,8 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Padding="20" BorderThickness="0,0,0,1"
-          BorderBrush="#B9B9B9">
+    <Grid Padding="0,0,40,40">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>

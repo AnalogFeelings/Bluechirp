@@ -11,7 +11,8 @@
     d:DesignWidth="400"
     Height="60">
 
-    <controls:DropShadowPanel BlurRadius="20" OffsetY="-4" HorizontalContentAlignment="Stretch">
+    <controls:DropShadowPanel BlurRadius="20" OffsetY="-4" HorizontalContentAlignment="Stretch"
+                              ShadowOpacity="0.3">
         <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
             <Grid HorizontalAlignment="Center">
                 <Grid.Resources>
@@ -43,7 +44,7 @@
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;" />
                 </Button>
                 <Button Grid.Column="4">
-                    <Rectangle Fill="{ThemeResource SystemAccentColor}" Width="20"
+                    <Rectangle Fill="{ThemeResource DefaultTextForegroundThemeBrush}" Width="20"
                                Height="20"/>
                 </Button>
             </Grid>

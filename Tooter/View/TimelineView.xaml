@@ -17,24 +17,28 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource ViewTitleTextBlock}"
-                   Text="{x:Bind ViewModel.ViewTitle, Mode=OneWay}"/>
+                   Text="{x:Bind ViewModel.ViewTitle, Mode=OneWay}"
+                   Margin="0,0,0,40"/>
         <ListView Grid.Row="1" ItemContainerStyle="{ThemeResource NoPaddingAccentSelectionListViewItemStyle}"
                   SelectionMode="None"
-                  IsItemClickEnabled="True">
+                  IsItemClickEnabled="True"
+                  Margin="0,0,-40,0">
             <ListViewItem>
-                <TextBlock Text="Hello"/>
+                <localcontrols:TootTemplate/>
             </ListViewItem>
             <ListViewItem>
-                <TextBlock Text="Hello"/>
+                <localcontrols:TootTemplate/>
+
             </ListViewItem>
             <ListViewItem>
-                <TextBlock Text="Hello"/>
+                <localcontrols:TootTemplate/>
             </ListViewItem>
             <ListViewItem>
-                <TextBlock Text="Hello"/>
+                <localcontrols:TootTemplate/>
+
             </ListViewItem>
             <ListViewItem>
-                <TextBlock Text="Hello"/>
+                <localcontrols:TootTemplate/>
             </ListViewItem>
         </ListView>
     </Grid>
