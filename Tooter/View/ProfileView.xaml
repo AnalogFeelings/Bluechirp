@@ -83,8 +83,51 @@
 
                 <TextBlock Text="This whole layout looks familiar 🤔"
                            RelativePanel.Below="NameStackPanel"
-                           Margin="40,20"
-                           FontSize="18"/>
+                           Margin="40,20,0,0"
+                           FontSize="18"
+                           Name="ProfileDescriptionTextBlock"/>
+                <StackPanel Name="UserProfileButtonStackPanel" 
+                            Orientation="Horizontal"
+                            RelativePanel.Below="ProfileDescriptionTextBlock"
+                            Margin="40,20,0,0">
+                    <Button Style="{ThemeResource RoundButtonStyle}"
+                            FontWeight="SemiBold"
+                            Height="40"
+                            Width="120">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon></FontIcon>
+                                <TextBlock Text="Settings"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Style="{ThemeResource RoundButtonStyle}"
+                            FontWeight="SemiBold"
+                            Margin="20,0,0,0"
+                            Height="40"
+                            Width="120">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon></FontIcon>
+                                <TextBlock Text="Messages"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+                
+                <Pivot RelativePanel.Below="UserProfileButtonStackPanel"
+                       Margin="28,20,0,0">
+                    <PivotItem Header="Tasks">
+                        
+                    </PivotItem>
+                    <PivotItem Header="Toots &amp; Replies">
+
+                    </PivotItem>
+
+                    <PivotItem Header="Media">
+
+                    </PivotItem>
+                </Pivot>
             </RelativePanel>
         </controls:DropShadowPanel>
 
