@@ -116,7 +116,13 @@
                 </StackPanel>
                 
                 <Pivot RelativePanel.Below="UserProfileButtonStackPanel"
-                       Margin="28,20,0,0">
+                       Margin="40,20,0,0"
+                       Style="{ThemeResource MonochromePivotStyle}">
+                    <!--<Pivot.Resources>
+                        <Style TargetType="PivotItem">
+                            <Setter Property="Style" Value="{ThemeResource MonochromePivotItemStyle}"/>
+                        </Style>
+                    </Pivot.Resources>-->
                     <PivotItem Header="Tasks">
                         
                     </PivotItem>
