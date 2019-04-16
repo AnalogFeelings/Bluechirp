@@ -41,7 +41,7 @@ namespace Tooter
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
+            SetupApp();
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -72,6 +72,12 @@ namespace Tooter
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+        }
+
+        private void SetupApp()
+        {
+            var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            appView.SetPreferredMinSize(new Size(400, 500));
         }
 
         /// <summary>

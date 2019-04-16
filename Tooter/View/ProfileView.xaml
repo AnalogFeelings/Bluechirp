@@ -7,135 +7,149 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Tooter.Converters"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:localcontrols="using:Tooter.LocalControls"
     mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
     </Page.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
-        </Grid.RowDefinitions>
-        <Border Background="DarkGray" Name="ProfileBackgroundImage"/>
-        <Button HorizontalAlignment="Right"
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border Background="DarkGray" Name="ProfileBackgroundImage"/>
+            <Button HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Margin="0,40,40,0"
                 Style="{StaticResource RoundButtonStyle}"
                 Width="100"
                 Height="30">
-            <Button.Content>
-                <TextBlock Text="Edit Profile"/>
-            </Button.Content>
-        </Button>
-        <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Stretch"
+                <Button.Content>
+                    <TextBlock Text="Edit Profile"/>
+                </Button.Content>
+            </Button>
+            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch"
                                   ShadowOpacity="0.4"
                                   HorizontalContentAlignment="Stretch"
                                   VerticalContentAlignment="Stretch">
-            <RelativePanel Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
-                <controls:DropShadowPanel VerticalAlignment="Top"
+                <RelativePanel Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+                    <controls:DropShadowPanel VerticalAlignment="Top"
                    HorizontalAlignment="Left"
                    Margin="40,-44,0,0"
                    Grid.Row="1"
                    ShadowOpacity="0.7"
                    Name="ProfileImageArea">
-                    <Rectangle Width="88" Height="88"
+                        <Rectangle Width="88" Height="88"
                                Fill="{ThemeResource SystemAccentColor}"/>
-                </controls:DropShadowPanel>
-                <StackPanel RelativePanel.Below="ProfileImageArea"
+                    </controls:DropShadowPanel>
+                    <StackPanel RelativePanel.Below="ProfileImageArea"
                             RelativePanel.AlignLeftWith="ProfileImageArea"
                             Margin="40,12,0,0"
                             Name="NameStackPanel">
-                    <TextBlock Text="Bruh"
+                        <TextBlock Text="Bruh"
                            FontWeight="SemiBold"
                            Name="ProfileNameTextBlock"/>
-                    <TextBlock Text="@ironychild"
+                        <TextBlock Text="@ironychild"
                                Foreground="Gray"
                                Name="ProfileUserNameTextBlock"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Name="PeopleCountStackPanel" Orientation="Horizontal"
+                    <StackPanel Name="PeopleCountStackPanel" Orientation="Horizontal"
                             RelativePanel.AlignRightWithPanel="True"
                             Padding="12">
-                    <Button FontWeight="SemiBold"
+                        <Button FontWeight="SemiBold"
                             Style="{StaticResource TextBlockButtonStyle}"
                             Foreground="{ThemeResource DefaultTextForegroundThemeBrush}">
-                        <Button.Content>
-                            <StackPanel>
-                                <TextBlock Text="202" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Followers"
+                            <Button.Content>
+                                <StackPanel>
+                                    <TextBlock Text="202" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Followers"
                                            HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-                    <Button FontWeight="SemiBold"
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button FontWeight="SemiBold"
                             Style="{StaticResource TextBlockButtonStyle}"
                             Foreground="{ThemeResource DefaultTextForegroundThemeBrush}">
-                        <Button.Content>
-                            <StackPanel>
-                                <TextBlock Text="43" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Following"
+                            <Button.Content>
+                                <StackPanel>
+                                    <TextBlock Text="43" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Following"
                                            HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
 
-                <TextBlock Text="This whole layout looks familiar 🤔"
+                    <TextBlock Text="This whole layout looks familiar 🤔"
                            RelativePanel.Below="NameStackPanel"
                            Margin="40,20,0,0"
                            FontSize="18"
                            Name="ProfileDescriptionTextBlock"/>
-                <StackPanel Name="UserProfileButtonStackPanel" 
+                    <StackPanel Name="UserProfileButtonStackPanel" 
                             Orientation="Horizontal"
                             RelativePanel.Below="ProfileDescriptionTextBlock"
                             Margin="40,20,0,0">
-                    <Button Style="{ThemeResource RoundButtonStyle}"
+                        <Button Style="{ThemeResource RoundButtonStyle}"
                             FontWeight="SemiBold"
                             Height="40"
                             Width="120">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <FontIcon></FontIcon>
-                                <TextBlock Text="Settings"/>
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-                    <Button Style="{ThemeResource RoundButtonStyle}"
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon></FontIcon>
+                                    <TextBlock Text="Settings"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Style="{ThemeResource RoundButtonStyle}"
                             FontWeight="SemiBold"
                             Margin="20,0,0,0"
                             Height="40"
                             Width="120">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <FontIcon></FontIcon>
-                                <TextBlock Text="Messages"/>
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
-                
-                <Pivot RelativePanel.Below="UserProfileButtonStackPanel"
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon></FontIcon>
+                                    <TextBlock Text="Messages"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+
+                    <Pivot RelativePanel.Below="UserProfileButtonStackPanel"
                        Margin="40,20,0,0"
                        Style="{ThemeResource MonochromePivotStyle}">
-                    <!--<Pivot.Resources>
-                        <Style TargetType="PivotItem">
-                            <Setter Property="Style" Value="{ThemeResource MonochromePivotItemStyle}"/>
-                        </Style>
-                    </Pivot.Resources>-->
-                    <PivotItem Header="Tasks">
-                        
-                    </PivotItem>
-                    <PivotItem Header="Toots &amp; Replies">
+                        <PivotItem Header="Tasks" Style="{StaticResource MonochromePivotItemStyle}" >
+                            <ListView SelectionMode="None"
+                                  IsItemClickEnabled="True"
+                                  ItemContainerStyle="{ThemeResource NoPaddingAccentSelectionListViewItemStyle}">
 
-                    </PivotItem>
+                                <ListViewItem>
+                                    <localcontrols:TootTemplate/>
+                                </ListViewItem>
+                                <ListViewItem>
+                                    <localcontrols:TootTemplate/>
+                                </ListViewItem>
+                                <ListViewItem>
+                                    <localcontrols:TootTemplate/>
+                                </ListViewItem>
+                                <ListViewItem>
+                                    <localcontrols:TootTemplate/>
+                                </ListViewItem>
+                            </ListView>
+                        </PivotItem>
+                        <PivotItem Header="Toots &amp; Replies" Style="{StaticResource MonochromePivotItemStyle}">
 
-                    <PivotItem Header="Media">
+                        </PivotItem>
 
-                    </PivotItem>
-                </Pivot>
-            </RelativePanel>
-        </controls:DropShadowPanel>
+                        <PivotItem Header="Media" Style="{StaticResource MonochromePivotItemStyle}">
 
-    </Grid>
+                        </PivotItem>
+                    </Pivot>
+                </RelativePanel>
+            </controls:DropShadowPanel>
+
+        </Grid>
+    </ScrollViewer>
 </Page>
