@@ -6,9 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:localcontrols="using:Tooter.LocalControls"
+    xmlns:vm="using:Tooter.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.DataContext>
+        <vm:ShellViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -21,7 +24,9 @@
                 Foreground="White"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Margin="0,0,40,40">
+                Margin="0,0,40,40"
+                Command="{x:Bind ViewModel.NewTootCommand}">
+            
             <Button.Content>
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" />
             </Button.Content>
