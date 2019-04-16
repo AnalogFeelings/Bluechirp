@@ -123,6 +123,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandWithParameter.cs" />
     <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
+    <Compile Include="Core\APIKeys.cs" />
     <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="LocalControls\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
@@ -153,6 +154,9 @@
     <Compile Include="ViewModel\ShellViewModel.cs" />
     <Compile Include="ViewModel\TimelineViewModelBase.cs" />
     <Compile Include="ViewModel\TootViewModel.cs" />
+    <Compile Include="View\CodeView.xaml.cs">
+      <DependentUpon>CodeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -268,6 +272,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -306,7 +314,6 @@
   <ItemGroup>
     <Folder Include="Branding\Debug\" />
     <Folder Include="Branding\Release\" />
-    <Folder Include="Core\" />
     <Folder Include="Enums\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tooter.Helpers;
+using Tooter.Services;
 using Tooter.View;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -33,6 +36,7 @@ namespace Tooter
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
+
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -66,18 +70,31 @@ namespace Tooter
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(ShellView), e.Arguments);
+                //rootFrame.Navigate(typeof(ShellView), e.Arguments);
+                NavService.CreateInstance(rootFrame);
+                rootFrame.Navigate(typeof(LoginView), e.Arguments);
             }
 
             if (e.PrelaunchActivated == false)
             {
                 TryEnablePrelaunch();
-                
+
                 // Ensure the current window is active
-                Window.Current.Activate();
             }
+            Window.Current.Activate();
         }
 
+        protected async override void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                var fullUri = eventArgs.Uri.AbsoluteUri;
+                Debug.WriteLine(fullUri);
+                await AuthHelper.Instance.FinishOAuth(fullUri);
+            }
+        }
         private void TryEnablePrelaunch()
         {
             CoreApplication.EnablePrelaunch(true);

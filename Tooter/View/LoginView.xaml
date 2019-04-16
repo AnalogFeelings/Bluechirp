@@ -5,10 +5,23 @@
     xmlns:local="using:Tooter.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Tooter.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.DataContext>
+        <vm:LoginViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
     <Grid>
-
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <TextBox Header="Instance URL (e.g: mastodon.social, mastodon.technology etc.): "
+                     Width="250"
+                     Text="{x:Bind ViewModel.InstanceURL, Mode=TwoWay}">
+            </TextBox>
+            <Button Content="Login"
+                    HorizontalAlignment="Center"
+                    Margin="0,20,0,0"
+                    Command="{x:Bind ViewModel.LoginCommand}"/>
+        </StackPanel>
     </Grid>
 </Page>
