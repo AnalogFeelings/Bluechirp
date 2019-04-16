@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Tooter.View;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -60,18 +61,26 @@ namespace Tooter
                 Window.Current.Content = rootFrame;
             }
 
+            if (rootFrame.Content == null)
+            {
+                // When the navigation stack isn't restored navigate to the first page,
+                // configuring the new page by passing required information as a navigation
+                // parameter
+                rootFrame.Navigate(typeof(ShellView), e.Arguments);
+            }
+
             if (e.PrelaunchActivated == false)
             {
-                if (rootFrame.Content == null)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Navigate(typeof(ShellView), e.Arguments);
-                }
+                TryEnablePrelaunch();
+                
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+        }
+
+        private void TryEnablePrelaunch()
+        {
+            CoreApplication.EnablePrelaunch(true);
         }
 
         private void SetupApp()
