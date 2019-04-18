@@ -9,14 +9,17 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBox Header="Code:"
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <TextBox Header="Code:"
                      Width="250"
                      Name="CodeTextBox">
-        </TextBox>
-        <Button Content="Login"
+            </TextBox>
+            <Button Content="Login"
                     HorizontalAlignment="Center"
                     Margin="0,20,0,0"
                    Name="CodeLoginButton"
                    Click="CodeLoginButton_Click"/>
+        </StackPanel>
     </Grid>
 </Page>
