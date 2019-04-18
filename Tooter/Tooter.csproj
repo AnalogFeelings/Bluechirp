@@ -125,6 +125,7 @@
     <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
     <Compile Include="Core\APIKeys.cs" />
     <Compile Include="Helpers\AuthHelper.cs" />
+    <Compile Include="Helpers\ClientHelper.cs" />
     <Compile Include="LocalControls\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>

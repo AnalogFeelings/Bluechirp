@@ -9,6 +9,14 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock Text="Bruh"/>
+        <TextBox Header="Code:"
+                     Width="250"
+                     Name="CodeTextBox">
+        </TextBox>
+        <Button Content="Login"
+                    HorizontalAlignment="Center"
+                    Margin="0,20,0,0"
+                   Name="CodeLoginButton"
+                   Click="CodeLoginButton_Click"/>
     </Grid>
 </Page>

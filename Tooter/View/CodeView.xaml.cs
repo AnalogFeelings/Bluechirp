@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Mastonet;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tooter.Helpers;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +27,20 @@ namespace Tooter.View
         public CodeView()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+        }
+
+        private async void CodeLoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            string code = CodeTextBox.Text;
+            if (!string.IsNullOrEmpty(code))
+            {
+                await AuthHelper.Instance.TryConnectWithCode(code);
+            }
         }
     }
 }
