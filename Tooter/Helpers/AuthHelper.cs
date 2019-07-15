@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tooter.Core;
 using Tooter.Services;
 using Tooter.View;
 using Windows.System;
@@ -26,10 +27,21 @@ namespace Tooter.Helpers
 
         public async Task LoginAsync(string instanceUrl)
         {
-            _authClient = new AuthenticationClient(instanceUrl);
-            _appRegistration = await _authClient.CreateApp("Tooter", Scope.Read | Scope.Write | Scope.Follow);
+            // Old code
+            //_authClient = new AuthenticationClient(instanceUrl);
+            //_appRegistration = await _authClient.CreateApp("Tooter", Scope.Read | Scope.Write | Scope.Follow);
+
+            // New code
+            var appRegistration = new AppRegistration();
+            appRegistration.ClientId = APIKeys.ClientID;
+            appRegistration.ClientSecret = APIKeys.ClientSecret;
+            appRegistration.Instance = instanceUrl;
+            appRegistration.Scope = Scope.Read | Scope.Write | Scope.Follow;
+
+            _authClient = new AuthenticationClient(appRegistration);
+
             //SaveAppRegistration(_appRegistration);
-            var url = _authClient.OAuthUrl();
+            var url = _authClient.OAuthUrl(APIKeys.RedirectUri);
             NavService.Instance.Navigate(typeof(CodeView));
             await Launcher.LaunchUriAsync(new Uri(url));
         }
