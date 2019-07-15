@@ -10,6 +10,8 @@ using Tooter.Services;
 using Tooter.View;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
+using Windows.Foundation;
+using System.Diagnostics;
 
 namespace Tooter.Helpers
 {
@@ -51,9 +53,13 @@ namespace Tooter.Helpers
             throw new NotImplementedException();
         }
 
-        internal Task FinishOAuth(string fullUri)
+        internal Task FinishOAuth(string UriQuery)
         {
-            throw new NotImplementedException();
+            WwwFormUrlDecoder urlParser = new WwwFormUrlDecoder(UriQuery);
+            string authCode = urlParser.GetFirstValueByName("code");
+            Debug.WriteLine(authCode);
+
+            return new Task(() => { });
         }
 
         internal void SaveAccessToken(Auth auth)

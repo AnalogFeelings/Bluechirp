@@ -90,7 +90,7 @@ namespace Tooter
             if (args.Kind == ActivationKind.Protocol)
             {
                 ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                var fullUri = eventArgs.Uri.AbsoluteUri;
+                var fullUri = eventArgs.Uri.Query;
                 Debug.WriteLine(fullUri);
                 await AuthHelper.Instance.FinishOAuth(fullUri);
             }
