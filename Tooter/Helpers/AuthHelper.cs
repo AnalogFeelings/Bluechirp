@@ -34,13 +34,13 @@ namespace Tooter.Helpers
             //_appRegistration = await _authClient.CreateApp("Tooter", Scope.Read | Scope.Write | Scope.Follow);
 
             // New code
-            var appRegistration = new AppRegistration();
-            appRegistration.ClientId = APIKeys.ClientID;
-            appRegistration.ClientSecret = APIKeys.ClientSecret;
-            appRegistration.Instance = instanceUrl;
-            appRegistration.Scope = Scope.Read | Scope.Write | Scope.Follow;
-
-            _authClient = new AuthenticationClient(appRegistration);
+            _appRegistration = new AppRegistration();
+            _appRegistration.ClientId = APIKeys.ClientID;
+            _appRegistration.ClientSecret = APIKeys.ClientSecret;
+            _appRegistration.Instance = instanceUrl;
+            _appRegistration.Scope = Scope.Read | Scope.Write | Scope.Follow;
+            _appRegistration.RedirectUri = APIKeys.RedirectUri;
+            _authClient = new AuthenticationClient(_appRegistration);
 
             //SaveAppRegistration(_appRegistration);
             var url = _authClient.OAuthUrl(APIKeys.RedirectUri);
@@ -53,13 +53,29 @@ namespace Tooter.Helpers
             throw new NotImplementedException();
         }
 
-        internal Task FinishOAuth(string UriQuery)
+        internal async Task FinishOAuth(string UriQuery)
         {
-            WwwFormUrlDecoder urlParser = new WwwFormUrlDecoder(UriQuery);
-            string authCode = urlParser.GetFirstValueByName("code");
-            Debug.WriteLine(authCode);
+            try
+            {
+                WwwFormUrlDecoder urlParser = new WwwFormUrlDecoder(UriQuery);
+                string authCode = urlParser.GetFirstValueByName("code");
+                Debug.WriteLine(authCode);
 
-            return new Task(() => { });
+                var auth = await _authClient.ConnectWithCode(authCode, APIKeys.RedirectUri);
+                var client = new MastodonClient(_appRegistration, auth);
+                ClientHelper.CreateClient(client);
+                NavService.Instance.Navigate(typeof(ShellView));
+            }
+            catch (Exception)
+            {
+                var errorDialog = new ContentDialog()
+                {
+                    Title = "Problem connecting with code",
+                    Content = "Check if connection is working and code is correct",
+                    CloseButtonText = "Ok"
+                };
+                await errorDialog.ShowAsync();
+            }
         }
 
         internal void SaveAccessToken(Auth auth)
