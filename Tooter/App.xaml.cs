@@ -70,9 +70,9 @@ namespace Tooter
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                //rootFrame.Navigate(typeof(ShellView), e.Arguments);
-                NavService.CreateInstance(rootFrame);
-                rootFrame.Navigate(typeof(LoginView), e.Arguments);
+                rootFrame.Navigate(typeof(ShellView), e.Arguments);
+                //NavService.CreateInstance(rootFrame);
+                //rootFrame.Navigate(typeof(LoginView), e.Arguments);
             }
 
             if (e.PrelaunchActivated == false)
