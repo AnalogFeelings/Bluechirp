@@ -18,7 +18,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>Tooter_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>959E5B955A5621775091B287475295CC1D29E4BC</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>F8ED5702391F7DF1919F5C5C5277494B46E87A10</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -299,6 +299,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FluiFramework.UWP">
+      <Version>0.0.27-alpha</Version>
+    </PackageReference>
     <PackageReference Include="Mastonet">
       <Version>1.4.1</Version>
     </PackageReference>
