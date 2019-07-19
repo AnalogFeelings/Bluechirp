@@ -8,17 +8,17 @@ using Windows.Storage;
 
 namespace Tooter.Helpers
 {
-    public class TokenHelper
+    public static class TokenHelper
     {
 
-        ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
+       static ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
 
         const string AccessTokenString = "accessToken";
         const string CreatedAtString = "createdAt";
         const string ScopeString = "scope";
         const string TokenTypeString = "tokenType";
 
-        public void SaveToken(Auth tokenToSave)
+        public static void SaveToken(Auth tokenToSave)
         {
             SaveToLocalSettings<string>(AccessTokenString, tokenToSave.AccessToken);
             SaveToLocalSettings<string>(CreatedAtString, tokenToSave.CreatedAt);
@@ -26,7 +26,7 @@ namespace Tooter.Helpers
             SaveToLocalSettings<string>(TokenTypeString, tokenToSave.TokenType);
         }
 
-        public (bool wasLoadSuccessful, Auth tokenToReturn) LoadToken()
+        public static (bool wasLoadSuccessful, Auth tokenToReturn) LoadToken()
         {
             bool wasLoadSuccessful = true;
             Auth tokenToReturn = null;
@@ -47,7 +47,7 @@ namespace Tooter.Helpers
 
         }
 
-        public T LoadFromLocalSettings<T>(string settingString)
+        public static T LoadFromLocalSettings<T>(string settingString)
         {
             T settingsValue = default;
             settingsValue = (T)_localSettings.Values[settingString];
@@ -55,7 +55,7 @@ namespace Tooter.Helpers
         }
 
 
-        public void SaveToLocalSettings<T>(string settingString, T value)
+        public static void SaveToLocalSettings<T>(string settingString, T value)
         {
             _localSettings.Values[settingString] = value;
         }
