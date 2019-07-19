@@ -32,15 +32,16 @@ namespace Tooter.Helpers
             Auth tokenToReturn = null;
             try
             {
-
+                tokenToReturn.AccessToken = LoadFromLocalSettings<string>(AccessTokenString);
+                tokenToReturn.CreatedAt = LoadFromLocalSettings<string>(CreatedAtString);
+                tokenToReturn.Scope = LoadFromLocalSettings<string>(ScopeString);
+                tokenToReturn.TokenType = LoadFromLocalSettings<string>(TokenTypeString);
             }
 
             catch
             {
                 wasLoadSuccessful = false;
             }
-
-            var accessTokenLoadValues = LoadFromLocalSettings<string>(AccessTokenString);
 
             return (wasLoadSuccessful, tokenToReturn);
 
