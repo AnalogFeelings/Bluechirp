@@ -80,7 +80,7 @@ namespace Tooter.Helpers
 
         internal void SaveAccessToken(Auth auth)
         {
-            throw new NotImplementedException();
+            // Do stuff here
         }
 
         internal async Task TryConnectWithCode(string code)
