@@ -42,17 +42,15 @@ namespace Tooter.Helpers
             _appRegistration.RedirectUri = APIKeys.RedirectUri;
             _authClient = new AuthenticationClient(_appRegistration);
 
+
+            
             //SaveAppRegistration(_appRegistration);
             var url = _authClient.OAuthUrl(APIKeys.RedirectUri);
             NavService.Instance.Navigate(typeof(CodeView));
             await Launcher.LaunchUriAsync(new Uri(url));
         }
 
-        private void SaveAppRegistration(AppRegistration appRegistration)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         internal async Task FinishOAuth(string UriQuery)
         {
             try
@@ -64,6 +62,9 @@ namespace Tooter.Helpers
                 var auth = await _authClient.ConnectWithCode(authCode, APIKeys.RedirectUri);
                 var client = new MastodonClient(_appRegistration, auth);
                 ClientHelper.CreateClient(client);
+                var currentUser = await ClientHelper._client.GetCurrentUser();
+                
+
                 NavService.Instance.Navigate(typeof(ShellView));
             }
             catch (Exception)
@@ -78,9 +79,9 @@ namespace Tooter.Helpers
             }
         }
 
-        internal void SaveAccessToken(Auth auth)
+        internal void SaveAccessToken(Auth token)
         {
-            TokenHelper.
+            TokenHelper.SaveToken(token);
         }
 
         internal async Task TryConnectWithCode(string code)

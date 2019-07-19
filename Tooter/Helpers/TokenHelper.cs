@@ -49,7 +49,7 @@ namespace Tooter.Helpers
 
         public static T LoadFromLocalSettings<T>(string settingString)
         {
-            T settingsValue = default;
+            T settingsValue;
             settingsValue = (T)_localSettings.Values[settingString];
             return settingsValue;
         }
