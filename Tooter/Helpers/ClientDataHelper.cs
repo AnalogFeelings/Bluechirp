@@ -13,7 +13,7 @@ namespace Tooter.Helpers
     public static class ClientDataHelper
     {
         static LocalObjectStorageHelper _localStorageHelper = new LocalObjectStorageHelper();
-
+        internal static HashSet<string> clientProfileList { get; } = new HashSet<string>();
 
         const string SavedClientProfilesFileName = "savedClientProfiles.txt";
 
@@ -28,6 +28,11 @@ namespace Tooter.Helpers
         const string AppScopeString = "appScope";
         const string AppIDString = "appID";
 
+        internal async static Task StartUp()
+        {
+            await LoadClientProfiles();
+        }
+
         static async Task StoreClientData(string clientProfileID, Auth token, AppRegistration appRegistration)
         {
             Dictionary<string, object> dataDictionary = new Dictionary<string, object>();
@@ -41,13 +46,29 @@ namespace Tooter.Helpers
 
             _localStorageHelper.Save<object>(clientProfileID, dataDictionary);
 
-            await UpdateSavedClientsFileAsync(clientProfileID);
+            await AddClientProfileAsync(clientProfileID);
         }
 
-        private static async Task UpdateSavedClientsFileAsync(string clientProfileID)
+        private static async Task AddClientProfileAsync(string clientProfileID)
         {
+            clientProfileList.Add(clientProfileID);
             StorageFile fileToSave = await GetSavedClientsFileAsync();
             await FileIO.AppendTextAsync(fileToSave, $"{clientProfileID},");
+        }
+
+        private static async Task RemoveClientProfileAsync(string clientProfileID)
+        {
+            clientProfileList.Remove(clientProfileID);
+
+            StringBuilder contentBuilder = new StringBuilder();
+            for (int i = 0; i < clientProfileList.Count; i++)
+            {
+                contentBuilder.Append($"{clientProfileList.ElementAt(i)},");
+            }
+
+            StorageFile profilesFile = await GetSavedClientsFileAsync();
+
+            await FileIO.WriteTextAsync(profilesFile, contentBuilder.ToString());
         }
 
         private static async Task<StorageFile> GetSavedClientsFileAsync()
@@ -57,20 +78,20 @@ namespace Tooter.Helpers
             return savedClientsFile;
         }
 
-        private static (Auth token, AppRegistration appRegistration) LoadClientProfile(string clientProfileName)
+        private static (Auth token, AppRegistration appRegistration) LoadClientProfile(string clientProfileID)
         {
             Auth token = new Auth();
             AppRegistration appRegistration = new AppRegistration();
 
             // values to load from local storage
-            token.AccessToken = _localStorageHelper.Read<string>(clientProfileName, AccessTokenString);
-            token.CreatedAt = _localStorageHelper.Read<string>(clientProfileName, CreatedAtString);
-            token.Scope = _localStorageHelper.Read<string>(clientProfileName, ScopeString);
-            token.TokenType = _localStorageHelper.Read<string>(clientProfileName, TokenTypeString);
+            token.AccessToken = _localStorageHelper.Read<string>(clientProfileID, AccessTokenString);
+            token.CreatedAt = _localStorageHelper.Read<string>(clientProfileID, CreatedAtString);
+            token.Scope = _localStorageHelper.Read<string>(clientProfileID, ScopeString);
+            token.TokenType = _localStorageHelper.Read<string>(clientProfileID, TokenTypeString);
 
-            appRegistration.Id = _localStorageHelper.Read<long>(clientProfileName, AppIDString);
-            appRegistration.Instance = _localStorageHelper.Read<string>(clientProfileName, InstanceString);
-            appRegistration.Scope = _localStorageHelper.Read<Mastonet.Scope>(clientProfileName, ScopeString);
+            appRegistration.Id = _localStorageHelper.Read<long>(clientProfileID, AppIDString);
+            appRegistration.Instance = _localStorageHelper.Read(clientProfileID, InstanceString);
+            appRegistration.Scope = _localStorageHelper.Read<Mastonet.Scope>(clientProfileID, ScopeString);
 
 
             // Values to load from constants.
@@ -81,12 +102,20 @@ namespace Tooter.Helpers
             return (token, appRegistration);
         }
 
-        private static async Task<string[]> GetAvailableClientProfiles()
+        private async static Task LoadClientProfiles()
         {
             StorageFile clientProfilesFile = await GetSavedClientsFileAsync();
             string fileContents = await FileIO.ReadTextAsync(clientProfilesFile);
-            string[] clientProfileList = fileContents.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            return clientProfileList;
+            string[] loadedProfiles = fileContents.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var profile in loadedProfiles)
+            {
+                clientProfileList.Add(profile);
+            }
+
         }
+
+
     }
 }
+
