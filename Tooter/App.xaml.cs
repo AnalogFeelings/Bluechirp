@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Tooter.Helpers;
 using Tooter.Services;
 using Tooter.View;
@@ -43,10 +44,10 @@ namespace Tooter
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-            SetupApp();
+            await SetupAppAsync();
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -70,9 +71,18 @@ namespace Tooter
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(ShellView), e.Arguments);
-                //NavService.CreateInstance(rootFrame);
-                //rootFrame.Navigate(typeof(LoginView), e.Arguments);
+
+                if (ClientDataHelper.GetLastUsedProfile() != null)
+                {
+                    rootFrame.Navigate(typeof(ShellView), e.Arguments);
+                }
+                else
+                {
+                    rootFrame.Navigate(typeof(LoginView), e.Arguments);
+
+                }
+
+                NavService.CreateInstance(rootFrame);
             }
 
             if (e.PrelaunchActivated == false)
@@ -84,6 +94,7 @@ namespace Tooter
             Window.Current.Activate();
         }
 
+
         protected async override void OnActivated(IActivatedEventArgs args)
         {
             base.OnActivated(args);
@@ -94,16 +105,18 @@ namespace Tooter
                 Debug.WriteLine(fullUri);
                 await AuthHelper.Instance.FinishOAuth(fullUri);
             }
+
         }
         private void TryEnablePrelaunch()
         {
             CoreApplication.EnablePrelaunch(true);
         }
 
-        private void SetupApp()
+        private async Task SetupAppAsync()
         {
             var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(400, 500));
+            await ClientDataHelper.StartUpAsync();
         }
 
         /// <summary>

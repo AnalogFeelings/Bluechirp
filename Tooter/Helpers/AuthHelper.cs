@@ -63,7 +63,11 @@ namespace Tooter.Helpers
                 var client = new MastodonClient(_appRegistration, auth);
                 ClientHelper.CreateClient(client);
                 var currentUser = await ClientHelper._client.GetCurrentUser();
-                
+
+                string clientProfileID = $"{_appRegistration.Instance}{currentUser.Id}";
+
+                ClientDataHelper.SetLastUsedProfile(clientProfileID);
+                await ClientDataHelper.StoreClientData(clientProfileID, auth, _appRegistration);
 
                 NavService.Instance.Navigate(typeof(ShellView));
             }

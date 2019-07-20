@@ -10,8 +10,7 @@ namespace Tooter.Helpers
 {
     public static class TokenHelper
     {
-
-       static ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
+        static ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
 
         const string AccessTokenString = "accessToken";
         const string CreatedAtString = "createdAt";
