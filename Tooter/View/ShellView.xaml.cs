@@ -33,8 +33,7 @@ namespace Tooter.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            //ContentFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
-            ContentFrame.Navigate(typeof(ProfileView));
+            ContentFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
         }
 
     }
