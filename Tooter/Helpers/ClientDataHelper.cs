@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tooter.Core;
 using Windows.Storage;
 
 namespace Tooter.Helpers
@@ -13,7 +14,7 @@ namespace Tooter.Helpers
     {
         static LocalObjectStorageHelper _localStorageHelper = new LocalObjectStorageHelper();
 
-        
+
         const string SavedClientProfilesFileName = "savedClientProfiles.txt";
 
         // Token settings
@@ -54,6 +55,38 @@ namespace Tooter.Helpers
             var localFolder = ApplicationData.Current.LocalFolder;
             var savedClientsFile = await localFolder.CreateFileAsync(SavedClientProfilesFileName, CreationCollisionOption.OpenIfExists);
             return savedClientsFile;
+        }
+
+        private static (Auth token, AppRegistration appRegistration) LoadClientProfile(string clientProfileName)
+        {
+            Auth token = new Auth();
+            AppRegistration appRegistration = new AppRegistration();
+
+            // values to load from local storage
+            token.AccessToken = _localStorageHelper.Read<string>(clientProfileName, AccessTokenString);
+            token.CreatedAt = _localStorageHelper.Read<string>(clientProfileName, CreatedAtString);
+            token.Scope = _localStorageHelper.Read<string>(clientProfileName, ScopeString);
+            token.TokenType = _localStorageHelper.Read<string>(clientProfileName, TokenTypeString);
+
+            appRegistration.Id = _localStorageHelper.Read<long>(clientProfileName, AppIDString);
+            appRegistration.Instance = _localStorageHelper.Read<string>(clientProfileName, InstanceString);
+            appRegistration.Scope = _localStorageHelper.Read<Mastonet.Scope>(clientProfileName, ScopeString);
+
+
+            // Values to load from constants.
+            appRegistration.ClientId = APIKeys.ClientID;
+            appRegistration.ClientSecret = APIKeys.ClientSecret;
+            appRegistration.RedirectUri = APIKeys.RedirectUri;
+
+            return (token, appRegistration);
+        }
+
+        private static async Task<string[]> GetAvailableClientProfiles()
+        {
+            StorageFile clientProfilesFile = await GetSavedClientsFileAsync();
+            string fileContents = await FileIO.ReadTextAsync(clientProfilesFile);
+            string[] clientProfileList = fileContents.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return clientProfileList;
         }
     }
 }
