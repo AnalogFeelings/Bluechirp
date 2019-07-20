@@ -44,7 +44,7 @@ namespace Tooter.Helpers
 
 
             
-            //SaveAppRegistration(_appRegistration);
+            
             var url = _authClient.OAuthUrl(APIKeys.RedirectUri);
             var launchOptions = new LauncherOptions();
             launchOptions.DisplayApplicationPicker = true;

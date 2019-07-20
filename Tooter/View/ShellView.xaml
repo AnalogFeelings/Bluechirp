@@ -7,32 +7,31 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:localcontrols="using:Tooter.LocalControls"
     xmlns:vm="using:Tooter.ViewModel"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
         <vm:ShellViewModel x:Name="ViewModel"/>
     </Page.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <Frame x:Name="ContentFrame"/>
-        <Button Style="{ThemeResource CircleButtonStyle}"
-                Width="72"
-                Height="72"
-                Foreground="White"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Margin="0,0,40,40"
-                Command="{x:Bind ViewModel.NewTootCommand}">
-            
-            <Button.Content>
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" />
-            </Button.Content>
-        </Button>
-        <localcontrols:TabBar Grid.Row="1"
-                              HorizontalAlignment="Stretch"/>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="MenuColumn" Width="60"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+            <ListView ItemContainerStyle="{ThemeResource ListViewItemRevealBackgroundShowsAboveContentStyle}"
+                      IsItemClickEnabled="True">
+                <ListViewItem Name="HomeItem" MinWidth="0"
+                              HorizontalContentAlignment="Center">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" />
+                </ListViewItem>
+            </ListView>
+        </ScrollViewer>
+
+        <controls:DropShadowPanel Grid.Column="1">
+            <Frame Canvas.ZIndex="20"
+                   Name="ContentFrame"/>
+        </controls:DropShadowPanel>
     </Grid>
 </Page>
