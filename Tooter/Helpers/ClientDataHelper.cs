@@ -28,9 +28,22 @@ namespace Tooter.Helpers
         const string AppScopeString = "appScope";
         const string AppIDString = "appID";
 
+        // Profile swapping settings
+        const string LastUsedProfileString = "lastUsedProfile";
+
         internal async static Task StartUp()
         {
             await LoadClientProfiles();
+        }
+
+        internal static void SetLastUsedProfile(string clientProfileID)
+        {
+            _localStorageHelper.Save(LastUsedProfileString, clientProfileID);
+        }
+
+        internal static string GetLastUsedProfile()
+        {
+            return _localStorageHelper.Read<string>(LastUsedProfileString);
         }
 
         static async Task StoreClientData(string clientProfileID, Auth token, AppRegistration appRegistration)
