@@ -46,8 +46,9 @@ namespace Tooter.Helpers
             
             //SaveAppRegistration(_appRegistration);
             var url = _authClient.OAuthUrl(APIKeys.RedirectUri);
-            NavService.Instance.Navigate(typeof(CodeView));
-            await Launcher.LaunchUriAsync(new Uri(url));
+            var launchOptions = new LauncherOptions();
+            launchOptions.DisplayApplicationPicker = true;
+            await Launcher.LaunchUriAsync(new Uri(url), launchOptions);
         }
 
         
