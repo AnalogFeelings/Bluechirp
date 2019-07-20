@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:localcontrols="using:Tooter.LocalControls"
     xmlns:vm="using:Tooter.ViewModel"
-    
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -15,15 +14,20 @@
         <vm:ShellViewModel x:Name="ViewModel"/>
     </Page.DataContext>
 
+    <Page.Resources>
+        <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+    </Page.Resources>
 
-    <muxc:NavigationView IsPaneToggleButtonVisible="False">
+
+    <muxc:NavigationView IsPaneToggleButtonVisible="False" Style="{ThemeResource ShadowLayerNavigationView}">
         <muxc:NavigationView.Content>
-            <controls:DropShadowPanel Grid.Column="1" HorizontalAlignment="Stretch"
-                                      VerticalAlignment="Stretch"
-                                      BlurRadius="20">
-                <Frame Canvas.ZIndex="20"
-                   Name="ContentFrame"/>
-            </controls:DropShadowPanel>
+            
+            <Grid Background="White">
+            <Frame Canvas.ZIndex="20"
+                   Name="ContentFrame" Padding="0"/>
+            </Grid>
+            
+
         </muxc:NavigationView.Content>
     </muxc:NavigationView>
 
