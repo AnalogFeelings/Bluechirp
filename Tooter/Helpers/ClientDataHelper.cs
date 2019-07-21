@@ -52,13 +52,16 @@ namespace Tooter.Helpers
         {
             if (!ClientProfileList.Contains(clientProfileID))
             {
+
+                int appScopeInt = (int)appRegistration.Scope;
+
                 Dictionary<string, object> dataDictionary = new Dictionary<string, object>();
                 dataDictionary[AccessTokenString] = token.AccessToken;
                 dataDictionary[CreatedAtString] = token.CreatedAt;
                 dataDictionary[ScopeString] = token.Scope;
                 dataDictionary[TokenTypeString] = token.TokenType;
                 dataDictionary[InstanceString] = appRegistration.Instance;
-                dataDictionary[AppScopeString] = appRegistration.Scope;
+                dataDictionary[AppScopeString] = appScopeInt;
                 dataDictionary[AppIDString] = appRegistration.Id;
 
                 _localStorageHelper.Save<object>(clientProfileID, dataDictionary);
@@ -104,15 +107,17 @@ namespace Tooter.Helpers
             AppRegistration appRegistration = new AppRegistration();
 
             // values to load from local storage
-            token.AccessToken = _localStorageHelper.Read<string>(clientProfileID, AccessTokenString);
-            token.CreatedAt = _localStorageHelper.Read<string>(clientProfileID, CreatedAtString);
-            token.Scope = _localStorageHelper.Read<string>(clientProfileID, ScopeString);
-            token.TokenType = _localStorageHelper.Read<string>(clientProfileID, TokenTypeString);
+            token.AccessToken = _localStorageHelper.Read<string>(clientProfileID, AccessTokenString, default(string));
+            token.CreatedAt = _localStorageHelper.Read(clientProfileID, CreatedAtString, default(string));
+            token.Scope = _localStorageHelper.Read(clientProfileID, ScopeString, default(string));
+            token.TokenType = _localStorageHelper.Read(clientProfileID, TokenTypeString, default(string));
 
-            appRegistration.Id = _localStorageHelper.Read<long>(clientProfileID, AppIDString);
-            appRegistration.Instance = _localStorageHelper.Read(clientProfileID, InstanceString);
-            appRegistration.Scope = _localStorageHelper.Read<Mastonet.Scope>(clientProfileID, ScopeString);
+            appRegistration.Id = _localStorageHelper.Read<long>(clientProfileID, AppIDString, default(long));
+            appRegistration.Instance = _localStorageHelper.Read(clientProfileID, InstanceString,default(string));
 
+
+            int appScopeInt = _localStorageHelper.Read<int>(clientProfileID, AppScopeString, default(int));
+            appRegistration.Scope = (Mastonet.Scope)appScopeInt;
 
             // Values to load from constants.
             appRegistration.ClientId = APIKeys.ClientID;

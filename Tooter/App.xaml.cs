@@ -76,6 +76,7 @@ namespace Tooter
 
                 if (ClientDataHelper.GetLastUsedProfile() != null)
                 {
+                    ClientHelper.LoadLastUsedProfile();
                     rootFrame.Navigate(typeof(ShellView), e.Arguments);
                 }
                 else
@@ -117,6 +118,7 @@ namespace Tooter
         private async Task SetupAppAsync()
         {
             await ClientDataHelper.StartUpAsync();
+            
             var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(400, 500));
             ExtendAcrylicIntoTitleBar(); 
