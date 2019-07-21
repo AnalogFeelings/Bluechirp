@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    d:DesignHeight="200s"
+    d:DesignHeight="200"
     d:DesignWidth="300">
 
 
@@ -31,11 +31,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Ellipse Width="60"
+            <muxc:PersonPicture Width="60"
                Height="60"
                Margin="0,0,24,0"
                VerticalAlignment="Top"
-                   Fill="{ThemeResource DefaultTextForegroundThemeBrush}"/>
+               ProfilePicture="{x:Bind CurrentStatus.Account.AvatarUrl}"/>
 
             <StackPanel Name="TootContentStackPanel" Grid.Column="1"
                     VerticalAlignment="Top">
@@ -43,12 +43,12 @@
                     <StackPanel.Resources>
                         <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
                     </StackPanel.Resources>
-                    <Button Content="Pete" Style="{ThemeResource NameTextBlockButton}"/>
-                    <Button Content="@Peter" Margin="8,0,0,0" 
-                        Style="{StaticResource UsernameTextBlockButton}"/>
+                    <Button Content="{x:Bind CurrentStatus.Account.DisplayName}" Style="{ThemeResource NameTextBlockButton}"/>
+                    <Button Content="{x:Bind CurrentStatus.Account.UserName}" Margin="8,0,0,0" 
+                        Style="{StaticResource NameTextBlockButton}"/>
                 </StackPanel>
 
-                <TextBlock Name="TootContent" Text="This is looking great so far!"
+                <TextBlock Name="TootContent" Text="{x:Bind CurrentStatus.Content}"
                        FontSize="22"
                            Margin="0,12,0,0"
                        TextWrapping="WrapWholeWords">
@@ -84,7 +84,7 @@
                 </Button>
             </StackPanel>
 
-            <TextBlock Grid.Column="2" Text="2h"
+            <TextBlock Grid.Column="2" Text="{x:Bind CurrentStatus.CreatedAt.Date}"
                        VerticalAlignment="Top"
                        FontSize="20"
                        Foreground="SlateGray"

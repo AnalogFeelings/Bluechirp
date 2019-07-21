@@ -30,7 +30,7 @@ namespace Tooter.ViewModel
 
         public TimelineViewModelBase()
         {
-            TootTimelineCollection = new MastodonList<Status>();
+            //TootTimelineCollection = new MastodonList<Status>();
             DeleteCommand = new RelayCommandWithParameter(DeleteToot);
         }
 

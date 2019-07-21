@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastonet.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,9 +20,11 @@ namespace Tooter.LocalControls
 {
     public sealed partial class TootTemplate : UserControl
     {
+        public Status CurrentStatus { get { return this.DataContext as Status; } }
         public TootTemplate()
         {
             this.InitializeComponent();
+            this.DataContextChanged += (s, e) => this.Bindings.Update();
         }
     }
 }
