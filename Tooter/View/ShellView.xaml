@@ -16,6 +16,10 @@
         <vm:ShellViewModel x:Name="ViewModel"/>
     </Page.DataContext>
 
+    <Page.Resources>
+        <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+    </Page.Resources>
+
 
 
 
@@ -27,7 +31,8 @@
         <Border Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}">
             <ListView 
                 Margin="0,40,0,0"
-                contract5Present:ItemContainerStyle="{ThemeResource ListViewItemRevealBackgroundShowsAboveContentStyle}">
+                contract5Present:ItemContainerStyle="{ThemeResource MenuListViewItemRevealStyle}"
+                contract5NotPresent:ItemContainerStyle="{ThemeResource MenuListViewItemStyle}">
                 <ListViewItem MinWidth="0" HorizontalAlignment="Center">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" />
                 </ListViewItem>

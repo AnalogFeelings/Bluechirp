@@ -13,6 +13,8 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -114,9 +116,18 @@ namespace Tooter
 
         private async Task SetupAppAsync()
         {
+            await ClientDataHelper.StartUpAsync();
             var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(400, 500));
-            await ClientDataHelper.StartUpAsync();
+            ExtendAcrylicIntoTitleBar(); 
+        }
+
+        private void ExtendAcrylicIntoTitleBar()
+        {
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
         }
 
         /// <summary>
