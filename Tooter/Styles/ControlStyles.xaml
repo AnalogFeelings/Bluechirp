@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Tooter.Styles"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    
+    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
     xmlns:converters="using:Tooter.Converters">
 
 
@@ -1111,7 +1111,7 @@
         <Setter Property="Padding" Value="12,0,12,0" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="MinWidth" Value="{ThemeResource ListViewItemMinWidth}" />
+        <Setter Property="MinWidth" Value="0" />
         <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}" />
         <Setter Property="AllowDrop" Value="False" />
         <Setter Property="UseSystemFocusVisuals" Value="True" />
@@ -1468,6 +1468,26 @@
                                     <VisualTransition To="NotDragging" GeneratedDuration="0:0:0.2" />
                                 </VisualStateGroup.Transitions>
                             </VisualStateGroup>
+
+                            <VisualStateGroup x:Name="WindowSizes">
+                                <VisualState x:Name="Mobile">
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="0"/>
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="ContentPresenter.HorizontalContentAlignment" Value="Center"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="PC">
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="640"/>
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="ContentPresenter.HorizontalContentAlignment" Value="Left"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Rectangle x:Name="BorderBackground"
                             IsHitTestVisible="False"
@@ -1562,7 +1582,7 @@
         <Setter Property="Padding" Value="12,0,12,0" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="MinWidth" Value="{ThemeResource ListViewItemMinWidth}" />
+        <Setter Property="MinWidth" Value="0" />
         <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}" />
         <Setter Property="AllowDrop" Value="False" />
         <Setter Property="UseSystemFocusVisuals" Value="True" />
@@ -1604,9 +1624,9 @@
                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                         ContentMargin="{TemplateBinding Padding}"
                         CheckMode="{ThemeResource ListViewItemCheckMode}"
-                        RevealBackground="{ThemeResource ListViewItemRevealBackground}"
-                        RevealBorderThickness="{ThemeResource ListViewItemRevealBorderThemeThickness}"
-                        RevealBorderBrush="{ThemeResource ListViewItemRevealBorderBrush}">
+                        contract5Present:RevealBackground="{ThemeResource ListViewItemRevealBackground}"
+                        contract5Present:RevealBorderThickness="{ThemeResource ListViewItemRevealBorderThemeThickness}"
+                        contract5Present:RevealBorderBrush="{ThemeResource ListViewItemRevealBorderBrush}">
 
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -1652,7 +1672,25 @@
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
+                            <VisualStateGroup x:Name="WindowSizes">
+                                <VisualState x:Name="Mobile">
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="0"/>
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="Root.HorizontalContentAlignment" Value="Center"/>
+                                    </VisualState.Setters>
+                                </VisualState>
 
+                                <VisualState x:Name="PC">
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="640"/>
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="Root.HorizontalContentAlignment" Value="Left"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </ListViewItemPresenter>
                 </ControlTemplate>
