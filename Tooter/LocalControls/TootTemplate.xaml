@@ -9,7 +9,8 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="200"
-    d:DesignWidth="300">
+    d:DesignWidth="300"
+    MinWidth="0">
 
 
     <controls:DropShadowPanel 
@@ -18,88 +19,15 @@
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
                               HorizontalContentAlignment="Stretch"
-                              VerticalContentAlignment="Stretch">
-        <!--<Grid Background="{ThemeResource SystemAltHighColor}"
-              CornerRadius="4"
-              Padding="24,24,24,24">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <muxc:PersonPicture Width="60"
-               Height="60"
-               Margin="0,0,24,0"
-               VerticalAlignment="Top"
-               ProfilePicture="{x:Bind CurrentStatus.Account.AvatarUrl}"/>
-
-            <StackPanel Name="TootContentStackPanel" Grid.Column="1"
-                    VerticalAlignment="Top">
-                <StackPanel Orientation="Horizontal" Name="NamesStackPanel" >
-                    <StackPanel.Resources>
-                        <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
-                    </StackPanel.Resources>
-                    <Button Content="{x:Bind CurrentStatus.Account.DisplayName}" Style="{ThemeResource NameTextBlockButton}"/>
-                    <Button Content="{x:Bind CurrentStatus.Account.UserName}" Margin="8,0,0,0" 
-                        Style="{StaticResource NameTextBlockButton}"/>
-                </StackPanel>
-
-               
-            </StackPanel>
-
-            <TextBlock Name="TootContent" Text="{x:Bind CurrentStatus.Content}"
-                       FontSize="22"
-                           Margin="0,0,0,0"
-                       TextWrapping="WrapWholeWords"
-                       Grid.Row="1"
-                       Grid.Column="1">
-            </TextBlock>
-            <StackPanel Name="TootActionStackPanel" 
-                        Orientation="Horizontal" 
-                        HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Margin="-8,20,0,0">
-                <StackPanel.Resources>
-                    <Style TargetType="Button" BasedOn="{StaticResource TextBlockButtonStyle}">
-                        <Setter Property="Foreground"
-                                Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
-                    </Style>
-                    <Style TargetType="FontIcon">
-                        <Setter Property="FontSize" Value="28"/>
-                    </Style>
-                </StackPanel.Resources>
-                <Button Name="ReplyButton">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE97A;" />
-                </Button>
-                <Button Name="BoostButton">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8EB;" />
-                </Button>
-                <Button Name="FavouriteButton">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
-                </Button>
-                <Button Name="MoreButton">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10C;" />
-                </Button>
-            </StackPanel>
-
-            <TextBlock Grid.Column="2" Text="{x:Bind CurrentStatus.CreatedAt.Date}"
-                       VerticalAlignment="Top"
-                       FontSize="20"
-                       Foreground="SlateGray"
-                       Name="TimeStampTextBlock"
-                       HorizontalAlignment="Right"/>
-        </Grid>-->
+                              VerticalContentAlignment="Stretch"
+        Background="{ThemeResource SystemAltHighColor}"
+        MinWidth="0">
+      
 
         <RelativePanel Background="{ThemeResource SystemAltHighColor}"
                        CornerRadius="4"
                        Padding="24">
+           
             <muxc:PersonPicture Width="60"
                Height="60"
                Margin="0,0,24,0"
@@ -107,23 +35,46 @@
                                 Name="StatusAvatar"/>
 
             <StackPanel Orientation="Horizontal" Name="NamesStackPanel"
-                        RelativePanel.RightOf="StatusAvatar">
+                        RelativePanel.RightOf="StatusAvatar"
+                        RelativePanel.LeftOf="StatusTimeStamp">
                 <StackPanel.Resources>
                     <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
                 </StackPanel.Resources>
-                <Button Content="{x:Bind CurrentStatus.Account.DisplayName}" Style="{ThemeResource NameTextBlockButton}"/>
-                <Button Content="{x:Bind CurrentStatus.Account.UserName}" Margin="8,0,0,0" 
-                        Style="{StaticResource NameTextBlockButton}"/>
+                <Button Style="{ThemeResource NameTextBlockButton}">
+                    <TextBlock Text="{x:Bind CurrentStatus.Account.UserName}"
+                               Style="{ThemeResource FluentTitleTextStyle}"
+                               TextTrimming="CharacterEllipsis"
+                               FontSize="20"/>
+
+                </Button>
+                <Button Margin="8,0,0,0" 
+                        Style="{StaticResource NameTextBlockButton}">
+                    <TextBlock Text="{x:Bind CurrentStatus.Account.AccountName}"
+           TextTrimming="CharacterEllipsis"
+                               FontSize="20"/>
+                </Button>
             </StackPanel>
 
-            <TextBlock x:Name="StatusTimeStamp" Text="2h"
-                       RelativePanel.AlignRightWithPanel="True"
+            
+                <TextBlock  Text="2h"
+                      
+                       FontSize="20"
+                       TextAlignment="Left"
+                       VerticalAlignment="Top"
+                       x:Name="StatusTimeStamp"
+                                       RelativePanel.AlignRightWithPanel="True"
                        RelativePanel.AlignTopWithPanel="True"/>
+            
 
             <TextBlock x:Name="StatusContent"
                        RelativePanel.RightOf="StatusAvatar"
-                       RelativePanel.Below="StatusAvatar"
-                       Text="{x:Bind CurrentStatus.Content}"/>
+                       RelativePanel.LeftOf="StatusTimeStamp"
+                       RelativePanel.Below="StatusTimeStamp"
+                       RelativePanel.AlignRightWithPanel="True"
+                       Text="{x:Bind CurrentStatus.Content}"
+                       TextWrapping="Wrap"
+                       FontSize="22"
+                       Canvas.ZIndex="100"/>
 
             <StackPanel Name="TootActionStackPanel" 
                         Orientation="Horizontal" 

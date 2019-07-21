@@ -25,10 +25,6 @@
     <Style x:Key="NameTextBlockButton"
            TargetType="Button"
            BasedOn="{StaticResource TextBlockButtonStyle}">
-        <Setter Property="FontWeight"
-                Value="Bold"/>
-        <Setter Property="FontSize"
-                Value="20"/>
         <Setter Property="Foreground"
                 Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
         <Setter Property="Padding"
