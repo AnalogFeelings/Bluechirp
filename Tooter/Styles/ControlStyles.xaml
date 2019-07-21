@@ -1679,6 +1679,7 @@
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="Root.HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Target="Root.Margin" Value="0,0,0,12"/>
                                     </VisualState.Setters>
                                 </VisualState>
 
@@ -1688,6 +1689,7 @@
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="Root.HorizontalContentAlignment" Value="Left"/>
+                                        <Setter Target="Root.Margin" Value="4,0,0,20"/>
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
