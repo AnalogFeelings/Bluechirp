@@ -29,29 +29,17 @@ namespace Tooter.Helpers
 
         public async Task LoginAsync(string instanceUrl)
         {
-            // Old code
-            //_authClient = new AuthenticationClient(instanceUrl);
-            //_appRegistration = await _authClient.CreateApp("Tooter", Scope.Read | Scope.Write | Scope.Follow);
-
-            // New code
-            _appRegistration = new AppRegistration();
-            _appRegistration.ClientId = APIKeys.ClientID;
-            _appRegistration.ClientSecret = APIKeys.ClientSecret;
-            _appRegistration.Instance = instanceUrl;
-            _appRegistration.Scope = Scope.Read | Scope.Write | Scope.Follow;
-            _appRegistration.RedirectUri = APIKeys.RedirectUri;
-            _authClient = new AuthenticationClient(_appRegistration);
-
-
-            
-            
+            // Login to any instance code
+            _authClient = new AuthenticationClient(instanceUrl);
+            _appRegistration = await _authClient.CreateApp("Tooter", Scope.Read | Scope.Write | Scope.Follow, redirectUri: APIKeys.RedirectUri);
             var url = _authClient.OAuthUrl(APIKeys.RedirectUri);
+
             var launchOptions = new LauncherOptions();
             launchOptions.DisplayApplicationPicker = true;
             await Launcher.LaunchUriAsync(new Uri(url), launchOptions);
         }
 
-        
+
         internal async Task FinishOAuth(string UriQuery)
         {
             try

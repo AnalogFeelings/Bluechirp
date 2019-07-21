@@ -28,6 +28,8 @@ namespace Tooter.Helpers
         const string InstanceString = "instance";
         const string AppScopeString = "appScope";
         const string AppIDString = "appID";
+        const string ClientIDString = "clientID";
+        const string ClientSecretString = "clientSecret";
 
         // Profile swapping settings
         const string LastUsedProfileString = "lastUsedProfile";
@@ -63,6 +65,8 @@ namespace Tooter.Helpers
                 dataDictionary[InstanceString] = appRegistration.Instance;
                 dataDictionary[AppScopeString] = appScopeInt;
                 dataDictionary[AppIDString] = appRegistration.Id;
+                dataDictionary[ClientIDString] = appRegistration.ClientId;
+                dataDictionary[ClientSecretString] = appRegistration.ClientSecret;
 
                 _localStorageHelper.Save<object>(clientProfileID, dataDictionary);
 
@@ -115,13 +119,15 @@ namespace Tooter.Helpers
             appRegistration.Id = _localStorageHelper.Read<long>(clientProfileID, AppIDString, default(long));
             appRegistration.Instance = _localStorageHelper.Read(clientProfileID, InstanceString,default(string));
 
+            appRegistration.ClientId = _localStorageHelper.Read(clientProfileID, ClientIDString, default(string));
+            appRegistration.ClientSecret = _localStorageHelper.Read(clientProfileID, ClientSecretString, default(string));
+
 
             int appScopeInt = _localStorageHelper.Read<int>(clientProfileID, AppScopeString, default(int));
             appRegistration.Scope = (Mastonet.Scope)appScopeInt;
 
             // Values to load from constants.
-            appRegistration.ClientId = APIKeys.ClientID;
-            appRegistration.ClientSecret = APIKeys.ClientSecret;
+            
             appRegistration.RedirectUri = APIKeys.RedirectUri;
             SetLastUsedProfile(clientProfileID);
 
