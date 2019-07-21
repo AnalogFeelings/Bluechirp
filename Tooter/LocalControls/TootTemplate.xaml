@@ -49,7 +49,8 @@
                 </StackPanel>
 
                 <TextBlock Name="TootContent" Text="This is looking great so far!"
-                       FontSize="24"
+                       FontSize="22"
+                           Margin="0,12,0,0"
                        TextWrapping="WrapWholeWords">
                 </TextBlock>
             </StackPanel>

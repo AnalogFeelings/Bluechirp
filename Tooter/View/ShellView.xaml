@@ -9,6 +9,7 @@
     xmlns:vm="using:Tooter.ViewModel"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
+    xmlns:contract7Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract, 5)"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -30,15 +31,38 @@
         </Grid.ColumnDefinitions>
         <Border Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}"
                 Width="54">
+            <StackPanel HorizontalAlignment="Stretch">
             <ListView 
-                Margin="0,60,0,0"
+                Margin="0,68,0,0"
                 contract5Present:ItemContainerStyle="{ThemeResource MenuListViewItemRevealStyle}"
                 contract5NotPresent:ItemContainerStyle="{ThemeResource MenuListViewItemStyle}">
                 <ListViewItem>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;"
                               FontSize="20"/>
                 </ListViewItem>
+
+                <ListViewItem>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE716;" 
+                              FontSize="20"/>
+                </ListViewItem>
+
+                <ListViewItem>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;" />
+                </ListViewItem>
+
+                <!--<ListViewItem>-->
+                    
+
+                <!--</ListViewItem>-->
             </ListView>
+           <Button x:Name="TootButton" Style="{ThemeResource CircleButtonStyle}" Width="44" Height="44"
+                   HorizontalAlignment="Center"
+                   Background="{ThemeResource SystemAccentColor}"
+                   Foreground="White">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" 
+                                  FontSize="16"/>
+                    </Button> 
+            </StackPanel>
         </Border>
 
 
