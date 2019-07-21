@@ -44,6 +44,8 @@ namespace Tooter.View
             this.InitializeComponent();
         }
 
+
+
         public TimelineView(TimelineViewModelBase ViewModelToUse)
         {
             if (!this.IsLoaded)
@@ -53,7 +55,7 @@ namespace Tooter.View
             ViewModel = ViewModelToUse;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if (e.Parameter is TimelineViewModelBase newViewModel)
@@ -64,6 +66,7 @@ namespace Tooter.View
             {
                 ViewModel = Activator.CreateInstance(ViewModelType) as TimelineViewModelBase;
             }
+            await ViewModel.LoadFeedAsync();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -73,9 +76,6 @@ namespace Tooter.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void TootTemplate_Loaded(object sender, RoutedEventArgs e)
-        {
 
-        }
     }
 }

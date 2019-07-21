@@ -98,7 +98,7 @@ namespace Tooter.Helpers
             return savedClientsFile;
         }
 
-        internal static (Auth token, AppRegistration appRegistration) LoadClientProfile(string clientProfileID)
+        internal static (AppRegistration appRegistration, Auth token) LoadClientProfile(string clientProfileID)
         {
             Auth token = new Auth();
             AppRegistration appRegistration = new AppRegistration();
@@ -118,8 +118,9 @@ namespace Tooter.Helpers
             appRegistration.ClientId = APIKeys.ClientID;
             appRegistration.ClientSecret = APIKeys.ClientSecret;
             appRegistration.RedirectUri = APIKeys.RedirectUri;
+            SetLastUsedProfile(clientProfileID);
 
-            return (token, appRegistration);
+            return (appRegistration, token);
         }
 
         private async static Task LoadClientProfiles()

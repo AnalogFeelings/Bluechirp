@@ -63,7 +63,7 @@ namespace Tooter.Helpers
                 var auth = await _authClient.ConnectWithCode(authCode, APIKeys.RedirectUri);
                 var client = new MastodonClient(_appRegistration, auth);
                 ClientHelper.CreateClient(client);
-                var currentUser = await ClientHelper._client.GetCurrentUser();
+                var currentUser = await ClientHelper.Client.GetCurrentUser();
 
                 string clientProfileID = $"{_appRegistration.Instance}{currentUser.Id}";
 

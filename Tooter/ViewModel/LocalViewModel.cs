@@ -10,5 +10,10 @@ namespace Tooter.ViewModel
     class LocalViewModel : TimelineViewModelBase
     {
         public override string ViewTitle { get; protected set; } = "Local Timeline";
+
+        internal override Task LoadFeedAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

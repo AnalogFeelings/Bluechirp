@@ -21,6 +21,7 @@
                    Margin="40,60,40,0"
                    FontSize="40"/>
         <ListView Grid.Row="1" ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
+                  ItemsSource="{x:Bind ViewModel.TootTimelineCollection, Mode=TwoWay }"
                   SelectionMode="None"
                   IsItemClickEnabled="True"
                   Padding="0,20"

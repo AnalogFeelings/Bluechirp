@@ -9,5 +9,10 @@ namespace Tooter.ViewModel
     class FederatedViewModel : TimelineViewModelBase
     {
         public override string ViewTitle { get; protected set; } = "Federated Timeline";
+
+        internal override Task LoadFeedAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
