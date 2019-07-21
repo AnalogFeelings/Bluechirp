@@ -8,8 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    d:DesignHeight="200"
-    d:DesignWidth="520">
+    d:DesignHeight="200s"
+    d:DesignWidth="300">
 
 
     <controls:DropShadowPanel 
@@ -21,7 +21,7 @@
                               VerticalContentAlignment="Stretch">
         <Grid Background="{ThemeResource SystemAltHighColor}"
               CornerRadius="4"
-              Padding="24,40,24,12">
+              Padding="24,24,24,24">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -30,8 +30,8 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Ellipse Width="88"
-               Height="88"
+            <Ellipse Width="60"
+               Height="60"
                Margin="0,0,24,0"
                VerticalAlignment="Top"
                    Fill="{ThemeResource DefaultTextForegroundThemeBrush}"/>
@@ -42,12 +42,12 @@
                     <StackPanel.Resources>
                         <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
                     </StackPanel.Resources>
-                    <Button Content="Olea" Style="{ThemeResource NameTextBlockButton}"/>
-                    <Button Content="@ironychild" Margin="8,0,0,0" 
+                    <Button Content="Pete" Style="{ThemeResource NameTextBlockButton}"/>
+                    <Button Content="@Peter" Margin="8,0,0,0" 
                         Style="{StaticResource UsernameTextBlockButton}"/>
                 </StackPanel>
 
-                <TextBlock Name="TootContent" Text="Remember when I was on Twitter?"
+                <TextBlock Name="TootContent" Text="This is looking great so far!"
                        FontSize="24"
                        TextWrapping="WrapWholeWords">
                 </TextBlock>
@@ -58,7 +58,7 @@
                     VerticalAlignment="Bottom"
                     Grid.Row="1"
                     Grid.Column="1"
-                    >
+                    Margin="-8,20,0,0">
                 <StackPanel.Resources>
                     <Style TargetType="Button" BasedOn="{StaticResource TextBlockButtonStyle}">
                         <Setter Property="Foreground"
@@ -68,8 +68,8 @@
                         <Setter Property="FontSize" Value="28"/>
                     </Style>
                 </StackPanel.Resources>
-                <Button Name="MoreButton">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10C;" />
+                <Button Name="ReplyButton">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE97A;" />
                 </Button>
                 <Button Name="BoostButton">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8EB;" />
@@ -77,8 +77,8 @@
                 <Button Name="FavouriteButton">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
                 </Button>
-                <Button Name="ReplyButton">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE97A;" />
+                <Button Name="MoreButton">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10C;" />
                 </Button>
             </StackPanel>
         </Grid>

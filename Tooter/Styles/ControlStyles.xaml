@@ -506,7 +506,7 @@
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="ContentBorder.Margin"
-                                                Value="40,0,40,12"/>
+                                                Value="40,12,40,12"/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="Desktop">
@@ -515,7 +515,7 @@
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="ContentBorder.Margin"
-                                                Value="40,0,40,20"/>
+                                                Value="40,12,40,20"/>
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>

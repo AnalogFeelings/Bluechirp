@@ -28,7 +28,8 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Border Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}">
+        <Border Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}"
+                Width="54">
             <ListView 
                 Margin="0,40,0,0"
                 contract5Present:ItemContainerStyle="{ThemeResource MenuListViewItemRevealStyle}"
