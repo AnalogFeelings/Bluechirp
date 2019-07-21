@@ -127,10 +127,10 @@ namespace Tooter.Helpers
             appRegistration.Scope = (Mastonet.Scope)appScopeInt;
 
             // Values to load from constants.
-            
-            appRegistration.RedirectUri = APIKeys.RedirectUri;
-            SetLastUsedProfile(clientProfileID);
+            appRegistration.RedirectUri = APIConstants.RedirectUri;
 
+
+            SetLastUsedProfile(clientProfileID);
             return (appRegistration, token);
         }
 
