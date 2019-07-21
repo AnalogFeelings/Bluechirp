@@ -33,7 +33,7 @@
                 Margin="0,40,0,0"
                 contract5Present:ItemContainerStyle="{ThemeResource MenuListViewItemRevealStyle}"
                 contract5NotPresent:ItemContainerStyle="{ThemeResource MenuListViewItemStyle}">
-                <ListViewItem MinWidth="0" HorizontalAlignment="Center">
+                <ListViewItem>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" />
                 </ListViewItem>
             </ListView>
