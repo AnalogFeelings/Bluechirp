@@ -72,5 +72,10 @@ namespace Tooter.View
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        private void TootTemplate_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

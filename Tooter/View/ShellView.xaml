@@ -35,7 +35,8 @@
                 contract5Present:ItemContainerStyle="{ThemeResource MenuListViewItemRevealStyle}"
                 contract5NotPresent:ItemContainerStyle="{ThemeResource MenuListViewItemStyle}">
                 <ListViewItem>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" />
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;"
+                              FontSize="20"/>
                 </ListViewItem>
             </ListView>
         </Border>

@@ -29,6 +29,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Ellipse Width="60"
                Height="60"
@@ -81,6 +82,12 @@
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10C;" />
                 </Button>
             </StackPanel>
+
+            <TextBlock Grid.Column="2" Text="2h"
+                       VerticalAlignment="Top"
+                       FontSize="20"
+                       Foreground="SlateGray"
+                       Name="TimeStampTextBlock"/>
         </Grid>
     </controls:DropShadowPanel>
 </UserControl>

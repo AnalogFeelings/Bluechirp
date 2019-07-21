@@ -16,9 +16,10 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource ViewTitleTextBlock}"
+        <TextBlock Style="{StaticResource FluentHeaderTextStyle}"
                    Text="{x:Bind ViewModel.ViewTitle, Mode=OneWay}"
-                   Margin="40,60,40,0"/>
+                   Margin="40,60,40,0"
+                   FontSize="40"/>
         <ListView Grid.Row="1" ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
                   SelectionMode="None"
                   IsItemClickEnabled="True"
