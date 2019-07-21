@@ -12,13 +12,12 @@
 
 
     <controls:DropShadowPanel 
-                              ShadowOpacity="0.5"
-                              BlurRadius="4"
+                              ShadowOpacity="0.25"
+                              BlurRadius="12"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
                               HorizontalContentAlignment="Stretch"
-                              VerticalContentAlignment="Stretch"
-        Margin="20,12">
+                              VerticalContentAlignment="Stretch">
         <Grid Background="{ThemeResource SystemAltHighColor}"
               CornerRadius="4"
               Padding="0,0,40,40">

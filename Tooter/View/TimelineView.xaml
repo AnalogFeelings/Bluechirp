@@ -11,18 +11,17 @@
     <Page.Resources>
         <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
     </Page.Resources>
-    <Grid Padding="40">
+    <Grid Padding="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource ViewTitleTextBlock}"
                    Text="{x:Bind ViewModel.ViewTitle, Mode=OneWay}"
-                   Margin="0,0,0,40"/>
-        <ListView Grid.Row="1" ItemContainerStyle="{ThemeResource NoPaddingAccentSelectionListViewItemStyle}"
+                   Margin="40,40,0,40"/>
+        <ListView Grid.Row="1" ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
                   SelectionMode="None"
-                  IsItemClickEnabled="True"
-                  Margin="0,0,-40,0">
+                  IsItemClickEnabled="True">
             <ListViewItem>
                 <localcontrols:TootTemplate/>
             </ListViewItem>
