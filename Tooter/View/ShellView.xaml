@@ -31,7 +31,7 @@
         <Border Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}"
                 Width="54">
             <ListView 
-                Margin="0,40,0,0"
+                Margin="0,60,0,0"
                 contract5Present:ItemContainerStyle="{ThemeResource MenuListViewItemRevealStyle}"
                 contract5NotPresent:ItemContainerStyle="{ThemeResource MenuListViewItemStyle}">
                 <ListViewItem>

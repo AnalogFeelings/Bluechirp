@@ -18,10 +18,12 @@
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource ViewTitleTextBlock}"
                    Text="{x:Bind ViewModel.ViewTitle, Mode=OneWay}"
-                   Margin="40,40,0,40"/>
+                   Margin="40,60,40,0"/>
         <ListView Grid.Row="1" ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
                   SelectionMode="None"
-                  IsItemClickEnabled="True">
+                  IsItemClickEnabled="True"
+                  Padding="0,20"
+                  Margin="0,20,0,0">
             <ListViewItem>
                 <localcontrols:TootTemplate/>
             </ListViewItem>

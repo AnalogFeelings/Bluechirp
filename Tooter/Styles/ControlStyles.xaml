@@ -506,7 +506,7 @@
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="ContentBorder.Margin"
-                                                Value="40,12,40,12"/>
+                                                Value="40,0,40,24"/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="Desktop">
@@ -515,7 +515,7 @@
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="ContentBorder.Margin"
-                                                Value="40,12,40,20"/>
+                                                Value="40,0,40,24"/>
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -1481,7 +1481,7 @@
 
                                 <VisualState x:Name="PC">
                                     <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="640"/>
+                                        <AdaptiveTrigger MinWindowWidth="800"/>
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="ContentPresenter.HorizontalContentAlignment" Value="Left"/>
@@ -1684,7 +1684,7 @@
 
                                 <VisualState x:Name="PC">
                                     <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="640"/>
+                                        <AdaptiveTrigger MinWindowWidth="800"/>
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="Root.HorizontalContentAlignment" Value="Left"/>
