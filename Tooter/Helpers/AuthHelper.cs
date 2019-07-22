@@ -71,37 +71,5 @@ namespace Tooter.Helpers
                 await errorDialog.ShowAsync();
             }
         }
-
-        internal void SaveAccessToken(Auth token)
-        {
-            TokenHelper.SaveToken(token);
-        }
-
-        internal async Task TryConnectWithCode(string code)
-        {
-            try
-            {
-                var auth = await _authClient.ConnectWithCode(code);
-                //SaveAccessToken(auth);
-                var _client = new MastodonClient(_appRegistration, auth);
-                ClientHelper.CreateClient(_client);
-                NavService.Instance.Navigate(typeof(ShellView));
-            }
-            catch (Exception)
-            {
-                var errorDialog = new ContentDialog()
-                {
-                    Title = "Problem connecting with code",
-                    Content = "Check if connection is working and code is correct",
-                    CloseButtonText = "Ok"
-                };
-                await errorDialog.ShowAsync();
-            }
-        }
-
-        public AppRegistration TryGetAppRegistration()
-        {
-            return _appRegistration;
-        }
     }
 }
