@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tooter.Helpers;
 using Tooter.Model;
 
 namespace Tooter.ViewModel
@@ -11,9 +12,9 @@ namespace Tooter.ViewModel
     {
         public override string ViewTitle { get; protected set; } = "Local Timeline";
 
-        internal override Task LoadFeedAsync()
+        internal async override Task LoadFeedAsync()
         {
-            throw new NotImplementedException();
+            base.TootTimelineCollection = await ClientHelper.Client.GetPublicTimeline(local: true);
         }
     }
 }

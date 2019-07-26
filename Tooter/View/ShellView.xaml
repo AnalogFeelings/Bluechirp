@@ -35,19 +35,24 @@
             <ListView 
                 Margin="0,68,0,0"
                 contract5Present:ItemContainerStyle="{ThemeResource MenuListViewItemRevealStyle}"
-                contract5NotPresent:ItemContainerStyle="{ThemeResource MenuListViewItemStyle}">
-                <ListViewItem>
+                contract5NotPresent:ItemContainerStyle="{ThemeResource MenuListViewItemStyle}"
+                IsItemClickEnabled="True"
+                Name="MenuListView"
+                ItemClick="MenuListView_ItemClick">
+                    <ListViewItem Name="HomeButton">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;"
-                              FontSize="20"/>
+                              FontSize="20"
+                              Name="HomeButtonIcon"/>
                 </ListViewItem>
 
-                <ListViewItem>
+                    <ListViewItem Name="LocalButton">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE716;" 
-                              FontSize="20"/>
+                              FontSize="20"
+                              Name="LocalButtonIcon"/>
                 </ListViewItem>
 
-                <ListViewItem>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;" />
+                    <ListViewItem Name="FederatedButton">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;" Name="FederatedButtonIcon"/>
                 </ListViewItem>
 
                 <!--<ListViewItem>-->

@@ -41,7 +41,7 @@
                     <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
                 </StackPanel.Resources>
                 <Button Style="{ThemeResource NameTextBlockButton}">
-                    <TextBlock Text="{x:Bind CurrentStatus.Account.UserName}"
+                    <TextBlock Text="{x:Bind CurrentStatus.Account.DisplayName}"
                                Style="{ThemeResource FluentTitleTextStyle}"
                                TextTrimming="CharacterEllipsis"
                                FontSize="20"/>

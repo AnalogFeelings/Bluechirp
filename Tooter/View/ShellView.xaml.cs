@@ -36,5 +36,24 @@ namespace Tooter.View
             ContentFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
         }
 
+        private void MenuListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (e.ClickedItem is FontIcon menuListItem)
+            {
+                if (menuListItem == HomeButtonIcon && !HomeButton.IsSelected)
+                {
+                    ContentFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+                }
+                else if(menuListItem == LocalButtonIcon && !LocalButton.IsSelected)
+                {
+                    ContentFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
+                }
+                else if(menuListItem == FederatedButtonIcon && !FederatedButton.IsSelected)
+                {
+                    ContentFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel));
+                }
+            }
+           
+        }
     }
 }

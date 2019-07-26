@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tooter.Helpers;
 
 namespace Tooter.ViewModel
 {
@@ -10,9 +11,9 @@ namespace Tooter.ViewModel
     {
         public override string ViewTitle { get; protected set; } = "Federated Timeline";
 
-        internal override Task LoadFeedAsync()
+        internal async override Task LoadFeedAsync()
         {
-            throw new NotImplementedException();
+            base.TootTimelineCollection = await ClientHelper.Client.GetPublicTimeline();
         }
     }
 }
