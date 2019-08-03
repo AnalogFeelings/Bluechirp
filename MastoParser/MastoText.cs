@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace MastoParser
 {
-    public class MastoText
+    public class MastoText : MastoContent
     {
         public bool IsParagraph { get; set; }
-        public string Content { get; set; }
 
-        public MastoText(string content, bool isParagraph = false)
+        public MastoText(string content, bool isParagraph = false): base(content, MastoContentType.Text)
         {
-            Content = content;
-            IsParagraph = isParagraph;
+            IsParagraph = isParagraph;   
         }
     }
 }

@@ -8,6 +8,18 @@ namespace MastoParser
 {
     public class MParser
     {
-        
+        StringBuilder _parseBuffer = new StringBuilder();
+        string currentTag = "";
+
+
+        public List<MastoContent> ParseContent(string htmlContent)
+        {
+            List<MastoContent> parsedContent = new List<MastoContent>();
+
+
+
+
+            return parsedContent;
+        }
     }
 }

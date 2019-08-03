@@ -10,6 +10,7 @@ namespace MastoParser
     {
         Media,
         Mention,
-        Link
+        Link,
+        Text
     }
 }
