@@ -13,6 +13,8 @@ namespace MastoParser
         bool inAttributeValue = false;
         bool inTag = false;
         bool inBreakTag = false;
+        bool isTagOpen = false;
+        string currentAttribute = "";
         Dictionary<string, string> currentTagAttributes = new Dictionary<string, string>();
 
 
@@ -37,31 +39,24 @@ namespace MastoParser
 
                 if (currentTag != string.Empty)
                 {
-                    FindAttributes(character);
+                    if (isTagOpen)
+                    {
+                        FindAttributes(character);
 
+                    }
+                    else
+                    {
+
+                    }
                 }
                 else
                 {
-                    if (character == ParserConstants.TagStartCharacter)
+                    var textHandlingResult = HandleText(character);
+                    if (textHandlingResult.hasContentToParse)
                     {
-                        string oldContent = _parseBuffer.ToString();
-                        parsedContent.Add(new MastoText(oldContent));
-                        _parseBuffer.Clear();
-                        inTag = true;
+                        parsedContent.Add(textHandlingResult.contentToParse);
                     }
 
-                    if (inTag)
-                    {
-                        if (char.IsWhiteSpace(character))
-                        {
-                            // This way, the start tag character can be removed
-                            // and the current tag can be stored in one line.
-                            currentTag = _parseBuffer.Remove(0, 1).ToString().Trim();
-                            _parseBuffer.Clear();
-                            HandleNewTag();
-                        }
-                    }
-                    _parseBuffer.Append(character);
                 }
             }
 
@@ -69,17 +64,63 @@ namespace MastoParser
             return parsedContent;
         }
 
+        private (bool hasContentToParse, MastoText contentToParse) HandleText(char character)
+        {
+            bool hasContentToParse = false;
+            MastoText contentToParse = null;
+
+            if (character == ParserConstants.TagStartCharacter)
+            {
+                string oldContent = _parseBuffer.ToString();
+                contentToParse = new MastoText(oldContent));
+                _parseBuffer.Clear();
+
+                hasContentToParse = true;
+                inTag = true;
+            }
+
+            if (inTag)
+            {
+                if (char.IsWhiteSpace(character))
+                {
+                    // This way, the start tag character can be removed
+                    // and the current tag can be stored in one line.
+                    currentTag = _parseBuffer.Remove(0, 1).ToString().Trim();
+                    _parseBuffer.Clear();
+                    HandleNewTag();
+                }
+            }
+            _parseBuffer.Append(character);
+
+            return (hasContentToParse, contentToParse);
+        }
+
         private void FindAttributes(char character)
         {
             if (character == ParserConstants.AttributeCharacter)
             {
-               string attributeName 
+                currentAttribute = _parseBuffer.ToString().Trim();
+                _parseBuffer.Clear();
+            }
+            else if (character == ParserConstants.AttributeValueCharacter && !inAttributeValue)
+            {
+                inAttributeValue = true;
+            }
+            else if (character == ParserConstants.AttributeValueCharacter && inAttributeValue)
+            {
+                currentTagAttributes[currentAttribute] = _parseBuffer.ToString();
+                _parseBuffer.Clear();
+                inAttributeValue = false;
+            }
+            else
+            {
+                _parseBuffer.Append(character);
             }
         }
 
         private void HandleNewTag()
         {
-            if(currentTag == ParserConstants.BreakTag)
+            if (currentTag == ParserConstants.BreakTag)
             {
                 inBreakTag = true;
             }
