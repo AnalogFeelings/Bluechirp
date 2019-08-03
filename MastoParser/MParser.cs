@@ -13,6 +13,7 @@ namespace MastoParser
         bool inAttributeValue = false;
         bool inTag = false;
         bool inBreakTag = false;
+        Dictionary<string, string> currentTagAttributes = new Dictionary<string, string>();
 
 
         public List<MastoContent> ParseContent(string htmlContent)
@@ -36,7 +37,7 @@ namespace MastoParser
 
                 if (currentTag != string.Empty)
                 {
-
+                    FindAttributes(character);
 
                 }
                 else
@@ -66,6 +67,14 @@ namespace MastoParser
 
 
             return parsedContent;
+        }
+
+        private void FindAttributes(char character)
+        {
+            if (character == ParserConstants.AttributeCharacter)
+            {
+               string attributeName 
+            }
         }
 
         private void HandleNewTag()
