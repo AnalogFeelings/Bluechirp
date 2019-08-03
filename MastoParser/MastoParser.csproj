@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MastoContent.cs" />
+    <Compile Include="MastoContentType.cs" />
+    <Compile Include="MastoText.cs" />
     <Compile Include="MParser.cs" />
     <Compile Include="ParserConstants.cs" />
     <Compile Include="Program.cs" />
