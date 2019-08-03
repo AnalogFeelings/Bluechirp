@@ -8,16 +8,16 @@ namespace MastoParser
 {
     class ParserConstants
     {
-        const char ParagraphTag = 'p';
-        const char LinkTag = 'a';
-        const char TagStartCharacter = '<';
-        const char TagEndCharacter = '>';
-        const char TagCloseCharaacter = '/';
-        const char AttributeValueCharacter = '"';
-        const char AttributeCharacter = '=';
+        public const char ParagraphTag = 'p';
+        public const char LinkTag = 'a';
+        public const char TagStartCharacter = '<';
+        public const char TagEndCharacter = '>';
+        public const char TagCloseCharaacter = '/';
+        public const char AttributeValueCharacter = '"';
+        public const char AttributeCharacter = '=';
 
-        const string BreakTag = "br";
-        const string SpanTag = "span";
+        public const string BreakTag = "br";
+        public const string SpanTag = "span";
 
     }
 }
