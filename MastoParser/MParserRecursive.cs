@@ -6,22 +6,23 @@ using System.Threading.Tasks;
 
 namespace MastoParser
 {
-    public class MParser
+    public class MParserRecursive
     {
+
         StringBuilder _parseBuffer = new StringBuilder();
-        string currentTag = "";
-        bool inAttributeValue = false;
-        bool inTag = false;
-        bool inBreakTag = false;
-        bool isTagOpen = false;
-        string currentAttribute = "";
-        Dictionary<string, string> currentTagAttributes = new Dictionary<string, string>();
 
-
-        public List<MastoContent> ParseContent(string htmlContent)
+        public List<MastoContent> ParseContent(string htmlContent, string currentTag = "")
         {
+            bool inAttributeValue = false;
+            bool inTag = false;
+            bool inBreakTag = false;
+            bool isTagOpen = false;
+            string currentAttribute = "";
+            Dictionary<string, string> currentTagAttributes = new Dictionary<string, string>();
+
             List<MastoContent> parsedContent = new List<MastoContent>();
 
+            
             foreach (var character in htmlContent)
             {
                 htmlContent = htmlContent.Substring(1);
@@ -46,12 +47,12 @@ namespace MastoParser
                     }
                     else
                     {
-                        var recursiveContent = 
+                        var recursiveContent = ParseContent(htmlContent, currentTag);
                     }
                 }
                 else
                 {
-                    var textHandlingResult = HandleText(character);
+                    var textHandlingResult = HandleText(character, ref inTag);
                     if (textHandlingResult.hasContentToParse)
                     {
                         parsedContent.Add(textHandlingResult.contentToParse);
@@ -64,7 +65,7 @@ namespace MastoParser
             return parsedContent;
         }
 
-        private (bool hasContentToParse, MastoText contentToParse) HandleText(char character)
+        private (bool hasContentToParse, MastoText contentToParse) HandleText(char character, ref bool inTag)
         {
             bool hasContentToParse = false;
             MastoText contentToParse = null;
@@ -95,8 +96,10 @@ namespace MastoParser
             return (hasContentToParse, contentToParse);
         }
 
-        private void FindAttributes(char character)
+        private (bool wasAttributeFound, KeyValuePair<string, string> attributeToAdd) FindAttributes(char character, string currentAttribute = "", string attributeValue = "", bool inAttributeValue = false)
         {
+            bool wasAttributeFound = false;
+            KeyValuePair<string, string> attributeToAdd = new KeyValuePair<string, string>(null, null);
             if (character == ParserConstants.AttributeCharacter)
             {
                 currentAttribute = _parseBuffer.ToString().Trim();
@@ -108,7 +111,8 @@ namespace MastoParser
             }
             else if (character == ParserConstants.AttributeValueCharacter && inAttributeValue)
             {
-                currentTagAttributes[currentAttribute] = _parseBuffer.ToString();
+                attributeToAdd = new KeyValuePair<string, string>(currentAttribute, _parseBuffer.ToString());
+                
                 _parseBuffer.Clear();
                 inAttributeValue = false;
             }
@@ -116,9 +120,11 @@ namespace MastoParser
             {
                 _parseBuffer.Append(character);
             }
+
+            return (wasAttributeFound, attributeToAdd);
         }
 
-        private void HandleNewTag()
+        private void HandleNewTag(string currentTag, ref bool inBreakTag)
         {
             if (currentTag == ParserConstants.BreakTag)
             {

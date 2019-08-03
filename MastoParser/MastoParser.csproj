@@ -47,6 +47,7 @@
     <Compile Include="MastoContentType.cs" />
     <Compile Include="MastoText.cs" />
     <Compile Include="MParser.cs" />
+    <Compile Include="MParserRecursive.cs" />
     <Compile Include="ParserConstants.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
