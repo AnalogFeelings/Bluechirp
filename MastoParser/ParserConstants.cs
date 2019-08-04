@@ -19,9 +19,9 @@ namespace MastoParser
         public const string BreakTag = "br";
         public const string SpanTag = "span";
 
-        public const string mentionClass = "u-url mention";
-        public const string hashtagClass = "mention hashtag";
-        public const string classAttribute = "class";
+        public const string MentionClass = "u-url mention";
+        public const string HashtagClass = "mention hashtag";
+        public const string ClassAttribute = "class";
 
     }
 }

@@ -197,7 +197,7 @@ namespace MastoParser
             // 3. Links (just an address to a website somewhere)
 
 
-            
+
             StringBuilder attributeBuffer = new StringBuilder();
             string currentAttribute = "";
             bool hasTagBeenClosed = false;
@@ -218,7 +218,7 @@ namespace MastoParser
                     }
                 }
 
-                else if(character == '>')
+                else if (character == '>')
                 {
                     // First tag has been closed
                     hasTagBeenClosed = true;
@@ -258,18 +258,34 @@ namespace MastoParser
 
             // Now take action depending on the result of trying to find the "class" attribute
 
-            bool isRegularLink = tagAttributes.ContainsKey(ParserConstants.classAttribute);
+            bool isRegularLink = tagAttributes.ContainsKey(ParserConstants.ClassAttribute);
 
             if (isRegularLink)
             {
                 // Do regular link stuff
+
             }
             else
             {
                 // handle a mention/hashtag.
+
+                switch (tagAttributes[ParserConstants.ClassAttribute])
+                {
+                    case ParserConstants.HashtagClass:
+                        contentToReturn = ParseUniqueLink('#');
+                        break;
+                    case ParserConstants.MentionClass:
+                        contentToReturn = ParseUniqueLink('@');
+                        break;
+                }
             }
 
             return contentToReturn;
+        }
+
+        private MastoContent ParseUniqueLink(char v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
