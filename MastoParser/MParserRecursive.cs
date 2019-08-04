@@ -258,7 +258,16 @@ namespace MastoParser
 
             // Now take action depending on the result of trying to find the "class" attribute
 
-            bool doesClassExistInTag = tagAttributes.ContainsKey(ParserConstants.classAttribute);
+            bool isRegularLink = tagAttributes.ContainsKey(ParserConstants.classAttribute);
+
+            if (isRegularLink)
+            {
+                // Do regular link stuff
+            }
+            else
+            {
+                // handle a mention/hashtag.
+            }
 
             return contentToReturn;
         }
