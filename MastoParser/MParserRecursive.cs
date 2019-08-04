@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,10 @@ namespace MastoParser
     {
 
         StringBuilder _parseBuffer = new StringBuilder();
+        Queue<char> charQueue = new Queue<char>();
 
-        public List<MastoContent> ParseContent(string htmlContent, string currentTag = "")
+
+        public List<MastoContent> ParseLoop(string currentTag)
         {
             bool inAttributeValue = false;
             bool inTag = false;
@@ -22,8 +25,7 @@ namespace MastoParser
 
             List<MastoContent> parsedContent = new List<MastoContent>();
 
-            
-            foreach (var character in htmlContent)
+            while(charStack.Count > 0)
             {
                 htmlContent = htmlContent.Substring(1);
                 if (inBreakTag)
@@ -47,7 +49,7 @@ namespace MastoParser
                     }
                     else
                     {
-                        var recursiveContent = ParseContent(htmlContent, currentTag);
+                        var recursiveContent = ParseContent(currentTag);
                     }
                 }
                 else
@@ -60,12 +62,20 @@ namespace MastoParser
 
                 }
             }
+            return parsedContent;
+        }
 
+        public List<MastoContent> ParseContent(string htmlContent)
+        {
+            charQueue = new Queue<char>(htmlContent);
+
+            // At first, you'll start with no tag
+            List<MastoContent> parsedContent = ParseLoop(String.Empty);
 
             return parsedContent;
         }
 
-        private (bool hasContentToParse, MastoText contentToParse) HandleText(char character, ref bool inTag)
+        private (bool hasContentToParse, MastoText contentToParse) HandleText(char character, ref bool inTag, ref bool inBreakTag)
         {
             bool hasContentToParse = false;
             MastoText contentToParse = null;
@@ -73,7 +83,7 @@ namespace MastoParser
             if (character == ParserConstants.TagStartCharacter)
             {
                 string oldContent = _parseBuffer.ToString();
-                contentToParse = new MastoText(oldContent));
+                contentToParse = new MastoText(oldContent);
                 _parseBuffer.Clear();
 
                 hasContentToParse = true;
@@ -86,9 +96,9 @@ namespace MastoParser
                 {
                     // This way, the start tag character can be removed
                     // and the current tag can be stored in one line.
-                    currentTag = _parseBuffer.Remove(0, 1).ToString().Trim();
+                    string newTag = _parseBuffer.Remove(0, 1).ToString().Trim();
                     _parseBuffer.Clear();
-                    HandleNewTag();
+                    HandleNewTag(newTag, ref inBreakTag);
                 }
             }
             _parseBuffer.Append(character);
@@ -130,6 +140,25 @@ namespace MastoParser
             {
                 inBreakTag = true;
             }
+        }
+
+        public MastoContent HandleLinkTag(string htmlContent)
+        {
+            MastoContent contentToReturn = null;
+
+            // 1. look for class attribute
+            // 2. Based on class attribute, handle links differently.
+
+
+            // Links may be:
+            // 1. Mentions
+            // 2. Hashtags
+            // 3. Links (just an address to a website somewhere)
+            
+            
+
+
+            return contentToReturn;
         }
     }
 }

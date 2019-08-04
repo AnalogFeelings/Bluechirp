@@ -14,6 +14,8 @@ namespace MastoParser
             string contentToParse = Console.ReadLine();
 
             // Parse content
+
+
         }
     }
 }

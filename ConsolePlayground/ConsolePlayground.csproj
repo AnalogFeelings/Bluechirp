@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A41BABC5-45D5-4D5F-B43A-E94072B716FB}</ProjectGuid>
+    <ProjectGuid>{1B5B1A67-0002-476B-B255-6A4E569EBAA7}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MastoParser</RootNamespace>
-    <AssemblyName>MastoParser</AssemblyName>
+    <RootNamespace>ConsolePlayground</RootNamespace>
+    <AssemblyName>ConsolePlayground</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,11 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MastoContent.cs" />
-    <Compile Include="MastoContentType.cs" />
-    <Compile Include="MastoText.cs" />
-    <Compile Include="MParserRecursive.cs" />
-    <Compile Include="ParserConstants.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
