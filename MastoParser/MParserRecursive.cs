@@ -17,16 +17,8 @@ namespace MastoParser
 
         public List<MastoContent> ParseLoop(string tag)
         {
-            //bool inAttributeValue = false;
-            bool isInTag = false;
-            bool isTagOpen = false;
-            //string currentAttribute = "";
-
             string parsedTag = String.Empty;
             bool inBreakTag;
-
-
-            Dictionary<string, string> currentTagAttributes = new Dictionary<string, string>();
 
             List<MastoContent> parsedContent = new List<MastoContent>();
 
@@ -46,29 +38,17 @@ namespace MastoParser
 
                 else if (parsedTag != string.Empty)
                 {
-                    if (!isTagOpen)
+                    if (checkIfLinkTag(parsedTag))
                     {
-                        isTagOpen = true;
-                    }
-
-                    if (isTagOpen)
-                    {
-
-                        // Will find attributes here of tag found (should leave this till last):
-
-                        //var attributesSearchResult = FindAttributes(character);
-                        //if (attributesSearchResult.wasAttributeFound)
-                        //{
-
-                        //}
+                        parsedContent.Add(HandleLinkTag());
                     }
                     else
                     {
                         // Parse through inner content of parsed tag.
                         var recursiveContent = ParseLoop(parsedTag);
                         parsedContent.AddRange(recursiveContent);
-                        parsedTag = string.Empty;
                     }
+                    parsedTag = string.Empty;
                 }
                 else
                 {
@@ -87,6 +67,11 @@ namespace MastoParser
                 }
             }
             return parsedContent;
+        }
+
+        private bool checkIfLinkTag(string parsedTag)
+        {
+            return parsedTag.Equals(ParserConstants.LinkTag);
         }
 
         private bool LoopConditionIsTrue(string tag, string parsedTag)
@@ -198,11 +183,11 @@ namespace MastoParser
             }
         }
 
-        public MastoContent HandleLinkTag(string htmlContent)
+        public MastoContent HandleLinkTag()
         {
             MastoContent contentToReturn = null;
 
-            // 1. look for class attribute
+            // 1. Look for attributes
             // 2. Based on class attribute, handle links differently.
 
 
@@ -212,7 +197,68 @@ namespace MastoParser
             // 3. Links (just an address to a website somewhere)
 
 
+            
+            StringBuilder attributeBuffer = new StringBuilder();
+            string currentAttribute = "";
+            bool hasTagBeenClosed = false;
+            bool isInAttributeValue = false;
+            Dictionary<string, string> tagAttributes = new Dictionary<string, string>();
 
+
+            while (!hasTagBeenClosed)
+            {
+                char character = charQueue.Dequeue();
+                if (character == SpaceChar && isInAttributeValue == false)
+                {
+                    if (currentAttribute != string.Empty)
+                    {
+                        tagAttributes[currentAttribute] = attributeBuffer.ToString();
+                        currentAttribute = string.Empty;
+                        attributeBuffer.Clear();
+                    }
+                }
+
+                else if(character == '>')
+                {
+                    // First tag has been closed
+                    hasTagBeenClosed = true;
+                }
+
+                else
+                {
+                    // Fill in attribute name
+                    if (currentAttribute == string.Empty)
+                    {
+
+                        if (character == '=')
+                        {
+                            currentAttribute = attributeBuffer.ToString();
+                            attributeBuffer.Clear();
+                        }
+                        else
+                        {
+                            attributeBuffer.Append(character);
+                        }
+                    }
+
+                    // currentAttribute has been filled, handle attribute values now
+                    else
+                    {
+                        if (character == '"')
+                        {
+                            isInAttributeValue = !isInAttributeValue;
+                        }
+                        else
+                        {
+                            attributeBuffer.Append(character);
+                        }
+                    }
+                }
+            }
+
+            // Now take action depending on the result of trying to find the "class" attribute
+
+            bool doesClassExistInTag = tagAttributes.ContainsKey(ParserConstants.classAttribute);
 
             return contentToReturn;
         }

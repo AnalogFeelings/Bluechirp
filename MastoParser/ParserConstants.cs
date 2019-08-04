@@ -21,6 +21,7 @@ namespace MastoParser
 
         public const string mentionClass = "u-url mention";
         public const string hashtagClass = "mention hashtag";
+        public const string classAttribute = "class";
 
     }
 }
