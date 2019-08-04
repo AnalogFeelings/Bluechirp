@@ -30,7 +30,7 @@ namespace MastoParser
 
             List<MastoContent> parsedContent = new List<MastoContent>();
 
-            
+
             while (LoopConditionIsTrue(tag, parsedTag))
             {
                 inBreakTag = CheckIfBreakTag(parsedTag);
@@ -44,8 +44,13 @@ namespace MastoParser
                     }
                 }
 
-                else if (isInTag)
+                else if (parsedTag != string.Empty)
                 {
+                    if (!isTagOpen)
+                    {
+                        isTagOpen = true;
+                    }
+
                     if (isTagOpen)
                     {
 
@@ -62,6 +67,7 @@ namespace MastoParser
                         // Parse through inner content of parsed tag.
                         var recursiveContent = ParseLoop(parsedTag);
                         parsedContent.AddRange(recursiveContent);
+                        parsedTag = string.Empty;
                     }
                 }
                 else
@@ -85,7 +91,7 @@ namespace MastoParser
 
         private bool LoopConditionIsTrue(string tag, string parsedTag)
         {
-            bool willLoopEnd = false;
+            bool willLoopEnd;
             if (tag == string.Empty)
             {
                 willLoopEnd = charQueue.Count > 0;
