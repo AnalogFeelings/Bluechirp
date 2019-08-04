@@ -12,24 +12,26 @@ namespace MastoParser
 
         StringBuilder _parseBuffer = new StringBuilder();
         Queue<char> charQueue = new Queue<char>();
+        const char SpaceChar = (char)20;
 
 
         public List<MastoContent> ParseLoop(string tag)
         {
-            bool inAttributeValue = false;
+            //bool inAttributeValue = false;
             bool isInTag = false;
             bool isTagOpen = false;
-            string currentAttribute = "";
+            //string currentAttribute = "";
 
             string parsedTag = String.Empty;
-            bool inBreakTag = false;
+            bool inBreakTag;
 
 
             Dictionary<string, string> currentTagAttributes = new Dictionary<string, string>();
 
             List<MastoContent> parsedContent = new List<MastoContent>();
 
-            while (charQueue.Count > 0)
+            
+            while (LoopConditionIsTrue(tag, parsedTag))
             {
                 inBreakTag = CheckIfBreakTag(parsedTag);
 
@@ -57,23 +59,44 @@ namespace MastoParser
                     }
                     else
                     {
-                        // Parse through tag inside tag
-                        //var recursiveContent = ParseLoop();
+                        // Parse through inner content of parsed tag.
+                        var recursiveContent = ParseLoop(parsedTag);
                         parsedContent.AddRange(recursiveContent);
                     }
                 }
                 else
                 {
                     // Parse through inner content between open and close tags
-                    var textHandlingResult = HandleText(character, ref isInTag, ref inBreakTag);
-                    if (textHandlingResult.hasContentToParse)
+                    var textHandlingResult = HandleText(character);
+
+                    if (textHandlingResult.hasTextToParse)
                     {
-                        parsedContent.Add(textHandlingResult.contentToParse);
+                        parsedContent.Add(new MastoText(textHandlingResult.text));
                     }
 
+                    if (textHandlingResult.hasTagToParse)
+                    {
+                        parsedTag = textHandlingResult.tag;
+                    }
                 }
             }
             return parsedContent;
+        }
+
+        private bool LoopConditionIsTrue(string tag, string parsedTag)
+        {
+            bool willLoopEnd = false;
+            if (tag == string.Empty)
+            {
+                willLoopEnd = charQueue.Count > 0;
+
+            }
+            else
+            {
+                willLoopEnd = parsedTag == $"/{tag}>";
+            }
+
+            return willLoopEnd;
         }
 
         private bool CheckIfBreakTag(string currentTag)
@@ -86,7 +109,7 @@ namespace MastoParser
             charQueue = new Queue<char>(htmlContent);
 
             // At first, you'll start with no tag
-            List<MastoContent> parsedContent = ParseLoop();
+            List<MastoContent> parsedContent = ParseLoop(string.Empty);
 
             return parsedContent;
         }
@@ -121,9 +144,15 @@ namespace MastoParser
 
         private string ParseTag()
         {
-            // Remember to add '<' has been removed from queue already.
-            StringBuilder parsedTagBuffer = new StringBuilder();
+            // '<' has been removed from queue already.
+            // so you just need to add all characters before a
+            // (space).
 
+            StringBuilder parsedTagBuffer = new StringBuilder();
+            while (charQueue.Peek() != SpaceChar)
+            {
+                parsedTagBuffer.Append(charQueue.Dequeue());
+            }
             return parsedTagBuffer.ToString();
         }
 
