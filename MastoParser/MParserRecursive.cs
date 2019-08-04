@@ -14,7 +14,7 @@ namespace MastoParser
         Queue<char> charQueue = new Queue<char>();
 
 
-        public List<MastoContent> ParseLoop()
+        public List<MastoContent> ParseLoop(string tag)
         {
             bool inAttributeValue = false;
             bool isInTag = false;
@@ -29,7 +29,7 @@ namespace MastoParser
 
             List<MastoContent> parsedContent = new List<MastoContent>();
 
-            while(charQueue.Count > 0)
+            while (charQueue.Count > 0)
             {
                 inBreakTag = CheckIfBreakTag(parsedTag);
 
@@ -47,7 +47,7 @@ namespace MastoParser
                     if (isTagOpen)
                     {
 
-                        // Will find attributes here (should leave this till last):
+                        // Will find attributes here of tag found (should leave this till last):
 
                         //var attributesSearchResult = FindAttributes(character);
                         //if (attributesSearchResult.wasAttributeFound)
@@ -57,13 +57,14 @@ namespace MastoParser
                     }
                     else
                     {
-                        // Parse throught inner content between tag
-                        var recursiveContent = ParseLoop();
+                        // Parse through tag inside tag
+                        //var recursiveContent = ParseLoop();
                         parsedContent.AddRange(recursiveContent);
                     }
                 }
                 else
                 {
+                    // Parse through inner content between open and close tags
                     var textHandlingResult = HandleText(character, ref isInTag, ref inBreakTag);
                     if (textHandlingResult.hasContentToParse)
                     {
@@ -90,35 +91,40 @@ namespace MastoParser
             return parsedContent;
         }
 
-        private (bool hasContentToParse, MastoText contentToParse) HandleText(char character, ref bool inTag, ref bool inBreakTag)
+        private (bool hasTextToParse, bool hasTagToParse, string text, string tag) HandleText(char character)
         {
-            bool hasContentToParse = false;
-            MastoText contentToParse = null;
+            bool hasTextToParse = false;
+            bool hasTagToParse = null;
+            string text = null;
+            string tag = null;
 
             if (character == ParserConstants.TagStartCharacter)
             {
-                string oldContent = _parseBuffer.ToString();
-                contentToParse = new MastoText(oldContent);
+                text = _parseBuffer.ToString();
                 _parseBuffer.Clear();
 
-                hasContentToParse = true;
-                inTag = true;
+                hasTextToParse = true;
+                hasTagToParse = true;
             }
 
-            if (inTag)
+            if (hasTagToParse)
             {
-                if (char.IsWhiteSpace(character))
-                {
-                    // This way, the start tag character can be removed
-                    // and the current tag can be stored in one line.
-                    string newTag = _parseBuffer.Remove(0, 1).ToString().Trim();
-                    _parseBuffer.Clear();
-                    HandleNewTag(newTag, ref inBreakTag);
-                }
+                tag = ParseTag();
             }
-            _parseBuffer.Append(character);
+            else
+            {
+                _parseBuffer.Append(character);
+            }
 
-            return (hasContentToParse, contentToParse);
+            return (hasTextToParse, hasTagToParse, text, tag);
+        }
+
+        private string ParseTag()
+        {
+            // Remember to add '<' has been removed from queue already.
+            StringBuilder parsedTagBuffer = new StringBuilder();
+
+            return parsedTagBuffer.ToString();
         }
 
         private (bool wasAttributeFound, KeyValuePair<string, string> attributeToAdd) FindAttributes(char character, string currentAttribute = "", string attributeValue = "", bool inAttributeValue = false)
@@ -137,7 +143,7 @@ namespace MastoParser
             else if (character == ParserConstants.AttributeValueCharacter && inAttributeValue)
             {
                 attributeToAdd = new KeyValuePair<string, string>(currentAttribute, _parseBuffer.ToString());
-                
+
                 _parseBuffer.Clear();
                 inAttributeValue = false;
             }
@@ -169,8 +175,8 @@ namespace MastoParser
             // 1. Mentions
             // 2. Hashtags
             // 3. Links (just an address to a website somewhere)
-            
-            
+
+
 
 
             return contentToReturn;
