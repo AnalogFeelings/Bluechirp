@@ -14,47 +14,57 @@ namespace MastoParser
         Queue<char> charQueue = new Queue<char>();
 
 
-        public List<MastoContent> ParseLoop(string currentTag)
+        public List<MastoContent> ParseLoop()
         {
             bool inAttributeValue = false;
-            bool inTag = false;
-            bool inBreakTag = false;
+            bool isInTag = false;
             bool isTagOpen = false;
             string currentAttribute = "";
+
+            string parsedTag = String.Empty;
+            bool inBreakTag = false;
+
+
             Dictionary<string, string> currentTagAttributes = new Dictionary<string, string>();
 
             List<MastoContent> parsedContent = new List<MastoContent>();
 
-            while(charStack.Count > 0)
+            while(charQueue.Count > 0)
             {
-                htmlContent = htmlContent.Substring(1);
+                inBreakTag = CheckIfBreakTag(parsedTag);
+
+                char character = charQueue.Dequeue();
                 if (inBreakTag)
                 {
-                    if (character != ParserConstants.TagEndCharacter)
+                    if (character == ParserConstants.TagEndCharacter)
                     {
-                        continue;
-                    }
-                    else
-                    {
-                        inBreakTag = false;
+                        parsedTag = string.Empty;
                     }
                 }
 
-                if (currentTag != string.Empty)
+                else if (isInTag)
                 {
                     if (isTagOpen)
                     {
-                        FindAttributes(character);
 
+                        // Will find attributes here (should leave this till last):
+
+                        //var attributesSearchResult = FindAttributes(character);
+                        //if (attributesSearchResult.wasAttributeFound)
+                        //{
+
+                        //}
                     }
                     else
                     {
-                        var recursiveContent = ParseContent(currentTag);
+                        // Parse throught inner content between tag
+                        var recursiveContent = ParseLoop();
+                        parsedContent.AddRange(recursiveContent);
                     }
                 }
                 else
                 {
-                    var textHandlingResult = HandleText(character, ref inTag);
+                    var textHandlingResult = HandleText(character, ref isInTag, ref inBreakTag);
                     if (textHandlingResult.hasContentToParse)
                     {
                         parsedContent.Add(textHandlingResult.contentToParse);
@@ -65,12 +75,17 @@ namespace MastoParser
             return parsedContent;
         }
 
+        private bool CheckIfBreakTag(string currentTag)
+        {
+            return currentTag.Equals(ParserConstants.BreakTag);
+        }
+
         public List<MastoContent> ParseContent(string htmlContent)
         {
             charQueue = new Queue<char>(htmlContent);
 
             // At first, you'll start with no tag
-            List<MastoContent> parsedContent = ParseLoop(String.Empty);
+            List<MastoContent> parsedContent = ParseLoop();
 
             return parsedContent;
         }
