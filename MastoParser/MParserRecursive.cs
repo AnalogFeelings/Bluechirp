@@ -117,7 +117,7 @@ namespace MastoParser
         private (bool hasTextToParse, bool hasTagToParse, string text, string tag) HandleText(char character)
         {
             bool hasTextToParse = false;
-            bool hasTagToParse = null;
+            bool hasTagToParse = false;
             string text = null;
             string tag = null;
 
