@@ -58,28 +58,69 @@ namespace Tooter.LocalControls
                         {
                             var item = parsedContent[i];
 
-                            if (item.ContentType == Model.MastoContentType.Text)
-                            {
-                                var textItem = (MastoText)item;
-                                if (i == 0)
-                                {
-                                    item.Content = item.Content.TrimStart();
-                                }
 
-                                if (textItem.IsParagraph)
-                                {
-                                    doesANewParagraphNeedToBeCreated = true;
-                                    Run run = new Run { Text = $"{textItem.Content}" };
-                                    AddContentToTextBlock(run);
-                                    doesANewParagraphNeedToBeCreated = true;
-                                }
-                                else
-                                {
-                                    Run run = new Run { Text = textItem.Content };
-                                    AddContentToTextBlock(run, doesANewParagraphNeedToBeCreated);
-                                    doesANewParagraphNeedToBeCreated = false;
-                                }
+                            switch (item.ContentType)
+                            {
+                                case MastoContentType.Media:
+                                    break;
+                                case MastoContentType.Mention:
+                                    List<Mention> mentions = (List<Mention>)updatedStatus.Mentions;
+                                    for (int tagIndex = 0; i < mentions.Count; i++)
+                                    {
+                                        if (mentions[tagIndex].AccountName == item.Content)
+                                        {
+                                            Run tagRun = new Run { Text = $"@{item.Content}" };
+                                            Hyperlink mentionLink = new Hyperlink();
+                                            mentionLink.Inlines.Add(tagRun);
+                                            AddContentToTextBlock(mentionLink);
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                case MastoContentType.Link:
+                                    break;
+                                case MastoContentType.Text:
+                                    var textItem = (MastoText)item;
+                                    if (i == 0)
+                                    {
+                                        item.Content = item.Content.TrimStart();
+                                    }
+
+                                    if (textItem.IsParagraph)
+                                    {
+                                        doesANewParagraphNeedToBeCreated = true;
+                                        Run run = new Run { Text = $"{textItem.Content}" };
+                                        AddContentToTextBlock(run);
+                                        doesANewParagraphNeedToBeCreated = true;
+                                    }
+                                    else
+                                    {
+                                        Run run = new Run { Text = textItem.Content };
+                                        AddContentToTextBlock(run, doesANewParagraphNeedToBeCreated);
+                                        doesANewParagraphNeedToBeCreated = false;
+                                    }
+                                    break;
+
+                                case MastoContentType.Hashtag:
+                                    List<Tag> tags = (List<Tag>)updatedStatus.Tags;
+                                    for (int tagIndex = 0; i < tags.Count; i++)
+                                    {
+                                        if (tags[tagIndex].Name == item.Content)
+                                        {
+                                            Run tagRun = new Run { Text = $"#{item.Content}" };
+                                            Hyperlink hashtagLink = new Hyperlink();
+                                            hashtagLink.Inlines.Add(tagRun);
+                                            AddContentToTextBlock(hashtagLink);
+                                            break;
+                                        }
+                                    }
+
+                                    break;
+
+                                default:
+                                    break;
                             }
+
                         }
 
 
