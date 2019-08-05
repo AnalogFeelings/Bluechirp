@@ -1,6 +1,7 @@
 ﻿using Mastonet.Entities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -61,8 +62,6 @@ namespace Tooter.LocalControls
 
                             switch (item.ContentType)
                             {
-                                case MastoContentType.Media:
-                                    break;
                                 case MastoContentType.Mention:
                                     List<Mention> mentions = (List<Mention>)updatedStatus.Mentions;
                                     for (int tagIndex = 0; i < mentions.Count; i++)
@@ -78,6 +77,11 @@ namespace Tooter.LocalControls
                                     }
                                     break;
                                 case MastoContentType.Link:
+                                    Run linkRun = new Run { Text = item.Content };
+                                    Hyperlink link = new Hyperlink();
+                                    link.NavigateUri = new Uri(item.Content);
+                                    link.Inlines.Add(linkRun);
+                                    AddContentToTextBlock(link);
                                     break;
                                 case MastoContentType.Text:
                                     var textItem = (MastoText)item;
