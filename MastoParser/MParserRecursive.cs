@@ -57,7 +57,7 @@ namespace MastoParser
 
                     if (textHandlingResult.hasTextToParse)
                     {
-                        parsedContent.Add(new MastoText(textHandlingResult.text));
+                       TryAddTextToParsedContent(parsedContent,textHandlingResult.text);
                     }
 
                     if (textHandlingResult.hasTagToParse)
@@ -69,9 +69,19 @@ namespace MastoParser
 
             if (_parseBuffer.Length > 0)
             {
-                parsedContent.Add(new MastoText(_parseBuffer.ToString()));
+                TryAddTextToParsedContent(parsedContent, _parseBuffer.ToString());
+
             }
             return parsedContent;
+        }
+
+        private void TryAddTextToParsedContent(List<MastoContent> parsedContent, string contentToAdd)
+        {
+            contentToAdd = contentToAdd.Replace(">", "");
+            if (contentToAdd.Trim() != string.Empty)
+            {
+                parsedContent.Add(new MastoText(_parseBuffer.ToString()));
+            }
         }
 
         private bool checkIfLinkTag(string parsedTag)
