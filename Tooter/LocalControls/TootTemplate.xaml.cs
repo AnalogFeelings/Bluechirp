@@ -167,13 +167,15 @@ namespace Tooter.LocalControls
                         MediaPlayerElement videoPlayer = new MediaPlayerElement();
                         videoPlayer.PosterSource = new BitmapImage(new Uri(mediaAttachments[i].PreviewUrl));
                         videoPlayer.Source = MediaSource.CreateFromUri(new Uri(mediaAttachments[i].Url));
+                        videoPlayer.AreTransportControlsEnabled = true;
+                        videoPlayer.TransportControls.IsCompact = true;
                         mediaContainer.Child = videoPlayer;
                         break;
                     case MastoMediaConstants.GIFType:
                         MediaPlayerElement gifPlayer = new MediaPlayerElement();
                         gifPlayer.Source = MediaSource.CreateFromUri(new Uri(mediaAttachments[i].Url));
                         gifPlayer.AutoPlay = true;
-                        gifPlayer.TransportControls.Visibility = Visibility.Collapsed;
+                        gifPlayer.AreTransportControlsEnabled = false;
                         gifPlayer.MediaPlayer.IsLoopingEnabled = true;
                         mediaContainer.Child = gifPlayer;
                         break;
