@@ -15,7 +15,7 @@ namespace MastoParser
         const char SpaceChar = (char)20;
 
 
-        public List<MastoContent> ParseLoop(string tag)
+        private List<MastoContent> ParseLoop(string tag)
         {
             string parsedTag = String.Empty;
             bool inBreakTag;
@@ -66,6 +66,8 @@ namespace MastoParser
                     }
                 }
             }
+
+            parsedContent.Add(new MastoText(_parseBuffer.ToString()));
             return parsedContent;
         }
 
@@ -76,18 +78,18 @@ namespace MastoParser
 
         private bool LoopConditionIsTrue(string tag, string parsedTag)
         {
-            bool willLoopEnd;
+            bool willLoopContinue;
             if (tag == string.Empty)
             {
-                willLoopEnd = charQueue.Count > 0;
+                willLoopContinue = charQueue.Count > 0;
 
             }
             else
             {
-                willLoopEnd = parsedTag == $"/{tag}>";
+                willLoopContinue = parsedTag == $"/{tag}>";
             }
 
-            return willLoopEnd;
+            return willLoopContinue;
         }
 
         private bool CheckIfBreakTag(string currentTag)
@@ -282,7 +284,7 @@ namespace MastoParser
 
             return contentToReturn;
         }
-
+       
 
         private MastoContent ParseUniqueLink(char uniqueChar)
         {
