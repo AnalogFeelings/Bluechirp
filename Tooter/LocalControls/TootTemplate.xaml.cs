@@ -44,13 +44,15 @@ namespace Tooter.LocalControls
                 {
                     StatusContent.Blocks.Clear();
                     MParser parser = new MParser();
+                    
                     Paragraph rootParagraph = new Paragraph();
+                    StatusContent.Blocks.Add(rootParagraph);
 
                     List<MastoContent> parsedContent = null;
                     try
                     {
                         parsedContent = parser.ParseContent(updatedStatus.Content);
-
+                        bool doesANewParagraphNeedToBeCreated = false;
                         foreach (var item in parsedContent)
                         {
                             if (item.ContentType == Model.MastoContentType.Text)
@@ -58,13 +60,16 @@ namespace Tooter.LocalControls
                                 var textItem = (MastoText)item;
                                 if (textItem.IsParagraph)
                                 {
-                                    Run run = new Run { Text = $"{textItem.Content}\n\n" };
-                                    rootParagraph.Inlines.Add(run);
+                                    doesANewParagraphNeedToBeCreated = true;
+                                    Run run = new Run { Text = $"{textItem.Content}" };
+                                    AddContentToTextBlock(run);
+                                    doesANewParagraphNeedToBeCreated = true;
                                 }
                                 else
                                 {
                                     Run run = new Run { Text = textItem.Content };
-                                    rootParagraph.Inlines.Add(run);
+                                    AddContentToTextBlock(run, doesANewParagraphNeedToBeCreated);
+                                    doesANewParagraphNeedToBeCreated = false;
                                 }
                             }
 
@@ -80,11 +85,28 @@ namespace Tooter.LocalControls
 
 
 
-                    StatusContent.Blocks.Add(rootParagraph);
+                    
                 }
             }
             Bindings.Update();
             args.Handled = true;
+        }
+
+        private void AddContentToTextBlock(Inline content , bool doesANewParagraphNeedToBeCreated = false)
+        {
+            if (doesANewParagraphNeedToBeCreated)
+            {
+                var freshParagraph = new Paragraph();
+                freshParagraph.Inlines.Add(content);
+                StatusContent.Blocks.Add(freshParagraph);
+            }
+            else
+            {
+                
+                // Only Block in UWP is a Paragraph
+                Paragraph lastParagraph = (Paragraph)StatusContent.Blocks.Last();
+                lastParagraph.Inlines.Add(content);
+            }
         }
     }
 }

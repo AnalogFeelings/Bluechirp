@@ -35,6 +35,7 @@ namespace Tooter.Parsers
                 {
                     if (character == ParserConstants.TagEndCharacter)
                     {
+                        parsedContent.Add(new MastoText("\n"));
                         parsedTag = string.Empty;
                     }
                 }
@@ -47,6 +48,11 @@ namespace Tooter.Parsers
                     }
                     else
                     {
+                        if (CheckIfParagraphTag(parsedTag))
+                        {
+                            //parsedContent.Add(new MastoText("", true));
+                        }
+
                         // Parse through inner content of parsed tag.
                         var recursiveContent = ParseLoop(parsedTag);
                         parsedContent.AddRange(recursiveContent);
@@ -78,9 +84,14 @@ namespace Tooter.Parsers
             return parsedContent;
         }
 
-        private void TryAddTextToParsedContent(List<MastoContent> parsedContent, string contentToAdd)
+        private bool CheckIfParagraphTag(string parsedTag)
         {
-            contentToAdd = contentToAdd.Replace(">", "").Trim();
+            return parsedTag == $"{ParserConstants.ParagraphTag}";
+        }
+
+        private void TryAddTextToParsedContent(List<MastoContent> parsedContent, string contentToAdd, bool isParagraph = true)
+        {
+            contentToAdd = contentToAdd.Replace(">", "");
             if (contentToAdd != string.Empty)
             {
 
