@@ -8,7 +8,6 @@ namespace Tooter.Model
 {
     public enum MastoContentType
     {
-        Media,
         Mention,
         Link,
         Text,

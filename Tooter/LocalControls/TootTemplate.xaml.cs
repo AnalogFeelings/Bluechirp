@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -141,9 +142,29 @@ namespace Tooter.LocalControls
 
 
                 }
+                AddMediaToStatus((List<Attachment>)updatedStatus.MediaAttachments);
             }
             Bindings.Update();
             args.Handled = true;
+        }
+
+        private void AddMediaToStatus(List<Attachment> mediaAttachments)
+        {
+            bool shouldNewParagraphBeCreated = false;
+            for (int i = 0; i < mediaAttachments.Count; i++)
+            {
+                if (i == 0)
+                {
+                    shouldNewParagraphBeCreated = true;
+                }
+
+                InlineUIContainer photoContainer = new InlineUIContainer();
+                BitmapImage img = new BitmapImage(new Uri(mediaAttachments[i].PreviewUrl));
+                photoContainer.Child = new Image { Source = img };
+
+                AddContentToTextBlock(photoContainer, shouldNewParagraphBeCreated);
+                shouldNewParagraphBeCreated = false;
+            }
         }
 
         private void AddContentToTextBlock(Inline content, bool doesANewParagraphNeedToBeCreated = false)
