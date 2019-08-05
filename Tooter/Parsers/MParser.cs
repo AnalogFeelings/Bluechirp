@@ -35,7 +35,7 @@ namespace Tooter.Parsers
                 {
                     if (character == ParserConstants.TagEndCharacter)
                     {
-                        parsedContent.Add(new MastoText("\n"));
+                        TryAddTextToParsedContent(parsedContent, "\n");
                         parsedTag = string.Empty;
                     }
                 }
@@ -50,7 +50,7 @@ namespace Tooter.Parsers
                     {
                         if (CheckIfParagraphTag(parsedTag))
                         {
-                            //parsedContent.Add(new MastoText("", true));
+                            TryAddTextToParsedContent(parsedContent, "\n\n");
                         }
 
                         // Parse through inner content of parsed tag.
