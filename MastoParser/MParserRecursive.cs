@@ -345,7 +345,11 @@ namespace MastoParser
 
         private void SkipToLinkTagEnd()
         {
-            
+            StringBuilder stringBuffer = new StringBuilder();
+            while (!stringBuffer.ToString().Contains($"</{ParserConstants.LinkTag}>"))
+            {
+                stringBuffer.Append(charQueue.Dequeue());
+            }
         }
 
         private MastoContentType determineContentTypeFromChar(char uniqueChar)
