@@ -12,7 +12,7 @@ namespace MastoParser
 
         StringBuilder _parseBuffer = new StringBuilder();
         Queue<char> charQueue = new Queue<char>();
-        const char SpaceChar = (char)20;
+        const char SpaceChar = (char)32;
 
 
         private List<MastoContent> ParseLoop(string tag)
@@ -73,7 +73,7 @@ namespace MastoParser
 
         private bool checkIfLinkTag(string parsedTag)
         {
-            return parsedTag.Equals(ParserConstants.LinkTag);
+            return parsedTag == $"{ParserConstants.LinkTag}";
         }
 
         private bool LoopConditionIsTrue(string tag, string parsedTag)
@@ -144,7 +144,8 @@ namespace MastoParser
             StringBuilder parsedTagBuffer = new StringBuilder();
             while (charQueue.Peek() != SpaceChar)
             {
-                parsedTagBuffer.Append(charQueue.Dequeue());
+                char thisChar = charQueue.Dequeue();
+                parsedTagBuffer.Append(thisChar);
             }
             return parsedTagBuffer.ToString();
         }
@@ -224,6 +225,12 @@ namespace MastoParser
                 {
                     // First tag has been closed
                     hasTagBeenClosed = true;
+                    if (currentAttribute != string.Empty)
+                    {
+                        tagAttributes[currentAttribute] = attributeBuffer.ToString();
+                        currentAttribute = string.Empty;
+                        attributeBuffer.Clear();
+                    }
                 }
 
                 else
@@ -260,14 +267,9 @@ namespace MastoParser
 
             // Now take action depending on the result of trying to find the "class" attribute
 
-            bool isRegularLink = tagAttributes.ContainsKey(ParserConstants.ClassAttribute);
+            bool isUniqueLink = tagAttributes.ContainsKey(ParserConstants.ClassAttribute);
 
-            if (isRegularLink)
-            {
-                // Do regular link stuff
-                contentToReturn = new MastoContent(tagAttributes[ParserConstants.LinkHref], MastoContentType.Link);
-            }
-            else
+            if (isUniqueLink)
             {
                 // handle a mention/hashtag.
 
@@ -280,11 +282,17 @@ namespace MastoParser
                         contentToReturn = ParseUniqueLink('@');
                         break;
                 }
+
+            }
+            else
+            {
+                // Do regular link stuff
+                contentToReturn = new MastoContent(tagAttributes[ParserConstants.LinkHref], MastoContentType.Link);
             }
 
             return contentToReturn;
         }
-       
+
 
         private MastoContent ParseUniqueLink(char uniqueChar)
         {

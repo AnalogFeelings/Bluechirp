@@ -10,19 +10,24 @@ namespace MastoParser
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter content to parse:");
-            string contentToParse = Console.ReadLine();
-
-            // Parse content
-            MParserRecursive parser = new MParserRecursive();
-           List<MastoContent> parsedContent = parser.ParseContent(contentToParse);
-
-            foreach (var item in parsedContent)
+            while (true)
             {
-                Console.Write(item.ContentType + ": ");
-                Console.WriteLine(item.Content);
+
+                Console.WriteLine("Enter content to parse:");
+                string contentToParse = Console.ReadLine();
+
+                // Parse content
+                MParserRecursive parser = new MParserRecursive();
+                List<MastoContent> parsedContent = parser.ParseContent(contentToParse);
+
+                foreach (var item in parsedContent)
+                {
+                    Console.Write(item.ContentType + ": ");
+                    Console.WriteLine(item.Content + "\n");
+                }
+               
+
             }
-            Console.ReadLine();
 
         }
     }
