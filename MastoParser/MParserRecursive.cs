@@ -285,13 +285,26 @@ namespace MastoParser
 
             // Now take action depending on the result of trying to find the "class" attribute
 
-            bool isUniqueLink = tagAttributes.ContainsKey(ParserConstants.ClassAttribute);
+            bool hasClassAttribute = tagAttributes.ContainsKey(ParserConstants.ClassAttribute);
+            bool isUniqueLink = false;
+
+            string classAttributeValue = string.Empty;
+
+            if (hasClassAttribute)
+            {
+                classAttributeValue = tagAttributes[ParserConstants.ClassAttribute];
+                if (classAttributeValue != string.Empty)
+                {
+                    isUniqueLink = true;
+                }
+            }
+
 
             if (isUniqueLink)
             {
                 // handle a mention/hashtag.
 
-                switch (tagAttributes[ParserConstants.ClassAttribute])
+                switch (classAttributeValue)
                 {
                     case ParserConstants.HashtagClass:
                         contentToReturn = ParseUniqueLink('#');
