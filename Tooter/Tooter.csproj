@@ -124,6 +124,7 @@
     <Compile Include="Commands\RelayCommandWithParameter.cs" />
     <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
     <Compile Include="Core\APIConstants.cs" />
+    <Compile Include="Core\MastoMediaConstants.cs" />
     <Compile Include="Core\ParserConstants.cs" />
     <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\ClientDataHelper.cs" />

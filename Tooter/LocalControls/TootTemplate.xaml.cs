@@ -5,10 +5,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tooter.Core;
 using Tooter.Model;
 using Tooter.Parsers;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Core;
 using Windows.UI;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
@@ -158,11 +160,30 @@ namespace Tooter.LocalControls
                     shouldNewParagraphBeCreated = true;
                 }
 
-                InlineUIContainer photoContainer = new InlineUIContainer();
-                BitmapImage img = new BitmapImage(new Uri(mediaAttachments[i].PreviewUrl));
-                photoContainer.Child = new Image { Source = img };
-
-                AddContentToTextBlock(photoContainer, shouldNewParagraphBeCreated);
+                InlineUIContainer mediaContainer = new InlineUIContainer();
+                switch (mediaAttachments[i].Type)
+                {
+                    case MastoMediaConstants.VideoType:
+                        MediaPlayerElement videoPlayer = new MediaPlayerElement();
+                        videoPlayer.PosterSource = new BitmapImage(new Uri(mediaAttachments[i].PreviewUrl));
+                        videoPlayer.Source = MediaSource.CreateFromUri(new Uri(mediaAttachments[i].Url));
+                        mediaContainer.Child = videoPlayer;
+                        break;
+                    case MastoMediaConstants.GIFType:
+                        MediaPlayerElement gifPlayer = new MediaPlayerElement();
+                        gifPlayer.Source = MediaSource.CreateFromUri(new Uri(mediaAttachments[i].Url));
+                        gifPlayer.AutoPlay = true;
+                        gifPlayer.TransportControls.Visibility = Visibility.Collapsed;
+                        gifPlayer.MediaPlayer.IsLoopingEnabled = true;
+                        mediaContainer.Child = gifPlayer;
+                        break;
+                    default:
+                        BitmapImage img = new BitmapImage(new Uri(mediaAttachments[i].PreviewUrl));
+                        mediaContainer.Child = new Image { Source = img };
+                        break;
+                }
+                
+                AddContentToTextBlock(mediaContainer, shouldNewParagraphBeCreated);
                 shouldNewParagraphBeCreated = false;
             }
         }
