@@ -263,7 +263,7 @@ namespace MastoParser
             if (isRegularLink)
             {
                 // Do regular link stuff
-
+                contentToReturn = new MastoContent(tagAttributes[ParserConstants.LinkHref], MastoContentType.Link);
             }
             else
             {
@@ -282,6 +282,7 @@ namespace MastoParser
 
             return contentToReturn;
         }
+
 
         private MastoContent ParseUniqueLink(char uniqueChar)
         {
