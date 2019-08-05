@@ -77,10 +77,10 @@ namespace MastoParser
 
         private void TryAddTextToParsedContent(List<MastoContent> parsedContent, string contentToAdd)
         {
-            contentToAdd = contentToAdd.Replace(">", "");
-            if (contentToAdd.Trim() != string.Empty)
+            contentToAdd = contentToAdd.Replace(">", "").Trim();
+            if (contentToAdd != string.Empty)
             {
-                parsedContent.Add(new MastoText(_parseBuffer.ToString()));
+                parsedContent.Add(new MastoText(contentToAdd));
             }
         }
 
