@@ -11,6 +11,7 @@ namespace MastoParser
         Media,
         Mention,
         Link,
-        Text
+        Text,
+        Hashtag
     }
 }

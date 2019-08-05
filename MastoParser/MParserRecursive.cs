@@ -283,9 +283,81 @@ namespace MastoParser
             return contentToReturn;
         }
 
-        private MastoContent ParseUniqueLink(char v)
+        private MastoContent ParseUniqueLink(char uniqueChar)
         {
-            throw new NotImplementedException();
+            MastoContent contentToReturn = null;
+            bool betweenTags = true;
+            bool wasUniqueCharFound = false;
+            bool linkTagEndReached = false;
+            bool spanTagReached = false;
+            bool isInSpanTagContent = false;
+
+            StringBuilder uniqueLinkBuffer = new StringBuilder();
+
+            while (!linkTagEndReached)
+            {
+                char charFound = charQueue.Dequeue();
+                if (wasUniqueCharFound == false)
+                {
+                    if (charFound == uniqueChar)
+                    {
+                        wasUniqueCharFound = true;
+                    }
+                }
+                else if (!spanTagReached)
+                {
+                    if (charFound == '<')
+                    {
+                        spanTagReached = true;
+                    }
+                }
+                else if (spanTagReached)
+                {
+                    if (charFound == '>')
+                    {
+                        isInSpanTagContent = true;
+                    }
+                }
+                else if (isInSpanTagContent)
+                {
+                    if (charFound == '<')
+                    {
+                        // Save buffer content
+                        // clear buffer
+                        // dequeue to link tag end
+                        // set isLinkTagReached to true
+                        string uniqueLinkContent = uniqueLinkBuffer.ToString();
+                        MastoContentType contentType = determineContentTypeFromChar(uniqueChar);
+                        contentToReturn = new MastoContent(uniqueLinkContent, contentType);
+                        uniqueLinkBuffer.Clear();
+                        SkipToLinkTagEnd();
+                        linkTagEndReached = true;
+                    }
+                    else
+                    {
+                        uniqueLinkBuffer.Append(charFound);
+                    }
+                }
+            }
+
+            return contentToReturn;
+        }
+
+        private void SkipToLinkTagEnd()
+        {
+            
+        }
+
+        private MastoContentType determineContentTypeFromChar(char uniqueChar)
+        {
+            if (uniqueChar == '#')
+            {
+                return MastoContentType.Hashtag;
+            }
+            else
+            {
+                return MastoContentType.Mention;
+            }
         }
     }
 }
