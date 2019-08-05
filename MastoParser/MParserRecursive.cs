@@ -153,6 +153,15 @@ namespace MastoParser
                 char thisChar = charQueue.Dequeue();
                 parsedTagBuffer.Append(thisChar);
             }
+
+            // Code for skipping over span attributes
+            if (parsedTagBuffer.ToString().Contains(ParserConstants.SpanTag))
+            {
+                while (charQueue.Peek() != '>')
+                {
+                    charQueue.Dequeue();
+                }
+            }
             return parsedTagBuffer.ToString();
         }
 
@@ -184,13 +193,6 @@ namespace MastoParser
             return (wasAttributeFound, attributeToAdd);
         }
 
-        private void HandleNewTag(string currentTag, ref bool inBreakTag)
-        {
-            if (currentTag == ParserConstants.BreakTag)
-            {
-                inBreakTag = true;
-            }
-        }
 
         public MastoContent HandleLinkTag()
         {
