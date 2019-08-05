@@ -89,7 +89,7 @@ namespace MastoParser
             }
             else
             {
-                willLoopContinue = parsedTag == $"/{tag}>";
+                willLoopContinue = parsedTag != $"/{tag}";
             }
 
             return willLoopContinue;
@@ -148,7 +148,7 @@ namespace MastoParser
             // (space).
 
             StringBuilder parsedTagBuffer = new StringBuilder();
-            while (charQueue.Peek() != SpaceChar)
+            while (charQueue.Peek() != SpaceChar && charQueue.Peek() != '>')
             {
                 char thisChar = charQueue.Dequeue();
                 parsedTagBuffer.Append(thisChar);
