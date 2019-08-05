@@ -73,6 +73,7 @@
                        RelativePanel.AlignRightWithPanel="True"
                        Text="{x:Bind CurrentStatus.Content}"
                        TextWrapping="Wrap"
+                       IsTextSelectionEnabled="True"
                        FontSize="22"
                        Canvas.ZIndex="100"/>
 

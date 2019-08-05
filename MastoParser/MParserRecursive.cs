@@ -67,7 +67,10 @@ namespace MastoParser
                 }
             }
 
-            parsedContent.Add(new MastoText(_parseBuffer.ToString()));
+            if (_parseBuffer.Length > 0)
+            {
+                parsedContent.Add(new MastoText(_parseBuffer.ToString()));
+            }
             return parsedContent;
         }
 
@@ -116,10 +119,13 @@ namespace MastoParser
 
             if (character == ParserConstants.TagStartCharacter)
             {
-                text = _parseBuffer.ToString();
-                _parseBuffer.Clear();
+                if (_parseBuffer.Length > 0)
+                {
+                    text = _parseBuffer.ToString();
+                    _parseBuffer.Clear();
+                    hasTextToParse = true;
+                }
 
-                hasTextToParse = true;
                 hasTagToParse = true;
             }
 
@@ -288,6 +294,7 @@ namespace MastoParser
             {
                 // Do regular link stuff
                 contentToReturn = new MastoContent(tagAttributes[ParserConstants.LinkHref], MastoContentType.Link);
+                SkipToLinkTagEnd();
             }
 
             return contentToReturn;
@@ -322,13 +329,6 @@ namespace MastoParser
                         spanTagReached = true;
                     }
                 }
-                else if (spanTagReached)
-                {
-                    if (charFound == '>')
-                    {
-                        isInSpanTagContent = true;
-                    }
-                }
                 else if (isInSpanTagContent)
                 {
                     if (charFound == '<')
@@ -347,6 +347,13 @@ namespace MastoParser
                     else
                     {
                         uniqueLinkBuffer.Append(charFound);
+                    }
+                }
+                else if (spanTagReached)
+                {
+                    if (charFound == '>')
+                    {
+                        isInSpanTagContent = true;
                     }
                 }
             }
