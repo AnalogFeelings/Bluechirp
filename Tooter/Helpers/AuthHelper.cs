@@ -34,9 +34,7 @@ namespace Tooter.Helpers
             _appRegistration = await _authClient.CreateApp(AppName, Scope.Read | Scope.Write | Scope.Follow, redirectUri: APIConstants.RedirectUri);
             var url = _authClient.OAuthUrl(APIConstants.RedirectUri);
 
-            var launchOptions = new LauncherOptions();
-            launchOptions.DisplayApplicationPicker = true;
-            await Launcher.LaunchUriAsync(new Uri(url), launchOptions);
+            await Launcher.LaunchUriAsync(new Uri(url));
         }
 
 
