@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tooter.Core;
 using Tooter.Model;
+using System.Net;
 
 namespace Tooter.Parsers
 {
@@ -82,7 +83,8 @@ namespace Tooter.Parsers
             contentToAdd = contentToAdd.Replace(">", "").Trim();
             if (contentToAdd != string.Empty)
             {
-                parsedContent.Add(new MastoText(contentToAdd));
+
+                parsedContent.Add(new MastoText(WebUtility.HtmlDecode(contentToAdd)));
             }
         }
 
@@ -364,7 +366,7 @@ namespace Tooter.Parsers
                         // clear buffer
                         // dequeue to link tag end
                         // set isLinkTagReached to true
-                        string uniqueLinkContent = uniqueLinkBuffer.ToString();
+                        string uniqueLinkContent = WebUtility.HtmlDecode(uniqueLinkBuffer.ToString());
                         MastoContentType contentType = determineContentTypeFromChar(uniqueChar);
                         contentToReturn = new MastoContent(uniqueLinkContent, contentType);
                         uniqueLinkBuffer.Clear();
@@ -385,6 +387,7 @@ namespace Tooter.Parsers
                 }
             }
 
+            
             return contentToReturn;
         }
 
