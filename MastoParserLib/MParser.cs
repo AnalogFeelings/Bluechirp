@@ -306,16 +306,12 @@ namespace MastoParserLib
 
         private MastoContent PlainHashtagParse()
         {
-            MastoContent contentToReturn = null;
-            bool hashtagEnded = false;
-
             StringBuilder plainHashtagBuffer = new StringBuilder();
-            while (!hashtagEnded)
+            while (true)
             {
                 char charFound = charQueue.Dequeue();
                 if (charFound == '<')
                 {
-                    hashtagEnded = true;
                     break;
                 }
                 else if (charFound != '#')
@@ -323,7 +319,7 @@ namespace MastoParserLib
                     plainHashtagBuffer.Append(charFound);
                 }
             }
-            contentToReturn = new MastoContent(plainHashtagBuffer.ToString(), MastoContentType.Hashtag);
+            MastoContent contentToReturn = new MastoContent(plainHashtagBuffer.ToString(), MastoContentType.Hashtag);
             return contentToReturn;
         }
 
