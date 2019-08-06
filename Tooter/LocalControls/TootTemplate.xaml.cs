@@ -80,9 +80,9 @@ namespace Tooter.LocalControls
                                 {
                                     case MastoContentType.Mention:
                                         List<Mention> mentions = (List<Mention>)reblogStatus.Mentions;
-                                        for (int tagIndex = 0; i < mentions.Count; i++)
+                                        for (int mentionIndex = 0; mentionIndex < mentions.Count; mentionIndex++)
                                         {
-                                            if (mentions[tagIndex].AccountName == item.Content)
+                                            if (mentions[mentionIndex].AccountName == item.Content)
                                             {
                                                 Run tagRun = new Run { Text = $"@{item.Content}" };
                                                 Hyperlink mentionLink = new Hyperlink();
@@ -123,7 +123,7 @@ namespace Tooter.LocalControls
 
                                     case MastoContentType.Hashtag:
                                         List<Tag> tags = (List<Tag>)reblogStatus.Tags;
-                                        for (int tagIndex = 0; i < tags.Count; i++)
+                                        for (int tagIndex = 0; tagIndex < tags.Count; tagIndex++)
                                         {
                                             if (tags[tagIndex].Name == item.Content)
                                             {
@@ -192,9 +192,9 @@ namespace Tooter.LocalControls
                                 {
                                     case MastoContentType.Mention:
                                         List<Mention> mentions = (List<Mention>)updatedStatus.Mentions;
-                                        for (int tagIndex = 0; i < mentions.Count; i++)
+                                        for (int mentionIndex = 0; mentionIndex < mentions.Count; mentionIndex++)
                                         {
-                                            if (mentions[tagIndex].AccountName == item.Content)
+                                            if (mentions[mentionIndex].AccountName == item.Content)
                                             {
                                                 Run tagRun = new Run { Text = $"@{item.Content}" };
                                                 Hyperlink mentionLink = new Hyperlink();
@@ -235,7 +235,7 @@ namespace Tooter.LocalControls
 
                                     case MastoContentType.Hashtag:
                                         List<Tag> tags = (List<Tag>)updatedStatus.Tags;
-                                        for (int tagIndex = 0; i < tags.Count; i++)
+                                        for (int tagIndex = 0; tagIndex < tags.Count; tagIndex++)
                                         {
                                             if (tags[tagIndex].Name == item.Content)
                                             {
