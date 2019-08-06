@@ -106,10 +106,10 @@
                     <Button Name="ReplyButton">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE97A;" />
                     </Button>
-                    <ToggleButton Name="BoostButton" Style="{ThemeResource ReverseTextBlockButtonStyle}">
+                    <ToggleButton Name="BoostButton" Style="{ThemeResource TextToggleButtonStyle}">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8EB;" />
                     </ToggleButton>
-                    <ToggleButton Name="FavouriteButton" Style="{ThemeResource ReverseTextBlockButtonStyle}">
+                    <ToggleButton Name="FavouriteButton" Style="{ThemeResource TextToggleButtonStyle}">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
                     </ToggleButton>
                     <Button Name="MoreButton">
