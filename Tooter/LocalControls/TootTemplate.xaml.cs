@@ -34,10 +34,7 @@ namespace Tooter.LocalControls
         public TootTemplate()
         {
             this.InitializeComponent();
-            //this.DataContextChanged += (s, e) => this.Bindings.Update();
             this.DataContextChanged += UpdateData;
-
-
         }
 
         private void UpdateData(FrameworkElement sender, DataContextChangedEventArgs args)
@@ -46,106 +43,26 @@ namespace Tooter.LocalControls
 
             if (updatedStatus != null)
             {
+                MParser parser = new MParser();
+                StatusContent.Blocks.Clear();
+
+                Paragraph rootParagraph = new Paragraph();
+                StatusContent.Blocks.Add(rootParagraph);
 
                 if (updatedStatus.Reblog != null)
                 {
                     var reblogStatus = updatedStatus.Reblog;
                     if (reblogStatus.Content != null)
                     {
-                        // On top of content, show that it's a reblog with indicators and stuff e.g (who reblogged
+                        // On top of content, show that it's a reblog with indicators and stuff e.g (who reblogged)
                         // on top of original status
-                        UpdateNameTextBlocks(reblogStatus.Account);
-                        UpdateAvatar(reblogStatus.Account.AvatarUrl);
-                        RebloggedByButton.Visibility = Visibility.Visible;
-                        RebloggedByButton.Content = $"Reblogged by: {updatedStatus.Account.DisplayName}";
-                        StatusContent.Blocks.Clear();
 
-                        StatusContent.Blocks.Clear();
-                        MParser parser = new MParser();
+                        UpdateRebloggedByButton(updatedStatus.Account, reblogStatus.Account, true);
 
-                        Paragraph rootParagraph = new Paragraph();
-                        StatusContent.Blocks.Add(rootParagraph);
-
-                        List<MastoContent> parsedContent = null;
                         try
                         {
-                            parsedContent = parser.ParseContent(reblogStatus.Content);
-                            bool doesANewParagraphNeedToBeCreated = false;
-
-                            for (int i = 0; i < parsedContent.Count; i++)
-                            {
-                                var item = parsedContent[i];
-
-
-                                switch (item.ContentType)
-                                {
-                                    case MastoContentType.Mention:
-                                        List<Mention> mentions = (List<Mention>)reblogStatus.Mentions;
-                                        for (int mentionIndex = 0; mentionIndex < mentions.Count; mentionIndex++)
-                                        {
-                                            if (mentions[mentionIndex].AccountName == item.Content)
-                                            {
-                                                Run tagRun = new Run { Text = $"@{item.Content}" };
-                                                Hyperlink mentionLink = new Hyperlink();
-                                                mentionLink.Inlines.Add(tagRun);
-                                                AddContentToTextBlock(mentionLink);
-                                                break;
-                                            }
-                                        }
-                                        break;
-                                    case MastoContentType.Link:
-                                        Run linkRun = new Run { Text = item.Content };
-                                        Hyperlink link = new Hyperlink();
-                                        link.NavigateUri = new Uri(item.Content);
-                                        link.Inlines.Add(linkRun);
-                                        AddContentToTextBlock(link);
-                                        break;
-                                    case MastoContentType.Text:
-                                        var textItem = (MastoText)item;
-                                        if (i == 0)
-                                        {
-                                            item.Content = item.Content.TrimStart();
-                                        }
-
-                                        if (textItem.IsParagraph)
-                                        {
-                                            doesANewParagraphNeedToBeCreated = true;
-                                            Run run = new Run { Text = $"{textItem.Content}" };
-                                            AddContentToTextBlock(run);
-                                            doesANewParagraphNeedToBeCreated = true;
-                                        }
-                                        else
-                                        {
-                                            Run run = new Run { Text = textItem.Content };
-                                            AddContentToTextBlock(run, doesANewParagraphNeedToBeCreated);
-                                            doesANewParagraphNeedToBeCreated = false;
-                                        }
-                                        break;
-
-                                    case MastoContentType.Hashtag:
-                                        List<Tag> tags = (List<Tag>)reblogStatus.Tags;
-                                        for (int tagIndex = 0; tagIndex < tags.Count; tagIndex++)
-                                        {
-                                            if (tags[tagIndex].Name == item.Content)
-                                            {
-                                                Run tagRun = new Run { Text = $"#{item.Content}" };
-                                                Hyperlink hashtagLink = new Hyperlink();
-                                                hashtagLink.Inlines.Add(tagRun);
-                                                AddContentToTextBlock(hashtagLink);
-                                                break;
-                                            }
-                                        }
-
-                                        break;
-
-                                    default:
-                                        break;
-                                }
-
-                            }
-
-
-
+                            List<MastoContent> parsedContent = parser.ParseContent(reblogStatus.Content);
+                            TryDisplayParsedContent(parsedContent, reblogStatus);
                         }
                         catch
                         {
@@ -153,111 +70,21 @@ namespace Tooter.LocalControls
                             run.Foreground = new SolidColorBrush(Colors.Red);
                             rootParagraph.Inlines.Add(run);
                         }
-
-
-
-
                         AddMediaToStatus((List<Attachment>)reblogStatus.MediaAttachments);
                     }
-
                 }
 
 
                 // Display regular status
                 else
                 {
-                    UpdateNameTextBlocks(updatedStatus.Account);
-                    UpdateAvatar(updatedStatus.Account.AvatarUrl);
-
-                    RebloggedByButton.Visibility = Visibility.Collapsed;
+                    UpdateRebloggedByButton(updatedStatus.Account, null);
                     if (updatedStatus.Content != null)
                     {
-                        StatusContent.Blocks.Clear();
-                        MParser parser = new MParser();
-
-                        Paragraph rootParagraph = new Paragraph();
-                        StatusContent.Blocks.Add(rootParagraph);
-
-                        List<MastoContent> parsedContent = null;
                         try
                         {
-                            parsedContent = parser.ParseContent(updatedStatus.Content);
-                            bool doesANewParagraphNeedToBeCreated = false;
-
-                            for (int i = 0; i < parsedContent.Count; i++)
-                            {
-                                var item = parsedContent[i];
-
-
-                                switch (item.ContentType)
-                                {
-                                    case MastoContentType.Mention:
-                                        List<Mention> mentions = (List<Mention>)updatedStatus.Mentions;
-                                        for (int mentionIndex = 0; mentionIndex < mentions.Count; mentionIndex++)
-                                        {
-                                            if (mentions[mentionIndex].AccountName == item.Content)
-                                            {
-                                                Run tagRun = new Run { Text = $"@{item.Content}" };
-                                                Hyperlink mentionLink = new Hyperlink();
-                                                mentionLink.Inlines.Add(tagRun);
-                                                AddContentToTextBlock(mentionLink);
-                                                break;
-                                            }
-                                        }
-                                        break;
-                                    case MastoContentType.Link:
-                                        Run linkRun = new Run { Text = item.Content };
-                                        Hyperlink link = new Hyperlink();
-                                        link.NavigateUri = new Uri(item.Content);
-                                        link.Inlines.Add(linkRun);
-                                        AddContentToTextBlock(link);
-                                        break;
-                                    case MastoContentType.Text:
-                                        var textItem = (MastoText)item;
-                                        if (i == 0)
-                                        {
-                                            item.Content = item.Content.TrimStart();
-                                        }
-
-                                        if (textItem.IsParagraph)
-                                        {
-                                            doesANewParagraphNeedToBeCreated = true;
-                                            Run run = new Run { Text = $"{textItem.Content}" };
-                                            AddContentToTextBlock(run);
-                                            doesANewParagraphNeedToBeCreated = true;
-                                        }
-                                        else
-                                        {
-                                            Run run = new Run { Text = textItem.Content };
-                                            AddContentToTextBlock(run, doesANewParagraphNeedToBeCreated);
-                                            doesANewParagraphNeedToBeCreated = false;
-                                        }
-                                        break;
-
-                                    case MastoContentType.Hashtag:
-                                        List<Tag> tags = (List<Tag>)updatedStatus.Tags;
-                                        for (int tagIndex = 0; tagIndex < tags.Count; tagIndex++)
-                                        {
-                                            if (tags[tagIndex].Name == item.Content)
-                                            {
-                                                Run tagRun = new Run { Text = $"#{item.Content}" };
-                                                Hyperlink hashtagLink = new Hyperlink();
-                                                hashtagLink.Inlines.Add(tagRun);
-                                                AddContentToTextBlock(hashtagLink);
-                                                break;
-                                            }
-                                        }
-
-                                        break;
-
-                                    default:
-                                        break;
-                                }
-
-                            }
-
-
-
+                            List<MastoContent> parsedContent = parser.ParseContent(updatedStatus.Content);
+                            TryDisplayParsedContent(parsedContent, updatedStatus);
                         }
                         catch
                         {
@@ -265,16 +92,124 @@ namespace Tooter.LocalControls
                             run.Foreground = new SolidColorBrush(Colors.Red);
                             rootParagraph.Inlines.Add(run);
                         }
-
-
-
-
                         AddMediaToStatus((List<Attachment>)updatedStatus.MediaAttachments);
                     }
+
                 }
             }
 
             args.Handled = true;
+        }
+
+        private void TryDisplayParsedContent(List<MastoContent> parsedContent, Status status)
+        {
+            bool doesANewParagraphNeedToBeCreated = false;
+            for (int i = 0; i < parsedContent.Count; i++)
+            {
+                var item = parsedContent[i];
+                switch (item.ContentType)
+                {
+                    case MastoContentType.Mention:
+                        List<Mention> mentions = (List<Mention>)status.Mentions;
+                        TryAddMentions(mentions, item.Content);
+                        break;
+                    case MastoContentType.Link:
+                        TryAddLinks(item.Content);
+                        break;
+                    case MastoContentType.Text:
+                        var textItem = (MastoText)item;
+                        TryAddText(textItem, i, ref doesANewParagraphNeedToBeCreated);
+                        break;
+                    case MastoContentType.Hashtag:
+                        List<Tag> tags = (List<Tag>)status.Tags;
+                        TryAddHashtags(tags, item.Content);
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        }
+
+        private void UpdateRebloggedByButton(Account mainAccount, Account reblogAccount, bool isReblog = false)
+        {
+            if (isReblog)
+            {
+                UpdateNameTextBlocks(reblogAccount);
+                UpdateAvatar(reblogAccount.AvatarUrl);
+                RebloggedByButton.Visibility = Visibility.Visible;
+                RebloggedByButton.Content = $"Reblogged by: {mainAccount.DisplayName}";
+            }
+            else
+            {
+                UpdateNameTextBlocks(mainAccount);
+                UpdateAvatar(mainAccount.AvatarUrl);
+                RebloggedByButton.Visibility = Visibility.Collapsed;
+                RebloggedByButton.Content = "";
+            }
+        }
+
+        private void TryAddHashtags(List<Tag> tags, string contentValue)
+        {
+            for (int tagIndex = 0; tagIndex < tags.Count; tagIndex++)
+            {
+                if (tags[tagIndex].Name == contentValue)
+                {
+                    Run tagRun = new Run { Text = $"#{contentValue}" };
+                    Hyperlink hashtagLink = new Hyperlink();
+                    hashtagLink.Inlines.Add(tagRun);
+                    AddContentToTextBlock(hashtagLink);
+                    break;
+                }
+            }
+        }
+
+        private void TryAddText(MastoText textItem, int loopsCompleted, ref bool doesANewParagraphNeedToBeCreated)
+        {
+            string contentToPrint = textItem.Content;
+            if (loopsCompleted == 0)
+            {
+                contentToPrint = contentToPrint.TrimStart();
+            }
+
+            if (textItem.IsParagraph)
+            {
+                Run run = new Run { Text = $"{contentToPrint}" };
+                AddContentToTextBlock(run);
+                doesANewParagraphNeedToBeCreated = true;
+            }
+            else
+            {
+                Run run = new Run { Text = contentToPrint};
+                AddContentToTextBlock(run, doesANewParagraphNeedToBeCreated);
+                doesANewParagraphNeedToBeCreated = false;
+            }
+        }
+
+        private void TryAddLinks(string contentValue)
+        {
+            Run linkRun = new Run { Text = contentValue };
+            Hyperlink link = new Hyperlink
+            {
+                NavigateUri = new Uri(contentValue)
+            };
+            link.Inlines.Add(linkRun);
+            AddContentToTextBlock(link);
+        }
+
+        private void TryAddMentions(List<Mention> mentions, string contentValue)
+        {
+            for (int mentionIndex = 0; mentionIndex < mentions.Count; mentionIndex++)
+            {
+                if (mentions[mentionIndex].AccountName == contentValue)
+                {
+                    Run tagRun = new Run { Text = $"@{contentValue}" };
+                    Hyperlink mentionLink = new Hyperlink();
+                    mentionLink.Inlines.Add(tagRun);
+                    AddContentToTextBlock(mentionLink);
+                    break;
+                }
+            }
         }
 
         private void UpdateAvatar(string avatarUrl)
@@ -302,18 +237,22 @@ namespace Tooter.LocalControls
                 switch (mediaAttachments[i].Type)
                 {
                     case MastoMediaConstants.VideoType:
-                        MediaPlayerElement videoPlayer = new MediaPlayerElement();
-                        videoPlayer.PosterSource = new BitmapImage(new Uri(mediaAttachments[i].PreviewUrl));
-                        videoPlayer.Source = MediaSource.CreateFromUri(new Uri(mediaAttachments[i].Url));
-                        videoPlayer.AreTransportControlsEnabled = true;
+                        MediaPlayerElement videoPlayer = new MediaPlayerElement
+                        {
+                            PosterSource = new BitmapImage(new Uri(mediaAttachments[i].PreviewUrl)),
+                            Source = MediaSource.CreateFromUri(new Uri(mediaAttachments[i].Url)),
+                            AreTransportControlsEnabled = true
+                        };
                         videoPlayer.TransportControls.IsCompact = true;
                         mediaContainer.Child = videoPlayer;
                         break;
                     case MastoMediaConstants.GIFType:
-                        MediaPlayerElement gifPlayer = new MediaPlayerElement();
-                        gifPlayer.Source = MediaSource.CreateFromUri(new Uri(mediaAttachments[i].Url));
-                        gifPlayer.AutoPlay = true;
-                        gifPlayer.AreTransportControlsEnabled = false;
+                        MediaPlayerElement gifPlayer = new MediaPlayerElement
+                        {
+                            Source = MediaSource.CreateFromUri(new Uri(mediaAttachments[i].Url)),
+                            AutoPlay = true,
+                            AreTransportControlsEnabled = false,
+                        };
                         gifPlayer.MediaPlayer.IsLoopingEnabled = true;
                         mediaContainer.Child = gifPlayer;
                         break;
