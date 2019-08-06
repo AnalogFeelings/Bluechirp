@@ -297,7 +297,8 @@ namespace Tooter.LocalControls
 
         private async void ReblogButton_Click(object sender, RoutedEventArgs e)
         {
-            var statusToUse = CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog;
+            Status statusToUse = PickStatusFromReblogContext();
+                
             try
             {
 
@@ -320,9 +321,14 @@ namespace Tooter.LocalControls
             }
         }
 
+        private Status PickStatusFromReblogContext()
+        {
+            return CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog; ;
+        }
+
         private async void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
-            var statusToUse = CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog;
+            Status statusToUse = PickStatusFromReblogContext();
             try
             {
                 Status favResult = null;
