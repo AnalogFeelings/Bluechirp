@@ -12,7 +12,6 @@ namespace MastoParserLib
 {
     public class MParser
     {
-
         StringBuilder _parseBuffer = new StringBuilder();
         Queue<char> charQueue = null;
         const char SpaceChar = (char)32;
@@ -35,9 +34,9 @@ namespace MastoParserLib
                     if (character == ParserConstants.TagEndCharacter)
                     {
                         TryAddTextToParsedContent(parsedContent, "\n");
-                        parsedTag = string.Empty;
+
+                        ClearTag(ref parsedTag);
                     }
-                    
                 }
 
                 else if (parsedTag != string.Empty)
@@ -57,7 +56,7 @@ namespace MastoParserLib
                         var recursiveContent = ParseLoop(parsedTag);
                         parsedContent.AddRange(recursiveContent);
                     }
-                    parsedTag = string.Empty;
+                    ClearTag(ref parsedTag);
                 }
                 else
                 {
@@ -84,7 +83,11 @@ namespace MastoParserLib
             return parsedContent;
         }
 
-        
+        private void ClearTag(ref string parsedTag)
+        {
+            parsedTag = string.Empty;
+        }
+
         private void TryAddTextToParsedContent(List<MastoContent> parsedContent, string contentToAdd, bool isParagraph = true)
         {
             contentToAdd = contentToAdd.Replace(">", "");
@@ -94,8 +97,8 @@ namespace MastoParserLib
             }
         }
 
-        
-        private bool checkIfTag(string parsedTag , string expectedTag)
+
+        private bool checkIfTag(string parsedTag, string expectedTag)
         {
             return parsedTag == expectedTag;
         }
