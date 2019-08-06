@@ -246,6 +246,7 @@ namespace Tooter.LocalControls
                         videoPlayer.TransportControls.IsCompact = true;
                         mediaContainer.Child = videoPlayer;
                         break;
+
                     case MastoMediaConstants.GIFType:
                         MediaPlayerElement gifPlayer = new MediaPlayerElement
                         {
@@ -256,6 +257,7 @@ namespace Tooter.LocalControls
                         gifPlayer.MediaPlayer.IsLoopingEnabled = true;
                         mediaContainer.Child = gifPlayer;
                         break;
+
                     default:
                         BitmapImage img = new BitmapImage(new Uri(mediaAttachments[i].PreviewUrl));
                         mediaContainer.Child = new Image { Source = img };

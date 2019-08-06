@@ -288,6 +288,9 @@ namespace MastoParserLib
                     case ParserConstants.MentionClass:
                         contentToReturn = ParseUniqueLink('@');
                         break;
+                    case ParserConstants.PlainHashtagClass:
+                        contentToReturn = PlainHashtagParse();
+                        break;
                 }
 
             }
@@ -301,6 +304,28 @@ namespace MastoParserLib
             return contentToReturn;
         }
 
+        private MastoContent PlainHashtagParse()
+        {
+            MastoContent contentToReturn = null;
+            bool hashtagEnded = false;
+
+            StringBuilder plainHashtagBuffer = new StringBuilder();
+            while (!hashtagEnded)
+            {
+                char charFound = charQueue.Dequeue();
+                if (charFound == '<')
+                {
+                    hashtagEnded = true;
+                    break;
+                }
+                else if (charFound != '#')
+                {
+                    plainHashtagBuffer.Append(charFound);
+                }
+            }
+            contentToReturn = new MastoContent(plainHashtagBuffer.ToString(), MastoContentType.Hashtag);
+            return contentToReturn;
+        }
 
         private MastoContent ParseUniqueLink(char uniqueChar)
         {
