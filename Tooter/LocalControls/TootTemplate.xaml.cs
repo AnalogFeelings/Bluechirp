@@ -71,6 +71,7 @@ namespace Tooter.LocalControls
                             run.Foreground = new SolidColorBrush(Colors.Red);
                             rootParagraph.Inlines.Add(run);
                         }
+                        UpdateTootActions(reblogStatus);
                         AddMediaToStatus((List<Attachment>)reblogStatus.MediaAttachments);
                     }
                 }
@@ -93,14 +94,20 @@ namespace Tooter.LocalControls
                             run.Foreground = new SolidColorBrush(Colors.Red);
                             rootParagraph.Inlines.Add(run);
                         }
+                        UpdateTootActions(updatedStatus);
                         AddMediaToStatus((List<Attachment>)updatedStatus.MediaAttachments);
                     }
 
                 }
             }
 
-            Bindings.Update();
             args.Handled = true;
+        }
+
+        private void UpdateTootActions(Status status)
+        {
+            FavouriteButton.IsChecked = status.Favourited;
+            ReblogButton.IsChecked = status.Reblogged;
         }
 
         private void TryDisplayParsedContent(List<MastoContent> parsedContent, Status status)
@@ -290,30 +297,58 @@ namespace Tooter.LocalControls
 
         private async void ReblogButton_Click(object sender, RoutedEventArgs e)
         {
+            var statusToUse = CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog;
             try
             {
-                var reblogResult = await ClientHelper.Client.Reblog(CurrentStatus.Id);
-                CurrentStatus.Reblogged = reblogResult.Reblogged;
+
+                Status reblogResult = null;
+
+                if (statusToUse.Reblogged == true)
+                {
+                    reblogResult = await ClientHelper.Client.Unreblog(statusToUse.Id);
+                }
+                else if (statusToUse.Reblogged == false)
+                {
+                    reblogResult = await ClientHelper.Client.Reblog(statusToUse.Id);
+                }
+                statusToUse.Reblogged = reblogResult.Reblogged;
             }
             catch
             {
                 Debug.WriteLine("Reblog Failed, check internet connection!");
-                ReblogButton.IsChecked = CurrentStatus.Reblogged;
+                ReblogButton.IsChecked = statusToUse.Reblogged;
             }
         }
 
         private async void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
+            var statusToUse = CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog;
             try
             {
-                var favResult = await ClientHelper.Client.Favourite(CurrentStatus.Id);
-                CurrentStatus.Favourited = favResult.Favourited;
+                Status favResult = null;
+                if (statusToUse.Favourited == true)
+                {
+                    favResult = await ClientHelper.Client.Unfavourite(statusToUse.Id);
+                }
+                else if (statusToUse.Favourited == false)
+                {
+                    favResult = await ClientHelper.Client.Favourite(statusToUse.Id);
+                }
+                statusToUse.Favourited = favResult.Favourited;
             }
-            catch
+            catch (Exception ex)
             {
-                Debug.WriteLine("Favourite Failed, check internet connection!");
-                FavouriteButton.IsChecked = CurrentStatus.Favourited;
+                if (ex is Mastonet.ServerErrorException serverException)
+                {
+                    Debug.WriteLine(serverException);
+                }
+                else
+                {
+                    Debug.WriteLine("Favourite Failed, check internet connection!");
+                }
+                FavouriteButton.IsChecked = statusToUse.Favourited;
             }
+
         }
     }
 }
