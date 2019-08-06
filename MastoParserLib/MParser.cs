@@ -14,13 +14,13 @@ namespace MastoParserLib
     {
 
         StringBuilder _parseBuffer = new StringBuilder();
-        Queue<char> charQueue = new Queue<char>();
+        Queue<char> charQueue = null;
         const char SpaceChar = (char)32;
 
 
         private List<MastoContent> ParseLoop(string tag)
         {
-            string parsedTag = String.Empty;
+            string parsedTag = string.Empty;
             bool inBreakTag;
 
             List<MastoContent> parsedContent = new List<MastoContent>();
@@ -28,8 +28,7 @@ namespace MastoParserLib
 
             while (LoopConditionIsTrue(tag, parsedTag))
             {
-                inBreakTag = CheckIfBreakTag(parsedTag);
-
+                inBreakTag = checkIfTag(parsedTag, ParserConstants.BreakTag);
                 char character = charQueue.Dequeue();
                 if (inBreakTag)
                 {
@@ -38,17 +37,18 @@ namespace MastoParserLib
                         TryAddTextToParsedContent(parsedContent, "\n");
                         parsedTag = string.Empty;
                     }
+                    
                 }
 
                 else if (parsedTag != string.Empty)
                 {
-                    if (checkIfLinkTag(parsedTag))
+                    if (checkIfTag(parsedTag, $"{ParserConstants.LinkTag}"))
                     {
                         parsedContent.Add(HandleLinkTag());
                     }
                     else
                     {
-                        if (CheckIfParagraphTag(parsedTag))
+                        if (checkIfTag(parsedTag, $"{ParserConstants.ParagraphTag}"))
                         {
                             TryAddTextToParsedContent(parsedContent, "\n\n");
                         }
@@ -84,24 +84,20 @@ namespace MastoParserLib
             return parsedContent;
         }
 
-        private bool CheckIfParagraphTag(string parsedTag)
-        {
-            return parsedTag == $"{ParserConstants.ParagraphTag}";
-        }
-
+        
         private void TryAddTextToParsedContent(List<MastoContent> parsedContent, string contentToAdd, bool isParagraph = true)
         {
             contentToAdd = contentToAdd.Replace(">", "");
             if (contentToAdd != string.Empty)
             {
-
                 parsedContent.Add(new MastoText(WebUtility.HtmlDecode(contentToAdd)));
             }
         }
 
-        private bool checkIfLinkTag(string parsedTag)
+        
+        private bool checkIfTag(string parsedTag , string expectedTag)
         {
-            return parsedTag == $"{ParserConstants.LinkTag}";
+            return parsedTag == expectedTag;
         }
 
         private bool LoopConditionIsTrue(string tag, string parsedTag)
@@ -120,10 +116,6 @@ namespace MastoParserLib
             return willLoopContinue;
         }
 
-        private bool CheckIfBreakTag(string currentTag)
-        {
-            return currentTag.Equals(ParserConstants.BreakTag);
-        }
 
         public List<MastoContent> ParseContent(string htmlContent)
         {
@@ -305,7 +297,6 @@ namespace MastoParserLib
 
             return contentToReturn;
         }
-
 
 
         private MastoContent ParseUniqueLink(char uniqueChar)
