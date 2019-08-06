@@ -106,10 +106,14 @@
                     <Button Name="ReplyButton">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE97A;" />
                     </Button>
-                    <ToggleButton Name="BoostButton" Style="{ThemeResource TextToggleButtonStyle}">
+                    <ToggleButton Name="ReblogButton" Style="{ThemeResource TextToggleButtonStyle}"
+                                  Click="ReblogButton_Click"
+                                  IsChecked="{x:Bind CurrentStatus.Reblogged, Mode=OneWay}">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8EB;" />
                     </ToggleButton>
-                    <ToggleButton Name="FavouriteButton" Style="{ThemeResource TextToggleButtonStyle}">
+                    <ToggleButton Name="FavouriteButton" Style="{ThemeResource TextToggleButtonStyle}"
+                                  Click="FavouriteButton_Click"
+                                  IsChecked="{x:Bind CurrentStatus.Favourited, Mode=OneWay}">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
                     </ToggleButton>
                     <Button Name="MoreButton">

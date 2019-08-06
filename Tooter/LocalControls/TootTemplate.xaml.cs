@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tooter.Core;
+using Tooter.Helpers;
 using Tooter.Model;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -98,6 +99,7 @@ namespace Tooter.LocalControls
                 }
             }
 
+            Bindings.Update();
             args.Handled = true;
         }
 
@@ -180,7 +182,7 @@ namespace Tooter.LocalControls
             }
             else
             {
-                Run run = new Run { Text = contentToPrint};
+                Run run = new Run { Text = contentToPrint };
                 AddContentToTextBlock(run, doesANewParagraphNeedToBeCreated);
                 doesANewParagraphNeedToBeCreated = false;
             }
@@ -283,6 +285,34 @@ namespace Tooter.LocalControls
                 // Only Block in UWP is a Paragraph
                 Paragraph lastParagraph = (Paragraph)StatusContent.Blocks.Last();
                 lastParagraph.Inlines.Add(content);
+            }
+        }
+
+        private async void ReblogButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var reblogResult = await ClientHelper.Client.Reblog(CurrentStatus.Id);
+                CurrentStatus.Reblogged = reblogResult.Reblogged;
+            }
+            catch
+            {
+                Debug.WriteLine("Reblog Failed, check internet connection!");
+                ReblogButton.IsChecked = CurrentStatus.Reblogged;
+            }
+        }
+
+        private async void FavouriteButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var favResult = await ClientHelper.Client.Favourite(CurrentStatus.Id);
+                CurrentStatus.Favourited = favResult.Favourited;
+            }
+            catch
+            {
+                Debug.WriteLine("Favourite Failed, check internet connection!");
+                FavouriteButton.IsChecked = CurrentStatus.Favourited;
             }
         }
     }
