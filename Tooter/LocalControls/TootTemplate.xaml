@@ -11,7 +11,9 @@
     d:DesignHeight="200"
     d:DesignWidth="300"
     MinWidth="0">
-
+    <UserControl.Resources>
+        <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+    </UserControl.Resources>
 
     <controls:DropShadowPanel 
                               ShadowOpacity="0.25"
@@ -22,49 +24,59 @@
                               VerticalContentAlignment="Stretch"
         Background="{ThemeResource SystemAltHighColor}"
         MinWidth="0">
-      
+
 
         <RelativePanel Background="{ThemeResource SystemAltHighColor}"
                        CornerRadius="4"
                        Padding="24">
-           
+
+
+            <Button Style="{ThemeResource NameTextBlockButton}"
+                        Content="Reblogged By:"
+                        Name="RebloggedByButton"
+                    Visibility="Collapsed"
+                    Margin="0,0,64,0"
+                    RelativePanel.AlignTopWithPanel="True"
+                    RelativePanel.AlignLeftWithPanel="True"/>
             <muxc:PersonPicture Width="60"
                Height="60"
                Margin="0,0,24,0"
-               ProfilePicture="{x:Bind CurrentStatus.Account.AvatarUrl}"
-                                Name="StatusAvatar"/>
+                                Name="StatusAvatar"
+                                RelativePanel.Below="RebloggedByButton"/>
 
             <StackPanel Orientation="Horizontal" Name="NamesStackPanel"
                         RelativePanel.RightOf="StatusAvatar"
-                        RelativePanel.LeftOf="StatusTimeStamp">
+                        RelativePanel.LeftOf="StatusTimeStamp"
+                        RelativePanel.Below="RebloggedByButton">
                 <StackPanel.Resources>
-                    <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+
                 </StackPanel.Resources>
                 <Button Style="{ThemeResource NameTextBlockButton}">
-                    <TextBlock Text="{x:Bind CurrentStatus.Account.DisplayName}"
-                               Style="{ThemeResource FluentTitleTextStyle}"
+                    <TextBlock Style="{ThemeResource FluentTitleTextStyle}"
                                TextTrimming="CharacterEllipsis"
-                               FontSize="20"/>
+                               FontSize="20"
+                               Name="DisplayNameTextBlock"/>
 
                 </Button>
                 <Button Margin="8,0,0,0" 
                         Style="{StaticResource NameTextBlockButton}">
-                    <TextBlock Text="{x:Bind CurrentStatus.Account.AccountName}"
+                    <TextBlock
            TextTrimming="CharacterEllipsis"
-                               FontSize="20"/>
+                               FontSize="20"
+                               Name="AccountNameTextBlock"/>
                 </Button>
             </StackPanel>
 
-            
-                <TextBlock  Text="2h"
+
+            <TextBlock Text="2h"
                       
                        FontSize="20"
                        TextAlignment="Left"
                        VerticalAlignment="Top"
                        x:Name="StatusTimeStamp"
-                                       RelativePanel.AlignRightWithPanel="True"
-                       RelativePanel.AlignTopWithPanel="True"/>
-            
+                       RelativePanel.AlignRightWithPanel="True"
+                       RelativePanel.Below="RebloggedByButton"/>
+
 
             <!--<TextBlock x:Name="StatusContent"
                        RelativePanel.RightOf="StatusAvatar"

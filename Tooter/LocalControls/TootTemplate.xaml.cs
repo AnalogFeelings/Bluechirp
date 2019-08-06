@@ -42,112 +42,249 @@ namespace Tooter.LocalControls
         private void UpdateData(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             Status updatedStatus = (Status)args.NewValue;
+
             if (updatedStatus != null)
             {
-                if (updatedStatus.Content != null)
+
+                if (updatedStatus.Reblog != null)
                 {
-                    StatusContent.Blocks.Clear();
-                    MParser parser = new MParser();
-
-                    Paragraph rootParagraph = new Paragraph();
-                    StatusContent.Blocks.Add(rootParagraph);
-
-                    List<MastoContent> parsedContent = null;
-                    try
+                    var reblogStatus = updatedStatus.Reblog;
+                    if (reblogStatus.Content != null)
                     {
-                        parsedContent = parser.ParseContent(updatedStatus.Content);
-                        bool doesANewParagraphNeedToBeCreated = false;
+                        // On top of content, show that it's a reblog with indicators and stuff e.g (who reblogged
+                        // on top of original status
+                        UpdateNameTextBlocks(reblogStatus.Account);
+                        UpdateAvatar(reblogStatus.Account.AvatarUrl);
+                        RebloggedByButton.Visibility = Visibility.Visible;
+                        RebloggedByButton.Content = $"Reblogged by: {updatedStatus.Account.DisplayName}";
+                        StatusContent.Blocks.Clear();
 
-                        for (int i = 0; i < parsedContent.Count; i++)
+                        StatusContent.Blocks.Clear();
+                        MParser parser = new MParser();
+
+                        Paragraph rootParagraph = new Paragraph();
+                        StatusContent.Blocks.Add(rootParagraph);
+
+                        List<MastoContent> parsedContent = null;
+                        try
                         {
-                            var item = parsedContent[i];
+                            parsedContent = parser.ParseContent(reblogStatus.Content);
+                            bool doesANewParagraphNeedToBeCreated = false;
 
-
-                            switch (item.ContentType)
+                            for (int i = 0; i < parsedContent.Count; i++)
                             {
-                                case MastoContentType.Mention:
-                                    List<Mention> mentions = (List<Mention>)updatedStatus.Mentions;
-                                    for (int tagIndex = 0; i < mentions.Count; i++)
-                                    {
-                                        if (mentions[tagIndex].AccountName == item.Content)
+                                var item = parsedContent[i];
+
+
+                                switch (item.ContentType)
+                                {
+                                    case MastoContentType.Mention:
+                                        List<Mention> mentions = (List<Mention>)reblogStatus.Mentions;
+                                        for (int tagIndex = 0; i < mentions.Count; i++)
                                         {
-                                            Run tagRun = new Run { Text = $"@{item.Content}" };
-                                            Hyperlink mentionLink = new Hyperlink();
-                                            mentionLink.Inlines.Add(tagRun);
-                                            AddContentToTextBlock(mentionLink);
-                                            break;
+                                            if (mentions[tagIndex].AccountName == item.Content)
+                                            {
+                                                Run tagRun = new Run { Text = $"@{item.Content}" };
+                                                Hyperlink mentionLink = new Hyperlink();
+                                                mentionLink.Inlines.Add(tagRun);
+                                                AddContentToTextBlock(mentionLink);
+                                                break;
+                                            }
                                         }
-                                    }
-                                    break;
-                                case MastoContentType.Link:
-                                    Run linkRun = new Run { Text = item.Content };
-                                    Hyperlink link = new Hyperlink();
-                                    link.NavigateUri = new Uri(item.Content);
-                                    link.Inlines.Add(linkRun);
-                                    AddContentToTextBlock(link);
-                                    break;
-                                case MastoContentType.Text:
-                                    var textItem = (MastoText)item;
-                                    if (i == 0)
-                                    {
-                                        item.Content = item.Content.TrimStart();
-                                    }
-
-                                    if (textItem.IsParagraph)
-                                    {
-                                        doesANewParagraphNeedToBeCreated = true;
-                                        Run run = new Run { Text = $"{textItem.Content}" };
-                                        AddContentToTextBlock(run);
-                                        doesANewParagraphNeedToBeCreated = true;
-                                    }
-                                    else
-                                    {
-                                        Run run = new Run { Text = textItem.Content };
-                                        AddContentToTextBlock(run, doesANewParagraphNeedToBeCreated);
-                                        doesANewParagraphNeedToBeCreated = false;
-                                    }
-                                    break;
-
-                                case MastoContentType.Hashtag:
-                                    List<Tag> tags = (List<Tag>)updatedStatus.Tags;
-                                    for (int tagIndex = 0; i < tags.Count; i++)
-                                    {
-                                        if (tags[tagIndex].Name == item.Content)
+                                        break;
+                                    case MastoContentType.Link:
+                                        Run linkRun = new Run { Text = item.Content };
+                                        Hyperlink link = new Hyperlink();
+                                        link.NavigateUri = new Uri(item.Content);
+                                        link.Inlines.Add(linkRun);
+                                        AddContentToTextBlock(link);
+                                        break;
+                                    case MastoContentType.Text:
+                                        var textItem = (MastoText)item;
+                                        if (i == 0)
                                         {
-                                            Run tagRun = new Run { Text = $"#{item.Content}" };
-                                            Hyperlink hashtagLink = new Hyperlink();
-                                            hashtagLink.Inlines.Add(tagRun);
-                                            AddContentToTextBlock(hashtagLink);
-                                            break;
+                                            item.Content = item.Content.TrimStart();
                                         }
-                                    }
 
-                                    break;
+                                        if (textItem.IsParagraph)
+                                        {
+                                            doesANewParagraphNeedToBeCreated = true;
+                                            Run run = new Run { Text = $"{textItem.Content}" };
+                                            AddContentToTextBlock(run);
+                                            doesANewParagraphNeedToBeCreated = true;
+                                        }
+                                        else
+                                        {
+                                            Run run = new Run { Text = textItem.Content };
+                                            AddContentToTextBlock(run, doesANewParagraphNeedToBeCreated);
+                                            doesANewParagraphNeedToBeCreated = false;
+                                        }
+                                        break;
 
-                                default:
-                                    break;
+                                    case MastoContentType.Hashtag:
+                                        List<Tag> tags = (List<Tag>)reblogStatus.Tags;
+                                        for (int tagIndex = 0; i < tags.Count; i++)
+                                        {
+                                            if (tags[tagIndex].Name == item.Content)
+                                            {
+                                                Run tagRun = new Run { Text = $"#{item.Content}" };
+                                                Hyperlink hashtagLink = new Hyperlink();
+                                                hashtagLink.Inlines.Add(tagRun);
+                                                AddContentToTextBlock(hashtagLink);
+                                                break;
+                                            }
+                                        }
+
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
                             }
 
+
+
+                        }
+                        catch
+                        {
+                            Run run = new Run { Text = $"ERROR!: {reblogStatus.Content}" };
+                            run.Foreground = new SolidColorBrush(Colors.Red);
+                            rootParagraph.Inlines.Add(run);
                         }
 
 
 
+
+                        AddMediaToStatus((List<Attachment>)reblogStatus.MediaAttachments);
                     }
-                    catch
-                    {
-                        Run run = new Run { Text = $"ERROR!: {updatedStatus.Content}" };
-                        run.Foreground = new SolidColorBrush(Colors.Red);
-                        rootParagraph.Inlines.Add(run);
-                    }
-
-
-
 
                 }
-                AddMediaToStatus((List<Attachment>)updatedStatus.MediaAttachments);
+
+
+                // Display regular status
+                else
+                {
+                    UpdateNameTextBlocks(updatedStatus.Account);
+                    UpdateAvatar(updatedStatus.Account.AvatarUrl);
+
+                    RebloggedByButton.Visibility = Visibility.Collapsed;
+                    if (updatedStatus.Content != null)
+                    {
+                        StatusContent.Blocks.Clear();
+                        MParser parser = new MParser();
+
+                        Paragraph rootParagraph = new Paragraph();
+                        StatusContent.Blocks.Add(rootParagraph);
+
+                        List<MastoContent> parsedContent = null;
+                        try
+                        {
+                            parsedContent = parser.ParseContent(updatedStatus.Content);
+                            bool doesANewParagraphNeedToBeCreated = false;
+
+                            for (int i = 0; i < parsedContent.Count; i++)
+                            {
+                                var item = parsedContent[i];
+
+
+                                switch (item.ContentType)
+                                {
+                                    case MastoContentType.Mention:
+                                        List<Mention> mentions = (List<Mention>)updatedStatus.Mentions;
+                                        for (int tagIndex = 0; i < mentions.Count; i++)
+                                        {
+                                            if (mentions[tagIndex].AccountName == item.Content)
+                                            {
+                                                Run tagRun = new Run { Text = $"@{item.Content}" };
+                                                Hyperlink mentionLink = new Hyperlink();
+                                                mentionLink.Inlines.Add(tagRun);
+                                                AddContentToTextBlock(mentionLink);
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                    case MastoContentType.Link:
+                                        Run linkRun = new Run { Text = item.Content };
+                                        Hyperlink link = new Hyperlink();
+                                        link.NavigateUri = new Uri(item.Content);
+                                        link.Inlines.Add(linkRun);
+                                        AddContentToTextBlock(link);
+                                        break;
+                                    case MastoContentType.Text:
+                                        var textItem = (MastoText)item;
+                                        if (i == 0)
+                                        {
+                                            item.Content = item.Content.TrimStart();
+                                        }
+
+                                        if (textItem.IsParagraph)
+                                        {
+                                            doesANewParagraphNeedToBeCreated = true;
+                                            Run run = new Run { Text = $"{textItem.Content}" };
+                                            AddContentToTextBlock(run);
+                                            doesANewParagraphNeedToBeCreated = true;
+                                        }
+                                        else
+                                        {
+                                            Run run = new Run { Text = textItem.Content };
+                                            AddContentToTextBlock(run, doesANewParagraphNeedToBeCreated);
+                                            doesANewParagraphNeedToBeCreated = false;
+                                        }
+                                        break;
+
+                                    case MastoContentType.Hashtag:
+                                        List<Tag> tags = (List<Tag>)updatedStatus.Tags;
+                                        for (int tagIndex = 0; i < tags.Count; i++)
+                                        {
+                                            if (tags[tagIndex].Name == item.Content)
+                                            {
+                                                Run tagRun = new Run { Text = $"#{item.Content}" };
+                                                Hyperlink hashtagLink = new Hyperlink();
+                                                hashtagLink.Inlines.Add(tagRun);
+                                                AddContentToTextBlock(hashtagLink);
+                                                break;
+                                            }
+                                        }
+
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                            }
+
+
+
+                        }
+                        catch
+                        {
+                            Run run = new Run { Text = $"ERROR!: {updatedStatus.Content}" };
+                            run.Foreground = new SolidColorBrush(Colors.Red);
+                            rootParagraph.Inlines.Add(run);
+                        }
+
+
+
+
+                        AddMediaToStatus((List<Attachment>)updatedStatus.MediaAttachments);
+                    }
+                }
             }
-            Bindings.Update();
+
             args.Handled = true;
+        }
+
+        private void UpdateAvatar(string avatarUrl)
+        {
+            StatusAvatar.ProfilePicture = new BitmapImage(new Uri(avatarUrl));
+        }
+
+        private void UpdateNameTextBlocks(Account account)
+        {
+            DisplayNameTextBlock.Text = account.DisplayName;
+            AccountNameTextBlock.Text = account.AccountName;
         }
 
         private void AddMediaToStatus(List<Attachment> mediaAttachments)
@@ -184,7 +321,7 @@ namespace Tooter.LocalControls
                         mediaContainer.Child = new Image { Source = img };
                         break;
                 }
-                
+
                 AddContentToTextBlock(mediaContainer, shouldNewParagraphBeCreated);
                 shouldNewParagraphBeCreated = false;
             }
