@@ -1,5 +1,6 @@
 ﻿using Mastonet.Entities;
 using MastoParserLib;
+using MastoParserLib.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +9,6 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tooter.Core;
 using Tooter.Model;
-using Tooter.Parsers;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media.Core;

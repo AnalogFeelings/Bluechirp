@@ -8,12 +8,6 @@
     <ProjectGuid>{299B7F74-67B5-4656-93FB-1709EDAA4879}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MastoMediaConstants.cs" />
-    <Compile Include="Model\MastoContent.cs" />
-    <Compile Include="Model\MastoContentType.cs" />
-    <Compile Include="Model\MastoText.cs" />
-    <Compile Include="Model\Notifier.cs" />
-    <Compile Include="MParser.cs" />
-    <Compile Include="ParserConstants.cs" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 </Project>
