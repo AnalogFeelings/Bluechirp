@@ -201,7 +201,7 @@ namespace Tooter.LocalControls
         {
             for (int mentionIndex = 0; mentionIndex < mentions.Count; mentionIndex++)
             {
-                if (mentions[mentionIndex].AccountName == contentValue)
+                if (mentions[mentionIndex].UserName == contentValue)
                 {
                     Run tagRun = new Run { Text = $"@{contentValue}" };
                     Hyperlink mentionLink = new Hyperlink();
