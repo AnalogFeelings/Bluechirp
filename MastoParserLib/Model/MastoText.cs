@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tooter.Model
+namespace MastoParserLib.Model
 {
     public class MastoText : MastoContent
     {

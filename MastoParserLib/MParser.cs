@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tooter.Core;
-using Tooter.Model;
-using System.Net;
 
-namespace Tooter.Parsers
+using System.Net;
+using MastoParserLib.Model;
+
+namespace MastoParserLib
 {
     public class MParser
     {

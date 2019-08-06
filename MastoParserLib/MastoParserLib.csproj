@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <ProjectGuid>{299B7F74-67B5-4656-93FB-1709EDAA4879}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="MastoMediaConstants.cs" />
+    <Compile Include="Model\MastoContent.cs" />
+    <Compile Include="Model\MastoContentType.cs" />
+    <Compile Include="Model\MastoText.cs" />
+    <Compile Include="Model\Notifier.cs" />
+    <Compile Include="MParser.cs" />
+    <Compile Include="ParserConstants.cs" />
+  </ItemGroup>
+</Project>
