@@ -66,7 +66,7 @@ namespace MastoParserLib
 
                     if (textHandlingResult.hasTextToParse)
                     {
-                       TryAddTextToParsedContent(parsedContent,textHandlingResult.text);
+                        TryAddTextToParsedContent(parsedContent, textHandlingResult.text);
                     }
 
                     if (textHandlingResult.hasTagToParse)
@@ -190,55 +190,13 @@ namespace MastoParserLib
             return parsedTagBuffer.ToString();
         }
 
-        private (bool wasAttributeFound, KeyValuePair<string, string> attributeToAdd) FindAttributes(char character, string currentAttribute = "", string attributeValue = "", bool inAttributeValue = false)
+        private Dictionary<string, string> FindAttributes()
         {
-            bool wasAttributeFound = false;
-            KeyValuePair<string, string> attributeToAdd = new KeyValuePair<string, string>(null, null);
-            if (character == ParserConstants.AttributeCharacter)
-            {
-                currentAttribute = _parseBuffer.ToString().Trim();
-                _parseBuffer.Clear();
-            }
-            else if (character == ParserConstants.AttributeValueCharacter && !inAttributeValue)
-            {
-                inAttributeValue = true;
-            }
-            else if (character == ParserConstants.AttributeValueCharacter && inAttributeValue)
-            {
-                attributeToAdd = new KeyValuePair<string, string>(currentAttribute, _parseBuffer.ToString());
-
-                _parseBuffer.Clear();
-                inAttributeValue = false;
-            }
-            else
-            {
-                _parseBuffer.Append(character);
-            }
-
-            return (wasAttributeFound, attributeToAdd);
-        }
-
-
-        public MastoContent HandleLinkTag()
-        {
-            MastoContent contentToReturn = null;
-
-            // 1. Look for attributes
-            // 2. Based on class attribute, handle links differently.
-
-
-            // Links may be:
-            // 1. Mentions
-            // 2. Hashtags
-            // 3. Links (just an address to a website somewhere)
-
-
-
+            Dictionary<string, string> tagAttributes = new Dictionary<string, string>();
             StringBuilder attributeBuffer = new StringBuilder();
             string currentAttribute = "";
             bool hasTagBeenClosed = false;
             bool isInAttributeValue = false;
-            Dictionary<string, string> tagAttributes = new Dictionary<string, string>();
 
 
             while (!hasTagBeenClosed)
@@ -298,8 +256,17 @@ namespace MastoParserLib
                 }
             }
 
-            // Now take action depending on the result of trying to find the "class" attribute
+            return tagAttributes;
+        }
 
+
+        public MastoContent HandleLinkTag()
+        {
+            MastoContent contentToReturn = null;
+
+            var tagAttributes = FindAttributes();
+
+            // Now try to take action depending on the result of trying to find the "class" attribute
             bool hasClassAttribute = tagAttributes.ContainsKey(ParserConstants.ClassAttribute);
             bool isUniqueLink = false;
 
@@ -318,7 +285,6 @@ namespace MastoParserLib
             if (isUniqueLink)
             {
                 // handle a mention/hashtag.
-
                 switch (classAttributeValue)
                 {
                     case ParserConstants.HashtagClass:
@@ -398,7 +364,7 @@ namespace MastoParserLib
                 }
             }
 
-            
+
             return contentToReturn;
         }
 
