@@ -95,6 +95,10 @@
                             <Setter Property="Foreground"
                                 Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
                         </Style>
+                        <!--<Style TargetType="ToggleButton" BasedOn="{StaticResource TextBlockButtonStyle}">
+                            <Setter Property="Foreground"
+                                Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
+                        </Style>-->
                         <Style TargetType="FontIcon">
                             <Setter Property="FontSize" Value="28"/>
                         </Style>
@@ -102,12 +106,12 @@
                     <Button Name="ReplyButton">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE97A;" />
                     </Button>
-                    <Button Name="BoostButton">
+                    <ToggleButton Name="BoostButton" Style="{ThemeResource ReverseTextBlockButtonStyle}">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8EB;" />
-                    </Button>
-                    <Button Name="FavouriteButton">
+                    </ToggleButton>
+                    <ToggleButton Name="FavouriteButton" Style="{ThemeResource ReverseTextBlockButtonStyle}">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
-                    </Button>
+                    </ToggleButton>
                     <Button Name="MoreButton">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10C;" />
                     </Button>
