@@ -124,6 +124,9 @@
     <Compile Include="Commands\RelayCommandWithParameter.cs" />
     <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
     <Compile Include="Core\APIConstants.cs" />
+    <Compile Include="Dialogs\NewTootDialog.xaml.cs">
+      <DependentUpon>NewTootDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\ClientDataHelper.cs" />
     <Compile Include="Helpers\ClientHelper.cs" />
@@ -241,6 +244,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\NewTootDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LocalControls\MessageTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -266,6 +273,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\ControlStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DialogStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
