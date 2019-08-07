@@ -23,7 +23,6 @@ namespace Tooter.Helpers
             new Lazy<AuthHelper>(() => new AuthHelper());
         internal MastodonClient _client = null;
         internal static AuthHelper Instance => lazy.Value;
-        const string AppName = "Tooter";
 
         private AuthHelper() { }
 
@@ -31,7 +30,11 @@ namespace Tooter.Helpers
         {
             // Login to any instance code
             _authClient = new AuthenticationClient(instanceUrl);
-            _appRegistration = await _authClient.CreateApp(AppName, Scope.Read | Scope.Write | Scope.Follow, redirectUri: APIConstants.RedirectUri);
+            _appRegistration = await _authClient.CreateApp(APIConstants.AppName,
+                                                           Scope.Read | Scope.Write | Scope.Follow,
+                                                           APIConstants.AppWebsite,
+                                                           APIConstants.RedirectUri);
+
             var url = _authClient.OAuthUrl(APIConstants.RedirectUri);
 
             await Launcher.LaunchUriAsync(new Uri(url));
