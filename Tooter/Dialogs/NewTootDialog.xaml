@@ -60,7 +60,42 @@
                    Grid.Row="1"
                    Margin="12,32,0,0"
                 Style="{ThemeResource TextBlockButtonStyle}"
-                Padding="0"/>
+                Padding="0">
+            <Button.Flyout>
+                <MenuFlyout >
+                    <muxc:RadioMenuFlyoutItem Text="Public" GroupName="TootVisbility"
+                                              IsChecked="True"
+                                              Name="PublicVisOption"
+                                              Click="VisibilityOptionSelected">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;"/>
+                        </MenuFlyoutItem.Icon>
+                    </muxc:RadioMenuFlyoutItem>
+                    <muxc:RadioMenuFlyoutItem Text="Unlisted" GroupName="TootVisbility"
+                                              Name="UnlistedVisOption"
+                                              Click="VisibilityOptionSelected">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE785;" />
+                        </MenuFlyoutItem.Icon>
+                    </muxc:RadioMenuFlyoutItem>
+                    
+                    <muxc:RadioMenuFlyoutItem Text="Private" GroupName="TootVisbility"
+                                              Name="PrivateVisOption"
+                                              Click="VisibilityOptionSelected">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72E;" />
+                        </MenuFlyoutItem.Icon>
+                    </muxc:RadioMenuFlyoutItem>
+                    <muxc:RadioMenuFlyoutItem Text="Direct" GroupName="TootVisbility"
+                                              Name="DirectVisOption"
+                                              Click="VisibilityOptionSelected">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE724;" />
+                        </MenuFlyoutItem.Icon>
+                    </muxc:RadioMenuFlyoutItem>
+                </MenuFlyout>
+            </Button.Flyout>
+        </Button>
 
         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE164;"
                   Grid.Row="2"

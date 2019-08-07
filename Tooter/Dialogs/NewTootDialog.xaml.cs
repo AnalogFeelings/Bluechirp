@@ -19,10 +19,12 @@ namespace Tooter.Dialogs
 {
     public sealed partial class NewTootDialog : ContentDialog
     {
+
+
+
         public NewTootDialog()
         {
             this.InitializeComponent();
-            
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -31,6 +33,11 @@ namespace Tooter.Dialogs
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+        }
+
+        private void VisibilityOptionSelected(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
