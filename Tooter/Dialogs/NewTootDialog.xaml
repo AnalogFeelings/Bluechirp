@@ -7,17 +7,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
    
-    PrimaryButtonText="Button1"
-    SecondaryButtonText="Button2"
+    PrimaryButtonText="Toot!"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
     Style="{ThemeResource ShadowedDialog}">
     <ContentDialog.Title>
         <RelativePanel HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch">
-        <TextBlock Text="Hello"/>
-        <Button Content="X"
-                RelativePanel.AlignRightWithPanel="True"/>
+        <TextBlock Text="New Toot" Style="{ThemeResource FluentTitleTextStyle}"
+                   FontSize="32"
+                   Name="TitleTextBlock"/>
+            <Button Style="{StaticResource TextBlockButtonStyle}"
+                Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
+                RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWith="TitleTextBlock"
+                    >
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8BB;" />
+            </Button>
         </RelativePanel>
     </ContentDialog.Title>
     <Grid>
