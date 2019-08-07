@@ -6,13 +6,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="TITLE"
+   
     PrimaryButtonText="Button1"
     SecondaryButtonText="Button2"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
     Style="{ThemeResource ShadowedDialog}">
-    
+    <ContentDialog.Title>
+        <RelativePanel HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch">
+        <TextBlock Text="Hello"/>
+        <Button Content="X"
+                RelativePanel.AlignRightWithPanel="True"/>
+        </RelativePanel>
+    </ContentDialog.Title>
     <Grid>
+        <TextBlock TextWrapping="Wrap"
+                   Text="blah blahblahblahblahblahblahblah blahblahblahblahblahblahblah blahblahblahblahblahblahblah "/>
     </Grid>
 </ContentDialog>

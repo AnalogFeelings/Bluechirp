@@ -144,8 +144,10 @@
                                                 FontFamily="XamlAutoFontFamily"
                                                 FontWeight="Normal"
                                                 Foreground="{TemplateBinding Foreground}"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                            HorizontalContentAlignment="Stretch"
+                                                            VerticalContentAlignment="Stretch"
                                                 IsTabStop="False">
                                                 <ContentControl.Template>
                                                     <ControlTemplate TargetType="ContentControl">
