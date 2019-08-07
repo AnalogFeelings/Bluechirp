@@ -1,11 +1,12 @@
-﻿<ContentDialog
+﻿<ContentDialog xmlns:muxc="using:Microsoft.UI.Xaml.Controls" 
     x:Class="Tooter.Dialogs.NewTootDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Tooter.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+               xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
+               mc:Ignorable="d"
    
     PrimaryButtonText="Toot!"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
@@ -19,14 +20,32 @@
             <Button Style="{StaticResource TextBlockButtonStyle}"
                 Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
                 RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignVerticalCenterWith="TitleTextBlock"
-                    >
+                    RelativePanel.AlignVerticalCenterWith="TitleTextBlock">
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8BB;" />
             </Button>
         </RelativePanel>
     </ContentDialog.Title>
     <Grid>
-        <TextBlock TextWrapping="Wrap"
-                   Text="blah blahblahblahblahblahblahblah blahblahblahblahblahblahblah blahblahblahblahblahblahblah "/>
+        <StackPanel Margin="0,12,0,32">
+            <RelativePanel>
+                <muxc:PersonPicture 
+                    Height="36"
+                    Width="36"
+                    Name="UserAvatar"/>
+                <TextBox Name="TootTextBox"
+                         Height="100"
+                         MinWidth="200"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         RelativePanel.AlignRightWithPanel="True"
+                         PlaceholderText="What's on your mind?"
+                         Windows10version1809:CornerRadius="4"
+                         Background="{ThemeResource SystemChromeMediumColor}"
+                         RelativePanel.RightOf="UserAvatar"
+                         Margin="12,0,0,0"
+                         BorderThickness="0"/>
+            </RelativePanel>
+        </StackPanel>
     </Grid>
 </ContentDialog>
