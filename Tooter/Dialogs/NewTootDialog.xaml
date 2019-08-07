@@ -15,7 +15,7 @@
     <ContentDialog.Title>
         <RelativePanel HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch">
-        <TextBlock Text="New Toot" Style="{ThemeResource FluentTitleTextStyle}"
+            <TextBlock Text="New Toot" Style="{ThemeResource FluentTitleTextStyle}"
                    FontSize="32"
                    Name="TitleTextBlock"/>
             <Button Style="{StaticResource TextBlockButtonStyle}"
@@ -26,21 +26,51 @@
             </Button>
         </RelativePanel>
     </ContentDialog.Title>
-    <Grid>
-        <StackPanel Margin="0,12,0,32">
-            <RelativePanel>
-                <muxc:PersonPicture 
+    <Grid Margin="0,20,0,28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <muxc:PersonPicture 
                     Height="36"
                     Width="36"
-                    Name="UserAvatar"/>
-                <TextBox Name="TootTextBox"
+                    Name="UserAvatar"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"/>
+        <TextBox Name="TootTextBox"
                          Style="{ThemeResource TootTextBoxStyle}"
-                         RelativePanel.AlignRightWithPanel="True"
                          PlaceholderText="What's on your mind?"
-                         RelativePanel.RightOf="UserAvatar"
-                         Margin="{StaticResource DialogItemToContentSpacing}"/>
-            </RelativePanel>
-            
-        </StackPanel>
+                         Margin="{StaticResource DialogItemToContentSpacing}"
+                         Grid.Column="1"/>
+
+
+
+        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7B3;" 
+                  Grid.Row="1"
+                  Margin="0,32,0,0"/>
+
+        <Button Content="Public" Grid.Column="1"
+                   Grid.Row="1"
+                   Margin="12,32,0,0"
+                Style="{ThemeResource TextBlockButtonStyle}"
+                Padding="0"/>
+
+        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE164;"
+                  Grid.Row="2"
+                  Margin="0,16,0,0"/>
+
+        <TextBlock Text="20/500 Characters"
+                   Grid.Column="1"
+                   Grid.Row="2"
+                   Margin="12,16,0,0"
+                   VerticalAlignment="Top"/>
+
     </Grid>
 </ContentDialog>
