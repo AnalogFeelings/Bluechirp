@@ -10,8 +10,9 @@
     PrimaryButtonText="Button1"
     SecondaryButtonText="Button2"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
-
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+    Style="{ThemeResource ShadowedDialog}">
+    
     <Grid>
     </Grid>
 </ContentDialog>

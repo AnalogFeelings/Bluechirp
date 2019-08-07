@@ -91,6 +91,7 @@
                     </Style>
                 </ResourceDictionary>
                 <ResourceDictionary Source="ms-appx:///Styles/GlobalTextStyles.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/DialogStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

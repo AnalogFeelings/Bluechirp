@@ -159,6 +159,9 @@
     <Compile Include="ViewModel\ShellViewModel.cs" />
     <Compile Include="ViewModel\TimelineViewModelBase.cs" />
     <Compile Include="ViewModel\TootViewModel.cs" />
+    <Compile Include="View\DialogTestView.xaml.cs">
+      <DependentUpon>DialogTestView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -281,6 +284,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\GlobalTextStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DialogTestView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
