@@ -20,7 +20,9 @@ namespace Tooter.ViewModel
         public string StatusContent
         {
             get { return statusContent; }
-            set { statusContent = value;
+            set
+            {
+                statusContent = value;
                 NotifyPropertyChanged();
             }
         }
@@ -41,7 +43,7 @@ namespace Tooter.ViewModel
 
         internal async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-           var completedStatus = await ClientHelper.Client.PostStatus(StatusContent, StatusVisibilty);
+            await ClientHelper.Client.PostStatus(StatusContent, StatusVisibilty);
         }
 
         internal void VisibilityOptionSelected(object sender, RoutedEventArgs e)
@@ -56,7 +58,7 @@ namespace Tooter.ViewModel
             var tagValue = (string)tag;
             int tagAsNum = int.Parse(tagValue);
             return (Mastonet.Visibility)tagAsNum;
-            
+
         }
     }
 }
