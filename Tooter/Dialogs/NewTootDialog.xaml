@@ -5,12 +5,18 @@
     xmlns:local="using:Tooter.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Tooter.Converters"
     mc:Ignorable="d"
     PrimaryButtonText="Toot!"
     PrimaryButtonClick="{x:Bind _viewModel.ContentDialog_PrimaryButtonClick}"
     Style="{ThemeResource ShadowedDialog}" HorizontalAlignment="Left" VerticalAlignment="Center">
     <ContentDialog.Resources>
-        <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+        <ResourceDictionary>
+            <converters:BoolToUnderlineConverter x:Key="BoolToUnderline"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </ContentDialog.Resources>
     <ContentDialog.Title>
         <RelativePanel HorizontalAlignment="Stretch"
@@ -49,7 +55,8 @@
                          PlaceholderText="What's on your mind?"
                          Margin="{StaticResource DialogItemToContentSpacing}"
                          Grid.Column="1"
-                 Text="{x:Bind _viewModel.StatusContent, Mode=TwoWay}"/>
+                 Text="{x:Bind _viewModel.StatusContent, Mode=TwoWay}"
+                 TextChanged="{x:Bind _viewModel.StatusContentChanged}"/>
 
 
 
@@ -81,7 +88,7 @@
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE785;" />
                         </MenuFlyoutItem.Icon>
                     </muxc:RadioMenuFlyoutItem>
-                    
+
                     <muxc:RadioMenuFlyoutItem Text="Private" GroupName="TootVisbility"
                                               Name="PrivateVisOption"
                                               Tag="2"
@@ -106,11 +113,12 @@
                   Grid.Row="2"
                   Margin="0,16,0,0"/>
 
-        <TextBlock Text="20/500 Characters"
+        <TextBlock Text="{x:Bind _viewModel.CharCountString, Mode=OneWay}"
                    Grid.Column="1"
                    Grid.Row="2"
                    Margin="12,16,0,0"
-                   VerticalAlignment="Top"/>
+                   VerticalAlignment="Top"
+                   TextDecorations="{x:Bind _viewModel.HasReachedCharLimit, Mode=OneWay, Converter={StaticResource BoolToUnderline}}"/>
 
     </Grid>
 </ContentDialog>

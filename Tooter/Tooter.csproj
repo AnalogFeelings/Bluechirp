@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandWithParameter.cs" />
+    <Compile Include="Converters\BoolToUnderlineConverter.cs" />
     <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
     <Compile Include="Core\APIConstants.cs" />
     <Compile Include="Dialogs\NewTootDialog.xaml.cs">

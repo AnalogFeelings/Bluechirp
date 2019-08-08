@@ -15,6 +15,29 @@ namespace Tooter.ViewModel
     class NewTootViewModel : Notifier
     {
 
+        private bool _hasReachedCharLimit;
+
+        public bool HasReachedCharLimit
+        {
+            get { return _hasReachedCharLimit; }
+            set { _hasReachedCharLimit = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
+        const int MastodonMaxStatusCharacters = 500;
+        private string _charCountString;
+
+        public string CharCountString
+        {
+            get { return _charCountString; }
+            set { _charCountString = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
         private string statusContent;
 
         public string StatusContent
@@ -40,6 +63,29 @@ namespace Tooter.ViewModel
             }
         }
 
+
+        internal NewTootViewModel()
+        {
+            UpdateCharCountString(0);
+        }
+
+        internal void StatusContentChanged(object sender, TextChangedEventArgs e)
+        {
+            var currentTextBox = (TextBox)sender;
+            var charCountResult = CharCounterHelper.CountCharactersWithLimit(currentTextBox.Text, MastodonMaxStatusCharacters);
+            UpdateCharCountString(charCountResult.charactersFound);
+            
+            if (charCountResult.characterLimitReached != HasReachedCharLimit)
+            {
+                HasReachedCharLimit = charCountResult.characterLimitReached;
+            }
+
+        }
+
+        private void UpdateCharCountString(int charactersFound)
+        {
+            CharCountString = $"{charactersFound}/{MastodonMaxStatusCharacters} Characters";
+        }
 
         internal async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {

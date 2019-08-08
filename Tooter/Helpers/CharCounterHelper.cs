@@ -8,7 +8,7 @@ namespace Tooter.Helpers
 {
     public class CharCounterHelper
     {
-        public (int charactersFound, bool characterLimitReached) CountCharactersWithLimit(string charactersToCount, int characterLimit)
+        public static (int charactersFound, bool characterLimitReached) CountCharactersWithLimit(string charactersToCount, int characterLimit)
         {
             int charactersFound = charactersToCount.Length;
             bool characterLimitReached = charactersFound > characterLimit;
