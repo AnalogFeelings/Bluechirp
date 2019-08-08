@@ -1,10 +1,12 @@
-﻿using MastoParserLib.Model;
+﻿using Mastonet.Entities;
+using MastoParserLib.Model;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tooter.Helpers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -37,8 +39,9 @@ namespace Tooter.ViewModel
         }
 
 
-        internal void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        internal async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+           var completedStatus = await ClientHelper.Client.PostStatus(StatusContent, StatusVisibilty);
         }
 
         internal void VisibilityOptionSelected(object sender, RoutedEventArgs e)
