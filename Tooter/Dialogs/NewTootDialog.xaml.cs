@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tooter.Converters;
 using Tooter.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -22,6 +23,8 @@ namespace Tooter.Dialogs
     {
 
         private NewTootViewModel _viewModel = new NewTootViewModel();
+        private InvertBooleanConverter _invertBooleanConverter = new InvertBooleanConverter();
+
 
         public NewTootDialog()
         {

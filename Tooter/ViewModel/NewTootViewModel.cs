@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tooter.Commands;
 using Tooter.Helpers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,13 +16,42 @@ namespace Tooter.ViewModel
     class NewTootViewModel : Notifier
     {
 
+        public RelayCommand SendTootCommand;
+
+
+        private bool _isTootButtonEnabled;
+
+        public bool IsTootButtonEnabled
+        {
+            get { return _isTootButtonEnabled; }
+            set { _isTootButtonEnabled = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
+        private bool _isStatusEmpty;
+
+        private bool IsStatusEmpty
+        {
+            get { return _isStatusEmpty; }
+            set
+            {
+                _isStatusEmpty = value;
+                CheckIfTootButtonShouldBeEnabled();
+            }
+        }
+
         private bool _hasReachedCharLimit;
 
         public bool HasReachedCharLimit
         {
             get { return _hasReachedCharLimit; }
-            set { _hasReachedCharLimit = value;
+            set
+            {
+                _hasReachedCharLimit = value;
                 NotifyPropertyChanged();
+                CheckIfTootButtonShouldBeEnabled();
             }
         }
 
@@ -32,7 +62,9 @@ namespace Tooter.ViewModel
         public string CharCountString
         {
             get { return _charCountString; }
-            set { _charCountString = value;
+            set
+            {
+                _charCountString = value;
                 NotifyPropertyChanged();
             }
         }
@@ -51,14 +83,14 @@ namespace Tooter.ViewModel
         }
 
 
-        private Mastonet.Visibility _statustVisibilty;
+        private Mastonet.Visibility _statusVisibilty;
 
         public Mastonet.Visibility StatusVisibilty
         {
-            get { return _statustVisibilty; }
+            get { return _statusVisibilty; }
             set
             {
-                _statustVisibilty = value;
+                _statusVisibilty = value;
                 NotifyPropertyChanged();
             }
         }
@@ -66,7 +98,19 @@ namespace Tooter.ViewModel
 
         internal NewTootViewModel()
         {
+            SendTootCommand = new RelayCommand(async () =>  await SendNewToot());
             UpdateCharCountString(0);
+        }
+
+
+        private void CheckIfTootButtonShouldBeEnabled()
+        {
+            IsTootButtonEnabled = !HasReachedCharLimit && !IsStatusEmpty;
+        }
+
+        private async Task SendNewToot()
+        {
+            await ClientHelper.Client.PostStatus(StatusContent, StatusVisibilty);
         }
 
         internal void StatusContentChanged(object sender, TextChangedEventArgs e)
@@ -74,22 +118,18 @@ namespace Tooter.ViewModel
             var currentTextBox = (TextBox)sender;
             var charCountResult = CharCounterHelper.CountCharactersWithLimit(currentTextBox.Text, MastodonMaxStatusCharacters);
             UpdateCharCountString(charCountResult.charactersFound);
-            
+
             if (charCountResult.characterLimitReached != HasReachedCharLimit)
             {
                 HasReachedCharLimit = charCountResult.characterLimitReached;
             }
-
         }
 
         private void UpdateCharCountString(int charactersFound)
         {
             CharCountString = $"{charactersFound}/{MastodonMaxStatusCharacters} Characters";
-        }
+            IsStatusEmpty = charactersFound > 0 == false;
 
-        internal async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            await ClientHelper.Client.PostStatus(StatusContent, StatusVisibilty);
         }
 
         internal void VisibilityOptionSelected(object sender, RoutedEventArgs e)
