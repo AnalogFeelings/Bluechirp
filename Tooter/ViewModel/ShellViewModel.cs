@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tooter.Commands;
+using Tooter.Dialogs;
 using Tooter.Model;
 using Tooter.Services;
 using Tooter.View;
@@ -14,18 +15,18 @@ namespace Tooter.ViewModel
 {
     class ShellViewModel : Notifier
     {
+        public RelayCommand NewTootCommand;
+
         public ShellViewModel()
         {
-            NewTootCommand = new RelayCommand(() => NavigateToTootView());
+            NewTootCommand = new RelayCommand(async () => await NavigateToTootView());
         }
 
-        private void NavigateToTootView()
+        private async Task NavigateToTootView()
         {
-            NavService.CreateInstance(Window.Current.Content as Frame);
-            NavService.Instance.Navigate(typeof(TootView));
+            await new NewTootDialog().ShowAsync();
         }
 
-        public RelayCommand NewTootCommand;
 
         
     }

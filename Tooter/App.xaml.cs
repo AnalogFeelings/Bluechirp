@@ -74,18 +74,18 @@ namespace Tooter
                 // configuring the new page by passing required information as a navigation
                 // parameter
 
-                //if (ClientDataHelper.GetLastUsedProfile() != null)
-                //{
-                //    ClientHelper.LoadLastUsedProfile();
-                //    rootFrame.Navigate(typeof(ShellView), e.Arguments);
-                //}
-                //else
-                //{
-                //    rootFrame.Navigate(typeof(LoginView), e.Arguments);
+                if (ClientDataHelper.GetLastUsedProfile() != null)
+                {
+                    ClientHelper.LoadLastUsedProfile();
+                    rootFrame.Navigate(typeof(ShellView), e.Arguments);
+                }
+                else
+                {
+                    rootFrame.Navigate(typeof(LoginView), e.Arguments);
 
-                //}
+                }
 
-                rootFrame.Navigate(typeof(DialogTestView), e.Arguments);
+
 
                 NavService.CreateInstance(rootFrame);
             }

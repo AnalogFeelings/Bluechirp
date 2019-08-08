@@ -60,11 +60,12 @@
 
                 <!--</ListViewItem>-->
             </ListView>
-           <Button x:Name="TootButton" Style="{ThemeResource CircleButtonStyle}" Width="44" Height="44"
+                <Button x:Name="TootButton" Style="{ThemeResource CircleButtonStyle}" Width="44" Height="44"
                    HorizontalAlignment="Center"
                    Background="{ThemeResource SystemAccentColor}"
-                   Foreground="White">
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" 
+                   Foreground="White"
+                   Command="{x:Bind ViewModel.NewTootCommand}">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" 
                                   FontSize="16"/>
                     </Button> 
             </StackPanel>
