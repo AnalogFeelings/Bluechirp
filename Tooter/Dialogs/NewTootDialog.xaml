@@ -28,7 +28,9 @@
             <Button Style="{StaticResource TextBlockButtonStyle}"
                 Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
                 RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignVerticalCenterWith="TitleTextBlock">
+                    RelativePanel.AlignVerticalCenterWith="TitleTextBlock"
+                    Name="CloseButton"
+                    Click="CloseButton_Click">
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8BB;" />
             </Button>
         </RelativePanel>
