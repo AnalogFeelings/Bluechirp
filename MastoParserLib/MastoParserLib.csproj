@@ -6,7 +6,7 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation />
     <ProjectGuid>{299B7F74-67B5-4656-93FB-1709EDAA4879}</ProjectGuid>
-    <Configurations>Debug;Release;BetaDebug;BetaRelease;Fresh</Configurations>
+    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
