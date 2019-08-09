@@ -58,9 +58,6 @@ namespace Tooter.View
            
         }
 
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
+        
     }
 }

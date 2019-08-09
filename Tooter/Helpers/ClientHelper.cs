@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tooter.Services;
+using Tooter.View;
 
 namespace Tooter.Helpers
 {
     public sealed class ClientHelper
     {
+        static string loadedProfile = "";
         internal static MastodonClient Client { get; private set; }
 
         internal static void CreateClient(MastodonClient client)
@@ -19,7 +22,9 @@ namespace Tooter.Helpers
 
         internal static void LoadProfile(string clientProfileID)
         {
-
+            (AppRegistration appRegistration, Auth auth) = ClientDataHelper.LoadClientProfile(clientProfileID);
+            Client = new MastodonClient(appRegistration, auth);
+            loadedProfile = clientProfileID;
         }
 
         internal static bool LoadLastUsedProfile()
@@ -33,11 +38,17 @@ namespace Tooter.Helpers
             }
             else
             {
-                (AppRegistration appRegistration, Auth auth) = ClientDataHelper.LoadClientProfile(ClientDataHelper.GetLastUsedProfile());
-                Client = new MastodonClient(appRegistration, auth);
+                LoadProfile(ClientDataHelper.GetLastUsedProfile());
+                
             }
 
             return isLoadSuccessful;
+        }
+
+        internal static async Task Logout()
+        {
+            await ClientDataHelper.RemoveClientProfileAsync(loadedProfile);
+            NavService.Instance.Navigate(typeof(LoginView));
         }
     }
 }

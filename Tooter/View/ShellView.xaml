@@ -68,7 +68,7 @@
                     <MenuFlyout>
                         <MenuFlyoutItem Text="Logout" 
                                             Name="LogoutButton" 
-                                            Click="LogoutButton_Click"/>
+                                            Click="{x:Bind ViewModel.LogoutButton_Click}"/>
                     </MenuFlyout>
                 </Button.Flyout>
                 </Button>

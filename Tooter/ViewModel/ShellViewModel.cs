@@ -48,6 +48,10 @@ namespace Tooter.ViewModel
             CurrentUser = await ClientHelper.Client.GetCurrentUser();
         }
 
-        
+        internal async void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            await ClientHelper.Logout();
+        }
+
     }
 }
