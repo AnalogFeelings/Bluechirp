@@ -11,9 +11,20 @@ namespace Tooter.ViewModel
     {
         public override string ViewTitle { get; protected set; } = "Federated Timeline";
 
+        internal override Task AddNewerContentToFeed()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override Task AddOlderContentToFeed()
+        {
+            throw new NotImplementedException();
+        }
+
         internal async override Task LoadFeedAsync()
         {
-            base.TootTimelineCollection = await ClientHelper.Client.GetPublicTimeline();
+            base.tootTimelineData = await ClientHelper.Client.GetPublicTimeline();
+            TootTimelineCollection = new System.Collections.ObjectModel.ObservableCollection<Mastonet.Entities.Status>(tootTimelineData);
         }
     }
 }

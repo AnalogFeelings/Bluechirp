@@ -22,7 +22,23 @@ namespace Tooter.ViewModel
 
         internal async override Task LoadFeedAsync()
         {
-            TootTimelineCollection = await ClientHelper.Client.GetHomeTimeline();
+           tootTimelineData = await ClientHelper.Client.GetHomeTimeline();
+            TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
+        }
+
+        internal async override Task AddOlderContentToFeed()
+        {
+            var olderContent = await ClientHelper.Client.GetHomeTimeline(tootTimelineData.NextPageMaxId);
+            tootTimelineData.AddRange(olderContent);
+            foreach (var item in olderContent)
+            {
+                TootTimelineCollection.Add(item);
+            }
+        }
+
+        internal override Task AddNewerContentToFeed()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -12,9 +12,9 @@ namespace Tooter.ViewModel
 {
     public abstract class TimelineViewModelBase : Notifier
     {
-        private MastodonList<Status> _tootTimelineCollection;
+        private ObservableCollection<Status> _tootTimelineCollection;
 
-        public MastodonList<Status> TootTimelineCollection
+        public ObservableCollection<Status> TootTimelineCollection
         {
             get { return _tootTimelineCollection; }
             set
@@ -23,6 +23,10 @@ namespace Tooter.ViewModel
                 NotifyPropertyChanged();
             }
         }
+
+
+
+        protected MastodonList<Status> tootTimelineData;
 
         public abstract string ViewTitle { get; protected set; }
 
@@ -43,5 +47,12 @@ namespace Tooter.ViewModel
         }
 
         internal abstract Task LoadFeedAsync();
+
+        internal abstract Task AddOlderContentToFeed();
+
+        internal abstract Task AddNewerContentToFeed();
+
+
+
     }
 }

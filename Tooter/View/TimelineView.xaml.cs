@@ -26,7 +26,7 @@ namespace Tooter.View
     /// </summary>
     public sealed partial class TimelineView : Page, INotifyPropertyChanged
     {
-
+        ScrollViewer _listViewScrollViewer = null;
         private TimelineViewModelBase _viewModel;
 
         public TimelineViewModelBase ViewModel
@@ -42,15 +42,68 @@ namespace Tooter.View
         public TimelineView()
         {
             this.InitializeComponent();
+            RegisterEvents();
         }
 
+        private void RegisterEvents()
+        {
+            TootsListView.PointerEntered += TootsListView_PointerEntered;
+        }
 
+        private void TootsListView_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (_listViewScrollViewer == null)
+            {
+                _listViewScrollViewer = TryFindScrollViewer(TootsListView);
+            }
+        }
+
+        private ScrollViewer TryFindScrollViewer(DependencyObject depObj)
+        {
+            ScrollViewer viewerToFind = GetScrollViewer(depObj);
+            
+            if (viewerToFind != null)
+            {
+                //    if (foundOne.VerticalOffset == 0)
+                //    //refresh.Visibility = Visibility.Visible;
+                //    else
+                //refresh.Visibility = Visibility.Collapsed;
+                viewerToFind.ViewChanging += ScrollViewerViewChanging;
+            }
+
+            return viewerToFind;
+        }
+
+        private async void ScrollViewerViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            const double loadingRangeHeight = 100;
+            if (e.NextView.VerticalOffset + loadingRangeHeight >= _listViewScrollViewer.ScrollableHeight)
+            {
+                await ViewModel.AddOlderContentToFeed();
+                
+            }
+        }
+
+        private static ScrollViewer GetScrollViewer(DependencyObject depObj)
+        {
+            if (depObj is ScrollViewer) return depObj as ScrollViewer;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(depObj, i);
+
+                var result = GetScrollViewer(child);
+                if (result != null) return result;
+            }
+            return null;
+        }
 
         public TimelineView(TimelineViewModelBase ViewModelToUse)
         {
             if (!this.IsLoaded)
             {
                 this.InitializeComponent();
+                RegisterEvents();
             }
             ViewModel = ViewModelToUse;
         }
@@ -67,6 +120,8 @@ namespace Tooter.View
                 ViewModel = Activator.CreateInstance(ViewModelType) as TimelineViewModelBase;
             }
             await ViewModel.LoadFeedAsync();
+            
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

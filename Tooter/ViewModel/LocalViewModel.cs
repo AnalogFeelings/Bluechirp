@@ -12,9 +12,20 @@ namespace Tooter.ViewModel
     {
         public override string ViewTitle { get; protected set; } = "Local Timeline";
 
+        internal override Task AddNewerContentToFeed()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override Task AddOlderContentToFeed()
+        {
+            throw new NotImplementedException();
+        }
+
         internal async override Task LoadFeedAsync()
         {
-            base.TootTimelineCollection = await ClientHelper.Client.GetPublicTimeline(local: true);
+            base.tootTimelineData = await ClientHelper.Client.GetPublicTimeline(local: true);
+            TootTimelineCollection = new System.Collections.ObjectModel.ObservableCollection<Mastonet.Entities.Status>(tootTimelineData);
         }
     }
 }
