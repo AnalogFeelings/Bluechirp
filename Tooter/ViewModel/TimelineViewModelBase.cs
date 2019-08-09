@@ -12,6 +12,9 @@ namespace Tooter.ViewModel
 {
     public abstract class TimelineViewModelBase : Notifier
     {
+
+        public abstract event EventHandler TootsAdded;
+
         private ObservableCollection<Status> _tootTimelineCollection;
 
         public ObservableCollection<Status> TootTimelineCollection

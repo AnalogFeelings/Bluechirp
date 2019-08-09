@@ -15,14 +15,16 @@ namespace Tooter.ViewModel
     {
         public override string ViewTitle { get; protected set; } = "Home";
 
-        public HomeViewModel(): base()
+        public HomeViewModel() : base()
         {
-            
+
         }
+
+        public override event EventHandler TootsAdded;
 
         internal async override Task LoadFeedAsync()
         {
-           tootTimelineData = await ClientHelper.Client.GetHomeTimeline();
+            tootTimelineData = await ClientHelper.Client.GetHomeTimeline();
             TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
         }
 
@@ -34,6 +36,8 @@ namespace Tooter.ViewModel
             {
                 TootTimelineCollection.Add(item);
             }
+
+            TootsAdded?.Invoke(null, EventArgs.Empty);
         }
 
         internal override Task AddNewerContentToFeed()

@@ -27,6 +27,9 @@ namespace Tooter.View
     public sealed partial class TimelineView : Page, INotifyPropertyChanged
     {
         ScrollViewer _listViewScrollViewer = null;
+        bool isListViewRefreshingEnabled = true;
+
+
         private TimelineViewModelBase _viewModel;
 
         public TimelineViewModelBase ViewModel
@@ -50,6 +53,16 @@ namespace Tooter.View
             TootsListView.PointerEntered += TootsListView_PointerEntered;
         }
 
+        private void ViewModel_TootsAdded(object sender, EventArgs e)
+        {
+            EnableListViewRefreshing();
+        }
+
+        private void EnableListViewRefreshing()
+        {
+            isListViewRefreshingEnabled = true;
+        }
+
         private void TootsListView_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             if (_listViewScrollViewer == null)
@@ -61,7 +74,7 @@ namespace Tooter.View
         private ScrollViewer TryFindScrollViewer(DependencyObject depObj)
         {
             ScrollViewer viewerToFind = GetScrollViewer(depObj);
-            
+
             if (viewerToFind != null)
             {
                 //    if (foundOne.VerticalOffset == 0)
@@ -76,12 +89,22 @@ namespace Tooter.View
 
         private async void ScrollViewerViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
-            const double loadingRangeHeight = 100;
-            if (e.NextView.VerticalOffset + loadingRangeHeight >= _listViewScrollViewer.ScrollableHeight)
+
+            if (isListViewRefreshingEnabled)
             {
-                await ViewModel.AddOlderContentToFeed();
-                
+                const double loadingRangeHeight = 100;
+                if (e.NextView.VerticalOffset + loadingRangeHeight >= _listViewScrollViewer.ScrollableHeight)
+                {
+                    DisableListViewRefreshing();
+                    await ViewModel.AddOlderContentToFeed();
+
+                }
             }
+        }
+
+        private void DisableListViewRefreshing()
+        {
+            isListViewRefreshingEnabled = false;
         }
 
         private static ScrollViewer GetScrollViewer(DependencyObject depObj)
@@ -106,7 +129,15 @@ namespace Tooter.View
                 RegisterEvents();
             }
             ViewModel = ViewModelToUse;
+            RegisterViewModelEvents();
         }
+
+        private void RegisterViewModelEvents()
+        {
+            ViewModel.TootsAdded += ViewModel_TootsAdded;
+        }
+
+        
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -119,9 +150,10 @@ namespace Tooter.View
             {
                 ViewModel = Activator.CreateInstance(ViewModelType) as TimelineViewModelBase;
             }
+            RegisterViewModelEvents();
             await ViewModel.LoadFeedAsync();
-            
-            
+
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

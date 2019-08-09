@@ -11,6 +11,8 @@ namespace Tooter.ViewModel
     {
         public override string ViewTitle { get; protected set; } = "Federated Timeline";
 
+        public override event EventHandler TootsAdded;
+
         internal override Task AddNewerContentToFeed()
         {
             throw new NotImplementedException();
