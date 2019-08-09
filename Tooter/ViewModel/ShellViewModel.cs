@@ -38,8 +38,7 @@ namespace Tooter.ViewModel
 
         private async Task NavigateToTootView()
         {
-            
-            await new NewTootDialog().ShowAsync();
+            await new NewTootDialog(CurrentUser.StaticAvatarUrl).ShowAsync();
         }
 
 

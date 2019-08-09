@@ -16,9 +16,7 @@ namespace Tooter.ViewModel
     class NewTootViewModel : Notifier
     {
 
-        
         public RelayCommand SendTootCommand;
-
 
         private bool _isTootButtonEnabled;
 
