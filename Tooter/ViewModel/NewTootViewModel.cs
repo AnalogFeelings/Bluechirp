@@ -16,6 +16,7 @@ namespace Tooter.ViewModel
     class NewTootViewModel : Notifier
     {
 
+        
         public RelayCommand SendTootCommand;
 
 
@@ -24,7 +25,9 @@ namespace Tooter.ViewModel
         public bool IsTootButtonEnabled
         {
             get { return _isTootButtonEnabled; }
-            set { _isTootButtonEnabled = value;
+            set
+            {
+                _isTootButtonEnabled = value;
                 NotifyPropertyChanged();
             }
         }
@@ -41,6 +44,8 @@ namespace Tooter.ViewModel
                 CheckIfTootButtonShouldBeEnabled();
             }
         }
+
+        
 
         private bool _hasReachedCharLimit;
 
@@ -98,7 +103,7 @@ namespace Tooter.ViewModel
 
         internal NewTootViewModel()
         {
-            SendTootCommand = new RelayCommand(async () =>  await SendNewToot());
+            SendTootCommand = new RelayCommand(async () => await SendNewToot());
             UpdateCharCountString(0);
         }
 

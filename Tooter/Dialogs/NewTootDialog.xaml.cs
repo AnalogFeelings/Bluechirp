@@ -29,12 +29,15 @@ namespace Tooter.Dialogs
         public NewTootDialog()
         {
             this.InitializeComponent();
-            
         }
+
+        
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
         }
+
+        
     }
 }

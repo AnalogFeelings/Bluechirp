@@ -1105,7 +1105,7 @@
         <Setter Property="TabNavigation" Value="Local" />
         <Setter Property="IsHoldingEnabled" Value="True" />
         <Setter Property="Padding" Value="12,0,12,0" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="MinWidth" Value="0" />
         <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}" />
@@ -1477,7 +1477,7 @@
 
                                 <VisualState x:Name="PC">
                                     <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="800"/>
+                                        <AdaptiveTrigger MinWindowWidth="1008"/>
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="ContentPresenter.HorizontalContentAlignment" Value="Left"/>
@@ -1576,7 +1576,7 @@
         <Setter Property="TabNavigation" Value="Local" />
         <Setter Property="IsHoldingEnabled" Value="True" />
         <Setter Property="Padding" Value="12,0,12,0" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="MinWidth" Value="0" />
         <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}" />
@@ -1681,7 +1681,7 @@
 
                                 <VisualState x:Name="PC">
                                     <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="800"/>
+                                        <AdaptiveTrigger MinWindowWidth="1008"/>
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="Root.HorizontalContentAlignment" Value="Left"/>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tooter.Helpers;
 using Tooter.Services;
 using Tooter.ViewModel;
 using Windows.Foundation;
@@ -30,10 +31,11 @@ namespace Tooter.View
             NavService.CreateInstance(ContentFrame);
             
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             ContentFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+            await ViewModel.DoAsyncPrepartions();
         }
 
         private void MenuListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -54,6 +56,11 @@ namespace Tooter.View
                 }
             }
            
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

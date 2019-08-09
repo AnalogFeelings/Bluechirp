@@ -11,6 +11,7 @@
     xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
     xmlns:contract7Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract, 5)"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
@@ -52,22 +53,36 @@
                 </ListViewItem>
 
                     <ListViewItem Name="FederatedButton">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;" Name="FederatedButtonIcon"/>
-                </ListViewItem>
-
-                <!--<ListViewItem>-->
-                    
-
-                <!--</ListViewItem>-->
-            </ListView>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;" Name="FederatedButtonIcon"/>
+                    </ListViewItem>
+                </ListView>
+                <muxc:PersonPicture ProfilePicture="{x:Bind ViewModel.CurrentUser.AvatarUrl, Mode=OneWay}"
+                                           Width="32"
+                                           Height="32"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,4,0,0"
+                                    ToolTipService.ToolTip="{x:Bind ViewModel.CurrentUser.AccountName, Mode=OneWay}">
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="Logout" 
+                                            Name="LogoutButton" 
+                                            Click="LogoutButton_Click"/>
+                        </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
+                </muxc:PersonPicture>
+                
                 <Button x:Name="TootButton" Style="{ThemeResource CircleButtonStyle}" Width="44" Height="44"
                    HorizontalAlignment="Center"
                    Background="{ThemeResource SystemAccentColor}"
                    Foreground="White"
-                   Command="{x:Bind ViewModel.NewTootCommand}">
+                   Command="{x:Bind ViewModel.NewTootCommand}"
+                        Margin="0,16,0,0">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" 
                                   FontSize="16"/>
-                    </Button> 
+                    </Button>
+
+
+
             </StackPanel>
         </Border>
 
