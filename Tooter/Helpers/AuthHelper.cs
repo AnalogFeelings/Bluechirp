@@ -56,6 +56,7 @@ namespace Tooter.Helpers
 
                 string clientProfileID = $"{_appRegistration.Instance}{currentUser.Id}";
 
+                ClientHelper.SetLoadedProfile(clientProfileID);
                 ClientDataHelper.SetLastUsedProfile(clientProfileID);
                 await ClientDataHelper.StoreClientData(clientProfileID, auth, _appRegistration);
 

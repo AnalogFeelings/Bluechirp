@@ -12,6 +12,7 @@ namespace Tooter.Helpers
 {
     public static class ClientDataHelper
     {
+        static ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
         static LocalObjectStorageHelper _localStorageHelper = new LocalObjectStorageHelper();
         internal static HashSet<string> ClientProfileList { get; } = new HashSet<string>();
         internal static string LastUsedProfile { get; private set; } = null;
@@ -76,6 +77,11 @@ namespace Tooter.Helpers
 
         }
 
+        private static void RemoveClientData(string clientProfileID)
+        {
+            _localSettings.DeleteContainer(clientProfileID);
+        }
+
         internal static async Task AddClientProfileAsync(string clientProfileID)
         {
             ClientProfileList.Add(clientProfileID);
@@ -94,8 +100,24 @@ namespace Tooter.Helpers
             }
 
             StorageFile profilesFile = await GetSavedClientsFileAsync();
-
+            if (GetLastUsedProfile() == clientProfileID)
+            {
+                TryClearLastUsedProfile();
+            }
+            RemoveClientData(clientProfileID);
             await FileIO.WriteTextAsync(profilesFile, contentBuilder.ToString());
+        }
+
+        private static void TryClearLastUsedProfile()
+        {
+            if (ClientProfileList.Count > 0)
+            {
+                SetLastUsedProfile(ClientProfileList.First());
+            }
+            else
+            {
+                SetLastUsedProfile(null);
+            }
         }
 
         private static async Task<StorageFile> GetSavedClientsFileAsync()
@@ -117,7 +139,7 @@ namespace Tooter.Helpers
             token.TokenType = _localStorageHelper.Read(clientProfileID, TokenTypeString, default(string));
 
             appRegistration.Id = _localStorageHelper.Read<long>(clientProfileID, AppIDString, default(long));
-            appRegistration.Instance = _localStorageHelper.Read(clientProfileID, InstanceString,default(string));
+            appRegistration.Instance = _localStorageHelper.Read(clientProfileID, InstanceString, default(string));
 
             appRegistration.ClientId = _localStorageHelper.Read(clientProfileID, ClientIDString, default(string));
             appRegistration.ClientSecret = _localStorageHelper.Read(clientProfileID, ClientSecretString, default(string));

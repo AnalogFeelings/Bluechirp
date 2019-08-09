@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Tooter.Services;
 using Tooter.View;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Tooter.Helpers
 {
@@ -39,7 +41,6 @@ namespace Tooter.Helpers
             else
             {
                 LoadProfile(ClientDataHelper.GetLastUsedProfile());
-                
             }
 
             return isLoadSuccessful;
@@ -48,7 +49,13 @@ namespace Tooter.Helpers
         internal static async Task Logout()
         {
             await ClientDataHelper.RemoveClientProfileAsync(loadedProfile);
+            NavService.CreateInstance((Frame)Window.Current.Content);
             NavService.Instance.Navigate(typeof(LoginView));
+        }
+
+        internal static void SetLoadedProfile(string clientProfileID)
+        {
+            loadedProfile = clientProfileID;
         }
     }
 }
