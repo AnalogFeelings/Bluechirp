@@ -9,9 +9,15 @@ namespace Tooter.Core
     public class APIConstants
     {
         public const string RedirectUri = "tooter://mycallback";
-        public const string AppName = "Fedi";
 
-        // Update this for actual release
+#if MASTO_TESTING
+        public const string AppName = "Fedi (Beta)";
         public const string AppWebsite = "https://www.microsoft.com/store/apps/9ND02K1RC5CZ";
+
+#else
+        public const string AppName = "Fedi";
+        public const string AppWebsite = "https://www.microsoft.com/store/apps/9P3T3N4JBK91";
+#endif
+
     }
 }
