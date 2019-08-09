@@ -10,14 +10,15 @@ namespace Tooter.Core
     {
         public const string RedirectUri = "tooter://mycallback";
 
-#if TESTING
+
         public const string AppName = "Fedi (Beta)";
         public const string AppWebsite = "https://www.microsoft.com/store/apps/9ND02K1RC5CZ";
 
-#else
-        public const string AppName = "Fedi";
-        public const string AppWebsite = "https://www.microsoft.com/store/apps/9P3T3N4JBK91";
-#endif
+
+        // Switch to this when you release the app
+        //public const string AppName = "Fedi";
+        //public const string AppWebsite = "https://www.microsoft.com/store/apps/9P3T3N4JBK91";
+
 
     }
 }
