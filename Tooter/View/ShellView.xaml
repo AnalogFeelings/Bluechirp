@@ -56,21 +56,24 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;" Name="FederatedButtonIcon"/>
                     </ListViewItem>
                 </ListView>
-                <muxc:PersonPicture ProfilePicture="{x:Bind ViewModel.CurrentUser.AvatarUrl, Mode=OneWay}"
+                <Button Style="{StaticResource TextBlockButtonStyle}" Padding="0"
+                        Margin="0,4,0,0"
+                        HorizontalAlignment="Center">
+                    <muxc:PersonPicture ProfilePicture="{x:Bind ViewModel.CurrentUser.AvatarUrl, Mode=OneWay}"
                                            Width="32"
                                            Height="32"
-                                        HorizontalAlignment="Center"
-                                        Margin="0,4,0,0"
-                                    ToolTipService.ToolTip="{x:Bind ViewModel.CurrentUser.AccountName, Mode=OneWay}">
-                    <FlyoutBase.AttachedFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem Text="Logout" 
+                                        
+                                    ToolTipService.ToolTip="{x:Bind ViewModel.CurrentUser.AccountName, Mode=OneWay}"/>
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Logout" 
                                             Name="LogoutButton" 
                                             Click="LogoutButton_Click"/>
-                        </MenuFlyout>
-                    </FlyoutBase.AttachedFlyout>
-                </muxc:PersonPicture>
-                
+                    </MenuFlyout>
+                </Button.Flyout>
+                </Button>
+
+
                 <Button x:Name="TootButton" Style="{ThemeResource CircleButtonStyle}" Width="44" Height="44"
                    HorizontalAlignment="Center"
                    Background="{ThemeResource SystemAccentColor}"
