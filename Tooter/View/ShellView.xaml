@@ -56,7 +56,7 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;" Name="FederatedButtonIcon"/>
                     </ListViewItem>
                 </ListView>
-                <Button Style="{StaticResource TextBlockButtonStyle}" Padding="0"
+                <Button Style="{StaticResource ProfilePictureButton}" Padding="0"
                         Margin="0,4,0,0"
                         HorizontalAlignment="Center">
                     <muxc:PersonPicture ProfilePicture="{x:Bind ViewModel.CurrentUser.AvatarUrl, Mode=OneWay}"
