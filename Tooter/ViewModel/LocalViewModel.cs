@@ -15,9 +15,25 @@ namespace Tooter.ViewModel
 
         public override event EventHandler TootsAdded;
 
-        internal override Task AddNewerContentToFeed()
+        internal async override Task AddNewerContentToFeed()
         {
-            throw new NotImplementedException();
+            Mastonet.ArrayOptions options = new Mastonet.ArrayOptions();
+
+            options.MinId = previousPageSinceId;
+
+            var newerContent = await ClientHelper.Client.GetPublicTimeline(options, true);
+
+            previousPageMinId = newerContent.PreviousPageMinId;
+            previousPageSinceId = newerContent.PreviousPageSinceId;
+
+            tootTimelineData.InsertRange(0, newerContent);
+
+            for (int i = newerContent.Count - 1; i > -1; i--)
+            {
+                TootTimelineCollection.Insert(0, newerContent[i]);
+            }
+
+            TootsAdded?.Invoke(null, EventArgs.Empty);
         }
 
         internal async override Task AddOlderContentToFeed()
