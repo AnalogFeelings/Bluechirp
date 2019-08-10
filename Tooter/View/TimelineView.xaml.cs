@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Tooter.Model;
 using Tooter.Services;
 using Tooter.ViewModel;
@@ -66,10 +67,9 @@ namespace Tooter.View
         private void RegisterEvents()
         {
             TootsListView.PointerEntered += TootsListView_PointerEntered;
-            CacheService.TimelineCacheRequested += CacheService_TimelineCacheRequested;
         }
 
-        private async void CacheService_TimelineCacheRequested(object sender, EventArgs e)
+        public async Task TryCacheTimeline()
         {
             var currentTopVisibleStatus = GetTopVisibleToot();
             if (currentTopVisibleStatus != null)

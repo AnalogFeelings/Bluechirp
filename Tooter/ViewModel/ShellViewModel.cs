@@ -37,10 +37,10 @@ namespace Tooter.ViewModel
             App.Current.EnteredBackground += Current_EnteredBackground;
         }
 
-        private void Current_EnteredBackground(object sender, Windows.ApplicationModel.EnteredBackgroundEventArgs e)
+        private async void Current_EnteredBackground(object sender, Windows.ApplicationModel.EnteredBackgroundEventArgs e)
         {
             var deferral = e.GetDeferral();
-            CacheService.RequestTimelinesToBeCached();
+            await CacheService.CacheCurrentTimeline();
             deferral.Complete();
         }
 

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Tooter.Helpers;
 using Tooter.Services;
 using Tooter.ViewModel;
@@ -62,17 +63,21 @@ namespace Tooter.View
             ActiveFrame = _homeFrame;
             NavService.CreateInstance(ActiveFrame);
             ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+            SwapTimelineToCache();
             await ViewModel.DoAsyncPrepartions();
         }
 
-        private void MenuListView_ItemClick(object sender, ItemClickEventArgs e)
+        private async void MenuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            bool shouldSwapTimeline = false;
             if (e.ClickedItem is FontIcon menuListItem)
             {
                 if (menuListItem == HomeButtonIcon && !HomeButton.IsSelected)
                 {
+                    shouldSwapTimeline = true;
+                    await TryCacheTimeline();
                     ActiveFrame = _homeFrame;
-
+                    
                     if (!CheckIfFrameHasContent())
                     {
                         ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
@@ -80,6 +85,8 @@ namespace Tooter.View
                 }
                 else if (menuListItem == LocalButtonIcon && !LocalButton.IsSelected)
                 {
+                    shouldSwapTimeline = true;
+                    await TryCacheTimeline();
                     ActiveFrame = _localFrame;
                     if (!CheckIfFrameHasContent())
                     {
@@ -88,6 +95,8 @@ namespace Tooter.View
                 }
                 else if (menuListItem == FederatedButtonIcon && !FederatedButton.IsSelected)
                 {
+                    shouldSwapTimeline = true;
+                    await TryCacheTimeline();
                     ActiveFrame = _federatedFrame;
                     if (!CheckIfFrameHasContent())
                     {
@@ -96,8 +105,23 @@ namespace Tooter.View
                 }
             }
 
+            if (shouldSwapTimeline)
+            {
+                SwapTimelineToCache();
+            }
+
         }
 
+        private async Task TryCacheTimeline()
+        {
+            await CacheService.CacheCurrentTimeline();
+        }
+
+        private void SwapTimelineToCache()
+        {
+            var timelineToCache = (TimelineView)ActiveFrame.Content;
+            CacheService.SwapCurrentTimeline(timelineToCache);
+        }
 
         private bool CheckIfFrameHasContent()
         {
