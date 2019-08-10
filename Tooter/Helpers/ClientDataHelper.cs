@@ -25,7 +25,8 @@ namespace Tooter.Helpers
 
         internal static void StoreTimelineCache(TimelineCache cachedTimeline)
         {
-            _tempStorageHelper.SaveFileAsync(cachedTimeline.CacheTimelineType.ToString(), cachedTimeline);
+            var timelineType = cachedTimeline.CurrentTimelineSettings.CurrentTimelineType;
+            _tempStorageHelper.SaveFileAsync(timelineType.ToString(), cachedTimeline);
         }
 
         // Token settings

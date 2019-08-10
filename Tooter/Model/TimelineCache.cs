@@ -12,18 +12,18 @@ namespace Tooter.Model
     {
         public MastodonList<Status> Toots;
         public Status CurrentStatusMarker;
-        public TimelineType CacheTimelineType;
+        public TimelineSettings CurrentTimelineSettings;
 
         public TimelineCache()
         {
 
         }
 
-        public TimelineCache(MastodonList<Status> toots, Status currentStatusMarker, TimelineType timelineType)
+        public TimelineCache(MastodonList<Status> toots, Status currentStatusMarker, TimelineSettings timelineType)
         {
             Toots = toots;
             CurrentStatusMarker = currentStatusMarker;
-            CacheTimelineType = timelineType;
+            CurrentTimelineSettings = timelineType;
         }
     }
 }

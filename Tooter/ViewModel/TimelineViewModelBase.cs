@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tooter.Commands;
 using Tooter.Model;
+using Tooter.Services;
 
 namespace Tooter.ViewModel
 {
@@ -41,9 +42,10 @@ namespace Tooter.ViewModel
 
         public TimelineViewModelBase()
         {
-            //TootTimelineCollection = new MastodonList<Status>();
             DeleteCommand = new RelayCommandWithParameter(DeleteToot);
         }
+
+        internal abstract void CacheTimeline(Status currentTopVisibleStatus);
 
         private void DeleteToot(object obj)
         {

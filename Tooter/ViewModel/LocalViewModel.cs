@@ -1,4 +1,5 @@
 ﻿using Mastonet;
+using Mastonet.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace Tooter.ViewModel
         public override string ViewTitle { get; protected set; } = "Local Timeline";
 
         public override event EventHandler TootsAdded;
+
+
+        
 
         internal async override Task AddNewerContentToFeed()
         {
@@ -51,6 +55,11 @@ namespace Tooter.ViewModel
             }
 
             TootsAdded?.Invoke(null, EventArgs.Empty);
+        }
+
+        internal override void CacheTimeline(Status currentTopVisibleStatus)
+        {
+            throw new NotImplementedException();
         }
 
         internal async override Task LoadFeedAsync()

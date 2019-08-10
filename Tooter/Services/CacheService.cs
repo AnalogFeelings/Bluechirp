@@ -19,9 +19,9 @@ namespace Tooter.Services
             TimelineCacheRequested?.Invoke(null, EventArgs.Empty);
         }
 
-        internal static void CacheTimeline(MastodonList<Status> timeline, Status currentStatusMarker, TimelineType timelineType)
+        internal static void CacheTimeline(MastodonList<Status> timeline, Status currentStatusMarker, TimelineSettings timelineSettings)
         {
-            TimelineCache cachedTimeline = new TimelineCache(timeline, currentStatusMarker, timelineType);
+            TimelineCache cachedTimeline = new TimelineCache(timeline, currentStatusMarker, timelineSettings);
             ClientDataHelper.StoreTimelineCache(cachedTimeline);
         }
     }

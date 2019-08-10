@@ -6,8 +6,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tooter.Enums;
 using Tooter.Helpers;
 using Tooter.Model;
+using Tooter.Services;
 
 namespace Tooter.ViewModel
 {
@@ -66,6 +68,13 @@ namespace Tooter.ViewModel
             }
 
             TootsAdded?.Invoke(null, EventArgs.Empty);
+        }
+
+        internal override void CacheTimeline(Status currentTopVisibleStatus)
+        {
+            var timelineSettings = new TimelineSettings(nextPageMaxId, previousPageMinId, previousPageSinceId, TimelineType.Home);
+            CacheService.CacheTimeline(tootTimelineData, currentTopVisibleStatus, timelineSettings);
+            
         }
     }
 }
