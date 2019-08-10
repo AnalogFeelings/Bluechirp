@@ -34,7 +34,7 @@
             </ListView.ItemTemplate>
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsStackPanel ItemsUpdatingScrollMode="KeepScrollOffset"/>
+                    <ItemsStackPanel ItemsUpdatingScrollMode="KeepItemsInView"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
