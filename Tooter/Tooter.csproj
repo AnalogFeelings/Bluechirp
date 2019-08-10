@@ -136,10 +136,12 @@
     <Compile Include="Dialogs\NewTootDialog.xaml.cs">
       <DependentUpon>NewTootDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Enums\TimelineType.cs" />
     <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\CharCounterHelper.cs" />
     <Compile Include="Helpers\ClientDataHelper.cs" />
     <Compile Include="Helpers\ClientHelper.cs" />
+    <Compile Include="Helpers\TempObjectStorageHelper.cs" />
     <Compile Include="LocalControls\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>
@@ -159,7 +161,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Notifier.cs" />
+    <Compile Include="Model\TimelineCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CacheService.cs" />
     <Compile Include="Services\NavService.cs" />
     <Compile Include="ViewModel\FederatedViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
@@ -345,7 +349,6 @@
   <ItemGroup>
     <Folder Include="Branding\Debug\" />
     <Folder Include="Branding\Release\" />
-    <Folder Include="Enums\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MastoParserLib\MastoParserLib.csproj">

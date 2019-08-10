@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tooter.Core;
+using Tooter.Enums;
+using Tooter.Model;
 using Windows.Storage;
 
 namespace Tooter.Helpers
@@ -14,10 +16,17 @@ namespace Tooter.Helpers
     {
         static ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
         static LocalObjectStorageHelper _localStorageHelper = new LocalObjectStorageHelper();
+        static TempObjectStorageHelper _tempStorageHelper = new TempObjectStorageHelper();
+
         internal static HashSet<string> ClientProfileList { get; } = new HashSet<string>();
         internal static string LastUsedProfile { get; private set; } = null;
 
         const string SavedClientProfilesFileName = "savedClientProfiles.txt";
+
+        internal static void StoreTimelineCache(TimelineCache cachedTimeline)
+        {
+            _tempStorageHelper.SaveFileAsync(cachedTimeline.CacheTimelineType.ToString(), cachedTimeline);
+        }
 
         // Token settings
         const string AccessTokenString = "accessToken";
