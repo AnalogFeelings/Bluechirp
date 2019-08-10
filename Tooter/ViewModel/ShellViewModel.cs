@@ -39,7 +39,9 @@ namespace Tooter.ViewModel
 
         private void Current_EnteredBackground(object sender, Windows.ApplicationModel.EnteredBackgroundEventArgs e)
         {
-            e.GetDeferral();
+            var deferral = e.GetDeferral();
+            CacheService.RequestTimelinesToBeCached();
+            deferral.Complete();
         }
 
         private async Task NavigateToTootView()
