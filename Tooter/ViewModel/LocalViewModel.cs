@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastonet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +20,28 @@ namespace Tooter.ViewModel
             throw new NotImplementedException();
         }
 
-        internal override Task AddOlderContentToFeed()
+        internal async override Task AddOlderContentToFeed()
         {
-            throw new NotImplementedException();
+            var options = new ArrayOptions();
+            options.MaxId = nextPageId;
+            var olderContent = await ClientHelper.Client.GetPublicTimeline(options, true);
+            nextPageId = olderContent.NextPageMaxId;
+
+            tootTimelineData.AddRange(olderContent);
+            foreach (var item in olderContent)
+            {
+                TootTimelineCollection.Add(item);
+            }
+
+            TootsAdded?.Invoke(null, EventArgs.Empty);
         }
 
         internal async override Task LoadFeedAsync()
         {
             base.tootTimelineData = await ClientHelper.Client.GetPublicTimeline(local: true);
+            nextPageId = tootTimelineData.NextPageMaxId;
+            previousPageId = tootTimelineData.PreviousPageSinceId;
+
             TootTimelineCollection = new System.Collections.ObjectModel.ObservableCollection<Mastonet.Entities.Status>(tootTimelineData);
         }
     }
