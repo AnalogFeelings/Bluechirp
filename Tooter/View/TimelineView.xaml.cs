@@ -77,15 +77,14 @@ namespace Tooter.View
 
             if (viewerToFind != null)
             {
-                //    if (foundOne.VerticalOffset == 0)
-                //    //refresh.Visibility = Visibility.Visible;
-                //    else
-                //refresh.Visibility = Visibility.Collapsed;
+                TootsListView.PointerEntered -= TootsListView_PointerEntered;
                 viewerToFind.ViewChanging += ScrollViewerViewChanging;
             }
 
             return viewerToFind;
         }
+
+        
 
         private async void ScrollViewerViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
@@ -98,6 +97,11 @@ namespace Tooter.View
                     DisableListViewRefreshing();
                     await ViewModel.AddOlderContentToFeed();
 
+                }
+                else if (e.NextView.VerticalOffset < 100 && _listViewScrollViewer.VerticalOffset > 100)
+                {
+                    DisableListViewRefreshing();
+                    await ViewModel.AddNewerContentToFeed();
                 }
             }
         }

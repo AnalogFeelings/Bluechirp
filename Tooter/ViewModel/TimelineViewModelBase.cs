@@ -13,9 +13,9 @@ namespace Tooter.ViewModel
     public abstract class TimelineViewModelBase : Notifier
     {
 
-        protected long? previousPageId;
-
-        protected long? nextPageId;
+        protected long? previousPageSinceId;
+        protected long? previousPageMinId;
+        protected long? nextPageMaxId;
 
         public abstract event EventHandler TootsAdded;
 

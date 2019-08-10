@@ -324,7 +324,7 @@
       <Version>0.0.27-alpha</Version>
     </PackageReference>
     <PackageReference Include="Mastonet">
-      <Version>1.4.1</Version>
+      <Version>1.7.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>

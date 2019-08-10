@@ -22,9 +22,9 @@ namespace Tooter.ViewModel
         internal async override Task AddOlderContentToFeed()
         {
             var options = new ArrayOptions();
-            options.MaxId = nextPageId;
+            options.MaxId = nextPageMaxId;
             var olderContent = await ClientHelper.Client.GetPublicTimeline(options);
-            nextPageId = olderContent.NextPageMaxId;
+            nextPageMaxId = olderContent.NextPageMaxId;
 
             tootTimelineData.AddRange(olderContent);
             foreach (var item in olderContent)
@@ -38,8 +38,9 @@ namespace Tooter.ViewModel
         internal async override Task LoadFeedAsync()
         {
             base.tootTimelineData = await ClientHelper.Client.GetPublicTimeline();
-            nextPageId = tootTimelineData.NextPageMaxId;
-            previousPageId = tootTimelineData.PreviousPageSinceId;
+            nextPageMaxId = tootTimelineData.NextPageMaxId;
+            previousPageMinId = tootTimelineData.PreviousPageMinId;
+            previousPageSinceId = tootTimelineData.PreviousPageSinceId;
 
             TootTimelineCollection = new System.Collections.ObjectModel.ObservableCollection<Mastonet.Entities.Status>(tootTimelineData);
         }

@@ -25,16 +25,17 @@ namespace Tooter.ViewModel
         internal async override Task LoadFeedAsync()
         {
             tootTimelineData = await ClientHelper.Client.GetHomeTimeline();
-            nextPageId = tootTimelineData.NextPageMaxId;
-            previousPageId = tootTimelineData.PreviousPageSinceId;
+            nextPageMaxId = tootTimelineData.NextPageMaxId;
+            previousPageMinId = tootTimelineData.PreviousPageMinId;
+            previousPageSinceId = tootTimelineData.PreviousPageSinceId;
 
             TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
         }
 
         internal async override Task AddOlderContentToFeed()
         {
-            var olderContent = await ClientHelper.Client.GetHomeTimeline(nextPageId);
-            nextPageId = olderContent.NextPageMaxId;
+            var olderContent = await ClientHelper.Client.GetHomeTimeline(nextPageMaxId);
+            nextPageMaxId = olderContent.NextPageMaxId;
 
             tootTimelineData.AddRange(olderContent);
             foreach (var item in olderContent)
@@ -45,9 +46,25 @@ namespace Tooter.ViewModel
             TootsAdded?.Invoke(null, EventArgs.Empty);
         }
 
-        internal override Task AddNewerContentToFeed()
+        internal async override Task AddNewerContentToFeed()
         {
-            throw new NotImplementedException();
+            Mastonet.ArrayOptions options = new Mastonet.ArrayOptions();
+            
+            options.MinId = previousPageSinceId;
+            
+            var newerContent = await ClientHelper.Client.GetHomeTimeline(options);
+
+            previousPageMinId = newerContent.PreviousPageMinId;
+            previousPageSinceId = newerContent.PreviousPageSinceId;
+
+            tootTimelineData.InsertRange(0, newerContent);
+
+            for (int i = newerContent.Count - 1; i > -1; i--)
+            {
+                TootTimelineCollection.Insert(0, newerContent[i]);
+            }
+
+            TootsAdded?.Invoke(null, EventArgs.Empty);
         }
     }
 }
