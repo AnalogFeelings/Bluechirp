@@ -14,6 +14,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -85,7 +86,9 @@ namespace Tooter.View
             return viewerToFind;
         }
 
-        
+       
+
+
 
         private async void ScrollViewerViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
@@ -103,7 +106,7 @@ namespace Tooter.View
                     DisableListViewRefreshing();
                     await ViewModel.AddNewerContentToFeed();
                 }
-               
+
             }
         }
 
@@ -126,7 +129,7 @@ namespace Tooter.View
             return null;
         }
 
-        
+
         public TimelineView(TimelineViewModelBase ViewModelToUse)
         {
             if (!this.IsLoaded)
@@ -170,5 +173,38 @@ namespace Tooter.View
         }
 
 
+        private void TootSaveTestButton_Click(object sender, RoutedEventArgs e)
+        {
+            GetTopVisibleToot();
+        }
+
+        public Status GetTopVisibleToot()
+        {
+            Status topToot = null;
+            ScrollViewer sv = _listViewScrollViewer;
+            Rect svViewportBounds = new Rect(sv.HorizontalOffset, sv.VerticalOffset, sv.ViewportWidth, sv.ViewportHeight);
+
+            for (int i = 0; i < TootsListView.Items.Count; ++i)
+            {
+                var container = TootsListView.ContainerFromIndex(i) as FrameworkElement;
+                if (container != null)
+                {
+                    
+                    var containerVisual = container.TransformToVisual(TootsListView);
+                    var containerPosition = containerVisual.TransformPoint(new Point(0,0));
+
+                    var bounds = new Rect(containerPosition.X, containerPosition.Y, container.ActualWidth, container.ActualHeight);
+
+                    
+                    if (RectHelper.Intersect(bounds, svViewportBounds) != Rect.Empty)
+                    {
+                        topToot = (Status)TootsListView.Items[i];
+                        break;
+                    }
+                }
+            }
+
+            return topToot;
+        }
     }
 }

@@ -37,13 +37,6 @@
                     Margin="0,0,0,12"/>
             <RelativePanel >
 
-
-
-                            <!--<Image Width="60"
-               Height="60"
-               
-                                Name="StatusAvatar"/>-->
-
                 <Ellipse Width="60"
                          Height="60"
                          Margin="0,0,24,0"
