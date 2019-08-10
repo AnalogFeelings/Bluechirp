@@ -59,10 +59,10 @@ namespace Tooter.ViewModel
             TootsAdded?.Invoke(null, EventArgs.Empty);
         }
 
-        internal override void CacheTimeline(Status currentTopVisibleStatus)
+        internal async override Task CacheTimeline(Status currentTopVisibleStatus)
         {
             var timelineSettings = new TimelineSettings(nextPageMaxId, previousPageMinId, previousPageSinceId, TimelineType.Local);
-            CacheService.CacheTimeline(tootTimelineData, currentTopVisibleStatus, timelineSettings);
+            await CacheService.CacheTimeline(tootTimelineData, currentTopVisibleStatus, timelineSettings);
         }
 
         internal async override Task LoadFeedAsync()

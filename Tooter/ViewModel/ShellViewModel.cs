@@ -34,6 +34,12 @@ namespace Tooter.ViewModel
         public ShellViewModel()
         {
             NewTootCommand = new RelayCommand(async () => await NavigateToTootView());
+            App.Current.EnteredBackground += Current_EnteredBackground;
+        }
+
+        private void Current_EnteredBackground(object sender, Windows.ApplicationModel.EnteredBackgroundEventArgs e)
+        {
+            e.GetDeferral();
         }
 
         private async Task NavigateToTootView()

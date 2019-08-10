@@ -23,10 +23,10 @@ namespace Tooter.Helpers
 
         const string SavedClientProfilesFileName = "savedClientProfiles.txt";
 
-        internal static void StoreTimelineCache(TimelineCache cachedTimeline)
+        internal async static Task StoreTimelineCache(TimelineCache cachedTimeline)
         {
             var timelineType = cachedTimeline.CurrentTimelineSettings.CurrentTimelineType;
-            _tempStorageHelper.SaveFileAsync(timelineType.ToString(), cachedTimeline);
+            await _tempStorageHelper.SaveFileAsync(timelineType.ToString(), cachedTimeline);
         }
 
         // Token settings

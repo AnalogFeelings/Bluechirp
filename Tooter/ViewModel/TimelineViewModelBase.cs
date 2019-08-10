@@ -45,7 +45,7 @@ namespace Tooter.ViewModel
             DeleteCommand = new RelayCommandWithParameter(DeleteToot);
         }
 
-        internal abstract void CacheTimeline(Status currentTopVisibleStatus);
+        internal abstract Task CacheTimeline(Status currentTopVisibleStatus);
 
         private void DeleteToot(object obj)
         {

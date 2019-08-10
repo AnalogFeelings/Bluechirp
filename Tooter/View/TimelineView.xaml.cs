@@ -69,12 +69,12 @@ namespace Tooter.View
             CacheService.TimelineCacheRequested += CacheService_TimelineCacheRequested;
         }
 
-        private void CacheService_TimelineCacheRequested(object sender, EventArgs e)
+        private async void CacheService_TimelineCacheRequested(object sender, EventArgs e)
         {
             var currentTopVisibleStatus = GetTopVisibleToot();
             if (currentTopVisibleStatus != null)
             {
-                ViewModel.CacheTimeline(currentTopVisibleStatus);
+               await ViewModel.CacheTimeline(currentTopVisibleStatus);
             }
         }
 
