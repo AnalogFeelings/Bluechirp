@@ -17,14 +17,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal">
             <TextBlock Style="{StaticResource FluentHeaderTextStyle}"
                    Text="{x:Bind ViewModel.ViewTitle, Mode=OneWay}"
                    Margin="40,60,40,0"
                    FontSize="40"/>
-            <Button Name="TootSaveTestButton" Content="TryGetCurrentTopToot"
-                    Click="TootSaveTestButton_Click"/>
-        </StackPanel>
+           
         <ListView Grid.Row="1" ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
                   ItemsSource="{x:Bind ViewModel.TootTimelineCollection, Mode=OneWay}"
                   SelectionMode="None"

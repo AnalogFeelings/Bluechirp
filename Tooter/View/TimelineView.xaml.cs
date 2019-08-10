@@ -186,11 +186,6 @@ namespace Tooter.View
         }
 
 
-        private void TootSaveTestButton_Click(object sender, RoutedEventArgs e)
-        {
-            GetTopVisibleToot();
-        }
-
         public Status GetTopVisibleToot()
         {
             Status topToot = null;
