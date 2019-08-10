@@ -77,10 +77,6 @@ namespace Tooter.View
                     {
                         ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
                     }
-                    else
-                    {
-                        RefreshContent((TimelineView)ActiveFrame.Content);
-                    }
                 }
                 else if (menuListItem == LocalButtonIcon && !LocalButton.IsSelected)
                 {
@@ -102,10 +98,6 @@ namespace Tooter.View
 
         }
 
-        private void RefreshContent(TimelineView content)
-        {
-            content.Refresh();
-        }
 
         private bool CheckIfFrameHasContent()
         {

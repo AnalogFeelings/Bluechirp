@@ -126,11 +126,7 @@ namespace Tooter.View
             return null;
         }
 
-        internal void Refresh()
-        {
-            //this.Bindings.Update();
-        }
-
+        
         public TimelineView(TimelineViewModelBase ViewModelToUse)
         {
             if (!this.IsLoaded)
