@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tooter.Helpers;
 using Tooter.Services;
@@ -23,18 +25,45 @@ namespace Tooter.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ShellView : Page
+    public sealed partial class ShellView : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private Frame _activeFrame;
+
+        public Frame ActiveFrame
+        {
+            get { return _activeFrame; }
+            set
+            {
+                _activeFrame = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        Frame _homeFrame = new Frame();
+        Frame _localFrame = new Frame();
+        Frame _federatedFrame = new Frame();
+
+
+        public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public ShellView()
         {
             this.InitializeComponent();
-            NavService.CreateInstance(ContentFrame);
-            
+
+
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ContentFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+
+            ActiveFrame = _homeFrame;
+            NavService.CreateInstance(ActiveFrame);
+            ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
             await ViewModel.DoAsyncPrepartions();
         }
 
@@ -44,20 +73,23 @@ namespace Tooter.View
             {
                 if (menuListItem == HomeButtonIcon && !HomeButton.IsSelected)
                 {
-                    ContentFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+                    ActiveFrame = _homeFrame;
+                    ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
                 }
-                else if(menuListItem == LocalButtonIcon && !LocalButton.IsSelected)
+                else if (menuListItem == LocalButtonIcon && !LocalButton.IsSelected)
                 {
-                    ContentFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
+                    ActiveFrame = _localFrame;
+                    ActiveFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
                 }
-                else if(menuListItem == FederatedButtonIcon && !FederatedButton.IsSelected)
+                else if (menuListItem == FederatedButtonIcon && !FederatedButton.IsSelected)
                 {
-                    ContentFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel));
+                    ActiveFrame = _federatedFrame;
+                    _federatedFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel));
                 }
             }
-           
+
         }
 
-        
+
     }
 }

@@ -94,9 +94,12 @@
                                   VerticalAlignment="Stretch"
                                   HorizontalContentAlignment="Stretch"
                                   VerticalContentAlignment="Stretch">
-            <Frame x:Name="ContentFrame"
+            <ContentPresenter x:Name="FrameArea"
                    HorizontalAlignment="Stretch"
-                   VerticalAlignment="Stretch"/>
+                   VerticalAlignment="Stretch"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch"
+                              Content="{x:Bind ActiveFrame, Mode=OneWay}"/>
         </controls:DropShadowPanel>
     </Grid>
 
