@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tooter.Enums;
 using Tooter.Helpers;
+using Tooter.Model;
+using Tooter.Services;
 
 namespace Tooter.ViewModel
 {
@@ -59,7 +62,8 @@ namespace Tooter.ViewModel
 
         internal override void CacheTimeline(Status currentTopVisibleStatus)
         {
-            throw new NotImplementedException();
+            var timelineSettings = new TimelineSettings(nextPageMaxId, previousPageMinId, previousPageSinceId, TimelineType.Federated);
+            CacheService.CacheTimeline(tootTimelineData, currentTopVisibleStatus, timelineSettings);
         }
 
         internal async override Task LoadFeedAsync()

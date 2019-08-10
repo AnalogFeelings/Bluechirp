@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tooter.Model;
+using Tooter.Services;
 using Tooter.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -28,6 +29,7 @@ namespace Tooter.View
     /// </summary>
     public sealed partial class TimelineView : Page, INotifyPropertyChanged
     {
+
         ScrollViewer _listViewScrollViewer = null;
         bool isListViewRefreshingEnabled = true;
 
@@ -50,9 +52,30 @@ namespace Tooter.View
             RegisterEvents();
         }
 
+        public TimelineView(TimelineViewModelBase ViewModelToUse)
+        {
+            if (!this.IsLoaded)
+            {
+                this.InitializeComponent();
+                RegisterEvents();
+            }
+            ViewModel = ViewModelToUse;
+            RegisterViewModelEvents();
+        }
+
         private void RegisterEvents()
         {
             TootsListView.PointerEntered += TootsListView_PointerEntered;
+            CacheService.TimelineCacheRequested += CacheService_TimelineCacheRequested;
+        }
+
+        private void CacheService_TimelineCacheRequested(object sender, EventArgs e)
+        {
+            var currentTopVisibleStatus = GetTopVisibleToot();
+            if (currentTopVisibleStatus != null)
+            {
+                ViewModel.CacheTimeline(currentTopVisibleStatus);
+            }
         }
 
         private void ViewModel_TootsAdded(object sender, EventArgs e)
@@ -130,16 +153,6 @@ namespace Tooter.View
         }
 
 
-        public TimelineView(TimelineViewModelBase ViewModelToUse)
-        {
-            if (!this.IsLoaded)
-            {
-                this.InitializeComponent();
-                RegisterEvents();
-            }
-            ViewModel = ViewModelToUse;
-            RegisterViewModelEvents();
-        }
 
         private void RegisterViewModelEvents()
         {
