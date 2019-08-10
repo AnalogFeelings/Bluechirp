@@ -18,7 +18,8 @@ namespace Tooter.ViewModel
         {
             Mastonet.ArrayOptions options = new Mastonet.ArrayOptions();
 
-            options.MinId = previousPageSinceId;
+            options.MinId = previousPageMinId;
+            options.SinceId = previousPageSinceId;
 
             var newerContent = await ClientHelper.Client.GetPublicTimeline(options);
 

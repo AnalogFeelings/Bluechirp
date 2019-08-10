@@ -32,23 +32,11 @@
                     <localcontrols:TootTemplate/>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <!--<ListViewItem>
-                <localcontrols:TootTemplate/>
-            </ListViewItem>
-            <ListViewItem>
-                <localcontrols:TootTemplate/>
-
-            </ListViewItem>
-            <ListViewItem>
-                <localcontrols:TootTemplate/>
-            </ListViewItem>
-            <ListViewItem>
-                <localcontrols:TootTemplate/>
-
-            </ListViewItem>
-            <ListViewItem>
-                <localcontrols:TootTemplate/>
-            </ListViewItem>-->
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel ItemsUpdatingScrollMode="KeepScrollOffset"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
         </ListView>
     </Grid>
 </Page>

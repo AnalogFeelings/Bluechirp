@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastonet.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -96,13 +97,13 @@ namespace Tooter.View
                 {
                     DisableListViewRefreshing();
                     await ViewModel.AddOlderContentToFeed();
-
                 }
                 else if (e.NextView.VerticalOffset < 100 && _listViewScrollViewer.VerticalOffset > 100)
                 {
                     DisableListViewRefreshing();
                     await ViewModel.AddNewerContentToFeed();
                 }
+               
             }
         }
 
@@ -141,7 +142,7 @@ namespace Tooter.View
             ViewModel.TootsAdded += ViewModel_TootsAdded;
         }
 
-        
+
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
