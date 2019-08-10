@@ -38,18 +38,21 @@
             <RelativePanel >
 
 
-                
-                <!--<muxc:PersonPicture Width="60"
+
+                            <!--<Image Width="60"
                Height="60"
-               Margin="0,0,24,0"
-                                    
+               
                                 Name="StatusAvatar"/>-->
 
-                <Image Width="60"
-               Height="60"
-               Margin="0,0,24,0"             
-                                Name="StatusAvatar"/>
-
+                <Ellipse Width="60"
+                         Height="60"
+                         Margin="0,0,24,0"
+                         Name="StatusAvatar">
+                    <Ellipse.Fill>
+                        <ImageBrush x:Name="StatusAvatarImage">
+                        </ImageBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
                 <StackPanel Orientation="Horizontal" Name="NamesStackPanel"
                         RelativePanel.RightOf="StatusAvatar"
                         RelativePanel.LeftOf="StatusTimeStamp">
@@ -127,7 +130,7 @@
                 </StackPanel>
             </RelativePanel>
         </StackPanel>
-            <!--<RelativePanel Background="{ThemeResource SystemAltHighColor}"
+        <!--<RelativePanel Background="{ThemeResource SystemAltHighColor}"
                        CornerRadius="4"
                        Padding="24">
 
@@ -178,7 +181,8 @@
                        RelativePanel.Below="RebloggedByButton"/>
 
 
-                --><!--<TextBlock x:Name="StatusContent"
+                -->
+        <!--<TextBlock x:Name="StatusContent"
                        RelativePanel.RightOf="StatusAvatar"
                        RelativePanel.LeftOf="StatusTimeStamp"
                        RelativePanel.Below="StatusTimeStamp"
@@ -187,7 +191,8 @@
                        TextWrapping="Wrap"
                        IsTextSelectionEnabled="True"
                        FontSize="22"
-                       Canvas.ZIndex="100"/>--><!--
+                       Canvas.ZIndex="100"/>-->
+        <!--
 
                 <RichTextBlock x:Name="StatusContent"
                        RelativePanel.RightOf="StatusAvatar"

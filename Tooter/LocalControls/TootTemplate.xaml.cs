@@ -226,8 +226,7 @@ namespace Tooter.LocalControls
 
         private void UpdateAvatar(string avatarUrl)
         {
-            //StatusAvatar.ProfilePicture = new BitmapImage(new Uri(avatarUrl));
-            StatusAvatar.Source = new BitmapImage(new Uri(avatarUrl));
+            StatusAvatarImage.ImageSource = new BitmapImage(new Uri(avatarUrl));
         }
 
         private void UpdateNameTextBlocks(Account account)
