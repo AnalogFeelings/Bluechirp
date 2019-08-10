@@ -23,7 +23,8 @@
                               HorizontalContentAlignment="Stretch"
                               VerticalContentAlignment="Stretch"
         Background="{ThemeResource SystemAltHighColor}"
-        MinWidth="0">
+        MinWidth="0"
+        Name="RootPanel">
 
 
         <StackPanel Background="{ThemeResource SystemAltHighColor}"
@@ -38,9 +39,15 @@
 
 
                 
-                <muxc:PersonPicture Width="60"
+                <!--<muxc:PersonPicture Width="60"
                Height="60"
                Margin="0,0,24,0"
+                                    
+                                Name="StatusAvatar"/>-->
+
+                <Image Width="60"
+               Height="60"
+               Margin="0,0,24,0"             
                                 Name="StatusAvatar"/>
 
                 <StackPanel Orientation="Horizontal" Name="NamesStackPanel"

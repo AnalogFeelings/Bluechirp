@@ -1,6 +1,7 @@
 ﻿using Mastonet.Entities;
 using MastoParserLib;
 using MastoParserLib.Model;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -37,6 +38,8 @@ namespace Tooter.LocalControls
             this.InitializeComponent();
             this.DataContextChanged += UpdateData;
         }
+
+       
 
         private void UpdateData(FrameworkElement sender, DataContextChangedEventArgs args)
         {
@@ -223,7 +226,8 @@ namespace Tooter.LocalControls
 
         private void UpdateAvatar(string avatarUrl)
         {
-            StatusAvatar.ProfilePicture = new BitmapImage(new Uri(avatarUrl));
+            //StatusAvatar.ProfilePicture = new BitmapImage(new Uri(avatarUrl));
+            StatusAvatar.Source = new BitmapImage(new Uri(avatarUrl));
         }
 
         private void UpdateNameTextBlocks(Account account)

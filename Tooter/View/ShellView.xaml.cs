@@ -54,8 +54,6 @@ namespace Tooter.View
         public ShellView()
         {
             this.InitializeComponent();
-
-
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -74,22 +72,44 @@ namespace Tooter.View
                 if (menuListItem == HomeButtonIcon && !HomeButton.IsSelected)
                 {
                     ActiveFrame = _homeFrame;
-                    ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+
+                    if (!CheckIfFrameHasContent())
+                    {
+                        ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+                    }
+                    else
+                    {
+                        RefreshContent((TimelineView)ActiveFrame.Content);
+                    }
                 }
                 else if (menuListItem == LocalButtonIcon && !LocalButton.IsSelected)
                 {
                     ActiveFrame = _localFrame;
-                    ActiveFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
+                    if (!CheckIfFrameHasContent())
+                    {
+                        ActiveFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel)); 
+                    }
                 }
                 else if (menuListItem == FederatedButtonIcon && !FederatedButton.IsSelected)
                 {
                     ActiveFrame = _federatedFrame;
-                    _federatedFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel));
+                    if (!CheckIfFrameHasContent())
+                    {
+                        _federatedFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel)); 
+                    }
                 }
             }
 
         }
 
+        private void RefreshContent(TimelineView content)
+        {
+            content.Refresh();
+        }
 
+        private bool CheckIfFrameHasContent()
+        {
+            return ActiveFrame.Content != null;
+        }
     }
 }

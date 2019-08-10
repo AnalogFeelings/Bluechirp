@@ -51,7 +51,6 @@
                     Height="36"
                     Width="36"
                     Name="UserAvatar"
-            
             VerticalAlignment="Top"
             HorizontalAlignment="Left"/>
         <TextBox Name="TootTextBox"
