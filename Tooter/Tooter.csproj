@@ -132,7 +132,6 @@
     <Compile Include="Converters\BoolToUnderlineConverter.cs" />
     <Compile Include="Converters\InvertBooleanConverter.cs" />
     <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
-    <Compile Include="Converters\SimpleTimestampConverter.cs" />
     <Compile Include="Core\APIConstants.cs" />
     <Compile Include="Dialogs\NewTootDialog.xaml.cs">
       <DependentUpon>NewTootDialog.xaml</DependentUpon>

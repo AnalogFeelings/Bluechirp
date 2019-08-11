@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:converters="using:Tooter.Converters"
     mc:Ignorable="d"
     d:DesignHeight="200"
     d:DesignWidth="300"
@@ -18,7 +17,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <converters:SimpleTimestampConverter x:Key="TimestampConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
