@@ -31,6 +31,7 @@ namespace Tooter.View
     public sealed partial class TimelineView : Page, INotifyPropertyChanged
     {
 
+        Status currentStatusMarker = null;
         ScrollViewer _listViewScrollViewer = null;
         bool isListViewRefreshingEnabled = true;
 
@@ -67,6 +68,17 @@ namespace Tooter.View
         private void RegisterEvents()
         {
             TootsListView.PointerEntered += TootsListView_PointerEntered;
+            TootsListView.ChoosingItemContainer += TootsListView_ChoosingItemContainer;
+        }
+
+        private void TootsListView_ChoosingItemContainer(ListViewBase sender, ChoosingItemContainerEventArgs args)
+        {
+            var currentItem = (Status)args.Item;
+            if (currentItem.Id == currentStatusMarker.Id)
+            {
+                TootsListView.ScrollIntoView(currentItem);
+                TootsListView.ChoosingItemContainer -= TootsListView_ChoosingItemContainer;
+            }
         }
 
         public async Task TryCacheTimeline()
@@ -165,14 +177,7 @@ namespace Tooter.View
 
         private void ViewModel_StatusMarkerAdded(object sender, Status e)
         {
-            try
-            {
-                TootsListView.ScrollIntoView(e);
-            }
-            catch (Exception)
-            {
-                
-            }
+            currentStatusMarker = e;   
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)

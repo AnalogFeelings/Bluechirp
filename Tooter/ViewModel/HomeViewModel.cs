@@ -118,12 +118,12 @@ namespace Tooter.ViewModel
                 var cache = cacheLoadResult.cacheToReturn;
                 if (cache.Toots.Count > 0)
                 {
+                    StatusMarkerAdded?.Invoke(this, cache.CurrentStatusMarker);
                     tootTimelineData = cache.Toots;
                     TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
                     previousPageMinId = cache.CurrentTimelineSettings.PreviousPageMinID;
                     previousPageSinceId = cache.CurrentTimelineSettings.PreviousPageSinceID;
                     nextPageMaxId = cache.CurrentTimelineSettings.NextPageMaxID;
-                    StatusMarkerAdded?.Invoke(this, cache.CurrentStatusMarker);
                     cacheWasLoaded = true;
                 }
             }
