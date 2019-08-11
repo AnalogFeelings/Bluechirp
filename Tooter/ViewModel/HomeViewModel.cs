@@ -51,32 +51,35 @@ namespace Tooter.ViewModel
         internal async override Task AddNewerContentToFeed()
         {
             Mastonet.ArrayOptions options = new Mastonet.ArrayOptions();
-            
+
             options.MinId = previousPageMinId;
             options.SinceId = previousPageSinceId;
 
             var newerContent = await ClientHelper.Client.GetHomeTimeline(options);
 
-            previousPageMinId = newerContent.PreviousPageMinId;
-            previousPageSinceId = newerContent.PreviousPageSinceId;
-
-            tootTimelineData.InsertRange(0, newerContent);
-
-            for (int i = newerContent.Count - 1; i > -1; i--)
+            if (newerContent.Count > 0)
             {
-                TootTimelineCollection.Insert(0, newerContent[i]);
+                previousPageMinId = newerContent.PreviousPageMinId;
+                previousPageSinceId = newerContent.PreviousPageSinceId;
+
+                tootTimelineData.InsertRange(0, newerContent);
+
+                for (int i = newerContent.Count - 1; i > -1; i--)
+                {
+                    TootTimelineCollection.Insert(0, newerContent[i]);
+                }
             }
 
             TootsAdded?.Invoke(null, EventArgs.Empty);
         }
 
-       
+
 
         internal async override Task CacheTimeline(Status currentTopVisibleStatus)
         {
             var timelineSettings = new TimelineSettings(nextPageMaxId, previousPageMinId, previousPageSinceId, TimelineType.Home);
             await CacheService.CacheTimeline(tootTimelineData, currentTopVisibleStatus, timelineSettings);
-            
+
         }
     }
 }

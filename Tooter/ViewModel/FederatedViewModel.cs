@@ -31,14 +31,18 @@ namespace Tooter.ViewModel
 
             var newerContent = await ClientHelper.Client.GetPublicTimeline(options);
 
-            previousPageMinId = newerContent.PreviousPageMinId;
-            previousPageSinceId = newerContent.PreviousPageSinceId;
 
-            tootTimelineData.InsertRange(0, newerContent);
-
-            for (int i = newerContent.Count - 1; i > -1; i--)
+            if (newerContent.Count > 0)
             {
-                TootTimelineCollection.Insert(0, newerContent[i]);
+                previousPageMinId = newerContent.PreviousPageMinId;
+                previousPageSinceId = newerContent.PreviousPageSinceId;
+
+                tootTimelineData.InsertRange(0, newerContent);
+
+                for (int i = newerContent.Count - 1; i > -1; i--)
+                {
+                    TootTimelineCollection.Insert(0, newerContent[i]);
+                }
             }
 
             TootsAdded?.Invoke(null, EventArgs.Empty);
