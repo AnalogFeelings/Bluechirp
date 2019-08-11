@@ -13,7 +13,7 @@ namespace Tooter.Services
         {
             var errorDialog = new ContentDialog();
             errorDialog.Title = "Connection Error";
-            errorDialog.Content = "Please check your internet connection and try again later";
+            errorDialog.Content = "Please check your internet connection then restart the app to try again";
             errorDialog.CloseButtonText = "Ok";
             try
             {

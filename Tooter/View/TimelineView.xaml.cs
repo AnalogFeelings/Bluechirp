@@ -71,10 +71,13 @@ namespace Tooter.View
 
         public async Task TryCacheTimeline()
         {
-            var currentTopVisibleStatus = GetTopVisibleToot();
-            if (currentTopVisibleStatus != null)
+            if (_listViewScrollViewer != null)
             {
-               await ViewModel.CacheTimeline(currentTopVisibleStatus);
+                var currentTopVisibleStatus = GetTopVisibleToot();
+                if (currentTopVisibleStatus != null)
+                {
+                    await ViewModel.CacheTimeline(currentTopVisibleStatus);
+                }
             }
         }
 
@@ -109,7 +112,7 @@ namespace Tooter.View
             return viewerToFind;
         }
 
-       
+
 
 
 
@@ -197,13 +200,13 @@ namespace Tooter.View
                 var container = TootsListView.ContainerFromIndex(i) as FrameworkElement;
                 if (container != null)
                 {
-                    
+
                     var containerVisual = container.TransformToVisual(TootsListView);
-                    var containerPosition = containerVisual.TransformPoint(new Point(0,0));
+                    var containerPosition = containerVisual.TransformPoint(new Point(0, 0));
 
                     var bounds = new Rect(containerPosition.X, containerPosition.Y, container.ActualWidth, container.ActualHeight);
 
-                    
+
                     if (RectHelper.Intersect(bounds, svViewportBounds) != Rect.Empty)
                     {
                         topToot = (Status)TootsListView.Items[i];
