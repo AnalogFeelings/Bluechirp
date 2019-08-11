@@ -142,6 +142,7 @@
     <Compile Include="Helpers\ClientDataHelper.cs" />
     <Compile Include="Helpers\ClientHelper.cs" />
     <Compile Include="Helpers\TempObjectStorageHelper.cs" />
+    <Compile Include="Helpers\TimestampHelper.cs" />
     <Compile Include="LocalControls\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>
