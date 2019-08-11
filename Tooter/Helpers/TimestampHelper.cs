@@ -11,6 +11,7 @@ namespace Tooter.Helpers
         const char YearStamp = 'y';
         const char MonthStamp = 'm';
         const char DayStamp = 'd';
+        const char HourStamp = 'h';
         const char MinuteStamp = 'm';
         const char SecondStamp = 's';
         const string NowStamp = "Now";
@@ -22,33 +23,36 @@ namespace Tooter.Helpers
             var timeBetweenPostAndNow = CalculateTimeBetweenPostAndPresent(timestampToFormat);
             
             StringBuilder timestampBuilder = new StringBuilder();
-            if (timeBetweenPostAndNow.Days >= DaysInYear)
+            if (timeBetweenPostAndNow.TotalDays >= DaysInYear)
             {
                 int numOfYears = timeBetweenPostAndNow.Days / 365;
                 timestampBuilder.Append($"{numOfYears}{YearStamp}");
             }
-            else if(timeBetweenPostAndNow.Days > DaysInAMonth)
+            else if(timeBetweenPostAndNow.TotalDays > DaysInAMonth)
             {
-                int numOfMonths = timeBetweenPostAndNow.Days / DaysInAMonth;
+                int numOfMonths = (int)timeBetweenPostAndNow.TotalDays / DaysInAMonth;
                 timestampBuilder.Append($"{numOfMonths}{MonthStamp}");
             }
-            else if (timeBetweenPostAndNow.Days > 0)
+            else if (timeBetweenPostAndNow.TotalDays >= 1)
             {
-                timestampBuilder.Append($"{timeBetweenPostAndNow.Days}{DayStamp}");
+                timestampBuilder.Append($"{(int)timeBetweenPostAndNow.TotalDays}{DayStamp}");
             }
-            else if (timeBetweenPostAndNow.Minutes > 0)
+            else if (timeBetweenPostAndNow.TotalHours >= 1)
             {
-                timestampBuilder.Append($"{timeBetweenPostAndNow.Minutes}{MinuteStamp}");
+                timestampBuilder.Append($"{(int)timeBetweenPostAndNow.TotalHours}{HourStamp}");
             }
-            else if (timeBetweenPostAndNow.Seconds > 0)
+            else if (timeBetweenPostAndNow.TotalMinutes >= 1)
             {
-                timestampBuilder.Append($"{timeBetweenPostAndNow.Seconds}{SecondStamp}");
+                timestampBuilder.Append($"{(int)timeBetweenPostAndNow.TotalMinutes}{MinuteStamp}");
+            }
+            else if (timeBetweenPostAndNow.TotalSeconds >= 1)
+            {
+                timestampBuilder.Append($"{(int)timeBetweenPostAndNow.TotalSeconds}{SecondStamp}");
             }
             else
             {
                 timestampBuilder.Append(NowStamp);
             }
-
             return timestampBuilder.ToString();
         }
 
