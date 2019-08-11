@@ -30,5 +30,12 @@ namespace Tooter.Services
         {
             await currentTimeline.TryCacheTimeline();
         }
+
+        internal async Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineCache(TimelineType timelineType)
+        {
+            var cacheLoadResult = await ClientDataHelper.LoadTimelineFromFileAsync(timelineType);
+            return (cacheLoadResult.wasTimelineLoaded, cacheLoadResult.cacheToReturn);
+
+        } 
     }
 }

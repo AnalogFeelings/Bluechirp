@@ -61,6 +61,7 @@ namespace Tooter.ViewModel
 
         internal abstract Task AddNewerContentToFeed();
 
+        protected abstract Task<bool> AttemptToLoadFromCache();
 
 
     }

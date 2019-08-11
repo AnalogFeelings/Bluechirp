@@ -29,6 +29,22 @@ namespace Tooter.Helpers
             await _tempStorageHelper.SaveFileAsync(timelineType.ToString(), cachedTimeline);
         }
 
+        internal static async Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineFromFileAsync(TimelineType timelineType)
+        {
+            bool wasTimelineLoaded = false;
+            TimelineCache cacheToReturn = null;
+            try
+            {
+                cacheToReturn = await _tempStorageHelper.ReadFileAsync<TimelineCache>(timelineType.ToString());
+                wasTimelineLoaded = true;
+            }
+            catch
+            {
+
+            }
+            return (wasTimelineLoaded,cacheToReturn);
+        }
+
         // Token settings
         const string AccessTokenString = "accessToken";
         const string CreatedAtString = "createdAt";

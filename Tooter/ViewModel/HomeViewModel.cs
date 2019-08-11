@@ -26,7 +26,7 @@ namespace Tooter.ViewModel
 
         internal async override Task LoadFeedAsync()
         {
-
+            await AttemptToLoadFromCache();
             try
             {
                 tootTimelineData = await ClientHelper.Client.GetHomeTimeline();
@@ -103,6 +103,11 @@ namespace Tooter.ViewModel
             var timelineSettings = new TimelineSettings(nextPageMaxId, previousPageMinId, previousPageSinceId, TimelineType.Home);
             await CacheService.CacheTimeline(tootTimelineData, currentTopVisibleStatus, timelineSettings);
 
+        }
+
+        protected override Task<bool> AttemptToLoadFromCache()
+        {
+            throw new NotImplementedException();
         }
     }
 }
