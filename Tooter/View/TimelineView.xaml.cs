@@ -204,7 +204,7 @@ namespace Tooter.View
         {
             Status topToot = null;
             ScrollViewer sv = _listViewScrollViewer;
-            Rect svViewportBounds = new Rect(sv.HorizontalOffset, sv.VerticalOffset, sv.ViewportWidth, sv.ViewportHeight);
+            Rect svViewportBounds = new Rect(0, 0, sv.ViewportWidth, sv.ViewportHeight);
 
             for (int i = 0; i < TootsListView.Items.Count; i++)
             {

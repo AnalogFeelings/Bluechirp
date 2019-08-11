@@ -34,10 +34,19 @@ namespace Tooter.Helpers
             bool wasTimelineLoaded = false;
             TimelineCache cacheToReturn = null;
 
-            cacheToReturn = await _tempStorageHelper.ReadFileAsync<TimelineCache>(timelineType.ToString());
-            if (cacheToReturn != null)
+
+            try
             {
-                wasTimelineLoaded = true;
+                cacheToReturn = await _tempStorageHelper.ReadFileAsync<TimelineCache>(timelineType.ToString());
+                if (cacheToReturn != null)
+                {
+                    wasTimelineLoaded = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                
             }
 
             return (wasTimelineLoaded, cacheToReturn);

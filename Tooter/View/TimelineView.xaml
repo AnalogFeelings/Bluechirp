@@ -11,7 +11,7 @@
     <Page.Resources>
         <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
     </Page.Resources>
-    <Grid Padding="0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Padding="0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
