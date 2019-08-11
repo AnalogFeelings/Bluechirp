@@ -55,7 +55,7 @@
                 </Ellipse>
                 <StackPanel Orientation="Horizontal" Name="NamesStackPanel"
                         RelativePanel.RightOf="StatusAvatar"
-                        RelativePanel.LeftOf="StatusTimeStamp">
+                        RelativePanel.LeftOf="StatusTimestamp">
                     <StackPanel.Resources>
 
                     </StackPanel.Resources>
@@ -76,20 +76,20 @@
                 </StackPanel>
 
 
-                <TextBlock Text="{x:Bind CurrentStatus.CreatedAt, Mode=OneWay, 
-                    Converter={StaticResource TimestampConverter}}"
-                       FontSize="20"
+                <TextBlock FontSize="20"
                        TextAlignment="Left"
                        VerticalAlignment="Top"
-                       x:Name="StatusTimeStamp"
+                           Foreground="{ThemeResource SystemChromeDisabledLowColor}"
+                       x:Name="StatusTimestamp"
                        RelativePanel.AlignRightWithPanel="True"
-                       RelativePanel.AlignTopWithPanel="True"/>
+                       RelativePanel.AlignTopWithPanel="True"
+                           Margin="8,0,0,0"/>
 
 
                 <RichTextBlock x:Name="StatusContent"
                        RelativePanel.RightOf="StatusAvatar"
-                       RelativePanel.LeftOf="StatusTimeStamp"
-                       RelativePanel.Below="StatusTimeStamp"
+                       RelativePanel.LeftOf="StatusTimestamp"
+                       RelativePanel.Below="StatusTimestamp"
                        RelativePanel.AlignRightWithPanel="True"
                        TextWrapping="Wrap"
                        IsTextSelectionEnabled="True"
@@ -149,7 +149,7 @@
 
                 <StackPanel Orientation="Horizontal" Name="NamesStackPanel"
                         RelativePanel.RightOf="StatusAvatar"
-                        RelativePanel.LeftOf="StatusTimeStamp"
+                        RelativePanel.LeftOf="StatusTimestamp"
                         RelativePanel.Below="RebloggedByButton">
                     <StackPanel.Resources>
 
@@ -176,7 +176,7 @@
                        FontSize="20"
                        TextAlignment="Left"
                        VerticalAlignment="Top"
-                       x:Name="StatusTimeStamp"
+                       x:Name="StatusTimestamp"
                        RelativePanel.AlignRightWithPanel="True"
                        RelativePanel.Below="RebloggedByButton"/>
 
@@ -184,8 +184,8 @@
                 -->
         <!--<TextBlock x:Name="StatusContent"
                        RelativePanel.RightOf="StatusAvatar"
-                       RelativePanel.LeftOf="StatusTimeStamp"
-                       RelativePanel.Below="StatusTimeStamp"
+                       RelativePanel.LeftOf="StatusTimestamp"
+                       RelativePanel.Below="StatusTimestamp"
                        RelativePanel.AlignRightWithPanel="True"
                        Text="{x:Bind CurrentStatus.Content}"
                        TextWrapping="Wrap"
@@ -196,8 +196,8 @@
 
                 <RichTextBlock x:Name="StatusContent"
                        RelativePanel.RightOf="StatusAvatar"
-                       RelativePanel.LeftOf="StatusTimeStamp"
-                       RelativePanel.Below="StatusTimeStamp"
+                       RelativePanel.LeftOf="StatusTimestamp"
+                       RelativePanel.Below="StatusTimestamp"
                        RelativePanel.AlignRightWithPanel="True"
                        TextWrapping="Wrap"
                        IsTextSelectionEnabled="True"

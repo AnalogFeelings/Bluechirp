@@ -62,7 +62,7 @@ namespace Tooter.LocalControls
                         // on top of original status
 
                         UpdateRebloggedByButton(updatedStatus.Account, reblogStatus.Account, true);
-
+                        UpdateTimestamp(reblogStatus.CreatedAt);
                         try
                         {
                             List<MastoContent> parsedContent = parser.ParseContent(reblogStatus.Content);
@@ -86,6 +86,7 @@ namespace Tooter.LocalControls
                     UpdateRebloggedByButton(updatedStatus.Account, null);
                     if (updatedStatus.Content != null)
                     {
+                        UpdateTimestamp(updatedStatus.CreatedAt);
                         try
                         {
                             List<MastoContent> parsedContent = parser.ParseContent(updatedStatus.Content);
@@ -105,7 +106,11 @@ namespace Tooter.LocalControls
             }
 
             args.Handled = true;
-            this.Bindings.Update();
+        }
+
+        private void UpdateTimestamp(DateTime createdAt)
+        {
+            StatusTimestamp.Text = TimestampHelper.FormatTimestamp(createdAt);
         }
 
         private void UpdateTootActions(Status status)
