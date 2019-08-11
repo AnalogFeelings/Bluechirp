@@ -105,6 +105,7 @@ namespace Tooter.LocalControls
             }
 
             args.Handled = true;
+            this.Bindings.Update();
         }
 
         private void UpdateTootActions(Status status)

@@ -69,7 +69,7 @@
                 </StackPanel>
 
 
-                <TextBlock Text="2h"
+                <TextBlock Text="{x:Bind CurrentStatus.CreatedAt, Mode=OneWay}"
                       
                        FontSize="20"
                        TextAlignment="Left"
