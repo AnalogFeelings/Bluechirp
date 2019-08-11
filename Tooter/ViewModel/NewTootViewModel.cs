@@ -113,7 +113,15 @@ namespace Tooter.ViewModel
 
         private async Task SendNewToot()
         {
-            await ClientHelper.Client.PostStatus(StatusContent, StatusVisibilty);
+
+            try
+            {
+                await ClientHelper.Client.PostStatus(StatusContent, StatusVisibilty);
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         internal void StatusContentChanged(object sender, TextChangedEventArgs e)

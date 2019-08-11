@@ -26,23 +26,38 @@ namespace Tooter.ViewModel
 
         internal async override Task LoadFeedAsync()
         {
-            tootTimelineData = await ClientHelper.Client.GetHomeTimeline();
-            nextPageMaxId = tootTimelineData.NextPageMaxId;
-            previousPageMinId = tootTimelineData.PreviousPageMinId;
-            previousPageSinceId = tootTimelineData.PreviousPageSinceId;
 
-            TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
+            try
+            {
+                tootTimelineData = await ClientHelper.Client.GetHomeTimeline();
+                nextPageMaxId = tootTimelineData.NextPageMaxId;
+                previousPageMinId = tootTimelineData.PreviousPageMinId;
+                previousPageSinceId = tootTimelineData.PreviousPageSinceId;
+
+                TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
+            }
+            catch (Exception)
+            {
+                await ErrorService.ShowConnectionError();
+            }
         }
 
         internal async override Task AddOlderContentToFeed()
         {
-            var olderContent = await ClientHelper.Client.GetHomeTimeline(nextPageMaxId);
-            nextPageMaxId = olderContent.NextPageMaxId;
-
-            tootTimelineData.AddRange(olderContent);
-            foreach (var item in olderContent)
+            try
             {
-                TootTimelineCollection.Add(item);
+                var olderContent = await ClientHelper.Client.GetHomeTimeline(nextPageMaxId);
+                nextPageMaxId = olderContent.NextPageMaxId;
+
+                tootTimelineData.AddRange(olderContent);
+                foreach (var item in olderContent)
+                {
+                    TootTimelineCollection.Add(item);
+                }
+            }
+            catch (Exception)
+            {
+                await ErrorService.ShowConnectionError();
             }
 
             TootsAdded?.Invoke(null, EventArgs.Empty);
@@ -55,19 +70,27 @@ namespace Tooter.ViewModel
             options.MinId = previousPageMinId;
             options.SinceId = previousPageSinceId;
 
-            var newerContent = await ClientHelper.Client.GetHomeTimeline(options);
-
-            if (newerContent.Count > 0)
+            try
             {
-                previousPageMinId = newerContent.PreviousPageMinId;
-                previousPageSinceId = newerContent.PreviousPageSinceId;
+                var newerContent = await ClientHelper.Client.GetHomeTimeline(options);
 
-                tootTimelineData.InsertRange(0, newerContent);
-
-                for (int i = newerContent.Count - 1; i > -1; i--)
+                if (newerContent.Count > 0)
                 {
-                    TootTimelineCollection.Insert(0, newerContent[i]);
+                    previousPageMinId = newerContent.PreviousPageMinId;
+                    previousPageSinceId = newerContent.PreviousPageSinceId;
+
+                    tootTimelineData.InsertRange(0, newerContent);
+
+                    for (int i = newerContent.Count - 1; i > -1; i--)
+                    {
+                        TootTimelineCollection.Insert(0, newerContent[i]);
+                    }
                 }
+
+            }
+            catch
+            {
+                await ErrorService.ShowConnectionError();
             }
 
             TootsAdded?.Invoke(null, EventArgs.Empty);

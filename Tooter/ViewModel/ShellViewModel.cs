@@ -52,7 +52,15 @@ namespace Tooter.ViewModel
 
         internal async Task DoAsyncPrepartions()
         {
-            CurrentUser = await ClientHelper.Client.GetCurrentUser();
+            try
+            {
+                CurrentUser = await ClientHelper.Client.GetCurrentUser();
+            }
+            catch (Exception)
+            {
+
+                await ErrorService.ShowConnectionError();
+            }
         }
 
         internal async void LogoutButton_Click(object sender, RoutedEventArgs e)

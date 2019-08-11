@@ -11,6 +11,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Tooter.Core;
 using Tooter.Helpers;
 using Tooter.Model;
+using Tooter.Services;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media.Core;
@@ -325,8 +326,8 @@ namespace Tooter.LocalControls
             }
             catch
             {
-                Debug.WriteLine("Reblog Failed, check internet connection!");
                 ReblogButton.IsChecked = statusToUse.Reblogged;
+                await ErrorService.ShowConnectionError();
             }
         }
 
@@ -362,6 +363,7 @@ namespace Tooter.LocalControls
                     Debug.WriteLine("Favourite Failed, check internet connection!");
                 }
                 FavouriteButton.IsChecked = statusToUse.Favourited;
+                await ErrorService.ShowConnectionError();
             }
 
         }

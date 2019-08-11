@@ -19,8 +19,6 @@ namespace Tooter.ViewModel
         public override event EventHandler TootsAdded;
 
 
-        
-
         internal async override Task AddNewerContentToFeed()
         {
             Mastonet.ArrayOptions options = new Mastonet.ArrayOptions();
@@ -28,20 +26,28 @@ namespace Tooter.ViewModel
             options.MinId = previousPageMinId;
             options.SinceId = previousPageSinceId;
 
-            var newerContent = await ClientHelper.Client.GetPublicTimeline(options, true);
-
-
-            if (newerContent.Count > 0)
+            try
             {
-                previousPageMinId = newerContent.PreviousPageMinId;
-                previousPageSinceId = newerContent.PreviousPageSinceId;
+                var newerContent = await ClientHelper.Client.GetPublicTimeline(options, true);
 
-                tootTimelineData.InsertRange(0, newerContent);
 
-                for (int i = newerContent.Count - 1; i > -1; i--)
+                if (newerContent.Count > 0)
                 {
-                    TootTimelineCollection.Insert(0, newerContent[i]);
+                    previousPageMinId = newerContent.PreviousPageMinId;
+                    previousPageSinceId = newerContent.PreviousPageSinceId;
+
+                    tootTimelineData.InsertRange(0, newerContent);
+
+                    for (int i = newerContent.Count - 1; i > -1; i--)
+                    {
+                        TootTimelineCollection.Insert(0, newerContent[i]);
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                await ErrorService.ShowConnectionError();
+                
             }
 
             TootsAdded?.Invoke(null, EventArgs.Empty);
@@ -51,13 +57,22 @@ namespace Tooter.ViewModel
         {
             var options = new ArrayOptions();
             options.MaxId = nextPageMaxId;
-            var olderContent = await ClientHelper.Client.GetPublicTimeline(options, true);
-            nextPageMaxId = olderContent.NextPageMaxId;
 
-            tootTimelineData.AddRange(olderContent);
-            foreach (var item in olderContent)
+            try
             {
-                TootTimelineCollection.Add(item);
+                var olderContent = await ClientHelper.Client.GetPublicTimeline(options, true);
+                nextPageMaxId = olderContent.NextPageMaxId;
+
+                tootTimelineData.AddRange(olderContent);
+                foreach (var item in olderContent)
+                {
+                    TootTimelineCollection.Add(item);
+                }
+            }
+            catch (Exception)
+            {
+
+                await ErrorService.ShowConnectionError();
             }
 
             TootsAdded?.Invoke(null, EventArgs.Empty);
@@ -71,12 +86,20 @@ namespace Tooter.ViewModel
 
         internal async override Task LoadFeedAsync()
         {
-            base.tootTimelineData = await ClientHelper.Client.GetPublicTimeline(local: true);
-            nextPageMaxId = tootTimelineData.NextPageMaxId;
-            previousPageMinId = tootTimelineData.PreviousPageMinId;
-            previousPageSinceId = tootTimelineData.PreviousPageSinceId;
+            try
+            {
+                base.tootTimelineData = await ClientHelper.Client.GetPublicTimeline(local: true);
+                nextPageMaxId = tootTimelineData.NextPageMaxId;
+                previousPageMinId = tootTimelineData.PreviousPageMinId;
+                previousPageSinceId = tootTimelineData.PreviousPageSinceId;
 
-            TootTimelineCollection = new System.Collections.ObjectModel.ObservableCollection<Mastonet.Entities.Status>(tootTimelineData);
+                TootTimelineCollection = new System.Collections.ObjectModel.ObservableCollection<Mastonet.Entities.Status>(tootTimelineData);
+            }
+            catch (Exception)
+            {
+
+                await ErrorService.ShowConnectionError();
+            }
         }
     }
 }
