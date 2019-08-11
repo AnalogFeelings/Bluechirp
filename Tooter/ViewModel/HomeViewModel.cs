@@ -23,22 +23,26 @@ namespace Tooter.ViewModel
         }
 
         public override event EventHandler TootsAdded;
+        public override event EventHandler<Status> StatusMarkerAdded;
 
         internal async override Task LoadFeedAsync()
         {
-            await AttemptToLoadFromCache();
-            try
+            bool wasFeedloadedFromCache = await AttemptToLoadFromCache();
+            if (!wasFeedloadedFromCache)
             {
-                tootTimelineData = await ClientHelper.Client.GetHomeTimeline();
-                nextPageMaxId = tootTimelineData.NextPageMaxId;
-                previousPageMinId = tootTimelineData.PreviousPageMinId;
-                previousPageSinceId = tootTimelineData.PreviousPageSinceId;
+                try
+                {
+                    tootTimelineData = await ClientHelper.Client.GetHomeTimeline();
+                    nextPageMaxId = tootTimelineData.NextPageMaxId;
+                    previousPageMinId = tootTimelineData.PreviousPageMinId;
+                    previousPageSinceId = tootTimelineData.PreviousPageSinceId;
 
-                TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
-            }
-            catch (Exception)
-            {
-                await ErrorService.ShowConnectionError();
+                    TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
+                }
+                catch (Exception)
+                {
+                    await ErrorService.ShowConnectionError();
+                }
             }
         }
 
@@ -105,9 +109,26 @@ namespace Tooter.ViewModel
 
         }
 
-        protected override Task<bool> AttemptToLoadFromCache()
+        protected async override Task<bool> AttemptToLoadFromCache()
         {
-            throw new NotImplementedException();
+            bool cacheWasLoaded = false;
+            var cacheLoadResult = await CacheService.LoadTimelineCache(TimelineType.Home);
+            if (cacheLoadResult.wasTimelineLoaded)
+            {
+                var cache = cacheLoadResult.cacheToReturn;
+                if (cache.Toots.Count > 0)
+                {
+                    tootTimelineData = cache.Toots;
+                    TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
+                    previousPageMinId = cache.CurrentTimelineSettings.PreviousPageMinID;
+                    previousPageSinceId = cache.CurrentTimelineSettings.PreviousPageSinceID;
+                    nextPageMaxId = cache.CurrentTimelineSettings.NextPageMaxID;
+                    StatusMarkerAdded?.Invoke(this, cache.CurrentStatusMarker);
+                    cacheWasLoaded = true;
+                }
+            }
+
+            return cacheWasLoaded;
         }
     }
 }

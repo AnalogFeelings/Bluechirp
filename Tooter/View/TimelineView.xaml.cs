@@ -160,9 +160,20 @@ namespace Tooter.View
         private void RegisterViewModelEvents()
         {
             ViewModel.TootsAdded += ViewModel_TootsAdded;
+            ViewModel.StatusMarkerAdded += ViewModel_StatusMarkerAdded;
         }
 
-
+        private void ViewModel_StatusMarkerAdded(object sender, Status e)
+        {
+            try
+            {
+                TootsListView.ScrollIntoView(e);
+            }
+            catch (Exception)
+            {
+                
+            }
+        }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -195,7 +206,7 @@ namespace Tooter.View
             ScrollViewer sv = _listViewScrollViewer;
             Rect svViewportBounds = new Rect(sv.HorizontalOffset, sv.VerticalOffset, sv.ViewportWidth, sv.ViewportHeight);
 
-            for (int i = 0; i < TootsListView.Items.Count; ++i)
+            for (int i = 0; i < TootsListView.Items.Count; i++)
             {
                 var container = TootsListView.ContainerFromIndex(i) as FrameworkElement;
                 if (container != null)

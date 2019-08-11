@@ -33,16 +33,14 @@ namespace Tooter.Helpers
         {
             bool wasTimelineLoaded = false;
             TimelineCache cacheToReturn = null;
-            try
+
+            cacheToReturn = await _tempStorageHelper.ReadFileAsync<TimelineCache>(timelineType.ToString());
+            if (cacheToReturn != null)
             {
-                cacheToReturn = await _tempStorageHelper.ReadFileAsync<TimelineCache>(timelineType.ToString());
                 wasTimelineLoaded = true;
             }
-            catch
-            {
 
-            }
-            return (wasTimelineLoaded,cacheToReturn);
+            return (wasTimelineLoaded, cacheToReturn);
         }
 
         // Token settings

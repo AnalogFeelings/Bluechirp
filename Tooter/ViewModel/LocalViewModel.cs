@@ -17,7 +17,12 @@ namespace Tooter.ViewModel
         public override string ViewTitle { get; protected set; } = "Local Timeline";
 
         public override event EventHandler TootsAdded;
+        public override event EventHandler<Status> StatusMarkerAdded;
 
+        protected override Task<bool> AttemptToLoadFromCache()
+        {
+            throw new NotImplementedException();
+        }
 
         internal async override Task AddNewerContentToFeed()
         {

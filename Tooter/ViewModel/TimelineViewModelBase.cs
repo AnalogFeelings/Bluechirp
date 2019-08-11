@@ -19,6 +19,7 @@ namespace Tooter.ViewModel
         protected long? nextPageMaxId;
 
         public abstract event EventHandler TootsAdded;
+        public abstract event EventHandler<Status> StatusMarkerAdded;
 
         private ObservableCollection<Status> _tootTimelineCollection;
 
