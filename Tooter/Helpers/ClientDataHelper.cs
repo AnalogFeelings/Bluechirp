@@ -52,6 +52,15 @@ namespace Tooter.Helpers
             return (wasTimelineLoaded, cacheToReturn);
         }
 
+        internal static async Task ClearTimelineCache()
+        {
+            var cacheData = await ApplicationData.Current.TemporaryFolder.GetItemsAsync();
+            foreach (var item in cacheData)
+            {
+                await item.DeleteAsync(StorageDeleteOption.PermanentDelete);   
+            }
+        }
+
         // Token settings
         const string AccessTokenString = "accessToken";
         const string CreatedAtString = "createdAt";

@@ -49,6 +49,7 @@ namespace Tooter.Helpers
         internal static async Task Logout()
         {
             await ClientDataHelper.RemoveClientProfileAsync(loadedProfile);
+            await ClientDataHelper.ClearTimelineCache();
             NavService.CreateInstance((Frame)Window.Current.Content);
             NavService.Instance.Navigate(typeof(LoginView));
         }
