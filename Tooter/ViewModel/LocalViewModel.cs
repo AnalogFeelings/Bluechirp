@@ -2,6 +2,7 @@
 using Mastonet.Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,26 @@ namespace Tooter.ViewModel
         public override event EventHandler TootsAdded;
         public override event EventHandler<Status> StatusMarkerAdded;
 
-        protected override Task<bool> AttemptToLoadFromCache()
+        protected async override Task<bool> AttemptToLoadFromCache()
         {
-            throw new NotImplementedException();
+            bool cacheWasLoaded = false;
+            var cacheLoadResult = await CacheService.LoadTimelineCache(TimelineType.Local);
+            if (cacheLoadResult.wasTimelineLoaded)
+            {
+                var cache = cacheLoadResult.cacheToReturn;
+                if (cache.Toots.Count > 0)
+                {
+                    StatusMarkerAdded?.Invoke(this, cache.CurrentStatusMarker);
+                    tootTimelineData = cache.Toots;
+                    TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
+                    previousPageMinId = cache.CurrentTimelineSettings.PreviousPageMinID;
+                    previousPageSinceId = cache.CurrentTimelineSettings.PreviousPageSinceID;
+                    nextPageMaxId = cache.CurrentTimelineSettings.NextPageMaxID;
+                    cacheWasLoaded = true;
+                }
+            }
+
+            return cacheWasLoaded;
         }
 
         internal async override Task AddNewerContentToFeed()
@@ -52,7 +70,7 @@ namespace Tooter.ViewModel
             catch (Exception)
             {
                 await ErrorService.ShowConnectionError();
-                
+
             }
 
             TootsAdded?.Invoke(null, EventArgs.Empty);
@@ -91,19 +109,24 @@ namespace Tooter.ViewModel
 
         internal async override Task LoadFeedAsync()
         {
-            try
-            {
-                base.tootTimelineData = await ClientHelper.Client.GetPublicTimeline(local: true);
-                nextPageMaxId = tootTimelineData.NextPageMaxId;
-                previousPageMinId = tootTimelineData.PreviousPageMinId;
-                previousPageSinceId = tootTimelineData.PreviousPageSinceId;
+            bool wasFeedloadedFromCache = await AttemptToLoadFromCache();
 
-                TootTimelineCollection = new System.Collections.ObjectModel.ObservableCollection<Mastonet.Entities.Status>(tootTimelineData);
-            }
-            catch (Exception)
+            if (!wasFeedloadedFromCache)
             {
+                try
+                {
+                    base.tootTimelineData = await ClientHelper.Client.GetPublicTimeline(local: true);
+                    nextPageMaxId = tootTimelineData.NextPageMaxId;
+                    previousPageMinId = tootTimelineData.PreviousPageMinId;
+                    previousPageSinceId = tootTimelineData.PreviousPageSinceId;
 
-                await ErrorService.ShowConnectionError();
+                    TootTimelineCollection = new ObservableCollection<Mastonet.Entities.Status>(tootTimelineData);
+                }
+                catch (Exception)
+                {
+
+                    await ErrorService.ShowConnectionError();
+                }
             }
         }
     }

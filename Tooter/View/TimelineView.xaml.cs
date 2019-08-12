@@ -68,7 +68,6 @@ namespace Tooter.View
         private void RegisterEvents()
         {
             TootsListView.PointerEntered += TootsListView_PointerEntered;
-            TootsListView.ChoosingItemContainer += TootsListView_ChoosingItemContainer;
         }
 
         private void TootsListView_ChoosingItemContainer(ListViewBase sender, ChoosingItemContainerEventArgs args)
@@ -177,7 +176,8 @@ namespace Tooter.View
 
         private void ViewModel_StatusMarkerAdded(object sender, Status e)
         {
-            currentStatusMarker = e;   
+            currentStatusMarker = e;
+            TootsListView.ChoosingItemContainer += TootsListView_ChoosingItemContainer;
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
