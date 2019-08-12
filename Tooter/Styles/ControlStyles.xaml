@@ -1475,14 +1475,14 @@
                                     </VisualState.Setters>
                                 </VisualState>
 
-                                <VisualState x:Name="PC">
+                                <!--<VisualState x:Name="PC">
                                     <VisualState.StateTriggers>
                                         <AdaptiveTrigger MinWindowWidth="1008"/>
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="ContentPresenter.HorizontalContentAlignment" Value="Left"/>
                                     </VisualState.Setters>
-                                </VisualState>
+                                </VisualState>-->
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Rectangle x:Name="BorderBackground"
@@ -1679,7 +1679,7 @@
                                     </VisualState.Setters>
                                 </VisualState>
 
-                                <VisualState x:Name="PC">
+                                <!--<VisualState x:Name="PC">
                                     <VisualState.StateTriggers>
                                         <AdaptiveTrigger MinWindowWidth="1008"/>
                                     </VisualState.StateTriggers>
@@ -1687,7 +1687,7 @@
                                         <Setter Target="Root.HorizontalContentAlignment" Value="Left"/>
                                         <Setter Target="Root.Margin" Value="4,0,0,20"/>
                                     </VisualState.Setters>
-                                </VisualState>
+                                </VisualState>-->
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </ListViewItemPresenter>
