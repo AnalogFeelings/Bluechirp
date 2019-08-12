@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Services.Store.Engagement;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -85,8 +86,6 @@ namespace Tooter
 
                 }
 
-
-
                 NavService.CreateInstance(rootFrame);
             }
 
@@ -110,6 +109,52 @@ namespace Tooter
                 Debug.WriteLine(fullUri);
                 await AuthHelper.Instance.FinishOAuth(fullUri);
             }
+            else
+            {
+                Frame rootFrame = Window.Current.Content as Frame;
+                await SetupAppAsync();
+                // Do not repeat app initialization when the Window already has content,
+                // just ensure that the window is active
+                if (rootFrame == null)
+                {
+                    // Create a Frame to act as the navigation context and navigate to the first page
+                    rootFrame = new Frame();
+
+                    rootFrame.NavigationFailed += OnNavigationFailed;
+
+                    if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                    {
+                        //TODO: Load state from previously suspended application
+                    }
+
+                    // Place the frame in the current Window
+                    Window.Current.Content = rootFrame;
+                }
+
+                if (rootFrame.Content == null)
+                {
+                    // When the navigation stack isn't restored navigate to the first page,
+                    // configuring the new page by passing required information as a navigation
+                    // parameter
+
+                    if (ClientDataHelper.GetLastUsedProfile() != null)
+                    {
+                        ClientHelper.LoadLastUsedProfile();
+                        rootFrame.Navigate(typeof(ShellView), null);
+                    }
+                    else
+                    {
+                        rootFrame.Navigate(typeof(LoginView), null);
+
+                    }
+
+
+
+                    NavService.CreateInstance(rootFrame);
+                }
+
+                Window.Current.Activate();
+            }
 
         }
         private void TryEnablePrelaunch()
@@ -120,10 +165,21 @@ namespace Tooter
         private async Task SetupAppAsync()
         {
             await ClientDataHelper.StartUpAsync();
-            
-            var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            StoreServicesEngagementManager engagementManager = StoreServicesEngagementManager.GetDefault();
+
+            try
+            {
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                engagementManager.RegisterNotificationChannelAsync();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            }
+            catch (Exception)
+            {
+
+            }
+            var appView = ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(400, 500));
-            ExtendAcrylicIntoTitleBar(); 
+            ExtendAcrylicIntoTitleBar();
         }
 
         private void ExtendAcrylicIntoTitleBar()
