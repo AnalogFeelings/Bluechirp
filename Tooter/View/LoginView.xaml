@@ -14,7 +14,7 @@
     <Grid>
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center">
-            <TextBox Header="Instance URL (e.g: mastodon.social, mastodon.technology etc.): "
+            <TextBox Header="Instance Name (e.g: mastodon.social, mastodon.technology etc.): "
                      Width="250"
                      Text="{x:Bind ViewModel.InstanceURL, Mode=TwoWay}">
             </TextBox>
