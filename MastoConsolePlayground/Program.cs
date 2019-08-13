@@ -7,30 +7,30 @@ namespace MastoConsolePlayground
 {
     class Program
     {
-        const string InstanceNameRegularExpression = "[A-Za-z0-9]+.+[A-Za-z0-9]";
+        const string InstanceNameRegularExpression = "^[A-Za-z0-9]+\\.+[A-Za-z0-9]+$";
+        const string wwwString = "www.";
         static void Main(string[] args)
         {
 
-            const string exampleUrl = "https://www.mastodon.pho";
+            const string exampleUrl = "https://www.mastodon.pho/";
             string finalUrl = "";
 
             var protocolSplit = exampleUrl.Split("://");
 
-            
+
 
             if (CheckIfSplitCanContinue(protocolSplit))
             {
-                var wwwSplit = protocolSplit[1].Split();
-                if (CheckIfSplitCanContinue(wwwSplit))
+
+                string noProtocolString = protocolSplit[1];
+                if (noProtocolString.StartsWith(wwwString))
                 {
-                    string finalTreatmentString = TreatFinalSplit(wwwSplit[1]);
-                    checkIfInstanceFormat(finalTreatmentString);
-                    
+                    noProtocolString = noProtocolString.Remove(0, wwwString.Length);
                 }
-                else
-                {
-                    finalUrl = exampleUrl;
-                }
+
+                string finalTreatmentString = TreatFinalSplit(noProtocolString);
+                checkIfInstanceFormat(finalTreatmentString);
+
             }
             else
             {
@@ -47,7 +47,7 @@ namespace MastoConsolePlayground
             Regex rx = new Regex(InstanceNameRegularExpression,
               RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-           
+
 
             // Find matches.
             MatchCollection matches = rx.Matches(treatedString);
