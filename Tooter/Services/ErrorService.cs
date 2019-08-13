@@ -24,5 +24,20 @@ namespace Tooter.Services
             {
             }
         }
+
+        public static async Task ShowInstanceUrlFormattingError()
+        {
+            var errorDialog = new ContentDialog();
+            errorDialog.Title = "Formatting error";
+            errorDialog.Content = "Make sure the instance name is written as part1.part2";
+            errorDialog.CloseButtonText = "Ok";
+            try
+            {
+                await errorDialog.ShowAsync();
+            }
+            catch (Exception)
+            {
+            }
+        }
     }
 }

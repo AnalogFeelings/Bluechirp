@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Tooter.Commands;
 using Tooter.Helpers;
 using Tooter.Model;
+using Tooter.Services;
 
 namespace Tooter.ViewModel
 {
@@ -31,7 +32,15 @@ namespace Tooter.ViewModel
 
         private async Task LoginAsync()
         {
-            await AuthHelper.Instance.LoginAsync(_instanceURL);
+            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(_instanceURL))
+            {
+                await AuthHelper.Instance.LoginAsync(_instanceURL);
+            }
+            else
+            {
+                InstanceURL = string.Empty;
+                await ErrorService.ShowInstanceUrlFormattingError();
+            }
         }
     }
 }

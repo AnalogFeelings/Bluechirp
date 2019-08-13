@@ -12,7 +12,11 @@ namespace MastoConsolePlayground
         static void Main(string[] args)
         {
 
+
             const string exampleUrl = "https://www.masto-don.pho/";
+            checkIfInstanceFormat(exampleUrl);
+
+
             string finalUrl = "";
 
             var protocolSplit = exampleUrl.Split("://");
