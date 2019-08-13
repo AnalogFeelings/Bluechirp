@@ -7,12 +7,12 @@ namespace MastoConsolePlayground
 {
     class Program
     {
-        const string InstanceNameRegularExpression = "^[A-Za-z0-9]+\\.+[A-Za-z0-9]+$";
+        const string InstanceNameRegularExpression = "^[A-Za-z0-9\\-]+\\.+[A-Za-z0-9\\-]+$";
         const string wwwString = "www.";
         static void Main(string[] args)
         {
 
-            const string exampleUrl = "https://www.mastodon.pho/";
+            const string exampleUrl = "https://www.masto-don.pho/";
             string finalUrl = "";
 
             var protocolSplit = exampleUrl.Split("://");
