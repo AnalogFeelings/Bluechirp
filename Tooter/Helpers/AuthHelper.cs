@@ -12,6 +12,7 @@ using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.Foundation;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Tooter.Helpers
 {
