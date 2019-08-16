@@ -157,6 +157,12 @@
       <Version>1.4.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TooterLib\TooterLib.csproj">
+      <Project>{9ebe32cd-5a5c-43f2-8d15-3e2e4cc7cf54}</Project>
+      <Name>TooterLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
