@@ -34,5 +34,27 @@ namespace TooterTests
             Assert.IsTrue(ClientHelper.Client.AuthToken.AccessToken == token.AccessToken);
             Assert.IsTrue(ClientHelper.LoadedProfile == testClientProfileID);
         }
+
+        [TestMethod]
+        public async Task TestLastUsedProfileLoad()
+        {
+            
+            string testUserID = "testID";
+            Auth token;
+            AppRegistration registration;
+
+            (token, registration) = ClientData.CreateFakeClientAuthObjects();
+
+            string testClientProfileID = registration.Instance + testUserID;
+
+            await ClientDataHelper.StoreClientData(testClientProfileID, token, registration);
+
+            ClientDataHelper.SetLastUsedProfile(testClientProfileID);
+
+            // Delay to remove lock on files
+            await Task.Delay(1000);
+
+            Assert.IsTrue(ClientHelper.LoadLastUsedProfile());
+        }
     }
 }
