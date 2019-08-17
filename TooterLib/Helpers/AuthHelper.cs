@@ -21,7 +21,7 @@ namespace TooterLib.Helpers
         private AuthenticationClient _authClient = null;
         private static Lazy<AuthHelper> lazy =
             new Lazy<AuthHelper>(() => new AuthHelper());
-        public MastodonClient _client = null;
+
         public static AuthHelper Instance => lazy.Value;
         public static event EventHandler AuthCompleted;
 
@@ -48,14 +48,19 @@ namespace TooterLib.Helpers
 
         public async Task FinishOAuth(string UriQuery)
         {
+            WwwFormUrlDecoder urlParser = new WwwFormUrlDecoder(UriQuery);
+            string authCode = urlParser.GetFirstValueByName("code");
+            Debug.WriteLine(authCode);
+            var auth = await _authClient.ConnectWithCode(authCode, APIConstants.RedirectUri);
+            await CompleteAuthAsync(auth);
+        }
+
+        public async Task CompleteAuthAsync(Auth auth)
+        {
             try
             {
-                WwwFormUrlDecoder urlParser = new WwwFormUrlDecoder(UriQuery);
-                string authCode = urlParser.GetFirstValueByName("code");
-                Debug.WriteLine(authCode);
-
-                var auth = await _authClient.ConnectWithCode(authCode, APIConstants.RedirectUri);
                 var client = new MastodonClient(_appRegistration, auth);
+
                 ClientHelper.CreateClient(client);
                 var currentUser = await ClientHelper.Client.GetCurrentUser();
 
@@ -77,6 +82,7 @@ namespace TooterLib.Helpers
                 };
                 await errorDialog.ShowAsync();
             }
+
         }
     }
 }
