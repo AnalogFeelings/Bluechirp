@@ -97,6 +97,31 @@ namespace TooterTests
             }
         }
 
+        [TestMethod]
+        public async Task TestClientDataStorage()
+        {
+            string testUserID = "testID";
+            Auth token;
+            AppRegistration registration;
+
+            (token, registration) = ClientData.CreateFakeClientAuthObjects();
+
+            string testClientProfileID = registration.Instance + testUserID;
+
+            await ClientDataHelper.StoreClientData(testClientProfileID, token, registration);
+
+            // Delay to remove lock on files
+            await Task.Delay(1000);
+
+            Auth loadedToken;
+            AppRegistration loadedRegistration;
+            (loadedRegistration, loadedToken) = ClientDataHelper.LoadClientProfile(testClientProfileID);
+
+            Assert.IsTrue(loadedToken.AccessToken == token.AccessToken);
+            Assert.AreEqual(loadedRegistration.ClientId, registration.ClientId);
+
+        }
+
         
 
         
