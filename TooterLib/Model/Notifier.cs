@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tooter.Model
+namespace TooterLib.Model
 {
     public abstract class Notifier : INotifyPropertyChanged
     {

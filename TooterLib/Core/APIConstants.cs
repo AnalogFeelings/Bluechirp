@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tooter.Core
+namespace TooterLib.Core
 {
     public class APIConstants
     {
 
-        internal static string AppName = "null";
-        internal static string AppWebsite = "null";
-        internal static string RedirectUri = "null";
+        public static string AppName = "null";
+        public static string AppWebsite = "null";
+        public static string RedirectUri = "null";
 
 
         public static void SetConstants(string appName, string appWebsite, string redirectUri)

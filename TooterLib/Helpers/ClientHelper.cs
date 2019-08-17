@@ -5,31 +5,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tooter.Services;
-using Tooter.View;
+using TooterLib.Services;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Tooter.Helpers
+namespace TooterLib.Helpers
 {
     public sealed class ClientHelper
     {
         static string loadedProfile = "";
-        internal static MastodonClient Client { get; private set; }
+        public static MastodonClient Client { get; private set; }
 
-        internal static void CreateClient(MastodonClient client)
+        public static void CreateClient(MastodonClient client)
         {
             Client = client;
         }
 
-        internal static void LoadProfile(string clientProfileID)
+        public static void LoadProfile(string clientProfileID)
         {
             (AppRegistration appRegistration, Auth auth) = ClientDataHelper.LoadClientProfile(clientProfileID);
             Client = new MastodonClient(appRegistration, auth);
             loadedProfile = clientProfileID;
         }
 
-        internal static bool LoadLastUsedProfile()
+        public static bool LoadLastUsedProfile()
         {
             bool isLoadSuccessful = true;
 
@@ -46,15 +45,13 @@ namespace Tooter.Helpers
             return isLoadSuccessful;
         }
 
-        internal static async Task Logout()
+        public static async Task MakeLogoutPreprationsAsync()
         {
             await ClientDataHelper.RemoveClientProfileAsync(loadedProfile);
             await ClientDataHelper.ClearTimelineCache();
-            NavService.CreateInstance((Frame)Window.Current.Content);
-            NavService.Instance.Navigate(typeof(LoginView));
         }
 
-        internal static void SetLoadedProfile(string clientProfileID)
+        public static void SetLoadedProfile(string clientProfileID)
         {
             loadedProfile = clientProfileID;
         }

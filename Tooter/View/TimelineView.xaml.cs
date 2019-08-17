@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Tooter.Model;
+using TooterLib.Model;
 using Tooter.Services;
 using Tooter.ViewModel;
 using Windows.Foundation;

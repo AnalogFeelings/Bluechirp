@@ -135,7 +135,6 @@
     <Compile Include="Model\TimelineCache.cs" />
     <Compile Include="Model\TimelineSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CacheService.cs" />
     <Compile Include="Services\ErrorService.cs" />
     <Compile Include="Services\InstanceMatchService.cs" />
     <Compile Include="Services\NavService.cs" />

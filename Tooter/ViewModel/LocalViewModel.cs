@@ -6,10 +6,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tooter.Enums;
-using Tooter.Helpers;
-using Tooter.Model;
+using TooterLib.Enums;
+using TooterLib.Helpers;
+using TooterLib.Model;
 using Tooter.Services;
+using TooterLib.Services;
 
 namespace Tooter.ViewModel
 {

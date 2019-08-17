@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tooter.Commands;
+using TooterLib.Commands;
 using Tooter.Dialogs;
-using Tooter.Helpers;
-using Tooter.Model;
-using Tooter.Services;
+using TooterLib.Helpers;
+using TooterLib.Model;
+using TooterLib.Services;
 using Tooter.View;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Tooter.Services;
 
 namespace Tooter.ViewModel
 {
@@ -65,7 +66,9 @@ namespace Tooter.ViewModel
 
         internal async void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            await ClientHelper.Logout();
+            await ClientHelper.MakeLogoutPreprationsAsync();
+            NavService.CreateInstance((Frame)Window.Current.Content);
+            NavService.Instance.Navigate(typeof(LoginView));
         }
 
     }

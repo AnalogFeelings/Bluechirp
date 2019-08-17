@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tooter.Enums;
-using Tooter.Model;
+using TooterLib.Core;
+using TooterLib.Enums;
+using TooterLib.Model;
 using Windows.Storage;
 
-namespace Tooter.Helpers
+namespace TooterLib.Helpers
 {
     public static class ClientDataHelper
     {
@@ -17,18 +18,18 @@ namespace Tooter.Helpers
         static LocalObjectStorageHelper _localStorageHelper = new LocalObjectStorageHelper();
         static TempObjectStorageHelper _tempStorageHelper = new TempObjectStorageHelper();
 
-        internal static HashSet<string> ClientProfileList { get; } = new HashSet<string>();
-        internal static string LastUsedProfile { get; private set; } = null;
+        public static HashSet<string> ClientProfileList { get; } = new HashSet<string>();
+        public static string LastUsedProfile { get; private set; } = null;
 
         const string SavedClientProfilesFileName = "savedClientProfiles.txt";
 
-        internal async static Task StoreTimelineCache(TimelineCache cachedTimeline)
+        public async static Task StoreTimelineCache(TimelineCache cachedTimeline)
         {
             var timelineType = cachedTimeline.CurrentTimelineSettings.CurrentTimelineType;
             await _tempStorageHelper.SaveFileAsync(timelineType.ToString(), cachedTimeline);
         }
 
-        internal static async Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineFromFileAsync(TimelineType timelineType)
+        public static async Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineFromFileAsync(TimelineType timelineType)
         {
             bool wasTimelineLoaded = false;
             TimelineCache cacheToReturn = null;
@@ -45,18 +46,18 @@ namespace Tooter.Helpers
             catch (Exception)
             {
 
-                
+
             }
 
             return (wasTimelineLoaded, cacheToReturn);
         }
 
-        internal static async Task ClearTimelineCache()
+        public static async Task ClearTimelineCache()
         {
             var cacheData = await ApplicationData.Current.TemporaryFolder.GetItemsAsync();
             foreach (var item in cacheData)
             {
-                await item.DeleteAsync(StorageDeleteOption.PermanentDelete);   
+                await item.DeleteAsync(StorageDeleteOption.PermanentDelete);
             }
         }
 
@@ -76,23 +77,23 @@ namespace Tooter.Helpers
         // Profile swapping settings
         const string LastUsedProfileString = "lastUsedProfile";
 
-        internal async static Task StartUpAsync()
+        public async static Task StartUpAsync()
         {
             await LoadClientProfiles();
         }
 
-        internal static void SetLastUsedProfile(string clientProfileID)
+        public static void SetLastUsedProfile(string clientProfileID)
         {
             _localStorageHelper.Save(LastUsedProfileString, clientProfileID);
         }
 
-        internal static string GetLastUsedProfile()
+        public static string GetLastUsedProfile()
         {
             LastUsedProfile = _localStorageHelper.Read<string>(LastUsedProfileString);
             return LastUsedProfile;
         }
 
-        internal static async Task StoreClientData(string clientProfileID, Auth token, AppRegistration appRegistration)
+        public static async Task StoreClientData(string clientProfileID, Auth token, AppRegistration appRegistration)
         {
             if (!ClientProfileList.Contains(clientProfileID))
             {
@@ -123,14 +124,14 @@ namespace Tooter.Helpers
             _localSettings.DeleteContainer(clientProfileID);
         }
 
-        internal static async Task AddClientProfileAsync(string clientProfileID)
+        public static async Task AddClientProfileAsync(string clientProfileID)
         {
             ClientProfileList.Add(clientProfileID);
             StorageFile fileToSave = await GetSavedClientsFileAsync();
             await FileIO.AppendTextAsync(fileToSave, $"{clientProfileID},");
         }
 
-        internal static async Task RemoveClientProfileAsync(string clientProfileID)
+        public static async Task RemoveClientProfileAsync(string clientProfileID)
         {
             ClientProfileList.Remove(clientProfileID);
 
@@ -168,7 +169,7 @@ namespace Tooter.Helpers
             return savedClientsFile;
         }
 
-        internal static (AppRegistration appRegistration, Auth token) LoadClientProfile(string clientProfileID)
+        public static (AppRegistration appRegistration, Auth token) LoadClientProfile(string clientProfileID)
         {
             Auth token = new Auth();
             AppRegistration appRegistration = new AppRegistration();

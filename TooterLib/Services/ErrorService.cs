@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace Tooter.Services
+namespace TooterLib.Services
 {
     public static class ErrorService
     {

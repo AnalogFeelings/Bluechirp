@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tooter.Helpers
+namespace TooterLib.Helpers
 {
     public static class TimestampHelper
     {

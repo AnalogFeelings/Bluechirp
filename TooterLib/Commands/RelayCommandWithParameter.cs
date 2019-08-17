@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Tooter.Commands
+namespace TooterLib.Commands
 {
     public class RelayCommandWithParameter : ICommand
     {

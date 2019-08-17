@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace Tooter.Helpers
+namespace TooterLib.Helpers
 {
     class TempObjectStorageHelper: LocalObjectStorageHelper
     {

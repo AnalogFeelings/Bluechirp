@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tooter.Commands;
-using Tooter.Helpers;
-using Tooter.Model;
-using Tooter.Services;
+using Tooter.View;
+using TooterLib.Commands;
+using TooterLib.Helpers;
+using TooterLib.Model;
+using TooterLib.Services;
 
 namespace Tooter.ViewModel
 {
@@ -27,7 +28,14 @@ namespace Tooter.ViewModel
         public RelayCommand LoginCommand;
         public LoginViewModel()
         {
+            AuthHelper.AuthCompleted += AuthHelper_AuthCompleted;
             LoginCommand = new RelayCommand(async () => await LoginAsync());
+        }
+
+        private void AuthHelper_AuthCompleted(object sender, EventArgs e)
+        {
+            AuthHelper.AuthCompleted -= AuthHelper_AuthCompleted;
+            NavService.Instance.Navigate(typeof(ShellView));
         }
 
         private async Task LoginAsync()

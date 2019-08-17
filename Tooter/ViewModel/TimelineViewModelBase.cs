@@ -1,13 +1,13 @@
 ﻿using Mastonet.Entities;
+using MastoParserLib.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tooter.Commands;
-using Tooter.Model;
 using Tooter.Services;
+using TooterLib.Commands;
 
 namespace Tooter.ViewModel
 {

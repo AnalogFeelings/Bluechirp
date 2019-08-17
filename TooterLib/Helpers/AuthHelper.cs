@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tooter.Core;
-using Tooter.Services;
+using TooterLib.Core;
+using TooterLib.Services;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.Foundation;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace Tooter.Helpers
+namespace TooterLib.Helpers
 {
     public sealed class AuthHelper
     {
@@ -23,6 +23,7 @@ namespace Tooter.Helpers
             new Lazy<AuthHelper>(() => new AuthHelper());
         public MastodonClient _client = null;
         public static AuthHelper Instance => lazy.Value;
+        public static event EventHandler AuthCompleted;
 
         private AuthHelper() { }
 
@@ -42,7 +43,7 @@ namespace Tooter.Helpers
         }
 
 
-        internal async Task FinishOAuth(string UriQuery)
+        public async Task FinishOAuth(string UriQuery)
         {
             try
             {
@@ -61,7 +62,7 @@ namespace Tooter.Helpers
                 ClientDataHelper.SetLastUsedProfile(clientProfileID);
                 await ClientDataHelper.StoreClientData(clientProfileID, auth, _appRegistration);
 
-                NavService.Instance.Navigate(typeof(ShellView));
+                AuthCompleted?.Invoke(null, EventArgs.Empty);
             }
             catch (Exception)
             {

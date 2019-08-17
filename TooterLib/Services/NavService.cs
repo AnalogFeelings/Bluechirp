@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace Tooter.Services
+namespace TooterLib.Services
 {
     public sealed class NavService
     {
         private static Frame _frame = null;
-        internal static NavService Instance = new NavService();
+        public static NavService Instance = new NavService();
         public static void CreateInstance(Frame frame)
         {
             _frame = frame;

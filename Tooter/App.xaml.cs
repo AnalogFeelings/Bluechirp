@@ -6,8 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Tooter.Helpers;
-using Tooter.Services;
+using TooterLib.Helpers;
+using TooterLib.Services;
 using Tooter.View;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Tooter.Core;
 
 namespace Tooter
 {
@@ -180,6 +181,8 @@ namespace Tooter
             var appView = ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(400, 500));
             ExtendAcrylicIntoTitleBar();
+            APIConstants.SetAPIConstants();
+            
         }
 
         private void ExtendAcrylicIntoTitleBar()

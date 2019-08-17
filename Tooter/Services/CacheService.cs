@@ -4,21 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tooter.Enums;
-using Tooter.Helpers;
-using Tooter.Model;
+using TooterLib.Enums;
+using TooterLib.Helpers;
+using TooterLib.Model;
 using Tooter.View;
-using Windows.UI.Xaml.Controls;
 
 namespace Tooter.Services
 {
     public class CacheService
     {
-        static Page currentTimeline;
-
-        public static event EventHandler TimeToCacheAndStopListening;
-
-        public static event EventHandler TimeToListen;
+        static TimelineView currentTimeline;
 
         internal async static Task CacheTimeline(MastodonList<Status> timeline, Status currentStatusMarker, TimelineSettings timelineSettings)
         {
@@ -26,14 +21,14 @@ namespace Tooter.Services
             await ClientDataHelper.StoreTimelineCache(cachedTimeline);
         }
 
-        internal static void SwapCurrentTimeline(Page newTimeline)
+        internal static void SwapCurrentTimeline(TimelineView newTimeline)
         {
             currentTimeline = newTimeline;
         }
 
-        internal static void CacheCurrentTimeline()
+        internal async static Task CacheCurrentTimeline()
         {
-            TryCacheTimeline();
+            await currentTimeline.TryCacheTimeline();
         }
 
         internal async static Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineCache(TimelineType timelineType)
@@ -41,11 +36,6 @@ namespace Tooter.Services
             var cacheLoadResult = await ClientDataHelper.LoadTimelineFromFileAsync(timelineType);
             return (cacheLoadResult.wasTimelineLoaded, cacheLoadResult.cacheToReturn);
 
-        } 
-
-        public static void TryCacheTimeline()
-        {
-            TimeToCacheAndStopListening?.Invoke(null, EventArgs.Empty);
         }
     }
 }
