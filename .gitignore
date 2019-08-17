@@ -341,3 +341,4 @@ healthchecksdb
 
 # API Keys
 */Core/APIKeys.cs
+/TooterTests/Constants/Constants.cs

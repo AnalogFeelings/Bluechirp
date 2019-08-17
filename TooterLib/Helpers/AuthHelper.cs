@@ -30,6 +30,12 @@ namespace TooterLib.Helpers
 
         public async Task LoginAsync(string instanceUrl)
         {
+            var url = await CreateOAuthUrlAsync(instanceUrl);
+            await Launcher.LaunchUriAsync(new Uri(url));
+        }
+
+        public async Task<string> CreateOAuthUrlAsync(string instanceUrl)
+        {
             // Login to any instance code
             _authClient = new AuthenticationClient(instanceUrl);
             _appRegistration = await _authClient.CreateApp(APIConstants.AppName,
@@ -37,11 +43,8 @@ namespace TooterLib.Helpers
                                                            APIConstants.AppWebsite,
                                                            APIConstants.RedirectUri);
 
-            var url = _authClient.OAuthUrl(APIConstants.RedirectUri);
-
-            await Launcher.LaunchUriAsync(new Uri(url));
+            return _authClient.OAuthUrl(APIConstants.RedirectUri);
         }
-
 
         public async Task FinishOAuth(string UriQuery)
         {
