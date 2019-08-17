@@ -127,8 +127,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Commands\RelayCommandWithParameter.cs" />
     <Compile Include="Converters\BoolToUnderlineConverter.cs" />
     <Compile Include="Converters\InvertBooleanConverter.cs" />
     <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
@@ -136,13 +134,6 @@
     <Compile Include="Dialogs\NewTootDialog.xaml.cs">
       <DependentUpon>NewTootDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Enums\TimelineType.cs" />
-    <Compile Include="Helpers\AuthHelper.cs" />
-    <Compile Include="Helpers\CharCounterHelper.cs" />
-    <Compile Include="Helpers\ClientDataHelper.cs" />
-    <Compile Include="Helpers\ClientHelper.cs" />
-    <Compile Include="Helpers\TempObjectStorageHelper.cs" />
-    <Compile Include="Helpers\TimestampHelper.cs" />
     <Compile Include="LocalControls\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>
@@ -161,14 +152,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Notifier.cs" />
-    <Compile Include="Model\TimelineCache.cs" />
-    <Compile Include="Model\TimelineSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CacheService.cs" />
-    <Compile Include="Services\ErrorService.cs" />
-    <Compile Include="Services\InstanceMatchService.cs" />
-    <Compile Include="Services\NavService.cs" />
     <Compile Include="ViewModel\FederatedViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LocalViewModel.cs" />

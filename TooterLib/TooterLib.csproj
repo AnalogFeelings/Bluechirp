@@ -121,12 +121,38 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Commands\RelayCommandWithParameter.cs" />
+    <Compile Include="Core\APIConstants.cs" />
+    <Compile Include="Enums\TimelineType.cs" />
+    <Compile Include="Helpers\AuthHelper.cs" />
+    <Compile Include="Helpers\CharCounterHelper.cs" />
+    <Compile Include="Helpers\ClientDataHelper.cs" />
+    <Compile Include="Helpers\ClientHelper.cs" />
+    <Compile Include="Helpers\TempObjectStorageHelper.cs" />
+    <Compile Include="Helpers\TimestampHelper.cs" />
+    <Compile Include="Model\Notifier.cs" />
+    <Compile Include="Model\TimelineCache.cs" />
+    <Compile Include="Model\TimelineSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CacheService.cs" />
+    <Compile Include="Services\ErrorService.cs" />
+    <Compile Include="Services\InstanceMatchService.cs" />
+    <Compile Include="Services\NavService.cs" />
     <EmbeddedResource Include="Properties\TooterLib.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Mastonet">
+      <Version>1.7.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.5.0</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

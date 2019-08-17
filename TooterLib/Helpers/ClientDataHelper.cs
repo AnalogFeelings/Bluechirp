@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tooter.Core;
 using Tooter.Enums;
 using Tooter.Model;
 using Windows.Storage;

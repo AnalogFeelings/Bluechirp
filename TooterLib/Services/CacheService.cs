@@ -8,12 +8,17 @@ using Tooter.Enums;
 using Tooter.Helpers;
 using Tooter.Model;
 using Tooter.View;
+using Windows.UI.Xaml.Controls;
 
 namespace Tooter.Services
 {
     public class CacheService
     {
-        static TimelineView currentTimeline;
+        static Page currentTimeline;
+
+        public static event EventHandler TimeToCacheAndStopListening;
+
+        public static event EventHandler TimeToListen;
 
         internal async static Task CacheTimeline(MastodonList<Status> timeline, Status currentStatusMarker, TimelineSettings timelineSettings)
         {
@@ -21,14 +26,14 @@ namespace Tooter.Services
             await ClientDataHelper.StoreTimelineCache(cachedTimeline);
         }
 
-        internal static void SwapCurrentTimeline(TimelineView newTimeline)
+        internal static void SwapCurrentTimeline(Page newTimeline)
         {
             currentTimeline = newTimeline;
         }
 
-        internal async static Task CacheCurrentTimeline()
+        internal static void CacheCurrentTimeline()
         {
-            await currentTimeline.TryCacheTimeline();
+            TryCacheTimeline();
         }
 
         internal async static Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineCache(TimelineType timelineType)
@@ -37,5 +42,10 @@ namespace Tooter.Services
             return (cacheLoadResult.wasTimelineLoaded, cacheLoadResult.cacheToReturn);
 
         } 
+
+        public static void TryCacheTimeline()
+        {
+            TimeToCacheAndStopListening?.Invoke(null, EventArgs.Empty);
+        }
     }
 }

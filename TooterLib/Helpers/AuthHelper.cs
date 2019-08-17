@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Tooter.Core;
 using Tooter.Services;
-using Tooter.View;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.Foundation;
@@ -22,10 +21,11 @@ namespace Tooter.Helpers
         private AuthenticationClient _authClient = null;
         private static Lazy<AuthHelper> lazy =
             new Lazy<AuthHelper>(() => new AuthHelper());
-        internal MastodonClient _client = null;
-        internal static AuthHelper Instance => lazy.Value;
+        public MastodonClient _client = null;
+        public static AuthHelper Instance => lazy.Value;
 
         private AuthHelper() { }
+
 
         public async Task LoginAsync(string instanceUrl)
         {
