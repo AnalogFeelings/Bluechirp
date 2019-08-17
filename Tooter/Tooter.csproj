@@ -137,20 +137,8 @@
     <Compile Include="LocalControls\MessageTemplate.xaml.cs">
       <DependentUpon>MessageTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LocalControls\TabBar.xaml.cs">
-      <DependentUpon>TabBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LocalControls\TootBar.xaml.cs">
-      <DependentUpon>TootBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LocalControls\TootReplyTemplate.xaml.cs">
-      <DependentUpon>TootReplyTemplate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="LocalControls\TootTemplate.xaml.cs">
       <DependentUpon>TootTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CacheService.cs" />
@@ -162,10 +150,6 @@
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\ShellViewModel.cs" />
     <Compile Include="ViewModel\TimelineViewModelBase.cs" />
-    <Compile Include="ViewModel\TootViewModel.cs" />
-    <Compile Include="View\DialogTestView.xaml.cs">
-      <DependentUpon>DialogTestView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -174,9 +158,6 @@
     </Compile>
     <Compile Include="View\TimelineView.xaml.cs">
       <DependentUpon>TimelineView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TootView.xaml.cs">
-      <DependentUpon>TootView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -259,25 +240,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LocalControls\TabBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LocalControls\TootBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LocalControls\TootReplyTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="LocalControls\TootTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\ControlStyles.xaml">
       <SubType>Designer</SubType>
@@ -291,10 +256,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\DialogTestView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -304,10 +265,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TimelineView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TootView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

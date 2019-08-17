@@ -48,11 +48,12 @@ namespace Tooter.LocalControls
 
             if (updatedStatus != null)
             {
-                MParser parser = new MParser();
                 StatusContent.Blocks.Clear();
 
                 Paragraph rootParagraph = new Paragraph();
                 StatusContent.Blocks.Add(rootParagraph);
+
+                MParser parser = new MParser();
 
                 if (updatedStatus.Reblog != null)
                 {
