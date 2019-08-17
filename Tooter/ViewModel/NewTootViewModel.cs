@@ -130,9 +130,9 @@ namespace Tooter.ViewModel
             var charCountResult = CharCounterHelper.CountCharactersWithLimit(currentTextBox.Text, MastodonMaxStatusCharacters);
             UpdateCharCountString(charCountResult.charactersFound);
 
-            if (charCountResult.characterLimitReached != HasReachedCharLimit)
+            if (charCountResult.characterLimitExceeded != HasReachedCharLimit)
             {
-                HasReachedCharLimit = charCountResult.characterLimitReached;
+                HasReachedCharLimit = charCountResult.characterLimitExceeded;
             }
         }
 

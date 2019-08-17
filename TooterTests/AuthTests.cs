@@ -2,7 +2,6 @@
 using System;
 using System.Threading.Tasks;
 using Mastonet;
-using Mastonet.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TooterLib.Core;
 using TooterLib.Helpers;
@@ -60,7 +59,7 @@ namespace TooterTests
 
 
             var auth = await authClient.ConnectWithPassword(Constants.Constants.TestEmail, Constants.Constants.TestPassword);
-            
+
 
             try
             {
@@ -72,5 +71,7 @@ namespace TooterTests
                 throw;
             }
         }
+
     }
+
 }
