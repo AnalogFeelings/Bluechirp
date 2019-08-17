@@ -23,7 +23,7 @@ namespace TooterLib.Helpers
 
         const string SavedClientProfilesFileName = "savedClientProfiles.txt";
 
-        public async static Task StoreTimelineCache(TimelineCache cachedTimeline)
+        public async static Task StoreTimelineCacheAsync(TimelineCache cachedTimeline)
         {
             var timelineType = cachedTimeline.CurrentTimelineSettings.CurrentTimelineType;
             await _tempStorageHelper.SaveFileAsync(timelineType.ToString(), cachedTimeline);

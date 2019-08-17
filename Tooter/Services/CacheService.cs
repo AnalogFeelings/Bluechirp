@@ -18,7 +18,7 @@ namespace Tooter.Services
         internal async static Task CacheTimeline(MastodonList<Status> timeline, Status currentStatusMarker, TimelineSettings timelineSettings)
         {
             TimelineCache cachedTimeline = new TimelineCache(timeline, currentStatusMarker, timelineSettings);
-            await ClientDataHelper.StoreTimelineCache(cachedTimeline);
+            await ClientDataHelper.StoreTimelineCacheAsync(cachedTimeline);
         }
 
         internal static void SwapCurrentTimeline(TimelineView newTimeline)
