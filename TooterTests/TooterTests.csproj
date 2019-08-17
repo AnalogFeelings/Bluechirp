@@ -121,6 +121,7 @@
   <ItemGroup>
     <Compile Include="CharCounterTests.cs" />
     <Compile Include="ClientDataTests.cs" />
+    <Compile Include="ClientTests.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Generators\ClientData.cs" />
     <Compile Include="Generators\TimelineData.cs" />

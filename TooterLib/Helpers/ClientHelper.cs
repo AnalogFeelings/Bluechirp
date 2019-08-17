@@ -13,7 +13,8 @@ namespace TooterLib.Helpers
 {
     public sealed class ClientHelper
     {
-        static string loadedProfile = "";
+        public static string LoadedProfile { get; private set; } = "";
+
         public static MastodonClient Client { get; private set; }
 
         public static void CreateClient(MastodonClient client)
@@ -25,7 +26,7 @@ namespace TooterLib.Helpers
         {
             (AppRegistration appRegistration, Auth auth) = ClientDataHelper.LoadClientProfile(clientProfileID);
             Client = new MastodonClient(appRegistration, auth);
-            loadedProfile = clientProfileID;
+            LoadedProfile = clientProfileID;
         }
 
         public static bool LoadLastUsedProfile()
@@ -47,13 +48,13 @@ namespace TooterLib.Helpers
 
         public static async Task MakeLogoutPreprationsAsync()
         {
-            await ClientDataHelper.RemoveClientProfileAsync(loadedProfile);
+            await ClientDataHelper.RemoveClientProfileAsync(LoadedProfile);
             await ClientDataHelper.ClearTimelineCache();
         }
 
         public static void SetLoadedProfile(string clientProfileID)
         {
-            loadedProfile = clientProfileID;
+            LoadedProfile = clientProfileID;
         }
     }
 }

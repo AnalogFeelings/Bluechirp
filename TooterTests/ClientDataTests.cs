@@ -144,7 +144,6 @@ namespace TooterTests
 
             var localContainers = ApplicationData.Current.LocalSettings.Containers;
             Assert.IsFalse(localContainers.ContainsKey(testClientProfileID));
-
         }
 
 
