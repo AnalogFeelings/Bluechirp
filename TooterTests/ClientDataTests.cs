@@ -38,7 +38,7 @@ namespace TooterTests
             var loadResult = await ClientDataHelper.LoadTimelineFromFileAsync(timelineType);
             if (loadResult.wasTimelineLoaded)
             {
-                Assert.IsTrue(fakeTimelineCache.Toots.SequenceEqual(loadResult.cacheToReturn.Toots));
+                Assert.IsTrue(fakeTimelineCache.Toots[0].Content == loadResult.cacheToReturn.Toots[0].Content);
             }
             else
             {
