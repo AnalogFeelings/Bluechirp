@@ -80,10 +80,26 @@ namespace TooterTests
             // Need to manually check if there are any cache files left
             // to prove that cache has actually been cleared
             var cacheFolderContents = await ApplicationData.Current.TemporaryFolder.GetFilesAsync();
-
             Assert.IsFalse(cacheFolderContents.Count > 0);
 
         }
+
+        [TestMethod]
+        public async Task ClientDataStartupTest()
+        {
+            try
+            {
+                await ClientDataHelper.StartUpAsync();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+        
+
+        
 
     }
 }
