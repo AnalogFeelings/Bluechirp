@@ -71,7 +71,7 @@ namespace TooterTests
             {
                 await ClientDataHelper.ClearTimelineCache();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Should never fail
                 Assert.Fail(ex.Message);
@@ -122,9 +122,32 @@ namespace TooterTests
 
         }
 
-        
+        [TestMethod]
+        public async Task TestClientDataDeletion()
+        {
+            string testUserID = "testID";
+            Auth token;
+            AppRegistration registration;
 
-        
+            (token, registration) = ClientData.CreateFakeClientAuthObjects();
+
+            string testClientProfileID = registration.Instance + testUserID;
+
+            await ClientDataHelper.StoreClientData(testClientProfileID, token, registration);
+
+            // Delay to remove lock on files
+            await Task.Delay(1000);
+
+            await ClientDataHelper.RemoveClientProfileAsync(testClientProfileID);
+
+            // Need to check if local settings container has really been deleted
+
+            var localContainers = ApplicationData.Current.LocalSettings.Containers;
+            Assert.IsFalse(localContainers.ContainsKey(testClientProfileID));
+
+        }
+
+
 
     }
 }
