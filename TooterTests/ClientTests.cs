@@ -56,5 +56,13 @@ namespace TooterTests
 
             Assert.IsTrue(ClientHelper.LoadLastUsedProfile());
         }
+
+        [TestMethod]
+        public void TestSetLastUsedProfile()
+        {
+            string profileToSet = "test";
+            ClientHelper.SetLoadedProfile(profileToSet);
+            Assert.AreEqual(profileToSet, ClientHelper.LoadedProfile);
+        }
     }
 }
