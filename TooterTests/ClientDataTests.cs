@@ -9,6 +9,7 @@ using TooterLib.Enums;
 using TooterLib.Helpers;
 using TooterLib.Model;
 using TooterTests.Generators;
+using Windows.Storage;
 
 namespace TooterTests
 {
@@ -46,6 +47,43 @@ namespace TooterTests
             }
         }
 
-       
+        [TestMethod]
+        public async Task TestCacheDeletion()
+        {
+            var timelineType = TimelineType.Home;
+            var fakeTimelineCache = TimelineData.GenerateTimelineCache(timelineType);
+
+            try
+            {
+                await ClientDataHelper.StoreTimelineCacheAsync(fakeTimelineCache);
+            }
+
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+
+            // In order to allow windows to release lock on file
+            // to allow load
+            await Task.Delay(2000);
+
+            try
+            {
+                await ClientDataHelper.ClearTimelineCache();
+            }
+            catch(Exception ex)
+            {
+                // Should never fail
+                Assert.Fail(ex.Message);
+            }
+
+            // Need to manually check if there are any cache files left
+            // to prove that cache has actually been cleared
+            var cacheFolderContents = await ApplicationData.Current.TemporaryFolder.GetFilesAsync();
+
+            Assert.IsFalse(cacheFolderContents.Count > 0);
+
         }
+
     }
+}
