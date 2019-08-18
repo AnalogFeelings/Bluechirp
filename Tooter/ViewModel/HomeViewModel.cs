@@ -17,119 +17,27 @@ namespace Tooter.ViewModel
     class HomeViewModel : TimelineViewModelBase
     {
         public override string ViewTitle { get; protected set; } = "Home";
+        protected override TimelineType timelineType { get; set; } = TimelineType.Home;
 
         public HomeViewModel() : base()
         {
 
         }
 
-        public override event EventHandler TootsAdded;
-        public override event EventHandler<Status> StatusMarkerAdded;
 
-        internal async override Task LoadFeedAsync()
+        protected async override Task<MastodonList<Status>> GetTimeline()
         {
-            bool wasFeedloadedFromCache = await AttemptToLoadFromCache();
-            if (!wasFeedloadedFromCache)
-            {
-                try
-                {
-                    tootTimelineData = await ClientHelper.Client.GetHomeTimeline();
-                    nextPageMaxId = tootTimelineData.NextPageMaxId;
-                    previousPageMinId = tootTimelineData.PreviousPageMinId;
-                    previousPageSinceId = tootTimelineData.PreviousPageSinceId;
-
-                    TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
-                }
-                catch (Exception)
-                {
-                    await ErrorService.ShowConnectionError();
-                }
-            }
+            return await ClientHelper.Client.GetHomeTimeline(); 
         }
 
-        internal async override Task AddOlderContentToFeed()
+        protected async override Task<MastodonList<Status>> GetNewerTimeline(ArrayOptions options)
         {
-            try
-            {
-                var olderContent = await ClientHelper.Client.GetHomeTimeline(nextPageMaxId);
-                nextPageMaxId = olderContent.NextPageMaxId;
-
-                tootTimelineData.AddRange(olderContent);
-                foreach (var item in olderContent)
-                {
-                    TootTimelineCollection.Add(item);
-                }
-            }
-            catch (Exception)
-            {
-                await ErrorService.ShowConnectionError();
-            }
-
-            TootsAdded?.Invoke(null, EventArgs.Empty);
+            return await ClientHelper.Client.GetHomeTimeline(options);
         }
 
-        internal async override Task AddNewerContentToFeed()
+        protected async override Task<MastodonList<Status>> GetOlderTimeline()
         {
-            Mastonet.ArrayOptions options = new Mastonet.ArrayOptions();
-
-            options.MinId = previousPageMinId;
-            options.SinceId = previousPageSinceId;
-
-            try
-            {
-                var newerContent = await ClientHelper.Client.GetHomeTimeline(options);
-
-                if (newerContent.Count > 0)
-                {
-                    previousPageMinId = newerContent.PreviousPageMinId;
-                    previousPageSinceId = newerContent.PreviousPageSinceId;
-
-                    tootTimelineData.InsertRange(0, newerContent);
-
-                    for (int i = newerContent.Count - 1; i > -1; i--)
-                    {
-                        TootTimelineCollection.Insert(0, newerContent[i]);
-                    }
-                }
-
-            }
-            catch
-            {
-                await ErrorService.ShowConnectionError();
-            }
-
-            TootsAdded?.Invoke(null, EventArgs.Empty);
-        }
-
-
-
-        internal async override Task CacheTimeline(Status currentTopVisibleStatus)
-        {
-            var timelineSettings = new TimelineSettings(nextPageMaxId, previousPageMinId, previousPageSinceId, TimelineType.Home);
-            await CacheService.CacheTimeline(tootTimelineData, currentTopVisibleStatus, timelineSettings);
-
-        }
-
-        protected async override Task<bool> AttemptToLoadFromCache()
-        {
-            bool cacheWasLoaded = false;
-            var cacheLoadResult = await CacheService.LoadTimelineCache(TimelineType.Home);
-            if (cacheLoadResult.wasTimelineLoaded)
-            {
-                var cache = cacheLoadResult.cacheToReturn;
-                if (cache.Toots.Count > 0)
-                {
-                    StatusMarkerAdded?.Invoke(this, cache.CurrentStatusMarker);
-                    tootTimelineData = cache.Toots;
-                    TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
-                    previousPageMinId = cache.CurrentTimelineSettings.PreviousPageMinID;
-                    previousPageSinceId = cache.CurrentTimelineSettings.PreviousPageSinceID;
-                    nextPageMaxId = cache.CurrentTimelineSettings.NextPageMaxID;
-                    cacheWasLoaded = true;
-                }
-            }
-
-            return cacheWasLoaded;
+            return await ClientHelper.Client.GetHomeTimeline(nextPageMaxId);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Mastonet.Entities;
+﻿using Mastonet;
+using Mastonet.Entities;
 using MastoParserLib.Model;
 using System;
 using System.Collections.Generic;
@@ -8,18 +9,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Tooter.Services;
 using TooterLib.Commands;
+using TooterLib.Enums;
+using TooterLib.Helpers;
+using TooterLib.Model;
+using TooterLib.Services;
 
 namespace Tooter.ViewModel
 {
-    public abstract class TimelineViewModelBase : Notifier
+    public abstract class TimelineViewModelBase : TooterLib.Model.Notifier
     {
 
         protected long? previousPageSinceId;
         protected long? previousPageMinId;
         protected long? nextPageMaxId;
 
-        public abstract event EventHandler TootsAdded;
-        public abstract event EventHandler<Status> StatusMarkerAdded;
+        protected abstract TimelineType timelineType { get; set; }
+
+        public event EventHandler TootsAdded;
+        public event EventHandler<Status> StatusMarkerAdded;
 
         private ObservableCollection<Status> _tootTimelineCollection;
 
@@ -33,7 +40,30 @@ namespace Tooter.ViewModel
             }
         }
 
+        protected async Task<bool> AttemptToLoadFromCache()
+        {
+            bool cacheWasLoaded = false;
+            var (wasTimelineLoaded, cacheToReturn) = await CacheService.LoadTimelineCache(timelineType);
+            if (wasTimelineLoaded)
+            {
+                var cache = cacheToReturn;
+                if (cache.Toots.Count > 0)
+                {
+                    StatusMarkerAdded?.Invoke(this, cache.CurrentStatusMarker);
+                    tootTimelineData = cache.Toots;
+                    TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
+                    previousPageMinId = cache.CurrentTimelineSettings.PreviousPageMinID;
+                    previousPageSinceId = cache.CurrentTimelineSettings.PreviousPageSinceID;
+                    nextPageMaxId = cache.CurrentTimelineSettings.NextPageMaxID;
+                    cacheWasLoaded = true;
+                }
+            }
 
+            return cacheWasLoaded;
+        }
+
+
+        protected abstract Task<MastodonList<Status>> GetTimeline();
 
         protected MastodonList<Status> tootTimelineData;
 
@@ -46,7 +76,12 @@ namespace Tooter.ViewModel
             DeleteCommand = new RelayCommandWithParameter(DeleteToot);
         }
 
-        internal abstract Task CacheTimeline(Status currentTopVisibleStatus);
+        internal async Task CacheTimeline(Status currentTopVisibleStatus)
+        {
+            var timelineSettings = new TimelineSettings(nextPageMaxId, previousPageMinId, previousPageSinceId, TimelineType.Home);
+            await CacheService.CacheTimeline(tootTimelineData, currentTopVisibleStatus, timelineSettings);
+
+        }
 
         private void DeleteToot(object obj)
         {
@@ -56,14 +91,87 @@ namespace Tooter.ViewModel
             }
         }
 
-        internal abstract Task LoadFeedAsync();
+        internal async Task LoadFeedAsync()
+        {
+            bool wasFeedloadedFromCache = await AttemptToLoadFromCache();
+            if (!wasFeedloadedFromCache)
+            {
+                try
+                {
+                    tootTimelineData = await GetTimeline();
+                    nextPageMaxId = tootTimelineData.NextPageMaxId;
+                    previousPageMinId = tootTimelineData.PreviousPageMinId;
+                    previousPageSinceId = tootTimelineData.PreviousPageSinceId;
 
-        internal abstract Task AddOlderContentToFeed();
+                    TootTimelineCollection = new ObservableCollection<Status>(tootTimelineData);
+                }
+                catch (Exception)
+                {
+                    await ErrorService.ShowConnectionError();
+                }
+            }
+        }
 
-        internal abstract Task AddNewerContentToFeed();
+        internal async Task AddOlderContentToFeed()
+        {
+            try
+            {
+                var olderContent = await GetOlderTimeline();
+                nextPageMaxId = olderContent.NextPageMaxId;
 
-        protected abstract Task<bool> AttemptToLoadFromCache();
+                tootTimelineData.AddRange(olderContent);
+                foreach (var item in olderContent)
+                {
+                    TootTimelineCollection.Add(item);
+                }
+            }
+            catch (Exception)
+            {
+                await ErrorService.ShowConnectionError();
+            }
 
+            TootsAdded?.Invoke(null, EventArgs.Empty);
+        }
+
+
+
+        internal async Task AddNewerContentToFeed()
+        {
+            ArrayOptions options = new ArrayOptions
+            {
+                MinId = previousPageMinId,
+                SinceId = previousPageSinceId
+            };
+
+            try
+            {
+                var newerContent = await GetNewerTimeline(options);
+
+                if (newerContent.Count > 0)
+                {
+                    previousPageMinId = newerContent.PreviousPageMinId;
+                    previousPageSinceId = newerContent.PreviousPageSinceId;
+
+                    tootTimelineData.InsertRange(0, newerContent);
+
+                    for (int i = newerContent.Count - 1; i > -1; i--)
+                    {
+                        TootTimelineCollection.Insert(0, newerContent[i]);
+                    }
+                }
+
+            }
+            catch
+            {
+                await ErrorService.ShowConnectionError();
+            }
+
+            TootsAdded?.Invoke(null, EventArgs.Empty);
+        }
+
+
+        protected abstract Task<MastodonList<Status>> GetNewerTimeline(ArrayOptions options);
+        protected abstract Task<MastodonList<Status>> GetOlderTimeline();
 
     }
 }
