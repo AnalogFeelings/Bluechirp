@@ -65,6 +65,7 @@ namespace Tooter.View
             NavService.CreateInstance(ActiveFrame);
             ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
             SwapTimelineToCache();
+            MenuListView.SelectedIndex = 0;
             await ViewModel.DoAsyncPrepartions();
         }
 
