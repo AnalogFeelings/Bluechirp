@@ -27,12 +27,12 @@
                               VerticalAlignment="Stretch"
                               HorizontalContentAlignment="Stretch"
                               VerticalContentAlignment="Stretch"
-        Background="{ThemeResource SystemAltHighColor}"
+        Background="{ThemeResource FediMainColor}"
         MinWidth="0"
         Name="RootPanel">
 
 
-        <StackPanel Background="{ThemeResource SystemAltHighColor}"
+        <StackPanel Background="{ThemeResource FediMainColor}"
                        CornerRadius="4"
                        Padding="24">
             <Button Style="{ThemeResource NameTextBlockButton}"

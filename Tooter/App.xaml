@@ -4,8 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Tooter"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:flui="using:FluiFramework.UWP.Core"
-    RequestedTheme="Light">
+    xmlns:flui="using:FluiFramework.UWP.Core">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -93,6 +92,15 @@
                 </ResourceDictionary>
                 <ResourceDictionary Source="ms-appx:///Styles/GlobalTextStyles.xaml"/>
                 <ResourceDictionary Source="ms-appx:///Styles/DialogStyles.xaml"/>
+                <ResourceDictionary x:Name="MastodonColors" Source="ms-appx:///Styles/MastodonBrushStyles.xaml"/>
+                <ResourceDictionary x:Name="FediColors">
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary Source="ms-appx:///Styles/FediLightBrushStyles.xaml"
+                                            x:Key="Light"/>
+                        <ResourceDictionary Source="ms-appx:///Styles/FediDarkBrushStyles.xaml"
+                                            x:Key="Dark"/>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

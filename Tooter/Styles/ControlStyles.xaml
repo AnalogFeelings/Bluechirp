@@ -37,7 +37,7 @@
         <Setter Property="FontWeight"
                 Value="Normal"/>
         <Setter Property="Foreground"
-                Value="#434343"/>
+                Value="{ThemeResource FediFadedColor}"/>
     </Style>
 
     <Style x:Key="ReplyNameTextBlockButton"
