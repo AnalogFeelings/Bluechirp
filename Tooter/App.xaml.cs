@@ -52,6 +52,7 @@ namespace Tooter
         {
             Frame rootFrame = Window.Current.Content as Frame;
             await SetupAppAsync();
+
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -148,8 +149,6 @@ namespace Tooter
                         rootFrame.Navigate(typeof(LoginView), null);
 
                     }
-
-
 
                     NavService.CreateInstance(rootFrame);
                 }

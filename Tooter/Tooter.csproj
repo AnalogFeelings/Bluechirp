@@ -134,9 +134,6 @@
     <Compile Include="Dialogs\NewTootDialog.xaml.cs">
       <DependentUpon>NewTootDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LocalControls\MessageTemplate.xaml.cs">
-      <DependentUpon>MessageTemplate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="LocalControls\TootTemplate.xaml.cs">
       <DependentUpon>TootTemplate.xaml</DependentUpon>
     </Compile>
@@ -233,10 +230,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Dialogs\NewTootDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LocalControls\MessageTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

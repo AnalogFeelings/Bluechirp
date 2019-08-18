@@ -23,6 +23,24 @@ namespace TooterLib.Helpers
 
         const string SavedClientProfilesFileName = "savedClientProfiles.txt";
 
+
+        // Token settings
+        const string AccessTokenString = "accessToken";
+        const string CreatedAtString = "createdAt";
+        const string ScopeString = "scope";
+        const string TokenTypeString = "tokenType";
+
+        // App Registration settings
+        const string InstanceString = "instance";
+        const string AppScopeString = "appScope";
+        const string AppIDString = "appID";
+        const string ClientIDString = "clientID";
+        const string ClientSecretString = "clientSecret";
+
+        // Profile swapping settings
+        const string LastUsedProfileString = "lastUsedProfile";
+
+
         public async static Task StoreTimelineCacheAsync(TimelineCache cachedTimeline)
         {
             var timelineType = cachedTimeline.CurrentTimelineSettings.CurrentTimelineType;
@@ -61,21 +79,7 @@ namespace TooterLib.Helpers
             }
         }
 
-        // Token settings
-        const string AccessTokenString = "accessToken";
-        const string CreatedAtString = "createdAt";
-        const string ScopeString = "scope";
-        const string TokenTypeString = "tokenType";
-
-        // App Registration settings
-        const string InstanceString = "instance";
-        const string AppScopeString = "appScope";
-        const string AppIDString = "appID";
-        const string ClientIDString = "clientID";
-        const string ClientSecretString = "clientSecret";
-
-        // Profile swapping settings
-        const string LastUsedProfileString = "lastUsedProfile";
+        
 
         public async static Task StartUpAsync()
         {

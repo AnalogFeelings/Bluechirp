@@ -24,8 +24,6 @@ namespace Tooter.Dialogs
     {
 
         private NewTootViewModel _viewModel = new NewTootViewModel();
-        private InvertBooleanConverter _invertBooleanConverter = new InvertBooleanConverter();
-
 
         public NewTootDialog()
         {
