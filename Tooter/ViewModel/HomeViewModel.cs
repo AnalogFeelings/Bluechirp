@@ -19,15 +19,9 @@ namespace Tooter.ViewModel
         public override string ViewTitle { get; protected set; } = "Home";
         protected override TimelineType timelineType { get; set; } = TimelineType.Home;
 
-        public HomeViewModel() : base()
-        {
-
-        }
-
-
         protected async override Task<MastodonList<Status>> GetTimeline()
         {
-            return await ClientHelper.Client.GetHomeTimeline(); 
+            return await ClientHelper.Client.GetHomeTimeline();
         }
 
         protected async override Task<MastodonList<Status>> GetNewerTimeline(ArrayOptions options)

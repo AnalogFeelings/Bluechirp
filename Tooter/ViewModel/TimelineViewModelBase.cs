@@ -18,12 +18,14 @@ namespace Tooter.ViewModel
 {
     public abstract class TimelineViewModelBase : TooterLib.Model.Notifier
     {
-
         protected long? previousPageSinceId;
         protected long? previousPageMinId;
         protected long? nextPageMaxId;
+        protected MastodonList<Status> tootTimelineData;
+        public RelayCommandWithParameter DeleteCommand;
 
         protected abstract TimelineType timelineType { get; set; }
+        public abstract string ViewTitle { get; protected set; }
 
         public event EventHandler TootsAdded;
         public event EventHandler<Status> StatusMarkerAdded;
@@ -39,6 +41,16 @@ namespace Tooter.ViewModel
                 NotifyPropertyChanged();
             }
         }
+
+        protected abstract Task<MastodonList<Status>> GetNewerTimeline(ArrayOptions options);
+        protected abstract Task<MastodonList<Status>> GetOlderTimeline();
+        protected abstract Task<MastodonList<Status>> GetTimeline();
+
+        public TimelineViewModelBase()
+        {
+            DeleteCommand = new RelayCommandWithParameter(DeleteToot);
+        }
+
 
         protected async Task<bool> AttemptToLoadFromCache()
         {
@@ -62,19 +74,6 @@ namespace Tooter.ViewModel
             return cacheWasLoaded;
         }
 
-
-        protected abstract Task<MastodonList<Status>> GetTimeline();
-
-        protected MastodonList<Status> tootTimelineData;
-
-        public abstract string ViewTitle { get; protected set; }
-
-        public RelayCommandWithParameter DeleteCommand;
-
-        public TimelineViewModelBase()
-        {
-            DeleteCommand = new RelayCommandWithParameter(DeleteToot);
-        }
 
         internal async Task CacheTimeline(Status currentTopVisibleStatus)
         {
@@ -133,8 +132,6 @@ namespace Tooter.ViewModel
             TootsAdded?.Invoke(null, EventArgs.Empty);
         }
 
-
-
         internal async Task AddNewerContentToFeed()
         {
             ArrayOptions options = new ArrayOptions
@@ -168,10 +165,5 @@ namespace Tooter.ViewModel
 
             TootsAdded?.Invoke(null, EventArgs.Empty);
         }
-
-
-        protected abstract Task<MastodonList<Status>> GetNewerTimeline(ArrayOptions options);
-        protected abstract Task<MastodonList<Status>> GetOlderTimeline();
-
     }
 }
