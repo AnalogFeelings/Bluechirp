@@ -8,6 +8,7 @@
 
     <Thickness x:Key="DialogItemToContentSpacing">12,0,0,0</Thickness>
     <converters:RoundedShapeRadiusConverter x:Key="RoundedShapeValueConverter"/>
+    
 
     <Style x:Key="BlockButton"
            TargetType="Button">
@@ -2090,7 +2091,7 @@
                                 <VisualState x:Name="Focused">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextContentPresenter" Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlPlaceholderForegroundFocused}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Gray" />
                                         </ObjectAnimationUsingKeyFrames>
                                        
                                         
