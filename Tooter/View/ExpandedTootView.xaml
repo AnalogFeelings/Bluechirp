@@ -17,7 +17,8 @@
                    Text="Toot"
                    Margin="40,60,40,0"
                    FontSize="40"/>
-        <ListView Name="ExpandedTootContextListView">
+        <ListView Name="ExpandedTootContextListView"
+                  >
             
         </ListView>
 

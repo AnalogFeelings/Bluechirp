@@ -122,6 +122,56 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10C;" />
                     </Button>
                 </StackPanel>
+
+                <StackPanel Orientation="Horizontal" RelativePanel.Below="TootActionStackPanel"
+                            RelativePanel.AlignLeftWith="TootActionStackPanel"
+                            Name="TootEngagementStackPanel"
+                            Margin="0,20,0,0">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground"
+                                    Value="{ThemeResource FediFadedColor}"/>
+                        </Style>
+
+                    </StackPanel.Resources>
+                    <TextBlock Text="10 Favourites •"/>
+                    <TextBlock Text="9 Boosts" Margin="4,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Name="ExtraTootDataStackPanel" RelativePanel.Below="TootEngagementStackPanel"
+                            RelativePanel.AlignLeftWith="TootActionStackPanel"
+                            Margin="0,20,0,0">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground"
+                                    Value="{ThemeResource FediFadedColor}"/>
+                        </Style>
+
+                        <Style TargetType="FontIcon">
+                            <Setter Property="Foreground"
+                                    Value="{ThemeResource FediFadedColor}"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="Segoe MDL2 Assets"
+                                  Glyph="&#xE909;"/>
+                        <TextBlock Text="Public"
+                                   Margin="4,0,0,0"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="TootPostDateTextBlock"
+                               Text="29 Jul 2019 17:00"
+                               Margin="0,8,0,0"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                        <TextBlock Text="From"/>
+                        <Button Style="{ThemeResource TextBlockButtonStyle}"
+                                Content="Fedi"
+                                Margin="4,0,0,0"
+                                Padding="0"/>
+                    </StackPanel>
+                </StackPanel>
             </RelativePanel>
         </StackPanel>
         
