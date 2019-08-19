@@ -24,7 +24,7 @@
 
         <ListView Name="ExpandedTootRepliesListView"
                   Grid.Row="1"
-                  Header="Replies">
+                  >
         </ListView>
 
     </Grid>
