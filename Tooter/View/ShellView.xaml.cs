@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using TooterLib.Services;
+using Tooter.Model;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -48,6 +49,9 @@ namespace Tooter.View
         Frame _federatedFrame = new Frame();
 
 
+
+
+
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -72,46 +76,67 @@ namespace Tooter.View
         private async void MenuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             bool shouldSwapTimeline = false;
-            if (e.ClickedItem is FontIcon menuListItem)
+            if (e.ClickedItem is ShellMenuItem menuItem)
             {
-                if (menuListItem == HomeButtonIcon && !HomeButton.IsSelected)
+                switch (menuItem.ItemType)
                 {
-                    shouldSwapTimeline = true;
-                    await TryCacheTimeline();
-                    ActiveFrame = _homeFrame;
-                    
-                    if (!CheckIfFrameHasContent())
-                    {
-                        ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
-                    }
-                }
-                else if (menuListItem == LocalButtonIcon && !LocalButton.IsSelected)
-                {
-                    shouldSwapTimeline = true;
-                    await TryCacheTimeline();
-                    ActiveFrame = _localFrame;
-                    if (!CheckIfFrameHasContent())
-                    {
-                        ActiveFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel)); 
-                    }
-                }
-                else if (menuListItem == FederatedButtonIcon && !FederatedButton.IsSelected)
-                {
-                    shouldSwapTimeline = true;
-                    await TryCacheTimeline();
-                    ActiveFrame = _federatedFrame;
-                    if (!CheckIfFrameHasContent())
-                    {
-                        _federatedFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel)); 
-                    }
-                }
-            }
+                    case Enums.ShellMenuItemType.HomeTimeline:
+                        if (ActiveFrame != _homeFrame)
+                        {
+                            shouldSwapTimeline = true;
 
-            if (shouldSwapTimeline)
-            {
-                SwapTimelineToCache();
-            }
+                            await TryCacheTimeline();
 
+                            ActiveFrame = _homeFrame;
+
+                            if (!CheckIfFrameHasContent())
+                            {
+                                ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+                            }
+                        }
+                        break;
+                    case Enums.ShellMenuItemType.LocalTimeline:
+                        if (ActiveFrame != _localFrame)
+                        {
+                            shouldSwapTimeline = true;
+
+                            await TryCacheTimeline();
+
+                            ActiveFrame = _localFrame;
+
+                            if (!CheckIfFrameHasContent())
+                            {
+                                ActiveFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
+
+                            }
+                        }
+                        break;
+                    case Enums.ShellMenuItemType.FederatedTimeline:
+                        if (ActiveFrame != _federatedFrame)
+                        {
+                            shouldSwapTimeline = true;
+
+                            await TryCacheTimeline();
+
+                            ActiveFrame = _federatedFrame;
+
+                            if (!CheckIfFrameHasContent())
+                            {
+                                _federatedFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel));
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+
+                if (shouldSwapTimeline)
+                {
+                    SwapTimelineToCache();
+                }
+
+            }
         }
 
         private async Task TryCacheTimeline()

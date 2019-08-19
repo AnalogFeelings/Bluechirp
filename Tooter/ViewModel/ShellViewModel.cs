@@ -13,6 +13,8 @@ using Tooter.View;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Tooter.Services;
+using Tooter.Model;
+using Tooter.Enums;
 
 namespace Tooter.ViewModel
 {
@@ -30,12 +32,27 @@ namespace Tooter.ViewModel
             }
         }
 
+        public List<ShellMenuItem> MenuListItems { get; set; } = new List<ShellMenuItem>();
+
         public RelayCommand NewTootCommand;
 
         public ShellViewModel()
         {
             NewTootCommand = new RelayCommand(async () => await NavigateToTootView());
             App.Current.EnteredBackground += Current_EnteredBackground;
+            CreateMenuListItems();
+        }
+
+        private void CreateMenuListItems()
+        {
+            ShellMenuItem[] menuItems = new ShellMenuItem[]
+            {
+                new ShellMenuItem(ShellMenuItemType.HomeTimeline, "\xE80F"),
+                new ShellMenuItem(ShellMenuItemType.LocalTimeline, "\xE716"),
+                new ShellMenuItem(ShellMenuItemType.FederatedTimeline, "\xE909"),
+            };
+
+            MenuListItems.AddRange(menuItems);
         }
 
         private async void Current_EnteredBackground(object sender, Windows.ApplicationModel.EnteredBackgroundEventArgs e)

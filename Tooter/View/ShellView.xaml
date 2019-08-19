@@ -13,6 +13,7 @@
     xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract, 5)"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:muxm="using:Microsoft.UI.Xaml.Media"
+    xmlns:model="using:Tooter.Model"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
@@ -48,22 +49,15 @@
                 contract5NotPresent:ItemContainerStyle="{ThemeResource MenuListViewItemStyle}"
                 IsItemClickEnabled="True"
                 Name="MenuListView"
-                ItemClick="MenuListView_ItemClick">
-                    <ListViewItem Name="HomeButton">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;"
-                              FontSize="20"
-                              Name="HomeButtonIcon"/>
-                </ListViewItem>
-
-                    <ListViewItem Name="LocalButton">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE716;" 
-                              FontSize="20"
-                              Name="LocalButtonIcon"/>
-                </ListViewItem>
-
-                    <ListViewItem Name="FederatedButton">
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;" Name="FederatedButtonIcon"/>
-                    </ListViewItem>
+                ItemClick="MenuListView_ItemClick"
+                ItemsSource="{x:Bind ViewModel.MenuListItems}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:ShellMenuItem">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind IconCharCode}"
+                              FontSize="20"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    
                 </ListView>
                 <Button Style="{StaticResource ProfilePictureButton}" Padding="0"
                         Margin="0,4,0,0"

@@ -134,9 +134,11 @@
     <Compile Include="Dialogs\NewTootDialog.xaml.cs">
       <DependentUpon>NewTootDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Enums\ShellMenuItemType.cs" />
     <Compile Include="LocalControls\TootTemplate.xaml.cs">
       <DependentUpon>TootTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ShellMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CacheService.cs" />
     <Compile Include="ViewModel\FederatedViewModel.cs" />
