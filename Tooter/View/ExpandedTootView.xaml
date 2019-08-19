@@ -5,9 +5,17 @@
     xmlns:local="using:Tooter.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Tooter.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource FediBackgroundColor}">
-
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:TootDataTemplateSelector x:Key="TemplateSelector"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid Background="{ThemeResource FediBackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -18,8 +26,11 @@
                    Margin="40,60,40,0"
                    FontSize="40"/>
         <ListView Name="ExpandedTootContextListView"
-                  >
-            
+                  ItemTemplateSelector="{StaticResource TemplateSelector}"
+                  ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
+                  Padding="0,20"
+                  Margin="0,4,0,0">
+
         </ListView>
 
         <ListView Name="ExpandedTootRepliesListView"
