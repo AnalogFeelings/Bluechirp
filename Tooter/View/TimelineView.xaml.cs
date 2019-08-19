@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using TooterLib.Services;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -232,6 +233,14 @@ namespace Tooter.View
             }
 
             return topToot;
+        }
+
+        private void TootsListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (e.ClickedItem is Status selectedStatus)
+            {
+                NavService.Instance.Navigate(typeof(ExpandedTootView), selectedStatus);
+            }
         }
     }
 }

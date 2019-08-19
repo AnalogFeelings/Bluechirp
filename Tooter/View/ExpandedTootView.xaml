@@ -6,14 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Tooter.Converters"
+    xmlns:vm="using:Tooter.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource FediBackgroundColor}">
     <Page.Resources>
         <ResourceDictionary>
-            <converters:TootDataTemplateSelector x:Key="TemplateSelector"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <converters:TootDataTemplateSelector x:Key="TemplateSelector"/>
+            <vm:ExpandedTootViewModel x:Name="ViewModel"/>
         </ResourceDictionary>
     </Page.Resources>
     <Grid Background="{ThemeResource FediBackgroundColor}">
@@ -29,7 +31,9 @@
                   ItemTemplateSelector="{StaticResource TemplateSelector}"
                   ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
                   Padding="0,20"
-                  Margin="0,4,0,0">
+                  Margin="0,4,0,0"
+                  ItemsSource="{x:Bind ViewModel.ContextTootItems, Mode=OneWay}">
+            
 
         </ListView>
 

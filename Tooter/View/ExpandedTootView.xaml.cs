@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Mastonet.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tooter.Model;
+using Tooter.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -24,7 +27,18 @@ namespace Tooter.View
     {
         public ExpandedTootView()
         {
+            
             this.InitializeComponent();
+        }
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter is Status expandedToot)
+            {
+                await ViewModel.AddInContextItems(new ExpandedToot(expandedToot));
+
+            }
         }
     }
 }

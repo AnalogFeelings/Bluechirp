@@ -92,6 +92,8 @@
                 </ResourceDictionary>
                 <ResourceDictionary Source="ms-appx:///Styles/GlobalTextStyles.xaml"/>
                 <ResourceDictionary Source="ms-appx:///Styles/DialogStyles.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/TootTemplateStyles.xaml"/>
+
                 <ResourceDictionary x:Name="MastodonColors" Source="ms-appx:///Styles/MastodonBrushStyles.xaml"/>
                 <ResourceDictionary x:Name="FediColors">
                     <ResourceDictionary.ThemeDictionaries>

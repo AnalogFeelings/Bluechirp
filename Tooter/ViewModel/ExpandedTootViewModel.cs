@@ -15,9 +15,9 @@ namespace Tooter.ViewModel
     {
         private Status _itemInContext = null;
 
-        private ObservableCollection<object> _contextTootItems;
+        private ObservableCollection<Status> _contextTootItems;
 
-        public ObservableCollection<object> ContextTootItems
+        public ObservableCollection<Status> ContextTootItems
         {
             get { return _contextTootItems; }
             set { _contextTootItems = value;
@@ -27,15 +27,24 @@ namespace Tooter.ViewModel
 
         public ExpandedTootViewModel()
         {
-            ContextTootItems = new ObservableCollection<object>();
+            ContextTootItems = new ObservableCollection<Status>();
         }
 
         internal async Task AddInContextItems(ExpandedToot expandedToot)
         {
-            _itemInContext = expandedToot.StoredToot;
+            _itemInContext = expandedToot;
             var statusContext = await ClientHelper.Client.GetStatusContext(_itemInContext.Id);
-            
+            foreach (var ancestor in statusContext.Ancestors)
+            {
+                ContextTootItems.Add(ancestor);
+            }
 
+            ContextTootItems.Add(expandedToot);
+
+            foreach (var descendant in statusContext.Descendants)
+            {
+                ContextTootItems.Add(descendant);
+            }
         }
 
     }
