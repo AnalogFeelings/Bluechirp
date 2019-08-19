@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using TooterLib.Services;
 using Tooter.Model;
+using Tooter.Enums;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -80,7 +81,7 @@ namespace Tooter.View
             {
                 switch (menuItem.ItemType)
                 {
-                    case Enums.ShellMenuItemType.HomeTimeline:
+                    case ShellMenuItemType.HomeTimeline:
                         if (ActiveFrame != _homeFrame)
                         {
                             shouldSwapTimeline = true;
@@ -95,7 +96,7 @@ namespace Tooter.View
                             }
                         }
                         break;
-                    case Enums.ShellMenuItemType.LocalTimeline:
+                    case ShellMenuItemType.LocalTimeline:
                         if (ActiveFrame != _localFrame)
                         {
                             shouldSwapTimeline = true;
@@ -125,8 +126,6 @@ namespace Tooter.View
                                 _federatedFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel));
                             }
                         }
-                        break;
-                    default:
                         break;
                 }
 

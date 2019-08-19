@@ -135,6 +135,12 @@
       <DependentUpon>NewTootDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Enums\ShellMenuItemType.cs" />
+    <Compile Include="LocalControls\ExpandedTootTemplate.xaml.cs">
+      <DependentUpon>ExpandedTootTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LocalControls\ThreadTootTemplate.xaml.cs">
+      <DependentUpon>ThreadTootTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LocalControls\TootTemplate.xaml.cs">
       <DependentUpon>TootTemplate.xaml</DependentUpon>
     </Compile>
@@ -149,6 +155,9 @@
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\ShellViewModel.cs" />
     <Compile Include="ViewModel\TimelineViewModelBase.cs" />
+    <Compile Include="View\ExpandedTootView.xaml.cs">
+      <DependentUpon>ExpandedTootView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -235,6 +244,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LocalControls\ExpandedTootTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LocalControls\ThreadTootTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LocalControls\TootTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -260,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\MastodonBrushStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ExpandedTootView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
