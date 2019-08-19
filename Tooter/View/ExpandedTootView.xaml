@@ -27,20 +27,22 @@
                    Text="Toot"
                    Margin="40,60,40,0"
                    FontSize="40"/>
-        <ListView Name="ExpandedTootContextListView"
+
+        <RelativePanel Grid.Row="1">
+            <ListView Name="ExpandedTootContextListView"
                   ItemTemplateSelector="{StaticResource TemplateSelector}"
                   ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
                   Padding="0,20"
                   Margin="0,4,0,0"
                   ItemsSource="{x:Bind ViewModel.ContextTootItems, Mode=OneWay}">
-            
 
-        </ListView>
 
-        <ListView Name="ExpandedTootRepliesListView"
-                  Grid.Row="1"
-                  >
-        </ListView>
+            </ListView>
+
+            <ListView Name="ExpandedTootRepliesListView"
+                      RelativePanel.Below="ExpandedTootContextListView">
+            </ListView>
+        </RelativePanel>
 
     </Grid>
 </Page>
