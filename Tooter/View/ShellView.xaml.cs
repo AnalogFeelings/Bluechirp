@@ -62,13 +62,15 @@ namespace Tooter.View
         {
             this.InitializeComponent();
         }
+
+
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
             ActiveFrame = _homeFrame;
-            NavService.CreateInstance(ActiveFrame);
             ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+            NavService.CreateInstance(ActiveFrame);
             SwapTimelineToCache();
             MenuListView.SelectedIndex = 0;
             await ViewModel.DoAsyncPrepartions();
@@ -145,8 +147,16 @@ namespace Tooter.View
 
         private void SwapTimelineToCache()
         {
-            var timelineToCache = (TimelineView)ActiveFrame.Content;
-            CacheService.SwapCurrentTimeline(timelineToCache);
+            try
+            {
+                var timelineToCache = (TimelineView)ActiveFrame.Content;
+                CacheService.SwapCurrentTimeline(timelineToCache);
+
+            }
+            catch
+            {
+
+            }
         }
 
         private bool CheckIfFrameHasContent()

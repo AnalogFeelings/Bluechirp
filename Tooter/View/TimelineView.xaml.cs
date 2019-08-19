@@ -239,7 +239,7 @@ namespace Tooter.View
         {
             if (e.ClickedItem is Status selectedStatus)
             {
-                NavService.Instance.Navigate(typeof(ExpandedTootView), selectedStatus);
+                Frame.Navigate(typeof(ExpandedTootView), selectedStatus);
             }
         }
     }
