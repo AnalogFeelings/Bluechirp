@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tooter.Helpers;
 using TooterLib.Helpers;
 using TooterLib.Services;
 using Windows.Foundation;
@@ -116,6 +117,10 @@ namespace Tooter.LocalControls
             var formatter = new Windows.Globalization.DateTimeFormatting.DateTimeFormatter("day month year");
             string formattedDate = formatter.Format(new DateTimeOffset(status.CreatedAt));
             TootPostDateTextBlock.Text = formattedDate;
+
+            TootVisibilityTextBlock.Text = status.Visibility.ToString();
+            TootVisibilityIcon.Glyph = TootVisibilityHelper.TootVisibilityMap[status.Visibility];
+
 
             if (status.Application != null)
             {

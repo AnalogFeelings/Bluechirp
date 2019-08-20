@@ -136,6 +136,7 @@
       <DependentUpon>NewTootDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Enums\ShellMenuItemType.cs" />
+    <Compile Include="Helpers\TootVisibilityHelper.cs" />
     <Compile Include="LocalControls\ExpandedTootTemplate.xaml.cs">
       <DependentUpon>ExpandedTootTemplate.xaml</DependentUpon>
     </Compile>
