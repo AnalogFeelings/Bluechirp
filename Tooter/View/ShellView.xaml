@@ -41,16 +41,30 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Border Background="{ThemeResource SideBarAcrylic}"
-                Width="54">
+                Width="54"
+                Padding="0,64,0,0">
             <StackPanel HorizontalAlignment="Stretch">
+                <Button 
+                        Style="{ThemeResource TextBlockButtonStyle}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
+                        Background="Transparent"
+                    Name="BackButton"
+                    Padding="12">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE830;" />
+                    </Button.Content>
+
+                </Button>
             <ListView 
-                Margin="0,68,0,0"
                 contract5Present:ItemContainerStyle="{ThemeResource MenuListViewItemRevealStyle}"
                 contract5NotPresent:ItemContainerStyle="{ThemeResource MenuListViewItemStyle}"
                 IsItemClickEnabled="True"
                 Name="MenuListView"
                 ItemClick="MenuListView_ItemClick"
-                ItemsSource="{x:Bind ViewModel.MenuListItems}">
+                ItemsSource="{x:Bind ViewModel.MenuListItems}"
+                >
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:ShellMenuItem">
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind IconCharCode}"
