@@ -167,12 +167,13 @@
                                Text="29 Jul 2019 17:00"
                                Margin="0,8,0,0"/>
 
-                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0" Name="ApplicationStackPanel">
                         <TextBlock Text="From"/>
                         <Button Style="{ThemeResource TextBlockButtonStyle}"
                                 Content="Fedi"
                                 Margin="4,0,0,0"
-                                Padding="0"/>
+                                Padding="0"
+                                Name="ApplicationLinkButton"/>
                     </StackPanel>
                 </StackPanel>
             </RelativePanel>

@@ -112,9 +112,20 @@ namespace Tooter.LocalControls
         {
             FavouritesCountTextBlock.Text = $"{status.FavouritesCount} Favourites";
             BoostsCountTextBlock.Text = $"{status.ReblogCount} Boosts";
-            var formatter = new Windows.Globalization.DateTimeFormatting.DateTimeFormatter("day month.full year shorttime");
+
+            var formatter = new Windows.Globalization.DateTimeFormatting.DateTimeFormatter("day month year");
             string formattedDate = formatter.Format(new DateTimeOffset(status.CreatedAt));
             TootPostDateTextBlock.Text = formattedDate;
+
+            if (status.Application != null)
+            {
+                ApplicationLinkButton.Content = status.Application.Name;
+                ApplicationStackPanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ApplicationStackPanel.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void UpdateTimestamp(DateTime createdAt)
