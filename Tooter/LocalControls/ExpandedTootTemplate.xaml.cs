@@ -74,6 +74,7 @@ namespace Tooter.LocalControls
                         }
                         UpdateTootActions(reblogStatus);
                         AddMediaToStatus((List<Attachment>)reblogStatus.MediaAttachments);
+                        UpdateTootMetadata(reblogStatus);
                     }
                 }
 
@@ -98,12 +99,19 @@ namespace Tooter.LocalControls
                         }
                         UpdateTootActions(updatedStatus);
                         AddMediaToStatus((List<Attachment>)updatedStatus.MediaAttachments);
+                        UpdateTootMetadata(updatedStatus);
                     }
 
                 }
             }
 
             args.Handled = true;
+        }
+
+        private void UpdateTootMetadata(Status status)
+        {
+            FavouritesCountTextBlock.Text = $"{status.FavouritesCount} Favourites";
+            BoostsCountTextBlock.Text = $"{status.ReblogCount} Boosts";
         }
 
         private void UpdateTimestamp(DateTime createdAt)

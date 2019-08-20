@@ -134,8 +134,11 @@
                         </Style>
 
                     </StackPanel.Resources>
-                    <TextBlock Text="10 Favourites •"/>
-                    <TextBlock Text="9 Boosts" Margin="4,0,0,0"/>
+                    <TextBlock Text="10 Favourites"
+                               Name="FavouritesCountTextBlock"/>
+                    <TextBlock Text="•" Margin="4,0"/>
+                    <TextBlock Text="9 Boosts"
+                               Name="BoostsCountTextBlock"/>
                 </StackPanel>
 
                 <StackPanel Name="ExtraTootDataStackPanel" RelativePanel.Below="TootEngagementStackPanel"

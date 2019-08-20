@@ -32,16 +32,15 @@
             <ListView Name="ExpandedTootContextListView"
                   ItemTemplateSelector="{StaticResource TemplateSelector}"
                   ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
+                      IsItemClickEnabled="True"
                   Padding="0,20"
                   Margin="0,4,0,0"
-                  ItemsSource="{x:Bind ViewModel.ContextTootItems, Mode=OneWay}">
+                  ItemsSource="{x:Bind ViewModel.ContextTootItems, Mode=OneWay}"
+                      ItemClick="ExpandedTootContextListView_ItemClick">
 
 
             </ListView>
 
-            <ListView Name="ExpandedTootRepliesListView"
-                      RelativePanel.Below="ExpandedTootContextListView">
-            </ListView>
         </RelativePanel>
 
     </Grid>

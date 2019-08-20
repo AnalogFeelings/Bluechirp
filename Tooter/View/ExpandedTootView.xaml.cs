@@ -40,5 +40,16 @@ namespace Tooter.View
 
             }
         }
+
+        private void ExpandedTootContextListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (e.ClickedItem is Status toot)
+            {
+                if (!ViewModel.CheckIfExpandedToot(toot))
+                {
+                    Frame.Navigate(typeof(ExpandedTootView), new ExpandedToot(toot));
+                }
+            }
+        }
     }
 }

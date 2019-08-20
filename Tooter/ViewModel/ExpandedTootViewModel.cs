@@ -47,5 +47,9 @@ namespace Tooter.ViewModel
             }
         }
 
+        internal bool CheckIfExpandedToot(Status toot)
+        {
+            return toot.Id == _itemInContext.Id;
+        }
     }
 }
