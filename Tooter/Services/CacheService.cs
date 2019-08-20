@@ -28,7 +28,10 @@ namespace Tooter.Services
 
         internal async static Task CacheCurrentTimeline()
         {
-            await currentTimeline.TryCacheTimeline();
+            if (currentTimeline != null)
+            {
+                await currentTimeline.TryCacheTimeline();
+            }
         }
 
         internal async static Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineCache(TimelineType timelineType)

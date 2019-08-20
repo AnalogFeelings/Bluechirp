@@ -160,16 +160,17 @@ namespace Tooter.View
         private void SwapTimeline()
         {
             UpdateBackButtonEvents();
+            TimelineView timelineToCache = null;
             try
             {
-                var timelineToCache = (TimelineView)ActiveFrame.Content;
-                CacheService.SwapCurrentTimeline(timelineToCache);
+                timelineToCache = (TimelineView)ActiveFrame.Content;
 
             }
             catch
             {
 
             }
+            CacheService.SwapCurrentTimeline(timelineToCache);
         }
 
         private void UpdateBackButtonEvents()

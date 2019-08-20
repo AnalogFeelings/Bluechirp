@@ -184,6 +184,7 @@ namespace Tooter.View
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
             if (e.Parameter is TimelineViewModelBase newViewModel)
             {
                 ViewModel = newViewModel;
