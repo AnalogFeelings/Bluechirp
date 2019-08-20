@@ -114,7 +114,7 @@ namespace Tooter.LocalControls
             FavouritesCountTextBlock.Text = $"{status.FavouritesCount} Favourites";
             BoostsCountTextBlock.Text = $"{status.ReblogCount} Boosts";
 
-            var formatter = new Windows.Globalization.DateTimeFormatting.DateTimeFormatter("day month year");
+            var formatter = new Windows.Globalization.DateTimeFormatting.DateTimeFormatter(" shortdate shorttime  ");
             string formattedDate = formatter.Format(new DateTimeOffset(status.CreatedAt));
             TootPostDateTextBlock.Text = formattedDate;
 
@@ -124,8 +124,16 @@ namespace Tooter.LocalControls
 
             if (status.Application != null)
             {
-                ApplicationLinkButton.Content = status.Application.Name;
-                ApplicationLinkButton.NavigateUri = new Uri(status.Application.Website);
+                if (status.Application.Name != null)
+                {
+                    ApplicationLinkButton.Content = status.Application.Name;
+
+                }
+                if (status.Application.Website != null)
+                {
+                    ApplicationLinkButton.NavigateUri = new Uri(status.Application.Website);
+
+                }
                 ApplicationStackPanel.Visibility = Visibility.Visible;
             }
             else
