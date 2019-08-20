@@ -120,6 +120,7 @@ namespace Tooter.LocalControls
             if (status.Application != null)
             {
                 ApplicationLinkButton.Content = status.Application.Name;
+                ApplicationLinkButton.NavigateUri = new Uri(status.Application.Website);
                 ApplicationStackPanel.Visibility = Visibility.Visible;
             }
             else

@@ -169,7 +169,7 @@
 
                     <StackPanel Orientation="Horizontal" Margin="0,8,0,0" Name="ApplicationStackPanel">
                         <TextBlock Text="From"/>
-                        <Button Style="{ThemeResource TextBlockButtonStyle}"
+                        <HyperlinkButton Style="{ThemeResource TextBlockButtonStyle}"
                                 Content="Fedi"
                                 Margin="4,0,0,0"
                                 Padding="0"
