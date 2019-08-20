@@ -50,6 +50,7 @@
                         HorizontalContentAlignment="Stretch"
                         Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
                         Background="Transparent"
+                    Click="BackButton_Click"
                     Name="BackButton"
                     Padding="12">
                     <Button.Content>

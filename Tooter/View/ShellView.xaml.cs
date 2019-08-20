@@ -61,7 +61,19 @@ namespace Tooter.View
         public ShellView()
         {
             this.InitializeComponent();
+            _homeFrame.Navigated += LinkNavToBackButton;
+            _localFrame.Navigated += LinkNavToBackButton;
+            _federatedFrame.Navigated += LinkNavToBackButton;
         }
+
+        private void LinkNavToBackButton(object sender, NavigationEventArgs e)
+        {
+            if (sender is Frame navFrame)
+            {
+                BackButton.IsEnabled = navFrame.CanGoBack;
+            }
+        }
+
 
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -71,7 +83,7 @@ namespace Tooter.View
             ActiveFrame = _homeFrame;
             ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
             NavService.CreateInstance(ActiveFrame);
-            SwapTimelineToCache();
+            SwapTimeline();
             MenuListView.SelectedIndex = 0;
             await ViewModel.DoAsyncPrepartions();
         }
@@ -134,7 +146,7 @@ namespace Tooter.View
 
                 if (shouldSwapTimeline)
                 {
-                    SwapTimelineToCache();
+                    SwapTimeline();
                 }
 
             }
@@ -145,8 +157,9 @@ namespace Tooter.View
             await CacheService.CacheCurrentTimeline();
         }
 
-        private void SwapTimelineToCache()
+        private void SwapTimeline()
         {
+            UpdateBackButtonEvents();
             try
             {
                 var timelineToCache = (TimelineView)ActiveFrame.Content;
@@ -159,9 +172,19 @@ namespace Tooter.View
             }
         }
 
+        private void UpdateBackButtonEvents()
+        {
+            BackButton.IsEnabled = ActiveFrame.CanGoBack;
+        }
+
         private bool CheckIfFrameHasContent()
         {
             return ActiveFrame.Content != null;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            ActiveFrame.GoBack();
         }
     }
 }
