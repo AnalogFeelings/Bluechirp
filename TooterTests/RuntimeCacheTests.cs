@@ -29,7 +29,13 @@ namespace TooterTests
         [TestMethod]
         public void CacheClearTest()
         {
+            TimelineCache cacheToStore = TimelineData.GenerateTimelineCache(TimelineType.Home);
+            RuntimeCacheService.StoreCache(cacheToStore, cacheToStore.CurrentTimelineSettings.CurrentTimelineType);
 
+            RuntimeCacheService.ClearCache(TimelineType.Home);
+
+            var retreivedTimelineResult = RuntimeCacheService.RetreiveCache(TimelineType.Home);
+            Assert.IsFalse(retreivedTimelineResult.isCacheAvailable);
         }
     }
 }

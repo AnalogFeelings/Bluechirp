@@ -21,7 +21,7 @@ namespace TooterLib.Services
 
         public static void ClearCache(TimelineType type)
         {
-            RuntimeCache[type] = null;
+            RuntimeCache.Remove(TimelineType.Home);
         }
 
         public static (bool isCacheAvailable, TimelineCache cache) RetreiveCache(TimelineType type)
