@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
          xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"  IgnorableNamespaces="uap uap5 mp">
-  <Identity Name="64942ColinKiama.FediBeta" Publisher="CN=D2DBA6D7-296F-484A-BABE-2B76C9C2AF78" Version="0.2.0.0" />
+  <Identity Name="64942ColinKiama.FediBeta" Publisher="CN=D2DBA6D7-296F-484A-BABE-2B76C9C2AF78" Version="0.2.1.0" />
   <mp:PhoneIdentity PhoneProductId="ae8707e2-732f-43c2-ba54-8676c52f8e71" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Fedi (Beta)</DisplayName>
