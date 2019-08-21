@@ -43,10 +43,10 @@ namespace Tooter.Services
 
             // Loaded cache from a file is stored into runtime cache to prevent having to load from file repeatedly.
             // Also cache file has been deleted already by this point.
-            if (wasTimelineLoaded)
-            {
-                RuntimeCacheService.StoreCache(cacheToReturn, cacheToReturn.CurrentTimelineSettings.CurrentTimelineType);
-            }
+            //if (wasTimelineLoaded)
+            //{
+            //    RuntimeCacheService.StoreCache(cacheToReturn, cacheToReturn.CurrentTimelineSettings.CurrentTimelineType);
+            //}
             return (wasTimelineLoaded, cacheToReturn);
         }
 
