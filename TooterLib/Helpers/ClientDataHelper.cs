@@ -67,7 +67,18 @@ namespace TooterLib.Helpers
 
             }
 
+            //await TryRemoveCache(timelineType);
+
             return (wasTimelineLoaded, cacheToReturn);
+        }
+
+        private static async Task TryRemoveCache(TimelineType timelineType)
+        {
+            var cacheData = await ApplicationData.Current.TemporaryFolder.TryGetItemAsync(timelineType.ToString());
+            if (cacheData != null)
+            {
+                await cacheData.DeleteAsync(StorageDeleteOption.PermanentDelete);
+            }
         }
 
         public static async Task ClearTimelineCache()

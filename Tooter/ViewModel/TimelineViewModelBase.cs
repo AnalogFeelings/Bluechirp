@@ -77,9 +77,13 @@ namespace Tooter.ViewModel
 
         internal async Task CacheTimeline(Status currentTopVisibleStatus)
         {
-            var timelineSettings = new TimelineSettings(nextPageMaxId, previousPageMinId, previousPageSinceId, TimelineType.Home);
+            var timelineSettings = new TimelineSettings(nextPageMaxId, previousPageMinId, previousPageSinceId, timelineType);
             await CacheService.CacheTimeline(tootTimelineData, currentTopVisibleStatus, timelineSettings);
+        }
 
+        internal async Task CacheTimelineToRuntime(Status currentTopVisibleStatus)
+        {
+            //var timelineSettings = 
         }
 
         private void DeleteToot(object obj)

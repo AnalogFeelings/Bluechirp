@@ -11,9 +11,7 @@ namespace TooterLib.Services
     public class RuntimeCacheService
     {
         static Dictionary<TimelineType, TimelineCache> RuntimeCache = new Dictionary<TimelineType, TimelineCache>();
-        //static Dictionary<TimelineType, bool> CacheChangesRegistry = new Dictionary<TimelineType, bool>();
         
-
         public static void StoreCache(TimelineCache cache, TimelineType type)
         {
             RuntimeCache[type] = cache;
@@ -31,5 +29,7 @@ namespace TooterLib.Services
 
             return (isCacheAvailable, cache);
         }
+
+       
     }
 }

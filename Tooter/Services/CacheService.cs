@@ -8,6 +8,7 @@ using TooterLib.Enums;
 using TooterLib.Helpers;
 using TooterLib.Model;
 using Tooter.View;
+using TooterLib.Services;
 
 namespace Tooter.Services
 {
@@ -37,7 +38,18 @@ namespace Tooter.Services
         internal async static Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineCache(TimelineType timelineType)
         {
             var cacheLoadResult = await ClientDataHelper.LoadTimelineFromFileAsync(timelineType);
-            return (cacheLoadResult.wasTimelineLoaded, cacheLoadResult.cacheToReturn);
+            bool wasTimelineLoaded = cacheLoadResult.wasTimelineLoaded;
+            TimelineCache cacheToReturn = cacheLoadResult.cacheToReturn;
+
+            // Loaded cache from a file is stored into runtime cache to prevent having to load from file repeatedly.
+            // Also cache file has been deleted already by this point.
+            if (wasTimelineLoaded)
+            {
+                RuntimeCacheService.StoreCache(cacheToReturn, cacheToReturn.CurrentTimelineSettings.CurrentTimelineType);
+            }
+            return (wasTimelineLoaded, cacheToReturn);
         }
+
+        
     }
 }
