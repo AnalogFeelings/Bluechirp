@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tooter.Helpers;
+using Tooter.Model;
 using TooterLib.Helpers;
 using TooterLib.Services;
 using Windows.Foundation;
@@ -30,7 +31,7 @@ namespace Tooter.LocalControls
 {
     public sealed partial class ExpandedTootTemplate : UserControl
     {
-        public Status CurrentStatus { get { return this.DataContext as Status; } }
+        public ExpandedToot CurrentStatus { get { return this.DataContext as ExpandedToot; } }
         public ExpandedTootTemplate()
         {
             this.InitializeComponent();
@@ -379,6 +380,7 @@ namespace Tooter.LocalControls
 
                 ReblogButton.IsChecked = statusToUse.Reblogged;
             }
+            UpdateTootRefVariableProperties();
         }
 
         private async void FavouriteButton_Click(object sender, RoutedEventArgs e)
@@ -396,6 +398,7 @@ namespace Tooter.LocalControls
                     favResult = await ClientHelper.Client.Favourite(statusToUse.Id);
                 }
                 statusToUse.Favourited = favResult.Favourited;
+
             }
             catch (Exception ex)
             {
@@ -410,8 +413,15 @@ namespace Tooter.LocalControls
                     await ErrorService.ShowConnectionError();
                 }
                 FavouriteButton.IsChecked = statusToUse.Favourited;
+                
             }
+            UpdateTootRefVariableProperties();
+        }
 
+        private void UpdateTootRefVariableProperties()
+        {
+            CurrentStatus.TootRef.Reblogged = CurrentStatus.Reblogged;
+            CurrentStatus.TootRef.Favourited = CurrentStatus.Favourited;
         }
     }
 }

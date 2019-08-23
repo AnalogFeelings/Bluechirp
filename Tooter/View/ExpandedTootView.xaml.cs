@@ -36,7 +36,7 @@ namespace Tooter.View
             base.OnNavigatedTo(e);
             if (e.Parameter is Status expandedToot)
             {
-                await ViewModel.AddInContextItems(new ExpandedToot(expandedToot));
+                await ViewModel.AddInContextItems(expandedToot);
 
             }
         }

@@ -30,10 +30,14 @@ namespace Tooter.ViewModel
             ContextTootItems = new ObservableCollection<Status>();
         }
 
-        internal async Task AddInContextItems(ExpandedToot expandedToot)
+        internal async Task AddInContextItems(Status tootToExpand)
         {
-            _itemInContext = expandedToot;
+            _itemInContext = tootToExpand;
             var statusContext = await ClientHelper.Client.GetStatusContext(_itemInContext.Id);
+
+            await UpdateVariablePropertiesOfStatus(tootToExpand);
+            var expandedToot = new ExpandedToot(tootToExpand);
+
             foreach (var ancestor in statusContext.Ancestors)
             {
                 ContextTootItems.Add(ancestor);
@@ -45,6 +49,17 @@ namespace Tooter.ViewModel
             {
                 ContextTootItems.Add(descendant);
             }
+        }
+
+        private async Task UpdateVariablePropertiesOfStatus(Status tootToExpand)
+        {
+            var recentStatus = await ClientHelper.Client.GetStatus(tootToExpand.Id);
+
+            tootToExpand.Favourited = recentStatus.Favourited;
+            tootToExpand.Reblogged = recentStatus.Reblogged;
+            tootToExpand.ReblogCount = recentStatus.ReblogCount;
+            tootToExpand.FavouritesCount = recentStatus.FavouritesCount;
+            
         }
 
         internal bool CheckIfExpandedToot(Status toot)

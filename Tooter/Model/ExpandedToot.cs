@@ -10,10 +10,11 @@ namespace Tooter.Model
 {
     public class ExpandedToot: Status
     {
-
+        public Status TootRef { get; private set; }
         public ExpandedToot(Status expandedToot)
         {
             CopyPropertiesTo(expandedToot, this);
+            TootRef = expandedToot;
         }
 
         public static void CopyPropertiesTo<T, TU>(T source, TU dest)
