@@ -26,7 +26,7 @@
                 <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <muxm:AcrylicBrush x:Key="SideBarAcrylic" FallbackColor="{ThemeResource FediChromeColor}"
-                              BackgroundSource="HostBackdrop" TintColor="{StaticResource FediChromeColor}" 
+                              BackgroundSource="HostBackdrop" TintColor="{ThemeResource FediChromeColor}" 
                           TintOpacity="0.8" />
         </ResourceDictionary>
 
