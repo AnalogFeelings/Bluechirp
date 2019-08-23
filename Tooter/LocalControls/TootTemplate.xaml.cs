@@ -40,7 +40,7 @@ namespace Tooter.LocalControls
             this.DataContextChanged += UpdateData;
         }
 
-       
+
 
         private void UpdateData(FrameworkElement sender, DataContextChangedEventArgs args)
         {
@@ -309,7 +309,7 @@ namespace Tooter.LocalControls
         private async void ReblogButton_Click(object sender, RoutedEventArgs e)
         {
             Status statusToUse = PickStatusFromReblogContext();
-                
+
             try
             {
 
@@ -325,10 +325,20 @@ namespace Tooter.LocalControls
                 }
                 statusToUse.Reblogged = reblogResult.Reblogged;
             }
-            catch
+            catch (Exception ex)
             {
+                if (ex is Mastonet.ServerErrorException serverException)
+                {
+                    Debug.WriteLine(serverException);
+                    statusToUse.Reblogged = !statusToUse.Reblogged;
+                }
+                else
+                {
+                    Debug.WriteLine("Reblog Failed, check internet connection!");
+                    await ErrorService.ShowConnectionError();
+                }
+
                 ReblogButton.IsChecked = statusToUse.Reblogged;
-                await ErrorService.ShowConnectionError();
             }
         }
 
@@ -358,13 +368,14 @@ namespace Tooter.LocalControls
                 if (ex is Mastonet.ServerErrorException serverException)
                 {
                     Debug.WriteLine(serverException);
+                    statusToUse.Favourited = !statusToUse.Favourited;
                 }
                 else
                 {
                     Debug.WriteLine("Favourite Failed, check internet connection!");
+                    await ErrorService.ShowConnectionError();
                 }
                 FavouriteButton.IsChecked = statusToUse.Favourited;
-                await ErrorService.ShowConnectionError();
             }
 
         }
