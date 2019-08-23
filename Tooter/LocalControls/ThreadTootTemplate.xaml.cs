@@ -302,6 +302,13 @@ namespace Tooter.LocalControls
             }
         }
 
+    
+
+        private Status PickStatusFromReblogContext()
+        {
+            return CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog; ;
+        }
+
         private async void ReblogButton_Click(object sender, RoutedEventArgs e)
         {
             Status statusToUse = PickStatusFromReblogContext();
@@ -321,16 +328,21 @@ namespace Tooter.LocalControls
                 }
                 statusToUse.Reblogged = reblogResult.Reblogged;
             }
-            catch
+            catch (Exception ex)
             {
-                ReblogButton.IsChecked = statusToUse.Reblogged;
-                await ErrorService.ShowConnectionError();
-            }
-        }
+                if (ex is Mastonet.ServerErrorException serverException)
+                {
+                    Debug.WriteLine(serverException);
+                    statusToUse.Reblogged = !statusToUse.Reblogged;
+                }
+                else
+                {
+                    Debug.WriteLine("Reblog Failed, check internet connection!");
+                    await ErrorService.ShowConnectionError();
+                }
 
-        private Status PickStatusFromReblogContext()
-        {
-            return CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog; ;
+                ReblogButton.IsChecked = statusToUse.Reblogged;
+            }
         }
 
         private async void FavouriteButton_Click(object sender, RoutedEventArgs e)
@@ -354,13 +366,14 @@ namespace Tooter.LocalControls
                 if (ex is Mastonet.ServerErrorException serverException)
                 {
                     Debug.WriteLine(serverException);
+                    statusToUse.Favourited = !statusToUse.Favourited;
                 }
                 else
                 {
                     Debug.WriteLine("Favourite Failed, check internet connection!");
+                    await ErrorService.ShowConnectionError();
                 }
                 FavouriteButton.IsChecked = statusToUse.Favourited;
-                await ErrorService.ShowConnectionError();
             }
 
         }

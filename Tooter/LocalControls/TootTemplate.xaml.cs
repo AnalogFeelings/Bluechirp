@@ -342,11 +342,6 @@ namespace Tooter.LocalControls
             }
         }
 
-        private Status PickStatusFromReblogContext()
-        {
-            return CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog; ;
-        }
-
         private async void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
             Status statusToUse = PickStatusFromReblogContext();
@@ -378,6 +373,11 @@ namespace Tooter.LocalControls
                 FavouriteButton.IsChecked = statusToUse.Favourited;
             }
 
+        }
+
+        private Status PickStatusFromReblogContext()
+        {
+            return CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog; ;
         }
     }
 }
