@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Navigation;
 using TooterLib.Services;
 using Tooter.Model;
 using Tooter.Enums;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -64,6 +65,16 @@ namespace Tooter.View
             _homeFrame.Navigated += LinkNavToBackButton;
             _localFrame.Navigated += LinkNavToBackButton;
             _federatedFrame.Navigated += LinkNavToBackButton;
+            SystemNavigationManager.GetForCurrentView().BackRequested += ShellView_BackRequested;
+        }
+
+        private void ShellView_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (ActiveFrame.CanGoBack)
+            {
+                ActiveFrame.GoBack();
+                e.Handled = true;
+            }
         }
 
         private void LinkNavToBackButton(object sender, NavigationEventArgs e)
@@ -185,7 +196,10 @@ namespace Tooter.View
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            ActiveFrame.GoBack();
+            if (ActiveFrame.CanGoBack)
+            {
+                ActiveFrame.GoBack();
+            }
         }
     }
 }
