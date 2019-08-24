@@ -140,6 +140,9 @@
     <Compile Include="LocalControls\ExpandedTootTemplate.xaml.cs">
       <DependentUpon>ExpandedTootTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LocalControls\QuotedTootTemplate.xaml.cs">
+      <DependentUpon>QuotedTootTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LocalControls\ThreadTootTemplate.xaml.cs">
       <DependentUpon>ThreadTootTemplate.xaml</DependentUpon>
     </Compile>
@@ -249,6 +252,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LocalControls\ExpandedTootTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LocalControls\QuotedTootTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
