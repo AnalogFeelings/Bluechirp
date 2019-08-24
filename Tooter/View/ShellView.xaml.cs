@@ -146,7 +146,7 @@ namespace Tooter.View
                             ScrollToTop(ActiveFrame);
                         }
                         break;
-                    case Enums.ShellMenuItemType.FederatedTimeline:
+                    case ShellMenuItemType.FederatedTimeline:
                         if (ActiveFrame != _federatedFrame)
                         {
                             shouldSwapTimeline = true;
