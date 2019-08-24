@@ -120,6 +120,10 @@ namespace Tooter.View
                                 ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
                             }
                         }
+                        else
+                        {
+                            ScrollToTop(ActiveFrame);
+                        }
                         break;
                     case ShellMenuItemType.LocalTimeline:
                         if (ActiveFrame != _localFrame)
@@ -135,6 +139,11 @@ namespace Tooter.View
                                 ActiveFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
 
                             }
+                            
+                        }
+                        else
+                        {
+                            ScrollToTop(ActiveFrame);
                         }
                         break;
                     case Enums.ShellMenuItemType.FederatedTimeline:
@@ -150,6 +159,11 @@ namespace Tooter.View
                             {
                                 _federatedFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel));
                             }
+                            
+                        }
+                        else
+                        {
+                            ScrollToTop(ActiveFrame);
                         }
                         break;
                 }
@@ -159,6 +173,20 @@ namespace Tooter.View
                 {
                     SwapTimeline();
                 }
+
+            }
+        }
+
+        private void ScrollToTop(Frame activeFrame)
+        {
+            TimelineView timelineToScrollUp = null;
+            try
+            {
+                timelineToScrollUp = (TimelineView)ActiveFrame.Content;
+                timelineToScrollUp.ScrollToTop();
+            }
+            catch (Exception)
+            {
 
             }
         }

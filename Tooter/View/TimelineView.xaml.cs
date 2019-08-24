@@ -199,6 +199,11 @@ namespace Tooter.View
 
         }
 
+        internal void ScrollToTop()
+        {
+            _listViewScrollViewer.ChangeView(0, 0, 1);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
