@@ -37,33 +37,34 @@
             </Button>
         </RelativePanel>
     </ContentDialog.Title>
-    <Grid Margin="0,20,0,28">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer Margin="0,20,0,28">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <localcontrols:QuotedTootTemplate
+            <localcontrols:QuotedTootTemplate
             DataContext="{x:Bind _viewModel.QuoteToot}"
             Grid.ColumnSpan="2"
             Margin="0,0,0,12"
             MaxWidth="400"/>
 
-        <muxc:PersonPicture 
+            <muxc:PersonPicture 
                     Height="36"
                     Width="36"
                     Name="UserAvatar"
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
             Grid.Row="1"/>
-        <TextBox Name="TootTextBox"
+            <TextBox Name="TootTextBox"
                          Style="{ThemeResource TootTextBoxStyle}"
                          PlaceholderText="What's on your mind?"
                          Margin="13,0,-1,0"
@@ -74,64 +75,65 @@
 
 
 
-        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7B3;" 
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7B3;" 
                   Grid.Row="2"
                   Margin="0,32,0,0"/>
 
-        <Button Content="{x:Bind _viewModel.StatusVisibilty, Mode=OneWay}" Grid.Column="1"
+            <Button Content="{x:Bind _viewModel.StatusVisibilty, Mode=OneWay}" Grid.Column="1"
                    Grid.Row="2"
                    Margin="12,32,0,0"
                 Style="{ThemeResource TextBlockButtonStyle}"
                 Padding="0">
-            <Button.Flyout>
-                <MenuFlyout >
-                    <muxc:RadioMenuFlyoutItem Text="Public" GroupName="TootVisbility"
+                <Button.Flyout>
+                    <MenuFlyout >
+                        <muxc:RadioMenuFlyoutItem Text="Public" GroupName="TootVisbility"
                                               IsChecked="True"
                                               Tag="0"
                                               Name="PublicVisOption"
                                               Click="{x:Bind _viewModel.VisibilityOptionSelected}">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;"/>
-                        </MenuFlyoutItem.Icon>
-                    </muxc:RadioMenuFlyoutItem>
-                    <muxc:RadioMenuFlyoutItem Text="Unlisted" GroupName="TootVisbility"
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE909;"/>
+                            </MenuFlyoutItem.Icon>
+                        </muxc:RadioMenuFlyoutItem>
+                        <muxc:RadioMenuFlyoutItem Text="Unlisted" GroupName="TootVisbility"
                                               Name="UnlistedVisOption"
                                               Tag="1"
                                               Click="{x:Bind _viewModel.VisibilityOptionSelected}">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE785;" />
-                        </MenuFlyoutItem.Icon>
-                    </muxc:RadioMenuFlyoutItem>
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE785;" />
+                            </MenuFlyoutItem.Icon>
+                        </muxc:RadioMenuFlyoutItem>
 
-                    <muxc:RadioMenuFlyoutItem Text="Private" GroupName="TootVisbility"
+                        <muxc:RadioMenuFlyoutItem Text="Private" GroupName="TootVisbility"
                                               Name="PrivateVisOption"
                                               Tag="2"
                                               Click="{x:Bind _viewModel.VisibilityOptionSelected}">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72E;" />
-                        </MenuFlyoutItem.Icon>
-                    </muxc:RadioMenuFlyoutItem>
-                    <muxc:RadioMenuFlyoutItem Text="Direct" GroupName="TootVisbility"
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72E;" />
+                            </MenuFlyoutItem.Icon>
+                        </muxc:RadioMenuFlyoutItem>
+                        <muxc:RadioMenuFlyoutItem Text="Direct" GroupName="TootVisbility"
                                               Name="DirectVisOption"
                                               Tag="3"
                                               Click="{x:Bind _viewModel.VisibilityOptionSelected}">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE724;" />
-                        </MenuFlyoutItem.Icon>
-                    </muxc:RadioMenuFlyoutItem>
-                </MenuFlyout>
-            </Button.Flyout>
-        </Button>
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE724;" />
+                            </MenuFlyoutItem.Icon>
+                        </muxc:RadioMenuFlyoutItem>
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
 
-        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE164;"
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE164;"
                   Grid.Row="3"
                   Margin="0,16,0,0"/>
 
-        <TextBlock Text="{x:Bind _viewModel.CharCountString, Mode=OneWay}"
+            <TextBlock Text="{x:Bind _viewModel.CharCountString, Mode=OneWay}"
                    Grid.Column="1"
                    Grid.Row="3"
                    Margin="12,16,0,0"
                    VerticalAlignment="Top"
                    TextDecorations="{x:Bind _viewModel.HasReachedCharLimit, Mode=OneWay, Converter={StaticResource BoolToUnderline}}"/>
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </ContentDialog>
