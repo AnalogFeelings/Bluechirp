@@ -24,7 +24,7 @@
     <ContentDialog.Title>
         <RelativePanel HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch">
-            <TextBlock Text="New Toot" Style="{ThemeResource FluentTitleTextStyle}"
+            <TextBlock Text="New Reply" Style="{ThemeResource FluentTitleTextStyle}"
                    FontSize="32"
                    Name="TitleTextBlock"/>
             <Button Style="{StaticResource TextBlockButtonStyle}"
