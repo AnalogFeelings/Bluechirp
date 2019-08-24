@@ -54,7 +54,7 @@
             DataContext="{x:Bind _viewModel.QuoteToot}"
             Grid.ColumnSpan="2"
             Margin="0,0,0,12"
-            MaxWidth="600"/>
+            MaxWidth="400"/>
 
         <muxc:PersonPicture 
                     Height="36"
