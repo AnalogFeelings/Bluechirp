@@ -24,10 +24,10 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Tooter.LocalControls
 {
-    public sealed partial class QutoedTootTemplate : UserControl
+    public sealed partial class QuotedTootTemplate : UserControl
     {
         public Status CurrentStatus { get { return this.DataContext as Status; } }
-        public QutoedTootTemplate()
+        public QuotedTootTemplate()
         {
             this.InitializeComponent();
             this.DataContextChanged += UpdateData;

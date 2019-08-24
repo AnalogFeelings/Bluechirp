@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastonet.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,20 +19,19 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Tooter.Dialogs
 {
-    public sealed partial class NewReplyTootTemplate : ContentDialog
+    public sealed partial class NewReplyTootDialog : ContentDialog
     {
-        private NewTootViewModel _viewModel = new NewTootViewModel();
-        public NewReplyTootTemplate()
+        private NewTootReplyViewModel _viewModel; 
+        public NewReplyTootDialog(Status quoteToot)
         {
             this.InitializeComponent();
+            _viewModel = new NewTootReplyViewModel(quoteToot);
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
 
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Hide();
         }
     }
 }
