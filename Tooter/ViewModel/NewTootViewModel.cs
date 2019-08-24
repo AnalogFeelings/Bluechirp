@@ -111,7 +111,7 @@ namespace Tooter.ViewModel
             IsTootButtonEnabled = !HasReachedCharLimit && !IsStatusEmpty;
         }
 
-        private async Task SendNewToot()
+        protected async virtual Task SendNewToot()
         {
 
             try

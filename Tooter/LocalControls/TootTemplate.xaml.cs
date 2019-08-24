@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Tooter.Core;
+using Tooter.Dialogs;
 using TooterLib.Helpers;
 using TooterLib.Model;
 using TooterLib.Services;
@@ -379,5 +380,20 @@ namespace Tooter.LocalControls
         {
             return CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog; ;
         }
+
+        private async void ReplyButton_Click(object sender, RoutedEventArgs e)
+        {
+            Status statusToReturn = CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog;
+            NewReplyTootDialog dialog = new NewReplyTootDialog(statusToReturn);
+            try
+            {
+                await dialog.ShowAsync();
+            }
+            catch
+            {
+
+            }
+        }
+
     }
 }

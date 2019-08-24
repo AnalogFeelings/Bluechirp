@@ -132,6 +132,9 @@
     <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
     <Compile Include="Converters\TootDataTemplateSelector.cs" />
     <Compile Include="Core\APIConstants.cs" />
+    <Compile Include="Dialogs\NewReplyTootDialog.xaml.cs">
+      <DependentUpon>NewReplyTootDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\NewTootDialog.xaml.cs">
       <DependentUpon>NewTootDialog.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,9 @@
     <Compile Include="Helpers\TootVisibilityHelper.cs" />
     <Compile Include="LocalControls\ExpandedTootTemplate.xaml.cs">
       <DependentUpon>ExpandedTootTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LocalControls\QuotedTootTemplate.xaml.cs">
+      <DependentUpon>QuotedTootTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="LocalControls\ThreadTootTemplate.xaml.cs">
       <DependentUpon>ThreadTootTemplate.xaml</DependentUpon>
@@ -155,6 +161,7 @@
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LocalViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\NewTootReplyViewModel.cs" />
     <Compile Include="ViewModel\NewTootViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\ShellViewModel.cs" />
@@ -244,11 +251,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\NewReplyTootDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\NewTootDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LocalControls\ExpandedTootTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LocalControls\QuotedTootTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
