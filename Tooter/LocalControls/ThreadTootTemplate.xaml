@@ -97,7 +97,7 @@
                         <Setter Property="FontSize" Value="28"/>
                     </Style>
                 </StackPanel.Resources>
-                <Button Name="ReplyButton">
+                <Button Name="ReplyButton" Click="ReplyButton_Click">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE97A;" />
                 </Button>
                 <ToggleButton Name="ReblogButton" Style="{ThemeResource TextToggleButtonStyle}"

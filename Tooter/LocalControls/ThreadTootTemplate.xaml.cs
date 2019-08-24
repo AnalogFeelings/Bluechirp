@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tooter.Dialogs;
 using TooterLib.Helpers;
 using TooterLib.Services;
 using Windows.Foundation;
@@ -377,5 +378,20 @@ namespace Tooter.LocalControls
             }
 
         }
+
+        private async void ReplyButton_Click(object sender, RoutedEventArgs e)
+        {
+            Status statusToReturn = CurrentStatus.Reblog == null ? CurrentStatus : CurrentStatus.Reblog;
+            NewReplyTootDialog dialog = new NewReplyTootDialog(statusToReturn);
+            try
+            {
+                await dialog.ShowAsync();
+            }
+            catch
+            {
+
+            }
+        }
+
     }
 }

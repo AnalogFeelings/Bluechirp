@@ -19,9 +19,10 @@
 
     <RelativePanel BorderBrush="Gray"
                    BorderThickness="1"
-                   CornerRadius="4">
-        <Ellipse Width="60"
-                         Height="60"
+                   CornerRadius="4"
+                   Padding="10">
+        <Ellipse Width="32"
+                         Height="32"
                          Margin="0,0,24,0"
                          Name="StatusAvatar">
             <Ellipse.Fill>
@@ -36,26 +37,25 @@
             <StackPanel.Resources>
 
             </StackPanel.Resources>
-            <Button Style="{ThemeResource NameTextBlockButton}">
+            
                 <TextBlock Style="{ThemeResource FluentTitleTextStyle}"
                                TextTrimming="CharacterEllipsis"
-                               FontSize="20"
+                               FontSize="16"
                                Name="DisplayNameTextBlock"
                            Text="{x:Bind CurrentStatus.Account.DisplayName}"/>
 
-            </Button>
-            <Button Margin="8,0,0,0" 
-                        Style="{StaticResource NameTextBlockButton}">
-                <TextBlock
+            
+            
+                <TextBlock Margin="8,0,0,0" 
            TextTrimming="CharacterEllipsis"
-                               FontSize="20"
+                               FontSize="16"
                                Name="AccountNameTextBlock"
                     Text="{x:Bind CurrentStatus.Account.AccountName}"/>
-            </Button>
+            
         </StackPanel>
 
 
-        <TextBlock FontSize="20"
+        <TextBlock FontSize="16"
                        TextAlignment="Left"
                        VerticalAlignment="Top"
                            Foreground="{ThemeResource SystemChromeDisabledLowColor}"
@@ -71,8 +71,8 @@
                        RelativePanel.Below="StatusTimestamp"
                        RelativePanel.AlignRightWithPanel="True"
                        TextWrapping="Wrap"
-                       IsTextSelectionEnabled="True"
-                       FontSize="22"
+                       IsTextSelectionEnabled="False"
+                       FontSize="16"
                        Canvas.ZIndex="100"/>
     </RelativePanel>
 </UserControl>
