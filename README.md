@@ -4,9 +4,9 @@ A Windows 10 UWP Mastodon Client providing you with the best native Mastodon Exp
 ## Roadmap
 
 - [X] Start Designing the UI
-- [ ] Sending Toots
-- [ ] Home
-- [ ] Local and Federated Timelines
+- [X] Sending Toots
+- [X] Home
+- [X] Local and Federated Timelines
 - [ ] Background Image Option
 - [ ] Search
 - [ ] Sound Effects
