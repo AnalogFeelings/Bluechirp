@@ -36,7 +36,8 @@
                   Padding="0,20"
                   Margin="0,4,0,0"
                   ItemsSource="{x:Bind ViewModel.ContextTootItems, Mode=OneWay}"
-                      ItemClick="ExpandedTootContextListView_ItemClick">
+                      ItemClick="ExpandedTootContextListView_ItemClick"
+                      HorizontalAlignment="Stretch">
 
 
             </ListView>
