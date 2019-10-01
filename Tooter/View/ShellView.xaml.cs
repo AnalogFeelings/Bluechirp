@@ -95,7 +95,6 @@ namespace Tooter.View
             ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
             NavService.CreateInstance(ActiveFrame);
             SwapTimeline();
-            MenuListView.SelectedIndex = 0;
             await ViewModel.DoAsyncPrepartions();
         }
 
