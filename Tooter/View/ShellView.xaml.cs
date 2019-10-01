@@ -70,17 +70,24 @@ namespace Tooter.View
             GlobalKeyboardShortcutService.GlobalShortcutPressed += GlobalKeyboardShortcutService_GlobalShortcutPressed;
         }
 
-        private void GlobalKeyboardShortcutService_GlobalShortcutPressed(object sender, ShortcutType e)
+        private async void GlobalKeyboardShortcutService_GlobalShortcutPressed(object sender, ShortcutType e)
         {
             switch (e)
             {
                 case ShortcutType.Home:
+                    await DecideHowToSwap(ViewModel.MenuListItems[0]);
+                    MenuListView.SelectedIndex = 0;
                     break;
                 case ShortcutType.Local:
+                    await DecideHowToSwap(ViewModel.MenuListItems[1]);
+                    MenuListView.SelectedIndex = 1;
                     break;
                 case ShortcutType.Federated:
+                    await DecideHowToSwap(ViewModel.MenuListItems[2]);
+                    MenuListView.SelectedIndex = 2;
                     break;
                 case ShortcutType.Help:
+                    // Show Keyboard shortcuts dialog
                     break;
                 default:
                     break;
@@ -119,11 +126,10 @@ namespace Tooter.View
 
         private async void MenuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            
+
             if (e.ClickedItem is ShellMenuItem menuItem)
             {
                 await DecideHowToSwap(menuItem);
-
             }
         }
 
@@ -260,7 +266,7 @@ namespace Tooter.View
             {
                 MenuListView.SelectedIndex = 0;
             }
-            else if(ActiveFrame == _localFrame)
+            else if (ActiveFrame == _localFrame)
             {
                 MenuListView.SelectedIndex = 1;
             }
