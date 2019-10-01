@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Tooter.Enums
 {
-    internal enum ShortcutMode
+    internal enum ShortcutType
     {
-        Global,
-        Regular,
-        Shift
+        Home,
+        Local,
+        Federated,
+        Help
+
     }
 }
