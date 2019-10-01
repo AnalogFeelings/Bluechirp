@@ -22,6 +22,7 @@ using TooterLib.Services;
 using Tooter.Model;
 using Tooter.Enums;
 using Windows.UI.Core;
+using EmojiDebugSystem;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -228,5 +229,9 @@ namespace Tooter.View
                 ActiveFrame.GoBack();
             }
         }
+
+       
+
+       
     }
 }

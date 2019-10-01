@@ -17,15 +17,16 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>Tooter_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>F8ED5702391F7DF1919F5C5C5277494B46E87A10</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>C:\Users\colin\Source\Repos\colinkiama\tooter\Tooter\Tooter_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>4B8B18B4609A8FB3735483FE261379FFA694F2B5</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppxBundlePlatforms>arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -139,6 +140,7 @@
       <DependentUpon>NewTootDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Enums\ShellMenuItemType.cs" />
+    <Compile Include="Enums\ShortcutMode.cs" />
     <Compile Include="Helpers\TootVisibilityHelper.cs" />
     <Compile Include="LocalControls\ExpandedTootTemplate.xaml.cs">
       <DependentUpon>ExpandedTootTemplate.xaml</DependentUpon>
@@ -156,6 +158,7 @@
     <Compile Include="Model\ShellMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CacheService.cs" />
+    <Compile Include="Services\GlobalKeyboardShortcutService.cs" />
     <Compile Include="ViewModel\ExpandedTootViewModel.cs" />
     <Compile Include="ViewModel\FederatedViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
@@ -321,6 +324,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EmojiDebug.ColinKiama">
+      <Version>1.0.1</Version>
+    </PackageReference>
     <PackageReference Include="FluiFramework.UWP">
       <Version>0.0.27-alpha</Version>
     </PackageReference>
