@@ -67,6 +67,24 @@ namespace Tooter.View
             _localFrame.Navigated += LinkNavToBackButton;
             _federatedFrame.Navigated += LinkNavToBackButton;
             SystemNavigationManager.GetForCurrentView().BackRequested += ShellView_BackRequested;
+            GlobalKeyboardShortcutService.GlobalShortcutPressed += GlobalKeyboardShortcutService_GlobalShortcutPressed;
+        }
+
+        private void GlobalKeyboardShortcutService_GlobalShortcutPressed(object sender, ShortcutType e)
+        {
+            switch (e)
+            {
+                case ShortcutType.Home:
+                    break;
+                case ShortcutType.Local:
+                    break;
+                case ShortcutType.Federated:
+                    break;
+                case ShortcutType.Help:
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void ShellView_BackRequested(object sender, BackRequestedEventArgs e)
@@ -101,79 +119,85 @@ namespace Tooter.View
 
         private async void MenuListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            bool shouldSwapTimeline = false;
+            
             if (e.ClickedItem is ShellMenuItem menuItem)
             {
-                switch (menuItem.ItemType)
-                {
-                    case ShellMenuItemType.HomeTimeline:
-                        if (ActiveFrame != _homeFrame)
+                await DecideHowToSwap(menuItem);
+
+            }
+        }
+
+        private async Task DecideHowToSwap(ShellMenuItem menuItem)
+        {
+            bool shouldSwapTimeline = false;
+            switch (menuItem.ItemType)
+            {
+                case ShellMenuItemType.HomeTimeline:
+                    if (ActiveFrame != _homeFrame)
+                    {
+                        shouldSwapTimeline = true;
+
+                        await TryCacheTimeline();
+
+                        ActiveFrame = _homeFrame;
+
+                        if (!CheckIfFrameHasContent())
                         {
-                            shouldSwapTimeline = true;
-
-                            await TryCacheTimeline();
-
-                            ActiveFrame = _homeFrame;
-
-                            if (!CheckIfFrameHasContent())
-                            {
-                                ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
-                            }
+                            ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
                         }
-                        else
+                    }
+                    else
+                    {
+                        ScrollToTop(ActiveFrame);
+                    }
+                    break;
+                case ShellMenuItemType.LocalTimeline:
+                    if (ActiveFrame != _localFrame)
+                    {
+                        shouldSwapTimeline = true;
+
+                        await TryCacheTimeline();
+
+                        ActiveFrame = _localFrame;
+
+                        if (!CheckIfFrameHasContent())
                         {
-                            ScrollToTop(ActiveFrame);
+                            ActiveFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
+
                         }
-                        break;
-                    case ShellMenuItemType.LocalTimeline:
-                        if (ActiveFrame != _localFrame)
+
+                    }
+                    else
+                    {
+                        ScrollToTop(ActiveFrame);
+                    }
+                    break;
+                case ShellMenuItemType.FederatedTimeline:
+                    if (ActiveFrame != _federatedFrame)
+                    {
+                        shouldSwapTimeline = true;
+
+                        await TryCacheTimeline();
+
+                        ActiveFrame = _federatedFrame;
+
+                        if (!CheckIfFrameHasContent())
                         {
-                            shouldSwapTimeline = true;
-
-                            await TryCacheTimeline();
-
-                            ActiveFrame = _localFrame;
-
-                            if (!CheckIfFrameHasContent())
-                            {
-                                ActiveFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
-
-                            }
-                            
+                            _federatedFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel));
                         }
-                        else
-                        {
-                            ScrollToTop(ActiveFrame);
-                        }
-                        break;
-                    case ShellMenuItemType.FederatedTimeline:
-                        if (ActiveFrame != _federatedFrame)
-                        {
-                            shouldSwapTimeline = true;
 
-                            await TryCacheTimeline();
-
-                            ActiveFrame = _federatedFrame;
-
-                            if (!CheckIfFrameHasContent())
-                            {
-                                _federatedFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel));
-                            }
-                            
-                        }
-                        else
-                        {
-                            ScrollToTop(ActiveFrame);
-                        }
-                        break;
-                }
+                    }
+                    else
+                    {
+                        ScrollToTop(ActiveFrame);
+                    }
+                    break;
+            }
 
 
-                if (shouldSwapTimeline)
-                {
-                    SwapTimeline();
-                }
-
+            if (shouldSwapTimeline)
+            {
+                SwapTimeline();
             }
         }
 
@@ -230,8 +254,20 @@ namespace Tooter.View
             }
         }
 
-       
-
-       
+        private void MenuListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ActiveFrame == _homeFrame)
+            {
+                MenuListView.SelectedIndex = 0;
+            }
+            else if(ActiveFrame == _localFrame)
+            {
+                MenuListView.SelectedIndex = 1;
+            }
+            else if (ActiveFrame == _federatedFrame)
+            {
+                MenuListView.SelectedIndex = 2;
+            }
+        }
     }
 }

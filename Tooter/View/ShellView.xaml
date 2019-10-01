@@ -65,7 +65,7 @@
                 Name="MenuListView"
                 ItemClick="MenuListView_ItemClick"
                 ItemsSource="{x:Bind ViewModel.MenuListItems}"
-                >
+                Loaded="MenuListView_Loaded">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:ShellMenuItem">
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind IconCharCode}"
