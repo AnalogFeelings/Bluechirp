@@ -87,7 +87,8 @@ namespace Tooter.View
                     MenuListView.SelectedIndex = 2;
                     break;
                 case ShortcutType.Help:
-                    // Show Keyboard shortcuts dialog
+                    // TODO: Show Keyboard shortcuts dialog
+                    EmojiDebug.WriteLine(DebugEmoji.Celebrate, "Keyboard Shortcuts Help Key Combo!");
                     break;
                 default:
                     break;

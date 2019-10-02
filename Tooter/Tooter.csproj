@@ -326,7 +326,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EmojiDebug.ColinKiama">
-      <Version>1.0.1</Version>
+      <Version>1.0.2</Version>
     </PackageReference>
     <PackageReference Include="FluiFramework.UWP">
       <Version>0.0.27-alpha</Version>
@@ -335,7 +335,7 @@
       <Version>1.7.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.8</Version>
+      <Version>6.2.9</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.Engagement">
       <Version>10.1901.28001</Version>
