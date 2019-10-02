@@ -133,6 +133,9 @@
     <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
     <Compile Include="Converters\TootDataTemplateSelector.cs" />
     <Compile Include="Core\APIConstants.cs" />
+    <Compile Include="Dialogs\KeyboardShortcutsDialog.xaml.cs">
+      <DependentUpon>KeyboardShortcutsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\NewReplyTootDialog.xaml.cs">
       <DependentUpon>NewReplyTootDialog.xaml</DependentUpon>
     </Compile>
@@ -255,6 +258,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\KeyboardShortcutsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\NewReplyTootDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
