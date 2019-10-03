@@ -9,8 +9,6 @@
     xmlns:mtoolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converters="using:Tooter.Converters"
     mc:Ignorable="d"
-    CloseButtonText="Close"
-    
     Style="{ThemeResource ShadowedDialog}" HorizontalAlignment="Left" VerticalAlignment="Center">
     <ContentDialog.Resources>
         <ResourceDictionary>
@@ -33,13 +31,14 @@
                 RelativePanel.AlignRightWithPanel="True"
                     Margin="0,12,0,0"
                     Name="CloseButton"
-                    Click="CloseButton_Click">
+                    Click="CloseButton_Click"
+                    >
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8BB;" />
             </Button>
         </RelativePanel>
     </ContentDialog.Title>
     <ScrollViewer Margin="0,4,0,28">
-        <mtoolkit:MarkdownTextBlock  Name="MarkdownContent">
+        <mtoolkit:MarkdownTextBlock  Name="MarkdownContent" TextWrapping="WrapWholeWords">
         </mtoolkit:MarkdownTextBlock>
     </ScrollViewer>
 </ContentDialog>
