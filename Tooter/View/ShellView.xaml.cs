@@ -23,6 +23,7 @@ using Tooter.Model;
 using Tooter.Enums;
 using Windows.UI.Core;
 using EmojiDebugSystem;
+using Tooter.Dialogs;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -88,7 +89,17 @@ namespace Tooter.View
                     break;
                 case ShortcutType.Help:
                     // TODO: Show Keyboard shortcuts dialog
-                    EmojiDebug.WriteLine(DebugEmoji.Celebrate, "Keyboard Shortcuts Help Key Combo!");
+                    //EmojiDebug.WriteLine(DebugEmoji.Celebrate, "Keyboard Shortcuts Help Key Combo!");
+                    var kbShortuctsDialog = new KeyboardShortcutsDialog();
+                    try
+                    {
+                        await kbShortuctsDialog.ShowAsync();
+                    }
+                    catch (Exception)
+                    {
+
+                        
+                    }
                     break;
                 default:
                     break;

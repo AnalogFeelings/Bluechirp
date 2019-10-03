@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tooter.Services;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -19,9 +20,11 @@ namespace Tooter.Dialogs
 {
     public sealed partial class KeyboardShortcutsDialog : ContentDialog
     {
+
         public KeyboardShortcutsDialog()
         {
             this.InitializeComponent();
+            MarkdownContent.Text = CacheService.KeyboardShortuctsContent;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

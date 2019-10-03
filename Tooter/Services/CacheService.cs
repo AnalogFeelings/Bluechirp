@@ -9,12 +9,14 @@ using TooterLib.Helpers;
 using TooterLib.Model;
 using Tooter.View;
 using TooterLib.Services;
+using Windows.Storage;
 
 namespace Tooter.Services
 {
     public class CacheService
     {
         static TimelineView currentTimeline;
+        internal static string KeyboardShortuctsContent = "";
 
         internal async static Task CacheTimeline(MastodonList<Status> timeline, Status currentStatusMarker, TimelineSettings timelineSettings)
         {
@@ -48,6 +50,12 @@ namespace Tooter.Services
             //    RuntimeCacheService.StoreCache(cacheToReturn, cacheToReturn.CurrentTimelineSettings.CurrentTimelineType);
             //}
             return (wasTimelineLoaded, cacheToReturn);
+        }
+
+        internal async static Task LoadKeyboardShortcutsContent()
+        {
+            var shortcutsFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/FediShortcuts.txt"));
+            KeyboardShortuctsContent = await FileIO.ReadTextAsync(shortcutsFile);
         }
 
         

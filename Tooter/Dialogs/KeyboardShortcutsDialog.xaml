@@ -35,6 +35,6 @@
             </Button>
         </RelativePanel>
     </ContentDialog.Title>
-    <mtoolkit:MarkdownTextBlock Margin="0,20,0,28">
+    <mtoolkit:MarkdownTextBlock Margin="0,20,0,28" Name="MarkdownContent">
     </mtoolkit:MarkdownTextBlock>
 </ContentDialog>
