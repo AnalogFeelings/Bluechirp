@@ -50,9 +50,11 @@ namespace Tooter.LocalControls
                     ReplyButton_Click(sender, null);
                     break;
                 case Windows.System.VirtualKey.F:
+                    FavouriteButton.IsChecked = !FavouriteButton.IsChecked;
                     FavouriteButton_Click(sender, null);
                     break;
                 case Windows.System.VirtualKey.B:
+                    ReblogButton.IsChecked = !ReblogButton.IsChecked;
                     ReblogButton_Click(sender, null);
                     break;
                 default:

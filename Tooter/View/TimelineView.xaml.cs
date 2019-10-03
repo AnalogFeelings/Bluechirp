@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Navigation;
 using TooterLib.Services;
 using Tooter.LocalControls;
 using Tooter.Helpers;
+using Windows.System;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -251,33 +252,9 @@ namespace Tooter.View
             }
         }
 
-        private void TootsListView_KeyUp(object sender, KeyRoutedEventArgs e)
-        {
+      
 
-            if (TootsListView.SelectedItem is Status status)
-            {
-                //if (TootsListView.ContainerFromItem(status) is ListViewItem listviewitem)
-                //{
-                        
-                //}
+        
 
-
-                switch (e.Key)
-                {
-                    case Windows.System.VirtualKey.F:
-                        Status freshStatus = new Status();
-                        ObjectManipulationHelper.CopyPropertiesTo(status, freshStatus);
-                        freshStatus.Favourited = !freshStatus.Favourited;
-                        int index = ViewModel.TootTimelineCollection.IndexOf(status);
-                        ViewModel.TootTimelineCollection[index] = freshStatus;
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-
-
-        }
     }
 }

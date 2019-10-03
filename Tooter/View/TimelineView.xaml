@@ -23,18 +23,13 @@
                    FontSize="40"/>
            
         <ListView Grid.Row="1" ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
-                  ItemsSource="{x:Bind ViewModel.TootTimelineCollection, Mode=TwoWay}"
-                  SelectionMode="Single"
-                  SingleSelectionFollowsFocus="True"
+                  ItemsSource="{x:Bind ViewModel.TootTimelineCollection, Mode=OneWay}"
+                  SelectionMode="None"
                   IsItemClickEnabled="True"
                   Padding="0,20"
                   Margin="0,4,0,0"
                   Name="TootsListView"
-                  ItemClick="TootsListView_ItemClick"
-                  KeyUp="TootsListView_KeyUp"
-                  Background="Transparent"
-                  IsHitTestVisible="True"
-                  IsTabStop="True">
+                  ItemClick="TootsListView_ItemClick">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <localcontrols:TootTemplate/>
