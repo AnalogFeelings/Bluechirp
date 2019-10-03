@@ -145,6 +145,7 @@
     <Compile Include="Enums\ShellMenuItemType.cs" />
     <Compile Include="Enums\ShortcutMode.cs" />
     <Compile Include="Enums\ShortcutType.cs" />
+    <Compile Include="Helpers\ObjectManipulationHelper.cs" />
     <Compile Include="Helpers\TootVisibilityHelper.cs" />
     <Compile Include="LocalControls\ExpandedTootTemplate.xaml.cs">
       <DependentUpon>ExpandedTootTemplate.xaml</DependentUpon>

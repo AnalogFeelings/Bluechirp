@@ -10,7 +10,8 @@
     mc:Ignorable="d"
     d:DesignHeight="200"
     d:DesignWidth="300"
-    MinWidth="0">
+    MinWidth="0"
+    Name="RootControl">
     <UserControl.Resources>
 
         <ResourceDictionary>

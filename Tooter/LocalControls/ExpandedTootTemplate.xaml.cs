@@ -37,9 +37,28 @@ namespace Tooter.LocalControls
         {
             this.InitializeComponent();
             this.DataContextChanged += UpdateData;
+            RootPanel.KeyUp += TootTemplate_KeyUp;
         }
 
+        private void TootTemplate_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Windows.System.VirtualKey.R:
+                    ReplyButton_Click(sender, null);
+                    break;
+                case Windows.System.VirtualKey.F:
+                    FavouriteButton_Click(sender, null);
+                    break;
+                case Windows.System.VirtualKey.B:
+                    ReblogButton_Click(sender, null);
+                    break;
+                default:
+                    break;
 
+
+            }
+        }
 
         private void UpdateData(FrameworkElement sender, DataContextChangedEventArgs args)
         {

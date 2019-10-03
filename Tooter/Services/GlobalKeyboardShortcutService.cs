@@ -18,7 +18,7 @@ namespace Tooter.Services
         const int ForwardSlashScanCode = 53;
         internal static event EventHandler<ShortcutType> GlobalShortcutPressed;
 
-        internal static ShortcutMode CurrentShortcutMode { get; private set; }
+        internal static ShortcutMode CurrentShortcutMode { get; private set; } = ShortcutMode.Regular;
 
         internal static void Initialize()
         {

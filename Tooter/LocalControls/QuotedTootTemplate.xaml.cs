@@ -33,6 +33,8 @@ namespace Tooter.LocalControls
             this.DataContextChanged += UpdateData;
         }
 
+       
+
         private void UpdateData(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             Status updatedStatus = (Status)args.NewValue;
