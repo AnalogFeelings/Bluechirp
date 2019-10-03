@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tooter.Model;
 using TooterLib.Enums;
 using TooterLib.Model;
 
-namespace TooterLib.Services
+namespace Tooter.Services
 {
     public class RuntimeCacheService
     {
-        static Dictionary<TimelineType, TimelineCache> RuntimeCache = new Dictionary<TimelineType, TimelineCache>();
+        static Dictionary<TimelineType, TimelineCacheV2> RuntimeCache = new Dictionary<TimelineType, TimelineCacheV2>();
         
-        public static void StoreCache(TimelineCache cache, TimelineType type)
+        public static void StoreCache(TimelineCacheV2 cache, TimelineType type)
         {
             RuntimeCache[type] = cache;
         }
@@ -22,9 +23,9 @@ namespace TooterLib.Services
             RuntimeCache.Remove(TimelineType.Home);
         }
 
-        public static (bool isCacheAvailable, TimelineCache cache) RetreiveCache(TimelineType type)
+        public static (bool isCacheAvailable, TimelineCacheV2 cache) RetreiveCache(TimelineType type)
         {
-            TimelineCache cache;
+            TimelineCacheV2 cache;
             bool isCacheAvailable = RuntimeCache.TryGetValue(type, out cache);
 
             return (isCacheAvailable, cache);

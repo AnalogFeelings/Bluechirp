@@ -154,8 +154,10 @@
     </Compile>
     <Compile Include="Model\ExpandedToot.cs" />
     <Compile Include="Model\ShellMenuItem.cs" />
+    <Compile Include="Model\TimelineCacheV2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CacheService.cs" />
+    <Compile Include="Services\RuntimeCacheService.cs" />
     <Compile Include="ViewModel\ExpandedTootViewModel.cs" />
     <Compile Include="ViewModel\FederatedViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />

@@ -137,7 +137,6 @@
     <Compile Include="Services\ErrorService.cs" />
     <Compile Include="Services\InstanceMatchService.cs" />
     <Compile Include="Services\NavService.cs" />
-    <Compile Include="Services\RuntimeCacheService.cs" />
     <EmbeddedResource Include="Properties\TooterLib.rd.xml" />
   </ItemGroup>
   <ItemGroup>
