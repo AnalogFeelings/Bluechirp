@@ -25,6 +25,12 @@ namespace Tooter.Dialogs
         {
             this.InitializeComponent();
             MarkdownContent.Text = CacheService.KeyboardShortuctsContent;
+            this.Opened += KeyboardShortcutsDialog_Opened;
+        }
+
+        private void KeyboardShortcutsDialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
+        {
+            this.Focus(FocusState.Programmatic);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

@@ -9,6 +9,7 @@
     xmlns:mtoolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converters="using:Tooter.Converters"
     mc:Ignorable="d"
+    CloseButtonText="Close"
     
     Style="{ThemeResource ShadowedDialog}" HorizontalAlignment="Left" VerticalAlignment="Center">
     <ContentDialog.Resources>
