@@ -1,5 +1,6 @@
 # Tooter
 A Windows 10 UWP Mastodon Client providing you with the best native Mastodon Experience possible on Windows
+Beta is available here: https://www.microsoft.com/store/apps/9ND02K1RC5CZ
 
 ## Roadmap
 
