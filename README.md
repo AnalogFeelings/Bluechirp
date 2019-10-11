@@ -17,7 +17,9 @@ A Windows 10 UWP Mastodon Client providing you with the best native Mastodon Exp
 - [ ] Timeline Streaming
 
 ## Contributions
-Want to help code this too? Read this first: [Contributing to Tooter](CONTRIBUTING.md)
+Make issues and take them on your own if you want, otherwise, wait for people to gather before taking on the issue together.
+The original design mockup: https://www.figma.com/file/07kyAzJFn5GE4G4CzNtNOizg/Fedi
+Check out the design notes too (in the design folder). It gives key information on what the goals of the app are.
 
 ## Releases
 This app will have two different releases:
