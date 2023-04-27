@@ -15,7 +15,7 @@ namespace TooterTests.Generators
         {
             MastodonList<Status> fakeTimeline = new MastodonList<Status>();
             fakeTimeline.AddRange(collection: new Status[] { new Status { Content = "hii" }, new Status { Content = "Hello" }, new Status { Content = "REEEE" } });
-            TimelineCache cache = new TimelineCache(fakeTimeline, fakeTimeline[1], new TimelineSettings(0, 0, 0, timelineType));
+            TimelineCache cache = new TimelineCache(fakeTimeline, fakeTimeline[1], new TimelineSettings(string.Empty, string.Empty, string.Empty, timelineType));
             return cache;
         }
     }
