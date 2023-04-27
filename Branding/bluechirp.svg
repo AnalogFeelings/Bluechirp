@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1024"
+   height="1024"
+   viewBox="0 0 270.93334 270.93334"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="bluechirp.svg"
+   inkscape:export-filename="bluechirp.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview43"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.78710938"
+     inkscape:cx="511.36476"
+     inkscape:cy="512"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5"
+     inkscape:lockguides="false"
+     showguides="false">
+    <sodipodi:guide
+       position="0,270.93334"
+       orientation="0,1024"
+       id="guide1654"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="270.93334,270.93334"
+       orientation="1024,0"
+       id="guide1656"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="270.93334,0"
+       orientation="0,-1024"
+       id="guide1658"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="0,0"
+       orientation="-1024,0"
+       id="guide1660"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="135.467,0"
+       inkscape:color="rgb(167,0,255)"
+       inkscape:label="Measure"
+       orientation="-1,0"
+       id="guide1828"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="135.467,0"
+       inkscape:color="rgb(167,0,255)"
+       inkscape:label=""
+       orientation="-0,1"
+       id="guide1832"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="135.467,0"
+       inkscape:color="rgb(167,0,255)"
+       inkscape:label="Start"
+       orientation="1,0"
+       id="guide1834"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="135.467,270.933"
+       inkscape:color="rgb(167,0,255)"
+       inkscape:label="End"
+       orientation="-0,1"
+       id="guide1836"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="135.467,270.933"
+       inkscape:color="rgb(167,0,255)"
+       inkscape:label=""
+       orientation="1,0"
+       id="guide1838"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="270.933,135.467"
+       inkscape:color="rgb(167,0,255)"
+       inkscape:label="Measure"
+       orientation="-0,-1"
+       id="guide1891"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="270.933,135.467"
+       inkscape:color="rgb(167,0,255)"
+       inkscape:label=""
+       orientation="-0,1"
+       id="guide1895"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="270.933,135.467"
+       inkscape:color="rgb(167,0,255)"
+       inkscape:label="Start"
+       orientation="1,0"
+       id="guide1897"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="0,135.467"
+       inkscape:color="rgb(167,0,255)"
+       inkscape:label="End"
+       orientation="-0,1"
+       id="guide1899"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="0,135.467"
+       inkscape:color="rgb(167,0,255)"
+       inkscape:label=""
+       orientation="1,0"
+       id="guide1901"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <title
+     id="title5040">Bluechirp Logo</title>
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient3614">
+      <stop
+         style="stop-color:#308fa3;stop-opacity:1;"
+         offset="0"
+         id="stop3610" />
+      <stop
+         style="stop-color:#274652;stop-opacity:1;"
+         offset="1"
+         id="stop3612" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient1944">
+      <stop
+         style="stop-color:#44cded;stop-opacity:1;"
+         offset="0"
+         id="stop1940" />
+      <stop
+         style="stop-color:#2c515c;stop-opacity:1;"
+         offset="1"
+         id="stop1942" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient8185">
+      <stop
+         style="stop-color:#4addfc;stop-opacity:1;"
+         offset="0"
+         id="stop8181" />
+      <stop
+         style="stop-color:#1f8ab3;stop-opacity:1;"
+         offset="1"
+         id="stop8183" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient8185"
+       id="linearGradient11231"
+       x1="77.278"
+       y1="77.278"
+       x2="178.722"
+       y2="178.722"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1,0,0,1.1,-12.799957,-31.211863)" />
+    <linearGradient
+       xlink:href="#linearGradient1944"
+       id="linearGradient1179"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(23.987688,12.961289)"
+       x1="77.278"
+       y1="77.278"
+       x2="178.722"
+       y2="178.722" />
+    <linearGradient
+       xlink:href="#linearGradient3614"
+       id="linearGradient3522"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.81,0,0,0.81,13.961366,68.654472)"
+       x1="77.278"
+       y1="77.278"
+       x2="178.722"
+       y2="178.722" />
+    <filter
+       style="color-interpolation-filters:sRGB"
+       id="filter4620"
+       x="-0.094755035"
+       y="-0.094755034"
+       width="1.2275305"
+       height="1.2275305">
+      <feFlood
+         flood-opacity="0.25098"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood4610" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite4612" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="6.23053"
+         result="blur"
+         id="feGaussianBlur4614" />
+      <feOffset
+         dx="6"
+         dy="6"
+         result="offset"
+         id="feOffset4616" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite4618" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       id="filter4722"
+       x="-0.12546748"
+       y="-0.083644985"
+       width="1.2091125"
+       height="1.2091125">
+      <feFlood
+         flood-opacity="0.156863"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood4712" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite4714" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="5"
+         result="blur"
+         id="feGaussianBlur4716" />
+      <feOffset
+         dx="-6"
+         dy="6"
+         result="offset"
+         id="feOffset4718" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite4720" />
+    </filter>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4870">
+      <use
+         x="0"
+         y="0"
+         xlink:href="#g4866"
+         id="use4872" />
+    </clipPath>
+  </defs>
+  <g
+     id="layer1"
+     transform="matrix(1.2456885,0,0,1.2456885,-37.520898,-34.166836)">
+    <g
+       id="g4868"
+       clip-path="url(#clipPath4870)"
+       inkscape:label="clip_group"
+       transform="translate(3.5080139,5.1270971)"
+       style="display:inline">
+      <g
+         id="g4866"
+         inkscape:label="clip">
+        <path
+           id="circle3520"
+           style="fill:url(#linearGradient3522);stroke-width:0.85698;stroke-miterlimit:14.6"
+           d="m 175.74406,172.33446 a 58.102707,58.102707 0 0 1 -58.10271,58.1027 58.102707,58.102707 0 0 1 -58.102707,-58.1027 58.102707,58.102707 0 0 1 58.102707,-58.10271 58.102707,58.102707 0 0 1 58.10271,58.10271 z"
+           inkscape:label="smaller_circle" />
+        <path
+           id="circle1177"
+           style="fill:url(#linearGradient1179);stroke-width:1.058;stroke-miterlimit:14.6;filter:url(#filter4722)"
+           d="M 223.71942,140.96127 A 71.731735,71.731735 0 0 1 151.98769,212.69301 71.731735,71.731735 0 0 1 80.255951,140.96127 71.731735,71.731735 0 0 1 151.98769,69.229538 71.731735,71.731735 0 0 1 223.71942,140.96127 Z"
+           inkscape:label="small_circle" />
+        <path
+           id="path6596"
+           style="fill:url(#linearGradient11231);stroke-width:1.1638;stroke-miterlimit:14.6;filter:url(#filter4620)"
+           d="M 206.90489,109.5881 A 78.904892,78.904892 0 0 1 128,188.49299 78.904892,78.904892 0 0 1 49.095108,109.5881 78.904892,78.904892 0 0 1 128,30.683205 78.904892,78.904892 0 0 1 206.90489,109.5881 Z"
+           inkscape:label="big_circle" />
+        <g
+           id="g6401"
+           inkscape:label="signal">
+          <path
+             id="path5724"
+             style="fill:#ffffff;stroke-width:0.780704;stroke-miterlimit:14.6"
+             d="m 135.36129,131.04914 a 10.410449,10.410449 0 0 1 1e-5,14.72259 10.410449,10.410449 0 0 1 -14.7226,0 10.410449,10.410449 0 0 1 1e-5,-14.72259 10.410449,10.410449 0 0 1 14.72258,0 z"
+             inkscape:label="core" />
+          <path
+             id="rect5821"
+             style="fill:#ffffff;stroke-width:0.938509;stroke-miterlimit:14.6"
+             d="m 74.4405,84.851 c 2.2295,-2.2295 5.8192,-2.2295 8.0486,0 l 33.9629,33.963 c 2.229,2.229 2.229,5.819 0,8.048 -2.23,2.23 -5.819,2.23 -8.049,0 L 74.4405,92.8996 c -2.2294,-2.2295 -2.2294,-5.8192 0,-8.0486 z"
+             inkscape:label="left" />
+          <path
+             id="rect6209"
+             style="fill:#ffffff;stroke-width:0.938509;stroke-miterlimit:14.6"
+             d="m 127.9999,62.638569 c 3.15294,0 5.69123,2.538291 5.69123,5.691234 v 48.030517 c 0,3.15295 -2.53829,5.69124 -5.69123,5.69124 -3.15295,0 -5.69124,-2.53829 -5.69124,-5.69124 V 68.329803 c 0,-3.152943 2.53829,-5.691234 5.69124,-5.691234 z"
+             inkscape:label="middle" />
+          <path
+             id="rect6211"
+             style="fill:#ffffff;stroke-width:0.938509;stroke-miterlimit:14.6"
+             d="m 181.571,84.839 c 2.23,2.2295 2.23,5.8192 0,8.0487 L 147.609,126.85 c -2.23,2.23 -5.819,2.23 -8.049,0 -2.229,-2.229 -2.229,-5.819 0,-8.048 l 33.963,-33.963 c 2.229,-2.2294 5.819,-2.2294 8.048,0 z"
+             inkscape:label="right" />
+        </g>
+      </g>
+    </g>
+  </g>
+  <metadata
+     id="metadata5038">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Bluechirp Logo</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>AestheticalZ</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:description>The official logo for the Bluechirp project.</dc:description>
+        <dc:language>English</dc:language>
+        <cc:license
+           rdf:resource="https://www.mozilla.org/en-US/MPL/2.0/" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
