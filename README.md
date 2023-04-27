@@ -35,8 +35,8 @@ I rebranded it because the name Tooter has already been picked up by other Masto
 * :fireworks: **colinkiama** - Original creator of Tooter. Without him, this project wouldn't exist.
 
 ## :handshake: Contributing
-Bluechirp is open to pull requests and issue tickets! Read the (:warning: **TODO**: Add contributing guide [#15](https://github.com/AestheticalZ/Bluechirp/issues/15)) contributing guide to get started.  
-Any help is appreciated.
+Bluechirp is open to pull requests and issue tickets! Read the [contributing guide](CONTRIBUTING.md) to get started.  
+Any help is appreciated!
 
 # :balance_scale: License
 This project is licensed under the **GNU General Public License version 3.0** which you can read [here](LICENSE.txt).  
