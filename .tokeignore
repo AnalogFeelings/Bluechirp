@@ -1,0 +1,13 @@
+*.sln
+*.csproj
+*.DotSettings
+*.json
+*.md
+*.editorconfig
+*.gitignore
+*.gitattributes
+*.svg
+bin/
+.idea/
+.vs/
+.git/
