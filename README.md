@@ -37,6 +37,6 @@ After a very short conversation on [issue #1](https://github.com/AestheticalZ/Bl
 Bluechirp is open to pull requests and issue tickets! Read the (:warning: **TODO**: Add contributing guide [#15](https://github.com/AestheticalZ/Bluechirp/issues/15)) contributing guide to get started.  
 Any help is appreciated.
 
-# License
+# :balance_scale: License
 This project is licensed under the **GNU General Public License version 3.0** which you can read [here](LICENSE.txt).  
 The [Bluechirp logo](Branding/bluechirp.png) is also licensed under said license.
