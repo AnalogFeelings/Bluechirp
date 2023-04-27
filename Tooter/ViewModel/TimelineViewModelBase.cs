@@ -18,9 +18,9 @@ namespace Tooter.ViewModel
 {
     public abstract class TimelineViewModelBase : TooterLib.Model.Notifier
     {
-        protected long? previousPageSinceId;
-        protected long? previousPageMinId;
-        protected long? nextPageMaxId;
+        protected string previousPageSinceId;
+        protected string previousPageMinId;
+        protected string nextPageMaxId;
         protected MastodonList<Status> tootTimelineData;
         public RelayCommandWithParameter DeleteCommand;
 

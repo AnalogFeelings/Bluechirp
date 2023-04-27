@@ -1,32 +1,21 @@
 ﻿using Mastonet.Entities;
 using MastoParserLib;
 using MastoParserLib.Model;
-using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Tooter.Core;
 using Tooter.Dialogs;
 using TooterLib.Helpers;
-using TooterLib.Model;
 using TooterLib.Services;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Media.Core;
 using Windows.UI;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -64,8 +53,6 @@ namespace Tooter.LocalControls
             }
         }
 
-
-
         private void UpdateData(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             Status updatedStatus = (Status)args.NewValue;
@@ -101,7 +88,7 @@ namespace Tooter.LocalControls
                             rootParagraph.Inlines.Add(run);
                         }
                         UpdateTootActions(reblogStatus);
-                        AddMediaToStatus((List<Attachment>)reblogStatus.MediaAttachments);
+                        AddMediaToStatus(reblogStatus.MediaAttachments.ToList());
                     }
                 }
 
@@ -125,7 +112,7 @@ namespace Tooter.LocalControls
                             rootParagraph.Inlines.Add(run);
                         }
                         UpdateTootActions(updatedStatus);
-                        AddMediaToStatus((List<Attachment>)updatedStatus.MediaAttachments);
+                        AddMediaToStatus(updatedStatus.MediaAttachments.ToList());
                     }
 
                 }

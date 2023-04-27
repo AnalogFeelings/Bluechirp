@@ -27,7 +27,10 @@ namespace Tooter.ViewModel
 
         protected async override Task<MastodonList<Status>> GetOlderTimeline()
         {
-            return await ClientHelper.Client.GetPublicTimeline(nextPageMaxId, local:true);
+            return await ClientHelper.Client.GetPublicTimeline(new ArrayOptions()
+            {
+                MaxId = nextPageMaxId
+            }, local:true);
         }
 
         protected async override Task<MastodonList<Status>> GetTimeline()

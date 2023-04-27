@@ -9,12 +9,12 @@ namespace TooterLib.Model
 {
     public class TimelineSettings
     {
-        public long? NextPageMaxID;
-        public long? PreviousPageMinID;
-        public long? PreviousPageSinceID;
+        public string NextPageMaxID;
+        public string PreviousPageMinID;
+        public string PreviousPageSinceID;
         public TimelineType CurrentTimelineType;
 
-        public TimelineSettings(long? nextPageMaxID, long? previousPageMinID, long? previousPageSinceID, TimelineType timelineType)
+        public TimelineSettings(string nextPageMaxID, string previousPageMinID, string previousPageSinceID, TimelineType timelineType)
         {
             NextPageMaxID = nextPageMaxID;
             PreviousPageMinID = previousPageMinID;

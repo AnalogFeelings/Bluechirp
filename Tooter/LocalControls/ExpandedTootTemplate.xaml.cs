@@ -97,7 +97,7 @@ namespace Tooter.LocalControls
                             rootParagraph.Inlines.Add(run);
                         }
                         UpdateTootActions(reblogStatus);
-                        AddMediaToStatus((List<Attachment>)reblogStatus.MediaAttachments);
+                        AddMediaToStatus(reblogStatus.MediaAttachments.ToList());
                         UpdateTootMetadata(reblogStatus);
                     }
                 }
@@ -122,7 +122,7 @@ namespace Tooter.LocalControls
                             rootParagraph.Inlines.Add(run);
                         }
                         UpdateTootActions(updatedStatus);
-                        AddMediaToStatus((List<Attachment>)updatedStatus.MediaAttachments);
+                        AddMediaToStatus(updatedStatus.MediaAttachments.ToList());
                         UpdateTootMetadata(updatedStatus);
                     }
 

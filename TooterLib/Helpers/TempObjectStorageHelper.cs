@@ -8,13 +8,11 @@ using Windows.Storage;
 
 namespace TooterLib.Helpers
 {
-    class TempObjectStorageHelper: LocalObjectStorageHelper
+    class TempObjectStorageHelper: ApplicationDataStorageHelper
     {
         
-        public TempObjectStorageHelper(): base()
+        public TempObjectStorageHelper(): base(ApplicationData.Current)
         {
-            base.Folder = ApplicationData.Current.TemporaryFolder;
-            base.Settings = null;
         }
     }
 }

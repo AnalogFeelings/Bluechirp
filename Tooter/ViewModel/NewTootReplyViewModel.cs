@@ -29,7 +29,7 @@ namespace Tooter.ViewModel
         }
         protected async override Task SendNewToot()
         {
-            await ClientHelper.Client.PostStatus(StatusContent, StatusVisibilty, QuoteToot.Id);
+            await ClientHelper.Client.PublishStatus(StatusContent, StatusVisibilty, QuoteToot.Id);
         }
     }
 }

@@ -1,10 +1,6 @@
-﻿using Mastonet.Entities;
-using MastoParserLib.Model;
+﻿using MastoParserLib.Model;
 using Microsoft.UI.Xaml.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TooterLib.Commands;
 using TooterLib.Helpers;
@@ -43,7 +39,7 @@ namespace Tooter.ViewModel
             }
         }
 
-        
+
 
         private bool _hasReachedCharLimit;
 
@@ -116,7 +112,7 @@ namespace Tooter.ViewModel
 
             try
             {
-                await ClientHelper.Client.PostStatus(StatusContent, StatusVisibilty);
+                await ClientHelper.Client.PublishStatus(StatusContent, StatusVisibilty);
             }
             catch (Exception)
             {
