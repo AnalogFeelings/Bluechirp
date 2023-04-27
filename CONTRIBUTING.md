@@ -8,6 +8,8 @@ Please open a draft pull request or tell others that you will work on an issue b
 Sometimes, someone else may also try to fix the issue you're trying to fix, which will cause both of you to end up wasting time.  
 Communication is key!
 
+Also remember to read the [code of conduct](CODE_OF_CONDUCT.md)!
+
 ## :bar_chart: Indentation Style
 The indentation style must be [Allman](https://en.wikipedia.org/wiki/Indentation_style#Allman_style).
 
