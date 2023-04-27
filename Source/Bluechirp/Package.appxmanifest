@@ -6,7 +6,7 @@
   <Properties>
     <DisplayName>Bluechirp</DisplayName>
     <PublisherDisplayName>AestheticalZ</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\Icons\Store\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
@@ -16,10 +16,13 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Bluechirp.App">
-      <uap:VisualElements DisplayName="Bluechirp" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Bluechirp for Windows" BackgroundColor="#282c37">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png" ShortName="Tooter">
+      <uap:VisualElements DisplayName="Bluechirp" Square150x150Logo="Assets\Icons\Tiles\MedTile.png" Square44x44Logo="Assets\Icons\AppList\AppList.png" Description="Bluechirp for Windows" BackgroundColor="#282c37">
+        <uap:DefaultTile ShortName="Bluechirp">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#282c37" 
+        <uap:SplashScreen Image="Assets\Icons\Splash\SplashScreen.png" BackgroundColor="#282c37" 
                           uap5:Optional="true"/>
       </uap:VisualElements>
       <Extensions>
