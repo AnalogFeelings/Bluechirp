@@ -27,7 +27,8 @@ This original idea was further blocked by the fact that by January 2023, all cus
 I tried to make my own client from scratch, but I didn't know how to structure the codebase cleanly, so I abandoned it.  
 I then found Tooter, an unfinished, also abandoned UWP client for Mastodon that was looking for a new owner.
 
-After a very short conversation on [issue #1](https://github.com/AestheticalZ/Bluechirp/issues/1), I became the owner of Tooter, which I've since rebranded to Bluechirp.
+After a very short conversation on [issue #1](https://github.com/AestheticalZ/Bluechirp/issues/1), I became the owner of Tooter, which I've since rebranded to Bluechirp.  
+I rebranded it because the name Tooter has already been picked up by other Mastodon clients and social medias.
 
 ## :sparkles: Major Contributors
 * :floppy_disk: **AestheticalZ** - Lead developer. UI, logo design and code.  
