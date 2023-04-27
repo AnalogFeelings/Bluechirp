@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="Tooter.View.ExpandedTootView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Tooter.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Tooter.Converters"
+    xmlns:vm="using:Tooter.ViewModel"
+    mc:Ignorable="d"
+    Background="{ThemeResource FediBackgroundColor}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:TootDataTemplateSelector x:Key="TemplateSelector"/>
+            <vm:ExpandedTootViewModel x:Name="ViewModel"/>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Background="{ThemeResource FediBackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource FluentHeaderTextStyle}"
+                   Text="Toot"
+                   Margin="40,60,40,0"
+                   FontSize="40"/>
+
+        <RelativePanel Grid.Row="1">
+            <ListView Name="ExpandedTootContextListView"
+                  ItemTemplateSelector="{StaticResource TemplateSelector}"
+                  ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
+                      IsItemClickEnabled="True"
+                  Padding="0,20"
+                  Margin="0,4,0,0"
+                  ItemsSource="{x:Bind ViewModel.ContextTootItems, Mode=OneWay}"
+                      ItemClick="ExpandedTootContextListView_ItemClick"
+                      HorizontalAlignment="Stretch">
+
+
+            </ListView>
+
+        </RelativePanel>
+
+    </Grid>
+</Page>
