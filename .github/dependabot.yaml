@@ -1,0 +1,61 @@
+version: 2
+updates:
+  # For the app itself.
+  - package-ecosystem: "nuget"
+    directory: "/Source/Bluechirp/"
+    schedule:
+      interval: "daily"
+    target-branch: "master"
+    labels:
+      - "dependencies"
+      - "backend"
+      - "low priority"
+    assignees:
+      - "aestheticalz"
+    reviewers:
+      - "aestheticalz"
+
+  # For the common library.
+  - package-ecosystem: "nuget"
+    directory: "/Source/BluechirpLib/"
+    schedule:
+      interval: "daily"
+    target-branch: "master"
+    labels:
+      - "dependencies"
+      - "backend"
+      - "low priority"
+    assignees:
+      - "aestheticalz"
+    reviewers:
+      - "aestheticalz"
+
+  # For the unit tests.
+  - package-ecosystem: "nuget"
+    directory: "/Source/BluechirpTests/"
+    schedule:
+      interval: "daily"
+    target-branch: "master"
+    labels:
+      - "dependencies"
+      - "backend"
+      - "low priority"
+    assignees:
+      - "aestheticalz"
+    reviewers:
+      - "aestheticalz"
+
+  # For the parser library.
+  - package-ecosystem: "nuget"
+    directory: "/Source/MastoParserLib/"
+    schedule:
+      interval: "daily"
+    target-branch: "master"
+    labels:
+      - "dependencies"
+      - "backend"
+      - "low priority"
+    assignees:
+      - "aestheticalz"
+    reviewers:
+      - "aestheticalz"
