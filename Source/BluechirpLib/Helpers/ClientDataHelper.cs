@@ -2,6 +2,7 @@ using Mastonet.Entities;
 using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +16,8 @@ namespace BluechirpLib.Helpers
     public static class ClientDataHelper
     {
         static ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
-        static ApplicationDataStorageHelper _localStorageHelper = new ApplicationDataStorageHelper(ApplicationData.Current);
-        static TempObjectStorageHelper _tempStorageHelper = new TempObjectStorageHelper();
+        static ApplicationDataStorageHelper _localStorageHelper = ApplicationDataStorageHelper.GetCurrent();
+        private static ApplicationDataStorageHelper _tempStorageHelper = ApplicationDataStorageHelper.GetCurrent(new JsonStorageSerializer());
 
         public static HashSet<string> ClientProfileList { get; } = new HashSet<string>();
         public static string LastUsedProfile { get; private set; } = null;
@@ -55,16 +56,15 @@ namespace BluechirpLib.Helpers
 
             try
             {
-                cacheToReturn = await _tempStorageHelper.ReadFileAsync<TimelineCache>(timelineType.ToString());
+                cacheToReturn = await _tempStorageHelper.ReadCacheFileAsync<TimelineCache>(timelineType.ToString());
                 if (cacheToReturn != null)
                 {
                     wasTimelineLoaded = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-
+                Debug.WriteLine(ex);
             }
 
             //await TryRemoveCache(timelineType);
@@ -89,8 +89,6 @@ namespace BluechirpLib.Helpers
                 await item.DeleteAsync(StorageDeleteOption.PermanentDelete);
             }
         }
-
-        
 
         public async static Task StartUpAsync()
         {

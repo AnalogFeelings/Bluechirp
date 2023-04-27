@@ -123,12 +123,12 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandWithParameter.cs" />
     <Compile Include="Core\APIConstants.cs" />
+    <Compile Include="Core\JsonStorageSerializer.cs" />
     <Compile Include="Enums\TimelineType.cs" />
     <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\CharCounterHelper.cs" />
     <Compile Include="Helpers\ClientDataHelper.cs" />
     <Compile Include="Helpers\ClientHelper.cs" />
-    <Compile Include="Helpers\TempObjectStorageHelper.cs" />
     <Compile Include="Helpers\TimestampHelper.cs" />
     <Compile Include="Model\Notifier.cs" />
     <Compile Include="Model\TimelineCache.cs" />
@@ -149,6 +149,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>7.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="System.ValueTuple">
       <Version>4.5.0</Version>

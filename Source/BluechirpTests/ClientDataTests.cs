@@ -117,7 +117,7 @@ namespace BluechirpTests
             AppRegistration loadedRegistration;
             (loadedRegistration, loadedToken) = ClientDataHelper.LoadClientProfile(testClientProfileID);
 
-            Assert.IsTrue(loadedToken.AccessToken == token.AccessToken);
+            Assert.AreEqual(loadedToken.AccessToken, token.AccessToken);
             Assert.AreEqual(loadedRegistration.ClientId, registration.ClientId);
 
         }
@@ -145,8 +145,5 @@ namespace BluechirpTests
             var localContainers = ApplicationData.Current.LocalSettings.Containers;
             Assert.IsFalse(localContainers.ContainsKey(testClientProfileID));
         }
-
-
-
     }
 }
