@@ -1,30 +1,42 @@
-# Tooter
-A Windows 10 UWP Mastodon Client providing you with the best native Mastodon Experience possible on Windows
-Beta is available here: https://www.microsoft.com/store/apps/9ND02K1RC5CZ
+<div>
+  <img align="left" src="/Branding/bluechirp.png" width="96" height="96"/>
+  <h1>
+    Bluechirp
+    <br>
+    A free and open-source client for Mastodon.
+  </h1>
+</div>
 
-## Roadmap
+![Lines of code](https://img.shields.io/tokei/lines/github/aestheticalz/bluechirp?label=Lines%20Of%20Code&style=flat-square)
+![GitHub issues by-label](https://img.shields.io/github/issues/aestheticalz/bluechirp/backend?label=Backend%20Issues&style=flat-square)
+![GitHub issues by-label](https://img.shields.io/github/issues/aestheticalz/bluechirp/ui?label=Frontend%20Issues&style=flat-square)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/aestheticalz/bluechirp?label=Pull%20Requests&style=flat-square)
+![GitHub](https://img.shields.io/github/license/aestheticalz/bluechirp?label=License&style=flat-square)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/aestheticalz/bluechirp/master?label=Commit%20Activity&style=flat-square)
+![GitHub Repo stars](https://img.shields.io/github/stars/aestheticalz/bluechirp?label=Stargazers&style=flat-square)
+![Mastodon Follow](https://img.shields.io/mastodon/follow/109309123442839534?domain=https%3A%2F%2Ftech.lgbt&style=social)
 
-- [X] Start Designing the UI
-- [X] Sending Toots
-- [X] Home
-- [X] Local and Federated Timelines
-- [ ] Background Image Option
-- [ ] Search
-- [ ] Sound Effects
-- [ ] Multiple Accounts Support
-- [ ] Extensions Support
-- [ ] Drafts
-- [ ] Scheduled Toots
-- [ ] Timeline Streaming
+Bluechirp is a free and open-source client for the Mastodon social network.
 
-## Contributions
-Make issues and take them on your own if you want, otherwise, wait for people to gather before taking on the issue together.
-The original design mockup: https://www.figma.com/file/07kyAzJFn5GE4G4CzNtNOizg/Fedi
-Check out the design notes too (in the design folder). It gives key information on what the goals of the app are.
+Powered by UWP and WinUI 2, it guarantees that the user experience will be identical to the one in official "fluent" style apps.
 
-## Releases
-This app will have two different releases:
-1. Microsoft Store release - Really easy to distribute and install.
-2. GitHub Release - Will be available on the "Releases" section on this repo for non-store users.
+## :clock1: Background Story
+This project once started as a custom Twitter client instead, but as you may have imagined, after what happened in October 27th 2022, it has become a Mastodon client.  
+This original idea was further blocked by the fact that by January 2023, all custom clients were banned without previous warning.
 
+I tried to make my own client from scratch, but I didn't know how to structure the codebase cleanly, so I abandoned it.  
+I then found Tooter, an unfinished, also abandoned UWP client for Mastodon that was looking for a new owner.
 
+After a very short conversation on [issue #1](https://github.com/AestheticalZ/Bluechirp/issues/1), I became the owner of Tooter, which I've since rebranded to Bluechirp.
+
+## :sparkles: Major Contributors
+* :floppy_disk: **AestheticalZ** - Lead developer. UI, logo design and code.  
+* :fireworks: **colinkiama** - Original creator of Tooter. Without him, this project wouldn't exist.
+
+## :handshake: Contributing
+Bluechirp is open to pull requests and issue tickets! Read the (:warning: **TODO**: Add contributing guide [#15](https://github.com/AestheticalZ/Bluechirp/issues/15)) contributing guide to get started.  
+Any help is appreciated.
+
+# License
+This project is licensed under the **GNU General Public License version 3.0** which you can read [here](LICENSE.txt).  
+The [Bluechirp logo](Branding/bluechirp.png) is also licensed under said license.
