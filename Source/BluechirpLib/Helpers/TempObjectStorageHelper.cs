@@ -1,0 +1,18 @@
+﻿using Microsoft.Toolkit.Uwp.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.Storage;
+
+namespace BluechirpLib.Helpers
+{
+    class TempObjectStorageHelper: ApplicationDataStorageHelper
+    {
+        
+        public TempObjectStorageHelper(): base(ApplicationData.Current)
+        {
+        }
+    }
+}

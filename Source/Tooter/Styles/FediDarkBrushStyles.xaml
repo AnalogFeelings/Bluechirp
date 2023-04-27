@@ -1,9 +1,0 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Tooter.Styles">
-    <Color x:Key="FediBackgroundColor">#20232B</Color>
-    <Color x:Key="FediChromeColor">#282C37</Color>
-    <Color x:Key="FediFadedColor">#9BAEC8</Color>
-    <Color x:Key="FediMainColor">#282C37</Color>
-</ResourceDictionary>

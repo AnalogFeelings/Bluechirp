@@ -1,0 +1,9 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Bluechirp.Styles">
+    <Color x:Key="FediChromeColor">#E4E4E4</Color>
+    <Color x:Key="FediBackgroundColor">#F4F4F4</Color>
+    <Color x:Key="FediFadedColor">#434343</Color>
+    <Color x:Key="FediMainColor">#FFFFFF</Color>
+</ResourceDictionary>

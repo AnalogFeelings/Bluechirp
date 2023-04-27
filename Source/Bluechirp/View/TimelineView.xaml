@@ -1,0 +1,46 @@
+﻿    <Page
+    x:Class="Bluechirp.View.TimelineView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Bluechirp.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:localcontrols="using:Bluechirp.LocalControls"
+    mc:Ignorable="d"
+    Background="{ThemeResource FediBackgroundColor}">
+    <Page.Resources>
+        <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+    </Page.Resources>
+    <Grid Padding="0" Background="{ThemeResource FediBackgroundColor}" Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource FluentHeaderTextStyle}"
+                   Text="{x:Bind ViewModel.ViewTitle, Mode=OneWay}"
+                   Margin="40,60,40,0"
+                   FontSize="40"/>
+           
+        <ListView Grid.Row="1" ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
+                  ItemsSource="{x:Bind ViewModel.TootTimelineCollection, Mode=OneWay}"
+                  SelectionMode="None"
+                  IsItemClickEnabled="True"
+                  Padding="0,20"
+                  Margin="0,4,0,0"
+                  Name="TootsListView"
+                  ItemClick="TootsListView_ItemClick">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <localcontrols:TootTemplate/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel ItemsUpdatingScrollMode="KeepItemsInView"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+    </Grid>
+</Page>
+    
