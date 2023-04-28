@@ -10,59 +10,58 @@ using BluechirpTests.Generators;
 
 namespace BluechirpTests
 {
-//    [TestClass]
-//    public class ClientTests
-//    { 
-//        [TestMethod]
-//        public async Task TestProfileLoad()
-//        {
-//            string testUserID = "testID";
-//            Auth token;
-//            AppRegistration registration;
+    [TestClass]
+    public class ClientTests
+    {
+        [TestMethod]
+        public async Task TestProfileLoad()
+        {
+            string testUserID = "testID";
+            Auth token;
+            AppRegistration registration;
 
-//            (token, registration) = ClientData.CreateFakeClientAuthObjects();
+            (token, registration) = ClientData.CreateFakeClientAuthObjects();
 
-//            string testClientProfileID = registration.Instance + testUserID;
+            string testClientProfileID = registration.Instance + testUserID;
 
-//            await ClientDataHelper.StoreClientData(testClientProfileID, token, registration);
+            await ClientDataHelper.StoreClientData(testClientProfileID, token, registration);
 
-//            // Delay to remove lock on files
-//            await Task.Delay(1000);
+            // Delay to remove lock on files
+            await Task.Delay(1000);
 
-//            ClientHelper.LoadProfile(testClientProfileID);
-//            Assert.IsTrue(ClientHelper.Client.AppRegistration.ClientId == registration.ClientId);
-//            Assert.IsTrue(ClientHelper.Client.AuthToken.AccessToken == token.AccessToken);
-//            Assert.IsTrue(ClientHelper.LoadedProfile == testClientProfileID);
-//        }
+            ClientHelper.LoadProfile(testClientProfileID);
+            Assert.IsTrue(ClientHelper.Client.AccessToken == token.AccessToken);
+            Assert.IsTrue(ClientHelper.LoadedProfile == testClientProfileID);
+        }
 
-//        [TestMethod]
-//        public async Task TestLastUsedProfileLoad()
-//        {
-            
-//            string testUserID = "testID";
-//            Auth token;
-//            AppRegistration registration;
+        [TestMethod]
+        public async Task TestLastUsedProfileLoad()
+        {
 
-//            (token, registration) = ClientData.CreateFakeClientAuthObjects();
+            string testUserID = "testID";
+            Auth token;
+            AppRegistration registration;
 
-//            string testClientProfileID = registration.Instance + testUserID;
+            (token, registration) = ClientData.CreateFakeClientAuthObjects();
 
-//            await ClientDataHelper.StoreClientData(testClientProfileID, token, registration);
+            string testClientProfileID = registration.Instance + testUserID;
 
-//            ClientDataHelper.SetLastUsedProfile(testClientProfileID);
+            await ClientDataHelper.StoreClientData(testClientProfileID, token, registration);
 
-//            // Delay to remove lock on files
-//            await Task.Delay(1000);
+            ClientDataHelper.SetLastUsedProfile(testClientProfileID);
 
-//            Assert.IsTrue(ClientHelper.LoadLastUsedProfile());
-//        }
+            // Delay to remove lock on files
+            await Task.Delay(1000);
 
-//        [TestMethod]
-//        public void TestSetLastUsedProfile()
-//        {
-//            string profileToSet = "test";
-//            ClientHelper.SetLoadedProfile(profileToSet);
-//            Assert.AreEqual(profileToSet, ClientHelper.LoadedProfile);
-//        }
-//    }
+            Assert.IsTrue(ClientHelper.LoadLastUsedProfile());
+        }
+
+        [TestMethod]
+        public void TestSetLastUsedProfile()
+        {
+            string profileToSet = "test";
+            ClientHelper.SetLoadedProfile(profileToSet);
+            Assert.AreEqual(profileToSet, ClientHelper.LoadedProfile);
+        }
+    }
 }
