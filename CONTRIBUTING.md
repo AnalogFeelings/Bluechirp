@@ -10,6 +10,26 @@ Communication is key!
 
 Also remember to read the [code of conduct](CODE_OF_CONDUCT.md)!
 
+## :incoming_envelope: Commit Messages
+Follow this format! It makes commit messages much nicer.
+
+> [PROJECT -> MODULE] COMMIT_MESSAGE
+
+Here's a list of what you should replace PROJECT with:
+- :iphone: Bluechirp.csproj - **App**
+- :link: Bluechirp.Library.csproj - **Library**
+- :white_check_mark: Bluechirp.Tests.csproj - **Tests**
+- :mag: MastoParserLib.csproj - **Parser**
+- :card_index_dividers: Repository - **GitHub**
+
+MODULE should be the folder the modified files are in, like "Core" or "Model".  
+For GitHub though, here is the list:
+- :robot: Bots - **Bots**
+- :arrow_forward: Actions - **Actions**
+- :question: Other - **General**
+
+If you are committing for the Tests/Parser project, you do not need to include the MODULE part.
+
 ## :bar_chart: Indentation Style
 The indentation style must be [Allman](https://en.wikipedia.org/wiki/Indentation_style#Allman_style).
 
