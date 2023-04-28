@@ -56,7 +56,7 @@ jobs:
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
       
     - name: Build Tests
-      run: msbuild ${{ env.SolutionPath }} /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }} /p:PackageCertificateKeyFile=${{ env.CertificateFile }} /p:PackageCertificatePassword=$${ secrets.CERTIFICATE_KEY }}
+      run: msbuild ${{ env.SolutionPath }} /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }} /p:PackageCertificateKeyFile=${{ env.CertificateFile }} /p:PackageCertificatePassword=${{ secrets.CERTIFICATE_KEY }}
 
     # Execute all unit tests in the solution
     - name: Execute Unit Tests
