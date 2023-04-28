@@ -1,0 +1,39 @@
+name: UWP Unit Tests
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+    - '**.cs'
+    - '**.csproj'
+  pull_request:
+    branches: [ "master" ]
+    paths:
+    - '**.cs'
+    - '**.csproj'
+
+jobs:
+  build-and-test:
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: Bluechirp.sln
+      Test_Project_Path: Source\Bluechirp.Tests\Bluechirp.Tests.csproj
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    # Execute all unit tests in the solution
+    - name: Execute unit tests
+      run: dotnet test
