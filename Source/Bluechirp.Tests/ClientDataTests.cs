@@ -1,15 +1,13 @@
-﻿using Mastonet.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Bluechirp.Library.Enums;
 using Bluechirp.Library.Helpers;
 using Bluechirp.Library.Model;
-using Windows.Storage;
 using Bluechirp.Tests.Generators;
+using Mastonet.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bluechirp.Tests
 {
@@ -19,14 +17,13 @@ namespace Bluechirp.Tests
         [TestMethod]
         public async Task TestCacheFileIO()
         {
-            var timelineType = TimelineType.Home;
-            var fakeTimelineCache = TimelineData.GenerateTimelineCache(timelineType);
+            TimelineType timelineType = TimelineType.Home;
+            TimelineCache fakeTimelineCache = TimelineData.GenerateTimelineCache(timelineType);
 
             try
             {
                 await ClientDataHelper.StoreTimelineCacheAsync(fakeTimelineCache);
             }
-
             catch (Exception ex)
             {
                 Assert.Fail(ex.Message);
@@ -36,28 +33,23 @@ namespace Bluechirp.Tests
             // to allow load
             await Task.Delay(2000);
 
-            var loadResult = await ClientDataHelper.LoadTimelineFromFileAsync(timelineType);
+            (bool wasTimelineLoaded, TimelineCache cacheToReturn) loadResult = await ClientDataHelper.LoadTimelineFromFileAsync(timelineType);
             if (loadResult.wasTimelineLoaded)
-            {
-                Assert.IsTrue(fakeTimelineCache.Toots[0].Content == loadResult.cacheToReturn.Toots[0].Content);
-            }
+                Assert.AreEqual(fakeTimelineCache.Toots[0].Content, loadResult.cacheToReturn.Toots[0].Content);
             else
-            {
-                Assert.Fail("Cache was not loaded");
-            }
+                Assert.Fail("Cache was not loaded correctly.");
         }
 
         [TestMethod]
         public async Task TestCacheDeletion()
         {
-            var timelineType = TimelineType.Home;
-            var fakeTimelineCache = TimelineData.GenerateTimelineCache(timelineType);
+            TimelineType timelineType = TimelineType.Home;
+            TimelineCache fakeTimelineCache = TimelineData.GenerateTimelineCache(timelineType);
 
             try
             {
                 await ClientDataHelper.StoreTimelineCacheAsync(fakeTimelineCache);
             }
-
             catch (Exception ex)
             {
                 Assert.Fail(ex.Message);
@@ -79,9 +71,8 @@ namespace Bluechirp.Tests
 
             // Need to manually check if there are any cache files left
             // to prove that cache has actually been cleared
-            var cacheFolderContents = await ApplicationData.Current.TemporaryFolder.GetFilesAsync();
+            IReadOnlyList<StorageFile> cacheFolderContents = await ApplicationData.Current.TemporaryFolder.GetFilesAsync();
             Assert.IsFalse(cacheFolderContents.Count > 0);
-
         }
 
         [TestMethod]
@@ -100,50 +91,49 @@ namespace Bluechirp.Tests
         [TestMethod]
         public async Task TestClientDataStorage()
         {
-            string testUserID = "testID";
+            string testUserId = "testID";
             Auth token;
             AppRegistration registration;
 
             (token, registration) = ClientData.CreateFakeClientAuthObjects();
 
-            string testClientProfileID = registration.Instance + testUserID;
+            string testClientProfileId = registration.Instance + testUserId;
 
-            await ClientDataHelper.StoreClientData(testClientProfileID, token, registration);
+            await ClientDataHelper.StoreClientData(testClientProfileId, token, registration);
 
             // Delay to remove lock on files
             await Task.Delay(1000);
 
             Auth loadedToken;
             AppRegistration loadedRegistration;
-            (loadedRegistration, loadedToken) = ClientDataHelper.LoadClientProfile(testClientProfileID);
+            (loadedRegistration, loadedToken) = ClientDataHelper.LoadClientProfile(testClientProfileId);
 
-            Assert.AreEqual(loadedToken.AccessToken, token.AccessToken);
-            Assert.AreEqual(loadedRegistration.ClientId, registration.ClientId);
-
+            Assert.AreEqual(token.AccessToken, loadedToken.AccessToken);
+            Assert.AreEqual(registration.ClientId, loadedRegistration.ClientId);
         }
 
         [TestMethod]
         public async Task TestClientDataDeletion()
         {
-            string testUserID = "testID";
+            string testUserId = "testID";
             Auth token;
             AppRegistration registration;
 
             (token, registration) = ClientData.CreateFakeClientAuthObjects();
 
-            string testClientProfileID = registration.Instance + testUserID;
+            string testClientProfileId = registration.Instance + testUserId;
 
-            await ClientDataHelper.StoreClientData(testClientProfileID, token, registration);
+            await ClientDataHelper.StoreClientData(testClientProfileId, token, registration);
 
             // Delay to remove lock on files
             await Task.Delay(1000);
 
-            await ClientDataHelper.RemoveClientProfileAsync(testClientProfileID);
+            await ClientDataHelper.RemoveClientProfileAsync(testClientProfileId);
 
             // Need to check if local settings container has really been deleted
+            IReadOnlyDictionary<string, ApplicationDataContainer> localContainers = ApplicationData.Current.LocalSettings.Containers;
 
-            var localContainers = ApplicationData.Current.LocalSettings.Containers;
-            Assert.IsFalse(localContainers.ContainsKey(testClientProfileID));
+            Assert.IsFalse(localContainers.ContainsKey(testClientProfileId));
         }
     }
 }
