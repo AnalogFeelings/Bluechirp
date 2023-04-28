@@ -30,7 +30,7 @@ jobs:
       TestsProjectNameEscaped: Bluechirp_Tests # It seems MSBuild doesn't like dots in names, replace with a _
       TestProjectPath: Source\Bluechirp.Tests\
       TestExecutablePath: Source\Bluechirp.Tests\bin\x64\Release\
-      TestExecutableName: Bluechirp.Tests.appxbundle
+      TestExecutableName: Bluechirp.Tests.build.appxrecipe
 
     steps:
     - name: Checkout
@@ -56,7 +56,7 @@ jobs:
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
       
     - name: Build Tests
-      run: msbuild ${{ env.SolutionPath }} /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /p:AppxBundle=Always /p:AppxBundlePlatforms="${{ env.TargetPlatform }}" /target:${{ env.TestsProjectNameEscaped }} /p:PackageCertificateKeyFile=${{ env.CertificateFile }} /p:PackageCertificatePassword=${{ secrets.CERTIFICATE_KEY }}
+      run: msbuild ${{ env.SolutionPath }} /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }} /p:PackageCertificateKeyFile=${{ env.CertificateFile }} /p:PackageCertificatePassword=${{ secrets.CERTIFICATE_KEY }}
 
     # Execute all unit tests in the solution
     - name: Execute Unit Tests
@@ -64,3 +64,4 @@ jobs:
       with:
           testAssembly: ${{ env.TestExecutableName }}
           searchFolder: ${{ env.TestExecutablePath }}
+          otherConsoleOptions: /Framework:frameworkUAP10 /Platform:${{ env.TargetPlatform }}
