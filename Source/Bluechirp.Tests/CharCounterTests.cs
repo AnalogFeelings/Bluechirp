@@ -1,10 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bluechirp.Library.Helpers;
+﻿using Bluechirp.Library.Helpers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bluechirp.Tests
 {
@@ -19,13 +14,11 @@ namespace Bluechirp.Tests
 
             for (int i = 0; i < wordsToTest.Length; i++)
             {
-
                 int charCount = CharCounterHelper.CountCharactersWithLimit(wordsToTest[i], 0).charactersFound;
-                Assert.AreEqual(charCount, correctCharCounts[i]);
+
+                Assert.AreEqual(correctCharCounts[i], charCount);
             }
-
         }
-
 
         [TestMethod]
         public void TestCharCounterForLimitReached()
@@ -37,7 +30,8 @@ namespace Bluechirp.Tests
             for (int i = 0; i < wordsToTest.Length; i++)
             {
                 bool hasCharLimitExceeded = CharCounterHelper.CountCharactersWithLimit(wordsToTest[i], charLimits[i]).characterLimitExceeded;
-                Assert.IsTrue(hasCharLimitExceeded == correctCharCounts[i] > charLimits[i]);
+
+                Assert.IsTrue(hasCharLimitExceeded && correctCharCounts[i] > charLimits[i]);
             }
         }
     }
