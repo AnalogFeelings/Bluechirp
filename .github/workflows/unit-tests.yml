@@ -38,7 +38,7 @@ jobs:
 
     # Execute all unit tests in the solution
     - name: Execute Unit Tests
-      uses: microsoft-approved-actions/vstest@master
+      uses: microsoft/vstest-action@v1.0.0
       with:
           testAssembly: $env.TestExecutableName
           searchFolder: $env.TestExecutablePath
