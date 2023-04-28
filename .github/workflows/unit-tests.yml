@@ -26,7 +26,7 @@ jobs:
       SolutionPath: Bluechirp.sln
       TargetPlatform: x64
       TargetConfig: Release
-      TestsProjectName: Bluechirp_Tests # It seems MSBuild doesn't like dots in names, replace with a _
+      TestsProjectNameEscaped: Bluechirp_Tests # It seems MSBuild doesn't like dots in names, replace with a _
       TestExecutablePath: Source\Bluechirp.Tests\bin\x64\Release\
       TestExecutableName: Bluechirp.Tests.exe
 
@@ -40,8 +40,14 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
       
+    - name: Setup Nuget
+      uses: Nuget/setup-nuget@v1.2.0
+      
+    - name: Restore Nuget Packages
+      run: nuget restore ${{ env.SolutionPath }}
+      
     - name: Build Tests
-      run: msbuild ${{ env.SolutionPath }} /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectName }}
+      run: msbuild ${{ env.SolutionPath }} /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }}
 
     # Execute all unit tests in the solution
     - name: Execute Unit Tests
