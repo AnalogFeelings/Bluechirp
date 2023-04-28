@@ -1,45 +1,64 @@
-﻿using Mastonet.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Bluechirp.Library.Enums;
 using Bluechirp.Library.Helpers;
 using Bluechirp.Library.Model;
-using Bluechirp.Library.Services;
-using Windows.Storage;
 using Bluechirp.View;
+using Mastonet.Entities;
 
 namespace Bluechirp.Services
 {
-    public class CacheService
+    /// <summary>
+    /// Class that handles caching of objects.
+    /// </summary>
+    public static class CacheService
     {
-        static TimelineView currentTimeline;
+        private static TimelineView _CurrentTimeline;
         internal static string KeyboardShortuctsContent = "";
 
-        internal async static Task CacheTimeline(MastodonList<Status> timeline, Status currentStatusMarker, TimelineSettings timelineSettings)
+        /// <summary>
+        /// Stores a timeline inside the app cache.
+        /// </summary>
+        /// <param name="Timeline">The timeline to store.</param>
+        /// <param name="CurrentStatusMarker">I have to figure out what this does.</param>
+        /// <param name="TimelineSettings">The timeline settings.</param>
+        /// <returns>An awaitable task.</returns>
+        internal static async Task CacheTimeline(MastodonList<Status> Timeline, Status CurrentStatusMarker, TimelineSettings TimelineSettings)
         {
-            TimelineCache cachedTimeline = new TimelineCache(timeline, currentStatusMarker, timelineSettings);
+            TimelineCache cachedTimeline = new TimelineCache(Timeline, CurrentStatusMarker, TimelineSettings);
+
             await ClientDataHelper.StoreTimelineCacheAsync(cachedTimeline);
         }
 
-        internal static void SwapCurrentTimeline(TimelineView newTimeline)
+        /// <summary>
+        /// Swaps the current timeline with a new one.
+        /// </summary>
+        /// <param name="NewTimeline">The new timeline.</param>
+        internal static void SwapCurrentTimeline(TimelineView NewTimeline)
         {
-            currentTimeline = newTimeline;
+            _CurrentTimeline = NewTimeline;
         }
 
-        internal async static Task CacheCurrentTimeline()
+        /// <summary>
+        /// Stores the current timeline in the app cache.
+        /// </summary>
+        /// <returns>An awaitable task.</returns>
+        internal static async Task CacheCurrentTimeline()
         {
-            if (currentTimeline != null)
-            {
-                await currentTimeline.TryCacheTimeline();
-            }
+            if (_CurrentTimeline != null) 
+                await _CurrentTimeline.TryCacheTimeline();
         }
 
-        internal async static Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineCache(TimelineType timelineType)
+        /// <summary>
+        /// Loads a timeline from the app cache.
+        /// </summary>
+        /// <param name="TimelineType">The timeline type to load.</param>
+        /// <returns>The loaded timeline, and a bool indicating if the load was successful.</returns>
+        internal static async Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineCache(TimelineType TimelineType)
         {
-            var cacheLoadResult = await ClientDataHelper.LoadTimelineFromFileAsync(timelineType);
+            // TODO: Replace these with null checks.
+            (bool wasTimelineLoaded, TimelineCache cacheToReturn) cacheLoadResult = await ClientDataHelper.LoadTimelineFromFileAsync(TimelineType);
             bool wasTimelineLoaded = cacheLoadResult.wasTimelineLoaded;
             TimelineCache cacheToReturn = cacheLoadResult.cacheToReturn;
 
@@ -52,12 +71,15 @@ namespace Bluechirp.Services
             return (wasTimelineLoaded, cacheToReturn);
         }
 
-        internal async static Task LoadKeyboardShortcutsContent()
+        /// <summary>
+        /// Loads the keyboard shortcuts list from the app storage.
+        /// </summary>
+        /// <returns>An awaitable task.</returns>
+        internal static async Task LoadKeyboardShortcutsContent()
         {
-            var shortcutsFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/FediShortcuts.txt"));
+            StorageFile shortcutsFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/FediShortcuts.txt"));
+
             KeyboardShortuctsContent = await FileIO.ReadTextAsync(shortcutsFile);
         }
-
-        
     }
 }
