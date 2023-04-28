@@ -64,3 +64,4 @@ jobs:
       with:
           testAssembly: ${{ env.TestExecutableName }}
           searchFolder: ${{ env.TestExecutablePath }}
+          otherConsoleOptions: /Framework:frameworkUAP10
