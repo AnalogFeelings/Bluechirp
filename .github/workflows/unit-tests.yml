@@ -38,4 +38,4 @@ jobs:
     # Execute all unit tests in the solution
     - name: Execute Unit Tests
       shell: powershell
-      run: '& "$(vswhere -property installationPath)\Common7\IDE\MSTest.exe" /testcontainer:$env.TestExecutablePath /resultsfile:TestResults.trx'
+      run: '& "$(vswhere -property installationPath)\Common7\IDE\MSTest.exe" /testcontainer:{{$env.TestExecutablePath}} /resultsfile:TestResults.trx'
