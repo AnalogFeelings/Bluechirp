@@ -23,7 +23,8 @@ jobs:
     runs-on: windows-latest
 
     env:
-      TestExecutablePath: Source\Bluechirp.Tests\bin\x64\Release\Bluechirp.Tests.exe
+      TestExecutablePath: Source\Bluechirp.Tests\bin\x64\Release\
+      TestExecutableName: Bluechirp.Tests.exe
 
     steps:
     - name: Checkout
@@ -37,5 +38,7 @@ jobs:
 
     # Execute all unit tests in the solution
     - name: Execute Unit Tests
-      shell: powershell
-      run: '& "$(vswhere -property installationPath)\Common7\IDE\vstest.console.exe" /testcontainer:{{$env.TestExecutablePath}} /resultsfile:TestResults.trx'
+      uses: microsoft-approved-actions/vstest@master
+      with:
+          testAssembly: $env.TestExecutableName
+          searchFolder: $env.TestExecutablePath
