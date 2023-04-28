@@ -134,7 +134,7 @@
     <Compile Include="Converters\InvertBooleanConverter.cs" />
     <Compile Include="Converters\RoundedShapeRadiusConverter.cs" />
     <Compile Include="Converters\TootDataTemplateSelector.cs" />
-    <Compile Include="Core\APIConstants.cs" />
+    <Compile Include="Core\ApiConstants.cs" />
     <Compile Include="Dialogs\KeyboardShortcutsDialog.xaml.cs">
       <DependentUpon>KeyboardShortcutsDialog.xaml</DependentUpon>
     </Compile>
@@ -361,10 +361,7 @@
       <Version>2.8.3</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Branding\Debug\" />
-    <Folder Include="Branding\Release\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\MastoParserLib\MastoParserLib.csproj">
       <Project>{299b7f74-67b5-4656-93fb-1709edaa4879}</Project>

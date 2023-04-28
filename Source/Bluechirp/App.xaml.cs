@@ -169,7 +169,7 @@ namespace Bluechirp
             var appView = ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(400, 500));
             ExtendAcrylicIntoTitleBar();
-            APIConstants.SetAPIConstants();
+            ApiConstants.SetApiConstants();
             GlobalKeyboardShortcutService.Initialize();
             try
             {

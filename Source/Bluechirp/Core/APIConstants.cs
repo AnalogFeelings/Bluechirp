@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bluechirp.Library.Core;
 
 namespace Bluechirp.Core
 {
-    public class APIConstants
+    /// <summary>
+    /// Class that contains API constants to be used by the library.
+    /// </summary>
+    public static class ApiConstants
     {
-        public const string RedirectUri = "aestheticalz-bluechirp://mycallback";
-        public const string AppName = "Bluechirp";
-        public const string AppWebsite = "https://github.com/AestheticalZ/Bluechirp";
+        private const string _APP_NAME = "Bluechirp";
+        private const string _APP_WEBSITE = "https://github.com/AestheticalZ/Bluechirp";
+        private const string _REDIRECT_URI = "aestheticalz-bluechirp://mycallback";
 
-        internal static void SetAPIConstants()
+        /// <summary>
+        /// Gives the library all the required constants to function.
+        /// </summary>
+        internal static void SetApiConstants()
         {
-            Library.Core.APIConstants.SetConstants(AppName, AppWebsite, RedirectUri);
+            APIConstants.SetConstants(_APP_NAME, _APP_WEBSITE, _REDIRECT_URI);
         }
     }
 }
