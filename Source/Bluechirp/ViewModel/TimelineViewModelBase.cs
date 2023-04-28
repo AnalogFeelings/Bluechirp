@@ -8,15 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bluechirp.Services;
-using BluechirpLib.Commands;
-using BluechirpLib.Enums;
-using BluechirpLib.Helpers;
-using BluechirpLib.Model;
-using BluechirpLib.Services;
+using Bluechirp.Library.Commands;
+using Bluechirp.Library.Enums;
+using Bluechirp.Library.Helpers;
+using Bluechirp.Library.Model;
+using Bluechirp.Library.Services;
 
 namespace Bluechirp.ViewModel
 {
-    public abstract class TimelineViewModelBase : BluechirpLib.Model.Notifier
+    public abstract class TimelineViewModelBase : Library.Model.Notifier
     {
         protected string previousPageSinceId;
         protected string previousPageMinId;

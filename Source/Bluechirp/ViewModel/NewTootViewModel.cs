@@ -2,8 +2,8 @@
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
-using BluechirpLib.Commands;
-using BluechirpLib.Helpers;
+using Bluechirp.Library.Commands;
+using Bluechirp.Library.Helpers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

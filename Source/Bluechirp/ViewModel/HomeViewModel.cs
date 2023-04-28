@@ -6,11 +6,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BluechirpLib.Enums;
-using BluechirpLib.Helpers;
-using BluechirpLib.Model;
+using Bluechirp.Library.Enums;
+using Bluechirp.Library.Helpers;
+using Bluechirp.Library.Model;
 using Bluechirp.Services;
-using BluechirpLib.Services;
+using Bluechirp.Library.Services;
 
 namespace Bluechirp.ViewModel
 {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bluechirp.Model;
-using BluechirpLib.Helpers;
+using Bluechirp.Library.Helpers;
 
 namespace Bluechirp.ViewModel
 {

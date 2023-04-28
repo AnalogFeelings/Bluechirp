@@ -14,7 +14,7 @@ namespace Bluechirp.Core
 
         internal static void SetAPIConstants()
         {
-            BluechirpLib.Core.APIConstants.SetConstants(AppName, AppWebsite, RedirectUri);
+            Library.Core.APIConstants.SetConstants(AppName, AppWebsite, RedirectUri);
         }
     }
 }

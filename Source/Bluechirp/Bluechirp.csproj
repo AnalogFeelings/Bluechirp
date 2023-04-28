@@ -370,7 +370,7 @@
       <Project>{299b7f74-67b5-4656-93fb-1709edaa4879}</Project>
       <Name>MastoParserLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BluechirpLib\BluechirpLib.csproj">
+    <ProjectReference Include="..\Bluechirp.Library\Bluechirp.Library.csproj">
       <Project>{9ebe32cd-5a5c-43f2-8d15-3e2e4cc7cf54}</Project>
       <Name>TooterLib</Name>
     </ProjectReference>

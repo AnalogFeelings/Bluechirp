@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using BluechirpLib.Helpers;
+using Bluechirp.Library.Helpers;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;

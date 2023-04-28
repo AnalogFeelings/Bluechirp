@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bluechirp.View;
-using BluechirpLib.Commands;
-using BluechirpLib.Helpers;
-using BluechirpLib.Model;
-using BluechirpLib.Services;
+using Bluechirp.Library.Commands;
+using Bluechirp.Library.Helpers;
+using Bluechirp.Library.Model;
+using Bluechirp.Library.Services;
 
 namespace Bluechirp.ViewModel
 {
