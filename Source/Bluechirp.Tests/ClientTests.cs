@@ -1,12 +1,8 @@
-﻿using Mastonet.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Bluechirp.Library.Helpers;
 using Bluechirp.Tests.Generators;
+using Mastonet.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bluechirp.Tests
 {
@@ -16,39 +12,38 @@ namespace Bluechirp.Tests
         [TestMethod]
         public async Task TestProfileLoad()
         {
-            string testUserID = "testID";
+            string testUserId = "testID";
             Auth token;
             AppRegistration registration;
 
             (token, registration) = ClientData.CreateFakeClientAuthObjects();
 
-            string testClientProfileID = registration.Instance + testUserID;
+            string testClientProfileId = registration.Instance + testUserId;
 
-            await ClientDataHelper.StoreClientData(testClientProfileID, token, registration);
+            await ClientDataHelper.StoreClientData(testClientProfileId, token, registration);
 
             // Delay to remove lock on files
             await Task.Delay(1000);
 
-            ClientHelper.LoadProfile(testClientProfileID);
-            Assert.IsTrue(ClientHelper.Client.AccessToken == token.AccessToken);
-            Assert.IsTrue(ClientHelper.LoadedProfile == testClientProfileID);
+            ClientHelper.LoadProfile(testClientProfileId);
+            Assert.AreEqual(token.AccessToken, ClientHelper.Client.AccessToken);
+            Assert.AreEqual(testClientProfileId, ClientHelper.LoadedProfile);
         }
 
         [TestMethod]
         public async Task TestLastUsedProfileLoad()
         {
-
-            string testUserID = "testID";
+            string testUserId = "testID";
             Auth token;
             AppRegistration registration;
 
             (token, registration) = ClientData.CreateFakeClientAuthObjects();
 
-            string testClientProfileID = registration.Instance + testUserID;
+            string testClientProfileId = registration.Instance + testUserId;
 
-            await ClientDataHelper.StoreClientData(testClientProfileID, token, registration);
+            await ClientDataHelper.StoreClientData(testClientProfileId, token, registration);
 
-            ClientDataHelper.SetLastUsedProfile(testClientProfileID);
+            ClientDataHelper.SetLastUsedProfile(testClientProfileId);
 
             // Delay to remove lock on files
             await Task.Delay(1000);
@@ -60,6 +55,7 @@ namespace Bluechirp.Tests
         public void TestSetLastUsedProfile()
         {
             string profileToSet = "test";
+
             ClientHelper.SetLoadedProfile(profileToSet);
             Assert.AreEqual(profileToSet, ClientHelper.LoadedProfile);
         }
