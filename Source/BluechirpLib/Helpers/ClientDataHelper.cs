@@ -187,27 +187,27 @@ namespace BluechirpLib.Helpers
             Auth token = new Auth();
             AppRegistration appRegistration = new AppRegistration();
 
-            // values to load from local storage
-            token.AccessToken = _localStorageHelper.Read<string>(clientProfileID, AccessTokenString, default(string));
-            token.CreatedAt = _localStorageHelper.Read(clientProfileID, CreatedAtString, default(string));
-            token.Scope = _localStorageHelper.Read(clientProfileID, ScopeString, default(string));
-            token.TokenType = _localStorageHelper.Read(clientProfileID, TokenTypeString, default(string));
+            // Due to an annoying oversight in the ApplicationDataStorageHelper class, I have to work around this here.
+            token.AccessToken = (_localStorageHelper.Settings.Values[clientProfileID] as ApplicationDataCompositeValue)[AccessTokenString] as string;
+            token.CreatedAt = (_localStorageHelper.Settings.Values[clientProfileID] as ApplicationDataCompositeValue)[CreatedAtString] as string;
+            token.Scope = (_localStorageHelper.Settings.Values[clientProfileID] as ApplicationDataCompositeValue)[ScopeString] as string;
+            token.TokenType = (_localStorageHelper.Settings.Values[clientProfileID] as ApplicationDataCompositeValue)[TokenTypeString] as string;
 
-            appRegistration.Id = _localStorageHelper.Read<long>(clientProfileID, AppIDString, default(long));
-            appRegistration.Instance = _localStorageHelper.Read(clientProfileID, InstanceString, default(string));
+            appRegistration.Id = long.Parse((_localStorageHelper.Settings.Values[clientProfileID] as ApplicationDataCompositeValue)[AppIDString] as string);
+            appRegistration.Instance = (_localStorageHelper.Settings.Values[clientProfileID] as ApplicationDataCompositeValue)[InstanceString] as string;
 
-            appRegistration.ClientId = _localStorageHelper.Read(clientProfileID, ClientIDString, default(string));
-            appRegistration.ClientSecret = _localStorageHelper.Read(clientProfileID, ClientSecretString, default(string));
+            appRegistration.ClientId = (_localStorageHelper.Settings.Values[clientProfileID] as ApplicationDataCompositeValue)[ClientIDString] as string;
+            appRegistration.ClientSecret = (_localStorageHelper.Settings.Values[clientProfileID] as ApplicationDataCompositeValue)[ClientSecretString] as string;
 
 
-            int appScopeInt = _localStorageHelper.Read<int>(clientProfileID, AppScopeString, default(int));
+            int appScopeInt = int.Parse((_localStorageHelper.Settings.Values[clientProfileID] as ApplicationDataCompositeValue)[AppScopeString] as string);
             appRegistration.Scope = (Mastonet.Scope)appScopeInt;
 
             // Values to load from constants.
             appRegistration.RedirectUri = APIConstants.RedirectUri;
 
-
             SetLastUsedProfile(clientProfileID);
+
             return (appRegistration, token);
         }
 
