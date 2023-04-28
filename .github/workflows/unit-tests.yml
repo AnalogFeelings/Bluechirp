@@ -1,4 +1,4 @@
-name: UWP Unit Tests
+name: UWP MSTest
 
 on:
   push:
@@ -14,16 +14,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-test:
+  run-unit-tests:
     strategy:
       matrix:
         configuration: [Release]
+        targetplatform: [x64]
 
     runs-on: windows-latest
 
     env:
-      Solution_Name: Bluechirp.sln
-      Test_Project_Path: Source\Bluechirp.Tests\Bluechirp.Tests.csproj
+      TestExecutablePath: Source\Bluechirp.Tests\bin\x64\Release\Bluechirp.Tests.exe
 
     steps:
     - name: Checkout
@@ -36,5 +36,6 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     # Execute all unit tests in the solution
-    - name: Execute unit tests
-      run: dotnet test
+    - name: Execute Unit Tests
+      shell: powershell
+      run: '& "$(vswhere -property installationPath)\Common7\IDE\MSTest.exe" /testcontainer:$env.TestExecutablePath /resultsfile:TestResults.trx'
