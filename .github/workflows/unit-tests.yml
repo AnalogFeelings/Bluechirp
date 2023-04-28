@@ -40,11 +40,11 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
       
     - name: Build Tests
-      run: msbuild $env.SolutionPath /p:Platform=$env.TargetPlatform /target:$env.TestsProjectName
+      run: msbuild ${{ env.SolutionPath }} /p:Platform=${{ env.TargetPlatform }} /target:${{ env.TestsProjectName }}
 
     # Execute all unit tests in the solution
     - name: Execute Unit Tests
       uses: microsoft/vstest-action@v1.0.0
       with:
-          testAssembly: $env.TestExecutableName
-          searchFolder: $env.TestExecutablePath
+          testAssembly: ${{ env.TestExecutableName }}
+          searchFolder: ${{ env.TestExecutablePath }}
