@@ -1,13 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bluechirp.Library.Enums;
+﻿using Bluechirp.Library.Enums;
 using Bluechirp.Library.Model;
 using Bluechirp.Library.Services;
 using Bluechirp.Tests.Generators;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bluechirp.Tests
 {
@@ -17,13 +12,15 @@ namespace Bluechirp.Tests
         [TestMethod]
         public void CacheTest()
         {
-            const string generatedContent = "hii";
+            string generatedContent = "hii";
             TimelineCache cacheToStore = TimelineData.GenerateTimelineCache(TimelineType.Home);
+
             RuntimeCacheService.StoreCache(cacheToStore, cacheToStore.CurrentTimelineSettings.CurrentTimelineType);
-            var retreivedTimelineResult = RuntimeCacheService.RetreiveCache(TimelineType.Home);
+
+            (bool isCacheAvailable, TimelineCache cache) retreivedTimelineResult = RuntimeCacheService.RetreiveCache(TimelineType.Home);
 
             Assert.IsTrue(retreivedTimelineResult.isCacheAvailable);
-            Assert.IsTrue(retreivedTimelineResult.cache.Toots[0].Content == generatedContent); 
+            Assert.AreEqual(generatedContent, retreivedTimelineResult.cache.Toots[0].Content);
         }
 
         [TestMethod]
@@ -34,7 +31,8 @@ namespace Bluechirp.Tests
 
             RuntimeCacheService.ClearCache(TimelineType.Home);
 
-            var retreivedTimelineResult = RuntimeCacheService.RetreiveCache(TimelineType.Home);
+            (bool isCacheAvailable, TimelineCache cache) retreivedTimelineResult = RuntimeCacheService.RetreiveCache(TimelineType.Home);
+
             Assert.IsFalse(retreivedTimelineResult.isCacheAvailable);
         }
     }
