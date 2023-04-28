@@ -23,10 +23,12 @@ jobs:
     runs-on: windows-latest
 
     env:
-      SolutionPath: Bluechirp.sln
       TargetPlatform: x64
       TargetConfig: Release
+      CertificateFile: Bluechirp_Certificate.pfx
+      SolutionPath: Bluechirp.sln
       TestsProjectNameEscaped: Bluechirp_Tests # It seems MSBuild doesn't like dots in names, replace with a _
+      TestProjectPath: Source\Bluechirp.Tests\
       TestExecutablePath: Source\Bluechirp.Tests\bin\x64\Release\
       TestExecutableName: Bluechirp.Tests.exe
 
@@ -46,8 +48,15 @@ jobs:
     - name: Restore Nuget Packages
       run: nuget restore ${{ env.SolutionPath }}
       
+    - name: Decode the Pfx
+      run: |
+        $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.ENCODED_PFX_CERTIFICATE }}")
+        $currentDirectory = Get-Location
+        $certificatePath = Join-Path -Path $currentDirectory -ChildPath $env:TestProjectPath -AdditionalChildPath $env:CertificateFile
+        [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
+      
     - name: Build Tests
-      run: msbuild ${{ env.SolutionPath }} /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }}
+      run: msbuild ${{ env.SolutionPath }} /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }} /p:PackageCertificateKeyFile=${{ env.CertificateFile }} /p:PackageCertificatePassword=$${ secrets.CERTIFICATE_KEY }}
 
     # Execute all unit tests in the solution
     - name: Execute Unit Tests
