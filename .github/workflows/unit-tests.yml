@@ -1,3 +1,5 @@
+# This does not currently work.
+
 name: UWP MSTest
 
 on:
