@@ -25,7 +25,7 @@ jobs:
     env:
       SolutionPath: Bluechirp.sln
       TargetPlatform: x64
-      TestsProjectName: Bluechirp.Tests.csproj
+      TestsProjectName: Bluechirp_Tests # It seems MSBuild doesn't like dots in names, replace with a _
       TestExecutablePath: Source\Bluechirp.Tests\bin\x64\Release\
       TestExecutableName: Bluechirp.Tests.exe
 
