@@ -8,7 +8,6 @@
 
     <Thickness x:Key="DialogItemToContentSpacing">12,0,0,0</Thickness>
     <converters:RoundedShapeRadiusConverter x:Key="RoundedShapeValueConverter"/>
-    
 
     <Style x:Key="BlockButton"
            TargetType="Button">

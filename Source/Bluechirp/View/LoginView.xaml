@@ -6,22 +6,104 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Bluechirp.ViewModel"
+    xmlns:media="using:Microsoft.UI.Xaml.Media"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Page.DataContext>
+
+	<Page.DataContext>
         <vm:LoginViewModel x:Name="ViewModel"/>
     </Page.DataContext>
-    <Grid>
-        <StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-            <TextBox Header="Instance Name (e.g: mastodon.social, mastodon.technology etc.): "
-                     Width="250"
-                     Text="{x:Bind ViewModel.InstanceURL, Mode=TwoWay}">
-            </TextBox>
-            <Button Content="Login"
-                    HorizontalAlignment="Center"
-                    Margin="0,20,0,0"
-                    Command="{x:Bind ViewModel.LoginCommand}"/>
-        </StackPanel>
+
+	<Page.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Dark">
+					<media:AcrylicBrush x:Key="BackgroundAcrylic"
+					                    BackgroundSource="Backdrop"
+					                    TintOpacity="0.4" 
+					                    TintColor="Black" 
+					                    FallbackColor="Transparent" />
+				</ResourceDictionary>
+
+				<ResourceDictionary x:Key="Light">
+					<media:AcrylicBrush x:Key="BackgroundAcrylic"
+					                    BackgroundSource="Backdrop"
+					                    TintOpacity="0.4" 
+					                    TintColor="Gray" 
+					                    FallbackColor="Transparent" />
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
+		</ResourceDictionary>
+	</Page.Resources>
+
+	<Grid HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch">
+
+	    <Border x:Name="AppTitleBar"
+	            IsHitTestVisible="True"
+	            VerticalAlignment="Top"
+	            Background="Transparent"
+	            Height="48"
+	            Canvas.ZIndex="1" 
+	            Margin="0,0,0,0"/>
+	    <Image 
+		    Source="ms-appx:///Assets/LoginBackground.png" 
+		    Stretch="Fill"/>
+	    <Rectangle 
+		    Fill="{ThemeResource BackgroundAcrylic}"/>
+
+		<StackPanel Name="LoginPanel"
+		            HorizontalAlignment="Center"
+		            VerticalAlignment="Center"
+		            Width="400px"
+					Translation="0, 0, 32"
+		            CornerRadius="8"
+		            Padding="16"
+		            BorderThickness="1"
+		            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+		            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+			<StackPanel.Shadow>
+				<ThemeShadow />
+			</StackPanel.Shadow>
+
+			<TextBlock Margin="0, 0, 0, 12"
+			           Style="{ThemeResource SubtitleTextBlockStyle}">
+				Welcome to Bluechirp!
+			</TextBlock>
+			<TextBlock Margin="0, 0, 0, 12"
+			           TextWrapping="Wrap">
+				Please, enter the Mastodon instance you want to log into.<LineBreak/><LineBreak/>Your 
+				browser will open, and you will be prompted to allow Bluechirp to use your account.
+			</TextBlock>
+
+			<TextBox Name="InstanceTextBox" 
+			         Margin="0, 0, 0, 8" 
+			         Header="Instance"
+			         PlaceholderText="e.g: mastodon.social"
+			         Text="{x:Bind ViewModel.InstanceURL, Mode=TwoWay}"/>
+			<Grid Margin="0, 24, 0, 0"
+			      ColumnSpacing="8"
+			      HorizontalAlignment="Stretch">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"></ColumnDefinition>
+					<ColumnDefinition Width="85"></ColumnDefinition>
+					<ColumnDefinition Width="85"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+
+				<Button 
+					Name="LoginButton"
+					HorizontalAlignment="Stretch"
+					Content="Login"
+					Style="{StaticResource AccentButtonStyle}" 
+					Command="{x:Bind ViewModel.LoginCommand}"
+					Grid.Column="2"/>
+				<HyperlinkButton
+					Name="SignUpHyperlink"
+					HorizontalAlignment="Stretch"
+					Content="Sign Up"
+					Command="{x:Bind ViewModel.SignUpCommand}"
+					Grid.Column="1"/>
+			</Grid>
+		</StackPanel>
     </Grid>
 </Page>

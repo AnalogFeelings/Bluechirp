@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.System;
 using Bluechirp.View;
 using Bluechirp.Library.Commands;
 using Bluechirp.Library.Helpers;
@@ -26,10 +27,13 @@ namespace Bluechirp.ViewModel
         }
 
         public RelayCommand LoginCommand;
+        public RelayCommand SignUpCommand;
+
         public LoginViewModel()
         {
             AuthHelper.AuthCompleted += AuthHelper_AuthCompleted;
             LoginCommand = new RelayCommand(async () => await LoginAsync());
+            SignUpCommand = new RelayCommand(async () => await SignUpAsync());
         }
 
         private void AuthHelper_AuthCompleted(object sender, EventArgs e)
@@ -43,6 +47,22 @@ namespace Bluechirp.ViewModel
             if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(_instanceURL))
             {
                 await AuthHelper.Instance.LoginAsync(_instanceURL);
+            }
+            else
+            {
+                InstanceURL = string.Empty;
+                await ErrorService.ShowInstanceUrlFormattingError();
+            }
+        }
+
+        private async Task SignUpAsync()
+        {
+            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(_instanceURL))
+            {
+                // Concat the URIs safely.
+                Uri baseUri = new Uri($"https://{_instanceURL}");
+
+                await Launcher.LaunchUriAsync(new Uri(baseUri, "auth/sign_up"));
             }
             else
             {
