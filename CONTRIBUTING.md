@@ -45,7 +45,8 @@ Please don't leave extra random empty lines at the end or start of functions and
 ## :label: Naming
 Use `PascalCase` for class names, variables and parameters, but use `camelCase` for local variables. Use `SCREAMING_SNAKE_CASE` for const variables.
 
-Anything private must use the `_PascalCase` or `_SCREAMING_SNAKE_CASE` convention.
+Anything private must use the `_camelCase` or `_SCREAMING_SNAKE_CASE` convention.  
+This is because the MVVM source generator expects `_camelCase` to add observable properties.
 
 ## :mega: Comments
 Please use XML documentation to document all classes and functions.
