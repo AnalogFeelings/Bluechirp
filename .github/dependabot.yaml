@@ -17,7 +17,7 @@ updates:
 
   # For the common library.
   - package-ecosystem: "nuget"
-    directory: "/Source/BluechirpLib/"
+    directory: "/Source/Bluechirp.Library/"
     schedule:
       interval: "daily"
     target-branch: "master"
@@ -32,7 +32,7 @@ updates:
 
   # For the unit tests.
   - package-ecosystem: "nuget"
-    directory: "/Source/BluechirpTests/"
+    directory: "/Source/Bluechirp.Tests/"
     schedule:
       interval: "daily"
     target-branch: "master"
