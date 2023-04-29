@@ -1,54 +1,40 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Bluechirp.Library.Helpers;
-using Bluechirp.Library.Services;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Bluechirp.Core;
+using Bluechirp.Library.Helpers;
+using Bluechirp.Library.Services;
 using Bluechirp.Services;
 using Bluechirp.View;
 
 namespace Bluechirp
 {
     /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
+    /// The core class of Bluechirp.
     /// </summary>
     sealed partial class App : Application
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
+        /// <inheritdoc/>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+
+            Suspending += OnSuspending;
         }
 
 
-        /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used such as when the application is launched to open a specific file.
-        /// </summary>
-        /// <param name="e">Details about the launch request and process.</param>
-        protected async override void OnLaunched(LaunchActivatedEventArgs e)
+        /// <inheritdoc/>
+        /// <param name="E">Details about the launch request and process.</param>
+        protected override async void OnLaunched(LaunchActivatedEventArgs E)
         {
             Frame rootFrame = Window.Current.Content as Frame;
             await SetupAppAsync();
@@ -62,7 +48,7 @@ namespace Bluechirp
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if (E.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
                 }
@@ -80,35 +66,35 @@ namespace Bluechirp
                 if (ClientDataHelper.GetLastUsedProfile() != null)
                 {
                     ClientHelper.LoadLastUsedProfile();
-                    rootFrame.Navigate(typeof(ShellView), e.Arguments);
+                    rootFrame.Navigate(typeof(ShellView), E.Arguments);
                 }
                 else
                 {
-                    rootFrame.Navigate(typeof(LoginView), e.Arguments);
-
+                    rootFrame.Navigate(typeof(LoginView), E.Arguments);
                 }
 
                 NavService.CreateInstance(rootFrame);
             }
 
-            if (e.PrelaunchActivated == false)
-            {
-                TryEnablePrelaunch();
+            if (E.PrelaunchActivated == false)
+                CoreApplication.EnablePrelaunch(true);
 
-                // Ensure the current window is active
-            }
+            // Ensure the current window is active
             Window.Current.Activate();
         }
 
-
-        protected async override void OnActivated(IActivatedEventArgs args)
+        /// <inheritdoc/>
+        protected override async void OnActivated(IActivatedEventArgs Args)
         {
-            base.OnActivated(args);
-            if (args.Kind == ActivationKind.Protocol)
+            base.OnActivated(Args);
+
+            if (Args.Kind == ActivationKind.Protocol)
             {
-                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                var fullUri = eventArgs.Uri.Query;
+                ProtocolActivatedEventArgs eventArgs = Args as ProtocolActivatedEventArgs;
+                string fullUri = eventArgs.Uri.Query;
+
                 Debug.WriteLine(fullUri);
+
                 await AuthHelper.Instance.FinishOAuth(fullUri);
             }
             else
@@ -124,7 +110,7 @@ namespace Bluechirp
 
                     rootFrame.NavigationFailed += OnNavigationFailed;
 
-                    if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                    if (Args.PreviousExecutionState == ApplicationExecutionState.Terminated)
                     {
                         //TODO: Load state from previously suspended application
                     }
@@ -147,7 +133,6 @@ namespace Bluechirp
                     else
                     {
                         rootFrame.Navigate(typeof(LoginView), null);
-
                     }
 
                     NavService.CreateInstance(rootFrame);
@@ -155,63 +140,54 @@ namespace Bluechirp
 
                 Window.Current.Activate();
             }
-
-        }
-        private void TryEnablePrelaunch()
-        {
-            CoreApplication.EnablePrelaunch(true);
         }
 
+        /// <summary>
+        ///     Initializes the application.
+        /// </summary>
+        /// <returns>An awaitable task.</returns>
         private async Task SetupAppAsync()
         {
             await ClientDataHelper.StartUpAsync();
 
-            var appView = ApplicationView.GetForCurrentView();
+            ApplicationView appView = ApplicationView.GetForCurrentView();
+
             appView.SetPreferredMinSize(new Size(400, 500));
-            ExtendAcrylicIntoTitleBar();
             ApiConstants.SetApiConstants();
             GlobalKeyboardShortcutService.Initialize();
+
             try
             {
                 await CacheService.LoadKeyboardShortcutsContent();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Debug.WriteLine(ex);
             }
         }
 
-        private void ExtendAcrylicIntoTitleBar()
+        /// <summary>
+        ///     Invoked when Navigation to a certain page fails
+        /// </summary>
+        /// <param name="Sender">The Frame which failed navigation</param>
+        /// <param name="E">Details about the navigation failure</param>
+        private void OnNavigationFailed(object Sender, NavigationFailedEventArgs E)
         {
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            throw new Exception("Failed to load Page " + E.SourcePageType.FullName);
         }
 
         /// <summary>
-        /// Invoked when Navigation to a certain page fails
+        ///     Invoked when application execution is being suspended.  Application state is saved
+        ///     without knowing whether the application will be terminated or resumed with the contents
+        ///     of memory still intact.
         /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        /// <param name="Sender">The source of the suspend request.</param>
+        /// <param name="E">Details about the suspend request.</param>
+        private void OnSuspending(object Sender, SuspendingEventArgs E)
         {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
-
-        /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
-        /// </summary>
-        /// <param name="sender">The source of the suspend request.</param>
-        /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
-        {
-            var deferral = e.SuspendingOperation.GetDeferral();
+            SuspendingDeferral deferral = E.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
     }
 }
-
