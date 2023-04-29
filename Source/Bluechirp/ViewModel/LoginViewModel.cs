@@ -1,72 +1,92 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.System;
-using Bluechirp.View;
 using Bluechirp.Library.Commands;
 using Bluechirp.Library.Helpers;
 using Bluechirp.Library.Model;
 using Bluechirp.Library.Services;
+using Bluechirp.View;
 
 namespace Bluechirp.ViewModel
 {
-    class LoginViewModel : Notifier
+    /// <summary>
+    /// The view model for <see cref="LoginView"/> page.
+    /// </summary>
+    internal class LoginViewModel : Notifier
     {
-        private string _instanceURL;
+        private string _InstanceUrl;
 
-        public string InstanceURL
+        /// <summary>
+        /// The instance URL in the login text box.
+        /// </summary>
+        public string InstanceUrl
         {
-            get { return _instanceURL; }
+            get => _InstanceUrl;
             set
             {
-                _instanceURL = value;
+                _InstanceUrl = value;
                 NotifyPropertyChanged();
             }
         }
 
-        public RelayCommand LoginCommand;
-        public RelayCommand SignUpCommand;
+        public readonly RelayCommand LoginCommand;
+        public readonly RelayCommand SignUpCommand;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="LoginViewModel"/> class.
+        /// </summary>
         public LoginViewModel()
         {
             AuthHelper.AuthCompleted += AuthHelper_AuthCompleted;
+
             LoginCommand = new RelayCommand(async () => await LoginAsync());
             SignUpCommand = new RelayCommand(async () => await SignUpAsync());
         }
 
-        private void AuthHelper_AuthCompleted(object sender, EventArgs e)
+        /// <summary>
+        /// Helper function that finishes authentication work.
+        /// </summary>
+        /// <param name="Sender">Sender object.</param>
+        /// <param name="E">Event arguments.</param>
+        private void AuthHelper_AuthCompleted(object Sender, EventArgs E)
         {
             AuthHelper.AuthCompleted -= AuthHelper_AuthCompleted;
             NavService.Instance.Navigate(typeof(ShellView));
         }
 
+        /// <summary>
+        /// Logs in to the instance defined in <see cref="InstanceUrl"/>.
+        /// </summary>
+        /// <returns>An awaitable task.</returns>
         private async Task LoginAsync()
         {
-            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(_instanceURL))
+            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(_InstanceUrl))
             {
-                await AuthHelper.Instance.LoginAsync(_instanceURL);
+                await AuthHelper.Instance.LoginAsync(_InstanceUrl);
             }
             else
             {
-                InstanceURL = string.Empty;
+                InstanceUrl = string.Empty;
                 await ErrorService.ShowInstanceUrlFormattingError();
             }
         }
 
+        /// <summary>
+        /// Opens a browser to the sign up page of the instance defined in <see cref="InstanceUrl"/>.
+        /// </summary>
+        /// <returns>An awaitable task.</returns>
         private async Task SignUpAsync()
         {
-            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(_instanceURL))
+            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(_InstanceUrl))
             {
                 // Concat the URIs safely.
-                Uri baseUri = new Uri($"https://{_instanceURL}");
+                Uri baseUri = new Uri($"https://{_InstanceUrl}");
 
                 await Launcher.LaunchUriAsync(new Uri(baseUri, "auth/sign_up"));
             }
             else
             {
-                InstanceURL = string.Empty;
+                InstanceUrl = string.Empty;
                 await ErrorService.ShowInstanceUrlFormattingError();
             }
         }

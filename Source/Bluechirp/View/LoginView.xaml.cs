@@ -4,15 +4,16 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Bluechirp.View
 {
     /// <summary>
-    ///     An empty page that can be used on its own or navigated to within a Frame.
+    /// The page code for the Login page.
     /// </summary>
     public sealed partial class LoginView : Page
     {
+        /// <summary>
+        /// Creates a new instance of the <see cref="LoginView"/> class.
+        /// </summary>
         public LoginView()
         {
             InitializeComponent();
