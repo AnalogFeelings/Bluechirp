@@ -1,29 +1,17 @@
-﻿using Mastonet.Entities;
-using MastoParserLib.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bluechirp.Library.Helpers;
 using Bluechirp.Model;
-using Bluechirp.Library.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Mastonet.Entities;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Bluechirp.ViewModel
 {
-    class ExpandedTootViewModel: Notifier
+    class ExpandedTootViewModel : ObservableObject
     {
         private Status _itemInContext = null;
 
-        private ObservableCollection<Status> _contextTootItems;
-
-        public ObservableCollection<Status> ContextTootItems
-        {
-            get { return _contextTootItems; }
-            set { _contextTootItems = value;
-                NotifyPropertyChanged();
-            }
-        }
+        public ObservableCollection<Status> ContextTootItems;
 
         public ExpandedTootViewModel()
         {
@@ -59,7 +47,7 @@ namespace Bluechirp.ViewModel
             tootToExpand.Reblogged = recentStatus.Reblogged;
             tootToExpand.ReblogCount = recentStatus.ReblogCount;
             tootToExpand.FavouritesCount = recentStatus.FavouritesCount;
-            
+
         }
 
         internal bool CheckIfExpandedToot(Status toot)
