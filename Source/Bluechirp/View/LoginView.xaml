@@ -2,15 +2,17 @@
     x:Class="Bluechirp.View.LoginView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Bluechirp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="using:Bluechirp.ViewModel"
     xmlns:media="using:Microsoft.UI.Xaml.Media"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:viewModel="using:Bluechirp.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 	<Page.DataContext>
-        <vm:LoginViewModel x:Name="ViewModel"/>
+        <viewModel:LoginViewModel x:Name="ViewModel"/>
     </Page.DataContext>
 
 	<Page.Resources>
@@ -51,7 +53,7 @@
 	    <Rectangle 
 		    Fill="{ThemeResource BackgroundAcrylic}"/>
 
-		<StackPanel Name="LoginPanel"
+		<StackPanel x:Name="LoginPanel"
 		            HorizontalAlignment="Center"
 		            VerticalAlignment="Center"
 		            Width="400px"
@@ -75,7 +77,7 @@
 				browser will open, and you will be prompted to allow Bluechirp to use your account.
 			</TextBlock>
 
-			<TextBox Name="InstanceTextBox" 
+			<TextBox x:Name="InstanceTextBox" 
 			         Margin="0, 0, 0, 8" 
 			         Header="Instance"
 			         PlaceholderText="e.g: mastodon.social"
@@ -89,19 +91,17 @@
 					<ColumnDefinition Width="85"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
 
-				<Button 
-					Name="LoginButton"
-					HorizontalAlignment="Stretch"
-					Content="Login"
-					Style="{StaticResource AccentButtonStyle}" 
-					Command="{x:Bind ViewModel.LoginCommand}"
-					Grid.Column="2"/>
-				<HyperlinkButton
-					Name="SignUpHyperlink"
-					HorizontalAlignment="Stretch"
-					Content="Sign Up"
-					Command="{x:Bind ViewModel.SignUpCommand}"
-					Grid.Column="1"/>
+				<Button x:Name="LoginButton"
+				        HorizontalAlignment="Stretch"
+				        Content="Login"
+				        Style="{StaticResource AccentButtonStyle}" 
+				        Command="{x:Bind ViewModel.LoginCommand}"
+				        Grid.Column="2"/>
+				<HyperlinkButton x:Name="SignUpHyperlink"
+				                 HorizontalAlignment="Stretch"
+				                 Content="Sign Up"
+				                 Command="{x:Bind ViewModel.SignUpCommand}"
+				                 Grid.Column="1"/>
 			</Grid>
 		</StackPanel>
     </Grid>
