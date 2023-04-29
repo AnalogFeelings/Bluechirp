@@ -96,7 +96,7 @@
                    HorizontalAlignment="Center"
                    Background="{ThemeResource SystemAccentColor}"
                    Foreground="White"
-                   Command="{x:Bind ViewModel.NewTootCommand}"
+                   Command="{x:Bind ViewModel.OpenNewTootDialogCommand}"
                         Margin="0,16,0,0">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" 
                                   FontSize="16"/>

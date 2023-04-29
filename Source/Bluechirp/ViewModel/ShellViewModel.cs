@@ -1,46 +1,52 @@
-﻿using Mastonet.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bluechirp.Dialogs;
+using Bluechirp.Enums;
 using Bluechirp.Library.Commands;
 using Bluechirp.Library.Helpers;
-using Bluechirp.Library.Model;
 using Bluechirp.Library.Services;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Bluechirp.Dialogs;
-using Bluechirp.Enums;
 using Bluechirp.Model;
 using Bluechirp.Services;
 using Bluechirp.View;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Mastonet.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Bluechirp.ViewModel
 {
-    class ShellViewModel : Notifier
+    internal partial class ShellViewModel : ObservableObject
     {
-
+        [ObservableProperty]
         private Account _currentUser;
-
-        public Account CurrentUser
-        {
-            get { return _currentUser; }
-            set {
-                _currentUser = value;
-                NotifyPropertyChanged();
-            }
-        }
 
         public List<ShellMenuItem> MenuListItems { get; set; } = new List<ShellMenuItem>();
 
-        public RelayCommand NewTootCommand;
-
         public ShellViewModel()
         {
-            NewTootCommand = new RelayCommand(async () => await NavigateToTootView());
             App.Current.EnteredBackground += Current_EnteredBackground;
             CreateMenuListItems();
+        }
+
+        internal async Task DoAsyncPrepartions()
+        {
+            try
+            {
+                CurrentUser = await ClientHelper.Client.GetCurrentUser();
+            }
+            catch (Exception)
+            {
+                await ErrorService.ShowConnectionError();
+            }
+        }
+
+        internal async void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            await ClientHelper.MakeLogoutPreprationsAsync();
+            NavService.CreateInstance((Frame)Window.Current.Content);
+            NavService.Instance.Navigate(typeof(LoginView));
         }
 
         private void CreateMenuListItems()
@@ -62,31 +68,10 @@ namespace Bluechirp.ViewModel
             deferral.Complete();
         }
 
-        private async Task NavigateToTootView()
+        [RelayCommand]
+        private async Task OpenNewTootDialog()
         {
             await new NewTootDialog(CurrentUser.StaticAvatarUrl).ShowAsync();
         }
-
-
-        internal async Task DoAsyncPrepartions()
-        {
-            try
-            {
-                CurrentUser = await ClientHelper.Client.GetCurrentUser();
-            }
-            catch (Exception)
-            {
-
-                await ErrorService.ShowConnectionError();
-            }
-        }
-
-        internal async void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            await ClientHelper.MakeLogoutPreprationsAsync();
-            NavService.CreateInstance((Frame)Window.Current.Content);
-            NavService.Instance.Navigate(typeof(LoginView));
-        }
-
     }
 }
