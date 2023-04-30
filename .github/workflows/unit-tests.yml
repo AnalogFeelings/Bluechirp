@@ -19,20 +19,14 @@ jobs:
   run-unit-tests:
     strategy:
       matrix:
-        configuration: [Release]
+        configuration: [Debug, Release]
         targetplatform: [x64]
 
     runs-on: windows-latest
 
     env:
-      TargetPlatform: x64
-      TargetConfig: Release
-      CertificateFile: Bluechirp_Certificate.pfx
-      SolutionPath: Bluechirp.sln
-      TestsProjectNameEscaped: Bluechirp_Tests # It seems MSBuild doesn't like dots in names, replace with a _
-      TestProjectPath: Source\Bluechirp.Tests\
-      TestExecutablePath: Source\Bluechirp.Tests\bin\x64\Release\
-      TestExecutableName: Bluechirp.Tests.build.appxrecipe
+      TestProjectPath: Source\Bluechirp.Tests\Bluechirp.Tests.csproj
+      TestExecutablePath: Source\Bluechirp.Tests\bin\${{ matrix.targetplatform }}\${{ matrix.configuration }}\Bluechirp.Tests.build.appxrecipe
 
     steps:
     - name: Checkout
@@ -43,20 +37,15 @@ jobs:
     - name: Setup Build
       uses: microsoft/setup-msbuild@v1.3.1
       
-    - name: Decode Certificate
-      run: |
-        $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.ENCODED_PFX_CERTIFICATE }}")
-        $currentDirectory = Get-Location
-        $certificatePath = Join-Path -Path $currentDirectory -ChildPath $env:TestProjectPath -AdditionalChildPath $env:CertificateFile
-        [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
-      
     - name: Build Tests
-      run: msbuild ${{ env.SolutionPath }} -restore /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }} /p:PackageCertificateKeyFile=${{ env.CertificateFile }} /p:PackageCertificatePassword=${{ secrets.CERTIFICATE_KEY }}
-
+      run: >
+        msbuild ${{ env.TestProjectPath }} -t:restore /p:Platform=${{ matrix.targetplatform }} /p:Configuration=${{ matrix.configuration }}
+        msbuild ${{ env.TestProjectPath }} -t:build /p:Platform=${{ matrix.targetplatform }} /p:Configuration=${{ matrix.configuration }}
+        
     # Execute all unit tests in the solution
     - name: Execute Tests
-      uses: microsoft/vstest-action@v1.0.0
-      with:
-          testAssembly: ${{ env.TestExecutableName }}
-          searchFolder: ${{ env.TestExecutablePath }}
-          otherConsoleOptions: /Framework:frameworkUAP10 /Platform:${{ env.TargetPlatform }}
+      run: >
+        $vs_path = vswhere -latest -products * -requires Microsoft.VisualStudio.Workload.ManagedDesktop -requiresAny -property installationPath;
+        $vstest_path = join-path $vs_path 'Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe';
+        & $vstest_path /Platform:${{ matrix.targetplatform }} /framework:frameworkuap10 ${{ env.TestExecutablePath }}
+
