@@ -58,7 +58,7 @@
         <Grid.Triggers>
             <EventTrigger RoutedEvent="Grid.Loaded">
                 <BeginStoryboard>
-                    <Storyboard x:Name="BackgroundAnimation" RepeatBehavior="Forever" SpeedRatio="0.2">
+                    <Storyboard x:Name="BackgroundAnimation" RepeatBehavior="Forever" SpeedRatio="0.03">
                         <ColorAnimationUsingKeyFrames Storyboard.TargetName="MainGrid" Storyboard.TargetProperty="(UIElement.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" EnableDependentAnimation="True">
                             <LinearColorKeyFrame KeyTime="0:0:0" Value="#563ACC"/>
                             <LinearColorKeyFrame KeyTime="0:0:1" Value="#17063B"/>
