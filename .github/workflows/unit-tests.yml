@@ -40,22 +40,24 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Setup Build
+      uses: microsoft/setup-msbuild@v1.3.1
       
-    - name: Decode the Pfx
+    - name: Decode Certificate
       run: |
         $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.ENCODED_PFX_CERTIFICATE }}")
         $currentDirectory = Get-Location
         $certificatePath = Join-Path -Path $currentDirectory -ChildPath $env:TestProjectPath -AdditionalChildPath $env:CertificateFile
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
       
+    - name: Restore Tests
+      run: msbuild ${{ env.SolutionPath }} /t:restore /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }}
+      
     - name: Build Tests
-      run: msbuild ${{ env.SolutionPath }} /t:restore /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }} /p:PackageCertificateKeyFile=${{ env.CertificateFile }} /p:PackageCertificatePassword=${{ secrets.CERTIFICATE_KEY }}
+      run: msbuild ${{ env.SolutionPath }} /t:build /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }} /p:PackageCertificateKeyFile=${{ env.CertificateFile }} /p:PackageCertificatePassword=${{ secrets.CERTIFICATE_KEY }}
 
     # Execute all unit tests in the solution
-    - name: Execute Unit Tests
+    - name: Execute Tests
       uses: microsoft/vstest-action@v1.0.0
       with:
           testAssembly: ${{ env.TestExecutableName }}
