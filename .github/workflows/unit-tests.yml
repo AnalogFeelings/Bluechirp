@@ -44,12 +44,6 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
       
-    - name: Setup Nuget
-      uses: Nuget/setup-nuget@v1.2.0
-      
-    - name: Restore Nuget Packages
-      run: nuget restore ${{ env.SolutionPath }}
-      
     - name: Decode the Pfx
       run: |
         $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.ENCODED_PFX_CERTIFICATE }}")
@@ -58,7 +52,7 @@ jobs:
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
       
     - name: Build Tests
-      run: msbuild ${{ env.SolutionPath }} /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }} /p:PackageCertificateKeyFile=${{ env.CertificateFile }} /p:PackageCertificatePassword=${{ secrets.CERTIFICATE_KEY }}
+      run: msbuild ${{ env.SolutionPath }} /t:restore /p:Platform=${{ env.TargetPlatform }} /p:Configuration=${{ env.TargetConfig }} /target:${{ env.TestsProjectNameEscaped }} /p:PackageCertificateKeyFile=${{ env.CertificateFile }} /p:PackageCertificatePassword=${{ secrets.CERTIFICATE_KEY }}
 
     # Execute all unit tests in the solution
     - name: Execute Unit Tests
