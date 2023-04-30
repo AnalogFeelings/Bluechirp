@@ -9,7 +9,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bluechirp.Tests</RootNamespace>
     <AssemblyName>Bluechirp.Tests</AssemblyName>
-    <RuntimeIdentifier>win10</RuntimeIdentifier>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.22621.0</TargetPlatformVersion>
