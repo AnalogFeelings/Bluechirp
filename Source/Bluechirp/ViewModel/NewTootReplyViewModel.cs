@@ -1,33 +1,21 @@
-﻿using Mastonet.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Bluechirp.Library.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Mastonet.Entities;
 using System.Threading.Tasks;
-using Bluechirp.Library.Helpers;
 
 namespace Bluechirp.ViewModel
 {
-    class NewTootReplyViewModel : NewTootViewModel
+    partial class NewTootReplyViewModel : NewTootViewModel
     {
+        [ObservableProperty]
         private Status _quoteToot;
-
-        public Status QuoteToot
-        {
-            get { return _quoteToot; }
-            set
-            {
-                _quoteToot = value;
-                NotifyPropertyChanged();
-            }
-        }
-
 
         public NewTootReplyViewModel(Status quoteToot) : base()
         {
             QuoteToot = quoteToot;
         }
-        protected async override Task SendNewToot()
+
+        protected async override Task SendTootAsync()
         {
             await ClientHelper.Client.PublishStatus(StatusContent, StatusVisibilty, QuoteToot.Id);
         }

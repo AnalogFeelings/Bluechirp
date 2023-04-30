@@ -1,36 +1,25 @@
-﻿using System;
-using System.Threading.Tasks;
-using Windows.System;
-using Bluechirp.Library.Commands;
+﻿using Bluechirp.Library.Commands;
 using Bluechirp.Library.Helpers;
-using Bluechirp.Library.Model;
 using Bluechirp.Library.Services;
 using Bluechirp.View;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Threading.Tasks;
+using Windows.System;
 
 namespace Bluechirp.ViewModel
 {
     /// <summary>
     /// The view model for <see cref="LoginView"/> page.
     /// </summary>
-    internal class LoginViewModel : Notifier
+    internal partial class LoginViewModel : ObservableObject
     {
-        private string _InstanceUrl;
-
         /// <summary>
         /// The instance URL in the login text box.
         /// </summary>
-        public string InstanceUrl
-        {
-            get => _InstanceUrl;
-            set
-            {
-                _InstanceUrl = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public readonly RelayCommand LoginCommand;
-        public readonly RelayCommand SignUpCommand;
+        [ObservableProperty]
+        private string _instanceUrl;
 
         /// <summary>
         /// Creates a new instance of the <see cref="LoginViewModel"/> class.
@@ -38,9 +27,6 @@ namespace Bluechirp.ViewModel
         public LoginViewModel()
         {
             AuthHelper.AuthCompleted += AuthHelper_AuthCompleted;
-
-            LoginCommand = new RelayCommand(async () => await LoginAsync());
-            SignUpCommand = new RelayCommand(async () => await SignUpAsync());
         }
 
         /// <summary>
@@ -58,11 +44,12 @@ namespace Bluechirp.ViewModel
         /// Logs in to the instance defined in <see cref="InstanceUrl"/>.
         /// </summary>
         /// <returns>An awaitable task.</returns>
+        [RelayCommand]
         private async Task LoginAsync()
         {
-            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(_InstanceUrl))
+            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(InstanceUrl))
             {
-                await AuthHelper.Instance.LoginAsync(_InstanceUrl);
+                await AuthHelper.Instance.LoginAsync(InstanceUrl);
             }
             else
             {
@@ -75,12 +62,13 @@ namespace Bluechirp.ViewModel
         /// Opens a browser to the sign up page of the instance defined in <see cref="InstanceUrl"/>.
         /// </summary>
         /// <returns>An awaitable task.</returns>
+        [RelayCommand]
         private async Task SignUpAsync()
         {
-            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(_InstanceUrl))
+            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(InstanceUrl))
             {
                 // Concat the URIs safely.
-                Uri baseUri = new Uri($"https://{_InstanceUrl}");
+                Uri baseUri = new Uri($"https://{InstanceUrl}");
 
                 await Launcher.LaunchUriAsync(new Uri(baseUri, "auth/sign_up"));
             }
