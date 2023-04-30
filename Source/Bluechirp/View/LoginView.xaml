@@ -17,40 +17,71 @@
 
 	<Page.Resources>
 		<ResourceDictionary>
-			<ResourceDictionary.ThemeDictionaries>
-				<ResourceDictionary x:Key="Dark">
-					<media:AcrylicBrush x:Key="BackgroundAcrylic"
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <media:AcrylicBrush x:Key="BackgroundAcrylic"
 					                    BackgroundSource="Backdrop"
 					                    TintOpacity="0.4" 
 					                    TintColor="Black" 
 					                    FallbackColor="Transparent" />
-				</ResourceDictionary>
+                </ResourceDictionary>
 
-				<ResourceDictionary x:Key="Light">
-					<media:AcrylicBrush x:Key="BackgroundAcrylic"
+                <ResourceDictionary x:Key="Light">
+                    <media:AcrylicBrush x:Key="BackgroundAcrylic"
 					                    BackgroundSource="Backdrop"
 					                    TintOpacity="0.4" 
 					                    TintColor="Gray" 
 					                    FallbackColor="Transparent" />
-				</ResourceDictionary>
-			</ResourceDictionary.ThemeDictionaries>
-		</ResourceDictionary>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
 	</Page.Resources>
 
 	<Grid HorizontalAlignment="Stretch"
-          VerticalAlignment="Stretch">
+          VerticalAlignment="Stretch"
+          x:Name="MainGrid">
 
-	    <Border x:Name="AppTitleBar"
+        <Grid.Background>
+            <LinearGradientBrush x:Name="BackgroundBrush">
+                <LinearGradientBrush.GradientStops>
+                    <GradientStopCollection>
+                        <GradientStop Color="#563ACC"
+                                      x:Name="LightStop"/>
+                        <GradientStop Offset="1" 
+                                      Color="#17063B"
+                                      x:Name="DarkStop"/>
+                    </GradientStopCollection>
+                </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Grid.Loaded">
+                <BeginStoryboard>
+                    <Storyboard x:Name="BackgroundAnimation" RepeatBehavior="Forever" SpeedRatio="0.2">
+                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="MainGrid" Storyboard.TargetProperty="(UIElement.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" EnableDependentAnimation="True">
+                            <LinearColorKeyFrame KeyTime="0:0:0" Value="#563ACC"/>
+                            <LinearColorKeyFrame KeyTime="0:0:1" Value="#17063B"/>
+                            <LinearColorKeyFrame KeyTime="0:0:2" Value="#563ACC"/>
+                        </ColorAnimationUsingKeyFrames>
+                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="MainGrid" Storyboard.TargetProperty="(UIElement.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" EnableDependentAnimation="True">
+                            <LinearColorKeyFrame KeyTime="0:0:0" Value="#17063B"/>
+                            <LinearColorKeyFrame KeyTime="0:0:1" Value="#563ACC"/>
+                            <LinearColorKeyFrame KeyTime="0:0:2" Value="#17063B"/>
+                        </ColorAnimationUsingKeyFrames>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+
+        <Border x:Name="AppTitleBar"
 	            IsHitTestVisible="True"
 	            VerticalAlignment="Top"
 	            Background="Transparent"
 	            Height="48"
 	            Canvas.ZIndex="1" 
 	            Margin="0,0,0,0"/>
-	    <Image 
-		    Source="ms-appx:///Assets/LoginBackground.png" 
-		    Stretch="Fill"/>
-	    <Rectangle 
+        <Rectangle 
 		    Fill="{ThemeResource BackgroundAcrylic}"/>
 
 		<StackPanel x:Name="LoginPanel"
