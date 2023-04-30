@@ -1,6 +1,4 @@
-# This does not currently work.
-
-name: UWP MSTest
+name: .NET Framework
 
 on:
   push:
@@ -39,7 +37,7 @@ jobs:
       
     - name: Build Tests
       run: >
-        msbuild ${{ env.TestProjectPath }} -t:restore /p:Platform=${{ matrix.targetplatform }} /p:Configuration=${{ matrix.configuration }}
+        msbuild ${{ env.TestProjectPath }} -t:restore /p:Platform=${{ matrix.targetplatform }} /p:Configuration=${{ matrix.configuration }};
         msbuild ${{ env.TestProjectPath }} -t:build /p:Platform=${{ matrix.targetplatform }} /p:Configuration=${{ matrix.configuration }}
         
     # Execute all unit tests in the solution
