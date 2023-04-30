@@ -1,115 +1,60 @@
-﻿using MastoParserLib.Model;
+﻿using Bluechirp.Library.Commands;
+using Bluechirp.Library.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
-using Bluechirp.Library.Commands;
-using Bluechirp.Library.Helpers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Bluechirp.ViewModel
 {
-    class NewTootViewModel : Notifier
+    partial class NewTootViewModel : ObservableObject
     {
+        private const int MastodonMaxStatusCharacters = 500;
 
-        public RelayCommand SendTootCommand;
-
+        [ObservableProperty]
         private bool _isTootButtonEnabled;
 
-        public bool IsTootButtonEnabled
-        {
-            get { return _isTootButtonEnabled; }
-            set
-            {
-                _isTootButtonEnabled = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-
+        [ObservableProperty]
         private bool _isStatusEmpty;
 
-        private bool IsStatusEmpty
-        {
-            get { return _isStatusEmpty; }
-            set
-            {
-                _isStatusEmpty = value;
-                CheckIfTootButtonShouldBeEnabled();
-            }
-        }
-
-
-
+        [ObservableProperty]
         private bool _hasReachedCharLimit;
 
-        public bool HasReachedCharLimit
-        {
-            get { return _hasReachedCharLimit; }
-            set
-            {
-                _hasReachedCharLimit = value;
-                NotifyPropertyChanged();
-                CheckIfTootButtonShouldBeEnabled();
-            }
-        }
-
-
-        const int MastodonMaxStatusCharacters = 500;
+        [ObservableProperty]
         private string _charCountString;
 
-        public string CharCountString
-        {
-            get { return _charCountString; }
-            set
-            {
-                _charCountString = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-
+        [ObservableProperty]
         private string statusContent;
 
-        public string StatusContent
-        {
-            get { return statusContent; }
-            set
-            {
-                statusContent = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-
+        [ObservableProperty]
         private Mastonet.Visibility _statusVisibilty;
-
-        public Mastonet.Visibility StatusVisibilty
-        {
-            get { return _statusVisibilty; }
-            set
-            {
-                _statusVisibilty = value;
-                NotifyPropertyChanged();
-            }
-        }
-
 
         internal NewTootViewModel()
         {
-            SendTootCommand = new RelayCommand(async () => await SendNewToot());
             UpdateCharCountString(0);
         }
 
+        partial void OnIsStatusEmptyChanged(bool value)
+        {
+            CheckIfTootButtonShouldBeEnabled();
+        }
+
+        partial void OnHasReachedCharLimitChanged(bool value)
+        {
+            CheckIfTootButtonShouldBeEnabled();
+        }
 
         private void CheckIfTootButtonShouldBeEnabled()
         {
             IsTootButtonEnabled = !HasReachedCharLimit && !IsStatusEmpty;
         }
 
-        protected async virtual Task SendNewToot()
+        [RelayCommand]
+        protected async virtual Task SendTootAsync()
         {
-
             try
             {
                 await ClientHelper.Client.PublishStatus(StatusContent, StatusVisibilty);
@@ -136,7 +81,6 @@ namespace Bluechirp.ViewModel
         {
             CharCountString = $"{charactersFound}/{MastodonMaxStatusCharacters} Characters";
             IsStatusEmpty = charactersFound > 0 == false;
-
         }
 
         internal void VisibilityOptionSelected(object sender, RoutedEventArgs e)
