@@ -31,6 +31,7 @@ namespace Bluechirp.View
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
+    /// TODO: Figure out why this has MVVM stuff???
     /// </summary>
     public sealed partial class TimelineView : Page, INotifyPropertyChanged
     {
