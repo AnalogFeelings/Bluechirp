@@ -28,6 +28,7 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <Use64BitCompiler>true</Use64BitCompiler>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
