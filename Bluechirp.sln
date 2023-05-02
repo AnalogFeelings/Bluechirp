@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bluechirp", "Source\Bluechirp\Bluechirp.csproj", "{49E55863-55FE-4075-A73D-D1C9180F63BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MastoParserLib", "Source\MastoParserLib\MastoParserLib.csproj", "{299B7F74-67B5-4656-93FB-1709EDAA4879}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bluechirp.Parser", "Source\Bluechirp.Parser\Bluechirp.Parser.csproj", "{299B7F74-67B5-4656-93FB-1709EDAA4879}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bluechirp.Tests", "Source\Bluechirp.Tests\Bluechirp.Tests.csproj", "{E1F6A019-63A4-4C8D-BBD2-5CAEFBD5A8BA}"
 EndProject

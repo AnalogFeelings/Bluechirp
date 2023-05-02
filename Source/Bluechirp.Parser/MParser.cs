@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Net;
-using MastoParserLib.Model;
+using Bluechirp.Parser.Model;
 
-namespace MastoParserLib
+namespace Bluechirp.Parser
 {
     public class MParser
     {

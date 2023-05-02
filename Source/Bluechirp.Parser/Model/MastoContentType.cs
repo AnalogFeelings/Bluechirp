@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MastoParserLib.Model
+namespace Bluechirp.Parser.Model
 {
     public enum MastoContentType
     {

@@ -1,6 +1,6 @@
 ﻿using Mastonet.Entities;
-using MastoParserLib;
-using MastoParserLib.Model;
+using Bluechirp.Parser;
+using Bluechirp.Parser.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

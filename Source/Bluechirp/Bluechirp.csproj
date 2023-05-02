@@ -369,7 +369,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\MastoParserLib\MastoParserLib.csproj">
+    <ProjectReference Include="..\Bluechirp.Parser\Bluechirp.Parser.csproj">
       <Project>{299b7f74-67b5-4656-93fb-1709edaa4879}</Project>
       <Name>MastoParserLib</Name>
     </ProjectReference>
