@@ -18,22 +18,11 @@
 	<Page.Resources>
 		<ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Dark">
-                    <media:AcrylicBrush x:Key="BackgroundAcrylic"
-					                    BackgroundSource="Backdrop"
-					                    TintOpacity="0.4" 
-					                    TintColor="Black" 
-					                    FallbackColor="Transparent" />
-                </ResourceDictionary>
-
-                <ResourceDictionary x:Key="Light">
-                    <media:AcrylicBrush x:Key="BackgroundAcrylic"
-					                    BackgroundSource="Backdrop"
-					                    TintOpacity="0.4" 
-					                    TintColor="Gray" 
-					                    FallbackColor="Transparent" />
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Default">
+					<media:AcrylicBrush x:Key="BackgroundAcrylic" BackgroundSource="Backdrop"
+						TintOpacity="0" TintLuminosityOpacity="0" TintColor="White" FallbackColor="#563ACC" />
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
 	</Page.Resources>
 
@@ -81,7 +70,7 @@
 	            Height="48"
 	            Canvas.ZIndex="1" 
 	            Margin="0,0,0,0"/>
-        <Rectangle 
+		<Rectangle 
 		    Fill="{ThemeResource BackgroundAcrylic}"/>
 
 		<StackPanel x:Name="LoginPanel"
