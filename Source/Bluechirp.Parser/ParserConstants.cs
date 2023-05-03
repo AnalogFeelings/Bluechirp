@@ -1,29 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bluechirp.Parser
+﻿namespace Bluechirp.Parser
 {
-    class ParserConstants
+    internal class ParserConstants
     {
-        public const char ParagraphTag = 'p';
-        public const char LinkTag = 'a';
-        public const char TagStartCharacter = '<';
-        public const char TagEndCharacter = '>';
-        public const char TagCloseCharaacter = '/';
-        public const char AttributeValueCharacter = '"';
-        public const char AttributeCharacter = '=';
+        public const char PARAGRAPH_TAG = 'p';
+        public const char LINK_TAG = 'a';
+        public const char TAG_START_CHARACTER = '<';
+        public const char TAG_END_CHARACTER = '>';
+        public const char TAG_CLOSE_CHARAACTER = '/';
+        public const char ATTRIBUTE_VALUE_CHARACTER = '"';
+        public const char ATTRIBUTE_CHARACTER = '=';
 
-        public const string BreakTag = "br";
-        public const string SpanTag = "span";
+        public const string BREAK_TAG = "br";
+        public const string SPAN_TAG = "span";
 
-        public const string MentionClass = "u-url mention";
-        public const string PlainHashtagClass = "hashtag";
-        public const string HashtagClass = "mention hashtag";
-        public const string ClassAttribute = "class";
-        public const string LinkHref = "href";
-
+        public const string MENTION_CLASS = "u-url mention";
+        public const string PLAIN_HASHTAG_CLASS = "hashtag";
+        public const string HASHTAG_CLASS = "mention hashtag";
+        public const string CLASS_ATTRIBUTE = "class";
+        public const string LINK_HREF = "href";
     }
 }

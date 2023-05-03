@@ -267,7 +267,7 @@ namespace Bluechirp.LocalControls
                 InlineUIContainer mediaContainer = new InlineUIContainer();
                 switch (mediaAttachments[i].Type)
                 {
-                    case MastoMediaConstants.VideoType:
+                    case MastoMediaConstants.VIDEO_TYPE:
                         MediaPlayerElement videoPlayer = new MediaPlayerElement
                         {
                             PosterSource = new BitmapImage(new Uri(mediaAttachments[i].PreviewUrl)),
@@ -278,7 +278,7 @@ namespace Bluechirp.LocalControls
                         mediaContainer.Child = videoPlayer;
                         break;
 
-                    case MastoMediaConstants.GIFType:
+                    case MastoMediaConstants.GIF_TYPE:
                         MediaPlayerElement gifPlayer = new MediaPlayerElement
                         {
                             Source = MediaSource.CreateFromUri(new Uri(mediaAttachments[i].Url)),

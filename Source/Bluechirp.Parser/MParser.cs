@@ -1,128 +1,101 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 using System.Net;
+using System.Text;
 using Bluechirp.Parser.Model;
 
 namespace Bluechirp.Parser
 {
     public class MParser
     {
-        StringBuilder _parseBuffer = new StringBuilder();
-        Queue<char> charQueue = null;
-        const char SpaceChar = (char)32;
+        private const char _SPACE_CHAR = (char) 32;
 
+        private Queue<char> _charQueue;
+        private readonly StringBuilder _parseBuffer = new StringBuilder();
 
-        private List<MastoContent> ParseLoop(string tag)
+        private List<MastoContent> ParseLoop(string Tag)
         {
             string parsedTag = string.Empty;
-            bool inBreakTag;
 
             List<MastoContent> parsedContent = new List<MastoContent>();
 
-
-            while (LoopConditionIsTrue(tag, parsedTag))
+            while (LoopConditionIsTrue(Tag, parsedTag))
             {
-                inBreakTag = checkIfTag(parsedTag, ParserConstants.BreakTag);
-                char character = charQueue.Dequeue();
+                bool inBreakTag = CheckIfTag(parsedTag, ParserConstants.BREAK_TAG);
+                char character = _charQueue.Dequeue();
+
                 if (inBreakTag)
                 {
-                    if (character == ParserConstants.TagEndCharacter)
+                    if (character == ParserConstants.TAG_END_CHARACTER)
                     {
                         TryAddTextToParsedContent(parsedContent, "\n");
 
                         ClearTag(ref parsedTag);
                     }
                 }
-
                 else if (parsedTag != string.Empty)
                 {
-                    if (checkIfTag(parsedTag, $"{ParserConstants.LinkTag}"))
+                    if (CheckIfTag(parsedTag, $"{ParserConstants.LINK_TAG}"))
                     {
                         parsedContent.Add(HandleLinkTag());
                     }
                     else
                     {
-                        if (checkIfTag(parsedTag, $"{ParserConstants.ParagraphTag}"))
-                        {
-                            TryAddTextToParsedContent(parsedContent, "\n\n");
-                        }
+                        if (CheckIfTag(parsedTag, $"{ParserConstants.PARAGRAPH_TAG}")) TryAddTextToParsedContent(parsedContent, "\n\n");
 
                         // Parse through inner content of parsed tag.
-                        var recursiveContent = ParseLoop(parsedTag);
+                        List<MastoContent> recursiveContent = ParseLoop(parsedTag);
                         parsedContent.AddRange(recursiveContent);
                     }
+
                     ClearTag(ref parsedTag);
                 }
                 else
                 {
                     // Parse through inner content between open and close tags
-                    var textHandlingResult = HandleText(character);
+                    (bool hasTextToParse, bool hasTagToParse, string text, string tag) textHandlingResult = HandleText(character);
 
-                    if (textHandlingResult.hasTextToParse)
-                    {
-                        TryAddTextToParsedContent(parsedContent, textHandlingResult.text);
-                    }
+                    if (textHandlingResult.hasTextToParse) TryAddTextToParsedContent(parsedContent, textHandlingResult.text);
 
-                    if (textHandlingResult.hasTagToParse)
-                    {
-                        parsedTag = textHandlingResult.tag;
-                    }
+                    if (textHandlingResult.hasTagToParse) parsedTag = textHandlingResult.tag;
                 }
             }
 
-            if (_parseBuffer.Length > 0)
-            {
-                TryAddTextToParsedContent(parsedContent, _parseBuffer.ToString());
+            if (_parseBuffer.Length > 0) TryAddTextToParsedContent(parsedContent, _parseBuffer.ToString());
 
-            }
             return parsedContent;
         }
 
-        private void ClearTag(ref string parsedTag)
+        private void ClearTag(ref string ParsedTag)
         {
-            parsedTag = string.Empty;
+            ParsedTag = string.Empty;
         }
 
-        private void TryAddTextToParsedContent(List<MastoContent> parsedContent, string contentToAdd, bool isParagraph = true)
+        private void TryAddTextToParsedContent(List<MastoContent> ParsedContent, string ContentToAdd, bool IsParagraph = true)
         {
-            contentToAdd = contentToAdd.Replace(">", "");
-            if (contentToAdd != string.Empty)
-            {
-                parsedContent.Add(new MastoText(WebUtility.HtmlDecode(contentToAdd)));
-            }
+            ContentToAdd = ContentToAdd.Replace(">", "");
+
+            if (ContentToAdd != string.Empty) ParsedContent.Add(new MastoText(WebUtility.HtmlDecode(ContentToAdd)));
         }
 
-
-        private bool checkIfTag(string parsedTag, string expectedTag)
+        private bool CheckIfTag(string ParsedTag, string ExpectedTag)
         {
-            return parsedTag == expectedTag;
+            return ParsedTag == ExpectedTag;
         }
 
-        private bool LoopConditionIsTrue(string tag, string parsedTag)
+        private bool LoopConditionIsTrue(string Tag, string ParsedTag)
         {
             bool willLoopContinue;
-            if (tag == string.Empty)
-            {
-                willLoopContinue = charQueue.Count > 0;
-
-            }
+            if (Tag == string.Empty)
+                willLoopContinue = _charQueue.Count > 0;
             else
-            {
-                willLoopContinue = parsedTag != $"/{tag}";
-            }
+                willLoopContinue = ParsedTag != $"/{Tag}";
 
             return willLoopContinue;
         }
 
-
-        public List<MastoContent> ParseContent(string htmlContent)
+        public List<MastoContent> ParseContent(string HtmlContent)
         {
-            charQueue = new Queue<char>(htmlContent);
+            _charQueue = new Queue<char>(HtmlContent);
 
             // At first, you'll start with no tag
             List<MastoContent> parsedContent = ParseLoop(string.Empty);
@@ -130,14 +103,14 @@ namespace Bluechirp.Parser
             return parsedContent;
         }
 
-        private (bool hasTextToParse, bool hasTagToParse, string text, string tag) HandleText(char character)
+        private (bool hasTextToParse, bool hasTagToParse, string text, string tag) HandleText(char Character)
         {
             bool hasTextToParse = false;
             bool hasTagToParse = false;
             string text = null;
             string tag = null;
 
-            if (character == ParserConstants.TagStartCharacter)
+            if (Character == ParserConstants.TAG_START_CHARACTER)
             {
                 if (_parseBuffer.Length > 0)
                 {
@@ -150,13 +123,9 @@ namespace Bluechirp.Parser
             }
 
             if (hasTagToParse)
-            {
                 tag = ParseTag();
-            }
             else
-            {
-                _parseBuffer.Append(character);
-            }
+                _parseBuffer.Append(Character);
 
             return (hasTextToParse, hasTagToParse, text, tag);
         }
@@ -168,20 +137,19 @@ namespace Bluechirp.Parser
             // (space).
 
             StringBuilder parsedTagBuffer = new StringBuilder();
-            while (charQueue.Peek() != SpaceChar && charQueue.Peek() != '>')
+            while (_charQueue.Peek() != _SPACE_CHAR && _charQueue.Peek() != '>')
             {
-                char thisChar = charQueue.Dequeue();
+                char thisChar = _charQueue.Dequeue();
                 parsedTagBuffer.Append(thisChar);
             }
 
             // Code for skipping over span attributes
-            if (parsedTagBuffer.ToString().Contains(ParserConstants.SpanTag))
+            if (parsedTagBuffer.ToString().Contains(ParserConstants.SPAN_TAG))
             {
-                while (charQueue.Peek() != '>')
-                {
-                    charQueue.Dequeue();
-                }
+                while (_charQueue.Peek() != '>')
+                    _charQueue.Dequeue();
             }
+
             return parsedTagBuffer.ToString();
         }
 
@@ -193,11 +161,10 @@ namespace Bluechirp.Parser
             bool hasTagBeenClosed = false;
             bool isInAttributeValue = false;
 
-
             while (!hasTagBeenClosed)
             {
-                char character = charQueue.Dequeue();
-                if (character == SpaceChar && isInAttributeValue == false)
+                char character = _charQueue.Dequeue();
+                if (character == _SPACE_CHAR && isInAttributeValue == false)
                 {
                     if (currentAttribute != string.Empty)
                     {
@@ -206,11 +173,11 @@ namespace Bluechirp.Parser
                         attributeBuffer.Clear();
                     }
                 }
-
                 else if (character == '>')
                 {
                     // First tag has been closed
                     hasTagBeenClosed = true;
+
                     if (currentAttribute != string.Empty)
                     {
                         tagAttributes[currentAttribute] = attributeBuffer.ToString();
@@ -218,13 +185,11 @@ namespace Bluechirp.Parser
                         attributeBuffer.Clear();
                     }
                 }
-
                 else
                 {
                     // Fill in attribute name
                     if (currentAttribute == string.Empty)
                     {
-
                         if (character == '=')
                         {
                             currentAttribute = attributeBuffer.ToString();
@@ -235,18 +200,12 @@ namespace Bluechirp.Parser
                             attributeBuffer.Append(character);
                         }
                     }
-
-                    // currentAttribute has been filled, handle attribute values now
-                    else
+                    else // currentAttribute has been filled, handle attribute values now
                     {
                         if (character == '"')
-                        {
                             isInAttributeValue = !isInAttributeValue;
-                        }
                         else
-                        {
                             attributeBuffer.Append(character);
-                        }
                     }
                 }
             }
@@ -254,50 +213,44 @@ namespace Bluechirp.Parser
             return tagAttributes;
         }
 
-
         public MastoContent HandleLinkTag()
         {
             MastoContent contentToReturn = null;
 
-            var tagAttributes = FindAttributes();
+            Dictionary<string, string> tagAttributes = FindAttributes();
 
             // Now try to take action depending on the result of trying to find the "class" attribute
-            bool hasClassAttribute = tagAttributes.ContainsKey(ParserConstants.ClassAttribute);
+            bool hasClassAttribute = tagAttributes.ContainsKey(ParserConstants.CLASS_ATTRIBUTE);
             bool isUniqueLink = false;
 
             string classAttributeValue = string.Empty;
 
             if (hasClassAttribute)
             {
-                classAttributeValue = tagAttributes[ParserConstants.ClassAttribute];
-                if (classAttributeValue != string.Empty)
-                {
-                    isUniqueLink = true;
-                }
+                classAttributeValue = tagAttributes[ParserConstants.CLASS_ATTRIBUTE];
+                if (classAttributeValue != string.Empty) isUniqueLink = true;
             }
-
 
             if (isUniqueLink)
             {
                 // handle a mention/hashtag.
                 switch (classAttributeValue)
                 {
-                    case ParserConstants.HashtagClass:
+                    case ParserConstants.HASHTAG_CLASS:
                         contentToReturn = ParseUniqueLink('#');
                         break;
-                    case ParserConstants.MentionClass:
+                    case ParserConstants.MENTION_CLASS:
                         contentToReturn = ParseUniqueLink('@');
                         break;
-                    case ParserConstants.PlainHashtagClass:
+                    case ParserConstants.PLAIN_HASHTAG_CLASS:
                         contentToReturn = PlainHashtagParse();
                         break;
                 }
-
             }
             else
             {
                 // Do regular link stuff
-                contentToReturn = new MastoContent(tagAttributes[ParserConstants.LinkHref], MastoContentType.Link);
+                contentToReturn = new MastoContent(tagAttributes[ParserConstants.LINK_HREF], MastoContentType.Link);
                 SkipToLinkTagEnd();
             }
 
@@ -307,23 +260,21 @@ namespace Bluechirp.Parser
         private MastoContent PlainHashtagParse()
         {
             StringBuilder plainHashtagBuffer = new StringBuilder();
+
             while (true)
             {
-                char charFound = charQueue.Dequeue();
+                char charFound = _charQueue.Dequeue();
                 if (charFound == '<')
-                {
                     break;
-                }
-                else if (charFound != '#')
-                {
-                    plainHashtagBuffer.Append(charFound);
-                }
+                if (charFound != '#') plainHashtagBuffer.Append(charFound);
             }
+
             MastoContent contentToReturn = new MastoContent(plainHashtagBuffer.ToString(), MastoContentType.Hashtag);
+
             return contentToReturn;
         }
 
-        private MastoContent ParseUniqueLink(char uniqueChar)
+        private MastoContent ParseUniqueLink(char UniqueChar)
         {
             MastoContent contentToReturn = null;
             bool wasUniqueCharFound = false;
@@ -335,20 +286,14 @@ namespace Bluechirp.Parser
 
             while (!linkTagEndReached)
             {
-                char charFound = charQueue.Dequeue();
+                char charFound = _charQueue.Dequeue();
                 if (wasUniqueCharFound == false)
                 {
-                    if (charFound == uniqueChar)
-                    {
-                        wasUniqueCharFound = true;
-                    }
+                    if (charFound == UniqueChar) wasUniqueCharFound = true;
                 }
                 else if (!spanTagReached)
                 {
-                    if (charFound == '<')
-                    {
-                        spanTagReached = true;
-                    }
+                    if (charFound == '<') spanTagReached = true;
                 }
                 else if (isInSpanTagContent)
                 {
@@ -359,7 +304,7 @@ namespace Bluechirp.Parser
                         // dequeue to link tag end
                         // set isLinkTagReached to true
                         string uniqueLinkContent = WebUtility.HtmlDecode(uniqueLinkBuffer.ToString());
-                        MastoContentType contentType = determineContentTypeFromChar(uniqueChar);
+                        MastoContentType contentType = DetermineContentTypeFromChar(UniqueChar);
                         contentToReturn = new MastoContent(uniqueLinkContent, contentType);
                         uniqueLinkBuffer.Clear();
                         SkipToLinkTagEnd();
@@ -372,37 +317,26 @@ namespace Bluechirp.Parser
                 }
                 else if (spanTagReached)
                 {
-                    if (charFound == '>')
-                    {
-                        isInSpanTagContent = true;
-                    }
+                    if (charFound == '>') isInSpanTagContent = true;
                 }
             }
-
 
             return contentToReturn;
         }
 
-
         private void SkipToLinkTagEnd()
         {
             StringBuilder stringBuffer = new StringBuilder();
-            while (!stringBuffer.ToString().Contains($"</{ParserConstants.LinkTag}>"))
-            {
-                stringBuffer.Append(charQueue.Dequeue());
-            }
+
+            while (!stringBuffer.ToString().Contains($"</{ParserConstants.LINK_TAG}>")) stringBuffer.Append(_charQueue.Dequeue());
         }
 
-        private MastoContentType determineContentTypeFromChar(char uniqueChar)
+        private MastoContentType DetermineContentTypeFromChar(char UniqueChar)
         {
-            if (uniqueChar == '#')
-            {
+            if (UniqueChar == '#')
                 return MastoContentType.Hashtag;
-            }
-            else
-            {
-                return MastoContentType.Mention;
-            }
+
+            return MastoContentType.Mention;
         }
     }
 }
