@@ -257,6 +257,8 @@
     <Content Include="Assets\Icons\Store\StoreLogo.scale-400.png" />
     <Content Include="Assets\Icons\Tiles\MedTile.scale-100.png" />
     <Content Include="Assets\Icons\Tiles\MedTile.scale-100_altform-colorful_theme-light.png" />
+    <Content Include="Assets\Icons\Tiles\MedTile.scale-200.png" />
+    <Content Include="Assets\Icons\Tiles\MedTile.scale-200_altform-colorful_theme-light.png" />
     <Content Include="Assets\LoginBackground.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
