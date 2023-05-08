@@ -1,16 +1,81 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
+using AngleSharp;
+using AngleSharp.Dom;
 using Bluechirp.Parser.Model;
 
 namespace Bluechirp.Parser
 {
-    public class MParser
+    public class TootParser
     {
         private const char _SPACE_CHAR = (char) 32;
 
         private Queue<char> _charQueue;
         private readonly StringBuilder _parseBuffer = new StringBuilder();
+
+        /* <p>gonna send this toot to test bluechirp&#39;s new parser :ablobcatbongo:</p>
+           <p>
+            <a href="https://tech.lgbt/tags/hashtags" class="mention hashtag" rel="tag">#<span>hashtags</span></a>
+            <span class="h-card">
+                <a href="https://hachyderm.io/@witchdagger" class="u-url mention">@<span>witchdagger</span></a>
+            </span>
+           </p>
+        */
+        public async Task<List<MastoContent>> ParseContentAsync(string HtmlContent)
+        {
+            IBrowsingContext browsingContext = new BrowsingContext();
+            IDocument parsedContent = await browsingContext.OpenAsync(x => x.Content(HtmlContent));
+            List<MastoContent> contentList = new List<MastoContent>();
+
+            if (parsedContent.Body == null || parsedContent.Body.ChildElementCount == 0)
+            {
+                // For some reason, sometimes no HTML is returned, only plain text. 
+                MastoText plainText = new MastoText(HtmlContent);
+
+                contentList.Add(plainText);
+
+                return contentList;
+            }
+
+            IEnumerable<IElement> topLevelElements = parsedContent.Body.Children.Where(x => x.Parent == parsedContent.Body);
+
+            // Iterate over all top-level elements.
+            foreach (IElement element in topLevelElements)
+            {
+                switch (element.NodeName.ToLower())
+                {
+                    case "p": // This is a paragraph.
+                        HandleParagraphTag(element, ref contentList);
+                        break;
+                }
+            }
+
+            return contentList;
+        }
+
+        private void HandleParagraphTag(IElement Paragraph, ref List<MastoContent> OutputList)
+        {
+            // Sanity check.
+            if (!Paragraph.HasChildNodes)
+                throw new InvalidDataException("Toot paragraph was somehow empty, could be a bug in Mastodon's server.");
+
+            foreach (INode childNode in Paragraph.ChildNodes)
+            {
+                switch (childNode.NodeName.ToLower())
+                {
+                    case "#text": // This is plain text.
+                        MastoText plainText = new MastoText(childNode.TextContent);
+
+                        OutputList.Add(plainText);
+
+                        break;
+                }
+            }
+        }
 
         private List<MastoContent> ParseLoop(string Tag)
         {
@@ -91,16 +156,6 @@ namespace Bluechirp.Parser
                 willLoopContinue = ParsedTag != $"/{Tag}";
 
             return willLoopContinue;
-        }
-
-        public List<MastoContent> ParseContent(string HtmlContent)
-        {
-            _charQueue = new Queue<char>(HtmlContent);
-
-            // At first, you'll start with no tag
-            List<MastoContent> parsedContent = ParseLoop(string.Empty);
-
-            return parsedContent;
         }
 
         private (bool hasTextToParse, bool hasTagToParse, string text, string tag) HandleText(char Character)

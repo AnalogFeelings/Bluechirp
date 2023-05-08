@@ -47,7 +47,7 @@ namespace Bluechirp.LocalControls
                 Paragraph rootParagraph = new Paragraph();
                 StatusContent.Blocks.Add(rootParagraph);
 
-                MParser parser = new MParser();
+                TootParser parser = new TootParser();
 
                 // Display regular status
 
@@ -56,7 +56,7 @@ namespace Bluechirp.LocalControls
                     UpdateTimestamp(updatedStatus.CreatedAt);
                     try
                     {
-                        List<MastoContent> parsedContent = parser.ParseContent(updatedStatus.Content);
+                        List<MastoContent> parsedContent = AsyncHelper.RunSync(() => parser.ParseContentAsync(updatedStatus.Content));
                         TryDisplayParsedContent(parsedContent, updatedStatus);
                     }
                     catch

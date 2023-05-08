@@ -73,7 +73,7 @@ namespace Bluechirp.LocalControls
                 Paragraph rootParagraph = new Paragraph();
                 StatusContent.Blocks.Add(rootParagraph);
 
-                MParser parser = new MParser();
+                TootParser parser = new TootParser();
 
                 if (updatedStatus.Reblog != null)
                 {
@@ -87,7 +87,7 @@ namespace Bluechirp.LocalControls
                         UpdateTimestamp(reblogStatus.CreatedAt);
                         try
                         {
-                            List<MastoContent> parsedContent = parser.ParseContent(reblogStatus.Content);
+                            List<MastoContent> parsedContent = AsyncHelper.RunSync(() => parser.ParseContentAsync(reblogStatus.Content));
                             TryDisplayParsedContent(parsedContent, reblogStatus);
                         }
                         catch
@@ -112,7 +112,7 @@ namespace Bluechirp.LocalControls
                         UpdateTimestamp(updatedStatus.CreatedAt);
                         try
                         {
-                            List<MastoContent> parsedContent = parser.ParseContent(updatedStatus.Content);
+                            List<MastoContent> parsedContent = AsyncHelper.RunSync(() => parser.ParseContentAsync(updatedStatus.Content));
                             TryDisplayParsedContent(parsedContent, updatedStatus);
                         }
                         catch
