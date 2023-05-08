@@ -47,7 +47,7 @@ updates:
 
   # For the parser library.
   - package-ecosystem: "nuget"
-    directory: "/Source/MastoParserLib/"
+    directory: "/Source/Bluechirp.Parser/"
     schedule:
       interval: "daily"
     target-branch: "master"
