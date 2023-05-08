@@ -126,6 +126,7 @@
     <Compile Include="Core\APIConstants.cs" />
     <Compile Include="Core\JsonStorageSerializer.cs" />
     <Compile Include="Enums\TimelineType.cs" />
+    <Compile Include="Helpers\AsyncHelper.cs" />
     <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\CharCounterHelper.cs" />
     <Compile Include="Helpers\ClientDataHelper.cs" />
