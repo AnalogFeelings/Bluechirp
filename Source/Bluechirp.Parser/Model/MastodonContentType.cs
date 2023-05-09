@@ -5,6 +5,7 @@
         Mention,
         Link,
         Text,
-        Hashtag
+        Hashtag,
+        Emoji
     }
 }
