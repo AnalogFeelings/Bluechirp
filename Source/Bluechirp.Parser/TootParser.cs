@@ -52,6 +52,14 @@ namespace Bluechirp.Parser
                     // TODO: Parse emojis. Maybe regex?
                     case ParserConstants.PARAGRAPH_TAG: // This is a paragraph.
                         HandleParagraphTag(element, ref contentList);
+
+                        // HACK: Maybe this is ugly?
+                        if (!element.IsLastChild())
+                        {
+                            MastodonText newLineText = new MastodonText("\n\n");
+
+                            contentList.Add(newLineText);
+                        }
                         break;
                 }
             }
