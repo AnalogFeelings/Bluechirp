@@ -142,7 +142,7 @@ namespace Bluechirp.LocalControls
                 switch (item.ContentType)
                 {
                     case MastodonContentType.Mention:
-                        List<Mention> mentions = (List<Mention>)status.Mentions;
+                        List<Mention> mentions = status.Mentions.ToList();
                         TryAddMentions(mentions, item.Content);
                         break;
                     case MastodonContentType.Link:
@@ -153,7 +153,7 @@ namespace Bluechirp.LocalControls
                         TryAddText(textItem, i, ref doesANewParagraphNeedToBeCreated);
                         break;
                     case MastodonContentType.Hashtag:
-                        List<Tag> tags = (List<Tag>)status.Tags;
+                        List<Tag> tags = status.Tags.ToList();
                         TryAddHashtags(tags, item.Content);
                         break;
                     default:
