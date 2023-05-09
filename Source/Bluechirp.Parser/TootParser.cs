@@ -26,16 +26,16 @@ namespace Bluechirp.Parser
             </span>
            </p>
         */
-        public async Task<List<MastoContent>> ParseContentAsync(string HtmlContent)
+        public async Task<List<IMastodonContent>> ParseContentAsync(string HtmlContent)
         {
             IBrowsingContext browsingContext = new BrowsingContext();
             IDocument parsedContent = await browsingContext.OpenAsync(x => x.Content(HtmlContent));
-            List<MastoContent> contentList = new List<MastoContent>();
+            List<IMastodonContent> contentList = new List<IMastodonContent>();
 
             if (parsedContent.Body == null || parsedContent.Body.ChildElementCount == 0)
             {
                 // For some reason, sometimes no HTML is returned, only plain text. 
-                MastoText plainText = new MastoText(HtmlContent);
+                MastodonText plainText = new MastodonText(HtmlContent);
 
                 contentList.Add(plainText);
 
@@ -59,7 +59,7 @@ namespace Bluechirp.Parser
             return contentList;
         }
 
-        private void HandleParagraphTag(IElement Paragraph, ref List<MastoContent> OutputList)
+        private void HandleParagraphTag(IElement Paragraph, ref List<IMastodonContent> OutputList)
         {
             // Sanity check.
             if (!Paragraph.HasChildNodes)
@@ -70,7 +70,7 @@ namespace Bluechirp.Parser
                 switch (childNode.NodeName.ToLower())
                 {
                     case ParserConstants.RAW_TEXT_TAG: // This is plain text.
-                        MastoText plainText = new MastoText(childNode.TextContent);
+                        MastodonText plainText = new MastodonText(childNode.TextContent);
 
                         OutputList.Add(plainText);
 

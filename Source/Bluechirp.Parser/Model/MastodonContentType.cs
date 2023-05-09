@@ -1,6 +1,6 @@
 ﻿namespace Bluechirp.Parser.Model
 {
-    public enum MastoContentType
+    public enum MastodonContentType
     {
         Mention,
         Link,
