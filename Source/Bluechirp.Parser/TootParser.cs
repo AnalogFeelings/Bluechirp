@@ -48,7 +48,8 @@ namespace Bluechirp.Parser
             {
                 switch (element.NodeName.ToLower())
                 {
-                    case "p": // This is a paragraph.
+                    // TODO: Parse emojis. Maybe regex?
+                    case ParserConstants.PARAGRAPH_TAG: // This is a paragraph.
                         HandleParagraphTag(element, ref contentList);
                         break;
                 }
@@ -67,7 +68,7 @@ namespace Bluechirp.Parser
             {
                 switch (childNode.NodeName.ToLower())
                 {
-                    case "#text": // This is plain text.
+                    case ParserConstants.RAW_TEXT_TAG: // This is plain text.
                         MastoText plainText = new MastoText(childNode.TextContent);
 
                         OutputList.Add(plainText);
