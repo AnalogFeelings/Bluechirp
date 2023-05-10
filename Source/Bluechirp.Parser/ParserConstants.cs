@@ -10,5 +10,6 @@
 
         public const string MENTION_CLASS = "mention";
         public const string HASHTAG_CLASS = "hashtag";
+        public const string MENTION_SPAN_CLASS = "h-card";
     }
 }

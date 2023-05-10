@@ -86,6 +86,37 @@ namespace Bluechirp.Parser
                     case ParserConstants.BREAK_TAG: // This is just a plain line break.
                         HandleLineBreak(childNode, ref OutputList);
                         break;
+                    case ParserConstants.SPAN_TAG: // This is most likely a mention.
+                        HandleMention(childNode, ref OutputList);
+                        break;
+                }
+            }
+        }
+
+        private void HandleMention(INode Mention, ref List<IMastodonContent> OutputList)
+        {
+            IHtmlSpanElement spanElement = Mention as IHtmlSpanElement;
+
+            // Bingo.
+            if (spanElement.ClassList.Contains(ParserConstants.MENTION_SPAN_CLASS))
+            {
+                IHtmlAnchorElement mentionElement = spanElement.FindChild<IHtmlAnchorElement>();
+
+                if (mentionElement == null)
+                    throw new InvalidDataException("Mention did not contain a child anchor node.");
+
+                if (mentionElement.ClassList.Contains(ParserConstants.MENTION_CLASS) &&
+                    !mentionElement.ClassList.Contains(ParserConstants.HASHTAG_CLASS))
+                {
+                    // Why is it this way.
+                    IHtmlSpanElement mentionSpan = mentionElement.FindChild<IHtmlSpanElement>();
+
+                    if (mentionSpan == null) 
+                        throw new InvalidDataException("Mention did not contain text node.");
+
+                    MastodonMention mentionText = new MastodonMention(mentionSpan.Text());
+
+                    OutputList.Add(mentionText);
                 }
             }
         }
