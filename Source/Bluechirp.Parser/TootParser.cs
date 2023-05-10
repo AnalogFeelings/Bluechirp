@@ -32,6 +32,7 @@ namespace Bluechirp.Parser
 
             // Iterate over all top-level elements.
             foreach (IElement element in topLevelElements)
+            {
                 switch (element.NodeName.ToLower())
                 {
                     case ParserConstants.PARAGRAPH_TAG: // This is a paragraph.
@@ -47,6 +48,7 @@ namespace Bluechirp.Parser
 
                         break;
                 }
+            }
 
             return contentList;
         }
@@ -58,6 +60,7 @@ namespace Bluechirp.Parser
                 throw new InvalidDataException("Toot paragraph was somehow empty, could be a bug in Mastodon's server.");
 
             foreach (INode childNode in Paragraph.ChildNodes)
+            {
                 switch (childNode.NodeName.ToLower())
                 {
                     case ParserConstants.RAW_TEXT_TAG: // This is plain text.
@@ -73,6 +76,7 @@ namespace Bluechirp.Parser
                         HandleMention(childNode, ref OutputList);
                         break;
                 }
+            }
         }
 
         private void HandleMention(INode Mention, ref List<IMastodonContent> OutputList)
