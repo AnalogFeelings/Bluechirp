@@ -1,6 +1,6 @@
 ﻿namespace Bluechirp.Parser
 {
-    public class MastoMediaConstants
+    public class MediaConstants
     {
         public const string VIDEO_TYPE = "video";
         public const string IMAGE_TYPE = "image";
