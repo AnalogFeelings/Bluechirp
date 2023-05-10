@@ -83,8 +83,18 @@ namespace Bluechirp.Parser
                     case ParserConstants.LINK_TAG: // This has to be a hashtag or plain link.
                         HandleAnchorTag(childNode, ref OutputList);
                         break;
+                    case ParserConstants.BREAK_TAG: // This is just a plain line break.
+                        HandleLineBreak(childNode, ref OutputList);
+                        break;
                 }
             }
+        }
+
+        private void HandleLineBreak(INode Break, ref List<IMastodonContent> OutputList)
+        {
+            MastodonText breakText = new MastodonText("\n");
+
+            OutputList.Add(breakText);
         }
 
         private void HandleRawText(INode Paragraph, ref List<IMastodonContent> OutputList)
