@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Bluechirp")]
 [assembly: AssemblyDescription("An open-source UWP client for Mastodon.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("AestheticalZ")]
+[assembly: AssemblyCompany("Analog Feelings")]
 [assembly: AssemblyProduct("Bluechirp")]
-[assembly: AssemblyCopyright("Copyright © AestheticalZ and contributors 2019")]
+[assembly: AssemblyCopyright("Copyright © Analog Feelings and contributors 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

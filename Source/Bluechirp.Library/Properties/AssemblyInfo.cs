@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Bluechirp.Library")]
 [assembly: AssemblyDescription("Common components of Bluechirp.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("AestheticalZ")]
+[assembly: AssemblyCompany("Analog Feelings")]
 [assembly: AssemblyProduct("Bluechirp.Library")]
-[assembly: AssemblyCopyright("Copyright © AestheticalZ and contributors 2019")]
+[assembly: AssemblyCopyright("Copyright © Analog Feelings and contributors 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
