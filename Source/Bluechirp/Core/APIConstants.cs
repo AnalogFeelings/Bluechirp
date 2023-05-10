@@ -8,8 +8,8 @@ namespace Bluechirp.Core
     public static class ApiConstants
     {
         private const string _APP_NAME = "Bluechirp";
-        private const string _APP_WEBSITE = "https://github.com/AestheticalZ/Bluechirp";
-        private const string _REDIRECT_URI = "aestheticalz-bluechirp://mycallback";
+        private const string _APP_WEBSITE = "https://github.com/AnalogFeelings/Bluechirp";
+        private const string _REDIRECT_URI = "analogfeelings-bluechirp://auth-callback";
 
         /// <summary>
         /// Gives the library all the required constants to function.
