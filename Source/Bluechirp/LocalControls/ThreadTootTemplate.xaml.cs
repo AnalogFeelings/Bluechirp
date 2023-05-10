@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Bluechirp.Dialogs;
+using Bluechirp.Parser.Interfaces;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -73,7 +74,7 @@ namespace Bluechirp.LocalControls
                 Paragraph rootParagraph = new Paragraph();
                 StatusContent.Blocks.Add(rootParagraph);
 
-                MParser parser = new MParser();
+                TootParser parser = new TootParser();
 
                 if (updatedStatus.Reblog != null)
                 {
@@ -87,7 +88,7 @@ namespace Bluechirp.LocalControls
                         UpdateTimestamp(reblogStatus.CreatedAt);
                         try
                         {
-                            List<MastoContent> parsedContent = parser.ParseContent(reblogStatus.Content);
+                            List<IMastodonContent> parsedContent = AsyncHelper.RunSync(() => parser.ParseContentAsync(reblogStatus.Content));
                             TryDisplayParsedContent(parsedContent, reblogStatus);
                         }
                         catch
@@ -111,7 +112,7 @@ namespace Bluechirp.LocalControls
                         UpdateTimestamp(updatedStatus.CreatedAt);
                         try
                         {
-                            List<MastoContent> parsedContent = parser.ParseContent(updatedStatus.Content);
+                            List<IMastodonContent> parsedContent = AsyncHelper.RunSync(() => parser.ParseContentAsync(updatedStatus.Content));
                             TryDisplayParsedContent(parsedContent, updatedStatus);
                         }
                         catch
@@ -141,7 +142,7 @@ namespace Bluechirp.LocalControls
             ReblogButton.IsChecked = status.Reblogged;
         }
 
-        private void TryDisplayParsedContent(List<MastoContent> parsedContent, Status status)
+        private void TryDisplayParsedContent(List<IMastodonContent> parsedContent, Status status)
         {
             bool doesANewParagraphNeedToBeCreated = false;
             for (int i = 0; i < parsedContent.Count; i++)
@@ -149,19 +150,19 @@ namespace Bluechirp.LocalControls
                 var item = parsedContent[i];
                 switch (item.ContentType)
                 {
-                    case MastoContentType.Mention:
-                        List<Mention> mentions = (List<Mention>)status.Mentions;
+                    case MastodonContentType.Mention:
+                        List<Mention> mentions = status.Mentions.ToList();
                         TryAddMentions(mentions, item.Content);
                         break;
-                    case MastoContentType.Link:
+                    case MastodonContentType.Link:
                         TryAddLinks(item.Content);
                         break;
-                    case MastoContentType.Text:
-                        var textItem = (MastoText)item;
+                    case MastodonContentType.Text:
+                        var textItem = (MastodonText)item;
                         TryAddText(textItem, i, ref doesANewParagraphNeedToBeCreated);
                         break;
-                    case MastoContentType.Hashtag:
-                        List<Tag> tags = (List<Tag>)status.Tags;
+                    case MastodonContentType.Hashtag:
+                        List<Tag> tags = status.Tags.ToList();
                         TryAddHashtags(tags, item.Content);
                         break;
                     default:
@@ -204,7 +205,7 @@ namespace Bluechirp.LocalControls
             }
         }
 
-        private void TryAddText(MastoText textItem, int loopsCompleted, ref bool doesANewParagraphNeedToBeCreated)
+        private void TryAddText(MastodonText textItem, int loopsCompleted, ref bool doesANewParagraphNeedToBeCreated)
         {
             string contentToPrint = textItem.Content;
             if (loopsCompleted == 0)
@@ -276,7 +277,7 @@ namespace Bluechirp.LocalControls
                 InlineUIContainer mediaContainer = new InlineUIContainer();
                 switch (mediaAttachments[i].Type)
                 {
-                    case MastoMediaConstants.VIDEO_TYPE:
+                    case MediaConstants.VIDEO_TYPE:
                         MediaPlayerElement videoPlayer = new MediaPlayerElement
                         {
                             PosterSource = new BitmapImage(new Uri(mediaAttachments[i].PreviewUrl)),
@@ -287,7 +288,7 @@ namespace Bluechirp.LocalControls
                         mediaContainer.Child = videoPlayer;
                         break;
 
-                    case MastoMediaConstants.GIF_TYPE:
+                    case MediaConstants.GIF_TYPE:
                         MediaPlayerElement gifPlayer = new MediaPlayerElement
                         {
                             Source = MediaSource.CreateFromUri(new Uri(mediaAttachments[i].Url)),
