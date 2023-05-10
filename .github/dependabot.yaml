@@ -11,9 +11,9 @@ updates:
       - "backend"
       - "low priority"
     assignees:
-      - "aestheticalz"
+      - "analogfeelings"
     reviewers:
-      - "aestheticalz"
+      - "analogfeelings"
 
   # For the common library.
   - package-ecosystem: "nuget"
@@ -26,9 +26,9 @@ updates:
       - "backend"
       - "low priority"
     assignees:
-      - "aestheticalz"
+      - "analogfeelings"
     reviewers:
-      - "aestheticalz"
+      - "analogfeelings"
 
   # For the unit tests.
   - package-ecosystem: "nuget"
@@ -41,9 +41,9 @@ updates:
       - "backend"
       - "low priority"
     assignees:
-      - "aestheticalz"
+      - "analogfeelings"
     reviewers:
-      - "aestheticalz"
+      - "analogfeelings"
 
   # For the parser library.
   - package-ecosystem: "nuget"
@@ -56,6 +56,6 @@ updates:
       - "backend"
       - "low priority"
     assignees:
-      - "aestheticalz"
+      - "analogfeelings"
     reviewers:
-      - "aestheticalz"
+      - "analogfeelings"
