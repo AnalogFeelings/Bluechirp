@@ -1,5 +1,10 @@
 ﻿namespace Bluechirp.Parser
 {
+    /// <summary>
+    /// Dummy class containing constants used by <see cref="TootParser"/>.
+    /// <para/>
+    /// The constants have self-documenting names.
+    /// </summary>
     internal class ParserConstants
     {
         public const string PARAGRAPH_TAG = "p";

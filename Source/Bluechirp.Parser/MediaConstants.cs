@@ -1,5 +1,10 @@
 ﻿namespace Bluechirp.Parser
 {
+    /// <summary>
+    /// Dummy class containing constants used by the media parser.
+    /// <para/>
+    /// The constants have self-documenting names.
+    /// </summary>
     public class MediaConstants
     {
         public const string VIDEO_TYPE = "video";

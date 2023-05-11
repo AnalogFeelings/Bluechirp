@@ -10,8 +10,16 @@ using Bluechirp.Parser.Model;
 
 namespace Bluechirp.Parser
 {
+    /// <summary>
+    /// A class for parsing the HTML content from toots into an abstract format.
+    /// </summary>
     public class TootParser
     {
+        /// <summary>
+        /// Parses a toot HTML string into an abstract format asynchronously.
+        /// </summary>
+        /// <param name="HtmlContent">The HTML string.</param>
+        /// <returns>A list of <see cref="IMastodonContent"/> containing the parsed toot.</returns>
         public async Task<List<IMastodonContent>> ParseContentAsync(string HtmlContent)
         {
             IBrowsingContext browsingContext = new BrowsingContext();
@@ -53,6 +61,12 @@ namespace Bluechirp.Parser
             return contentList;
         }
 
+        /// <summary>
+        /// Parses a paragraph element <see cref="IElement"/>.
+        /// </summary>
+        /// <param name="Paragraph">The paragraph element.</param>
+        /// <param name="OutputList">A reference to the output content list.</param>
+        /// <exception cref="InvalidDataException">Thrown if the mention element lacks the necessary children.</exception>
         private void HandleParagraphTag(IElement Paragraph, ref List<IMastodonContent> OutputList)
         {
             // Sanity check.
@@ -79,6 +93,12 @@ namespace Bluechirp.Parser
             }
         }
 
+        /// <summary>
+        /// Parses a mention element <see cref="INode"/>.
+        /// </summary>
+        /// <param name="Mention">The mention element.</param>
+        /// <param name="OutputList">A reference to the output content list.</param>
+        /// <exception cref="InvalidDataException">Thrown if the mention element lacks the necessary children.</exception>
         private void HandleMention(INode Mention, ref List<IMastodonContent> OutputList)
         {
             IHtmlSpanElement spanElement = Mention as IHtmlSpanElement;
@@ -107,6 +127,11 @@ namespace Bluechirp.Parser
             }
         }
 
+        /// <summary>
+        /// Parses a line break element <see cref="INode"/>.
+        /// </summary>
+        /// <param name="Break">The line break element.</param>
+        /// <param name="OutputList">A reference to the output content list.</param>
         private void HandleLineBreak(INode Break, ref List<IMastodonContent> OutputList)
         {
             MastodonText breakText = new MastodonText("\n");
@@ -114,15 +139,26 @@ namespace Bluechirp.Parser
             OutputList.Add(breakText);
         }
 
-        private void HandleRawText(INode Paragraph, ref List<IMastodonContent> OutputList)
+        /// <summary>
+        /// Parses a text element <see cref="INode"/>.
+        /// </summary>
+        /// <param name="Text">The text element.</param>
+        /// <param name="OutputList">A reference to the output content list.</param>
+        private void HandleRawText(INode Text, ref List<IMastodonContent> OutputList)
         {
             // TODO: Parse emojis, for some reason they're not returned as HTML nodes but as raw text.
 
-            MastodonText rawText = new MastodonText(Paragraph.TextContent);
+            MastodonText rawText = new MastodonText(Text.TextContent);
 
             OutputList.Add(rawText);
         }
 
+        /// <summary>
+        /// Parses a hashtag or link element <see cref="INode"/>.
+        /// </summary>
+        /// <param name="Anchor">The anchor element.</param>
+        /// <param name="OutputList">A reference to the output content list.</param>
+        /// <exception cref="InvalidDataException">Thrown if the mention element lacks the necessary children.</exception>
         private void HandleAnchorTag(INode Anchor, ref List<IMastodonContent> OutputList)
         {
             IHtmlAnchorElement anchorElement = Anchor as IHtmlAnchorElement;
