@@ -18,19 +18,30 @@
 
 Bluechirp is a free and open-source client for the Mastodon social network.
 
-Powered by UWP and WinUI 2, it guarantees that the user experience will be identical to the one in official "fluent" style apps.
+Powered by UWP, WinUI 2, and battle-tested open source libraries, it guarantees that the user experience will be identical to the one in official "fluent" style apps.
 
-## :clock1: Background Story
-This project once started as a custom Twitter client instead, but as you may have imagined, after what happened in October 27th 2022, it has become a Mastodon client.  
+## :open_book: Background Story
+This project once started as a custom Twitter client instead, but after what happened in October 27th 2022, it has become a Mastodon client.  
 This original idea was further blocked by the fact that by January 2023, all custom clients were banned without previous warning.
 
 I tried to make my own client from scratch, but I didn't know how to structure the codebase cleanly, so I abandoned it.  
 I then found Tooter, an unfinished, also abandoned UWP client for Mastodon that was looking for a new owner.
 
-After a very short conversation on [issue #1](https://github.com/AnalogFeelings/Bluechirp/issues/1), I became the owner of Tooter, which I've since rebranded to Bluechirp.  
+After a short conversation on [issue #1](https://github.com/AnalogFeelings/Bluechirp/issues/1), I became the owner of Tooter, which I've since rebranded to Bluechirp.  
 I rebranded it because the name Tooter has already been picked up by other Mastodon clients and social medias.
 
+# :package: Building
+First, install **Visual Studio 2022** with the .NET and UWP workloads. This step is crucial so don't skip it!  
+Then, follow these steps.
+
+1. Go to the package manifest file for the app, and head to the Packaging tab.
+2. Click the **Choose a certificate...** button, and choose a signing certificate you made.
+3. Do not do the same for the unit tests project, you need them to be unsigned.
+4. Choose your configuration and target architecture, and hack away!
+
 ## :sparkles: Major Contributors
+These are people who have contributed a lot to the project. Give them some love!
+
 * :floppy_disk: **Analog Feelings** - Lead developer. UI, logo design and code.  
 * :fireworks: **colinkiama** - Original creator of Tooter. Without him, this project wouldn't exist.
 
