@@ -77,12 +77,17 @@
                 <Button Style="{StaticResource ProfilePictureButton}" Padding="0"
                         Margin="0,4,0,0"
                         HorizontalAlignment="Center">
-                    <muxc:PersonPicture ProfilePicture="{x:Bind ViewModel.CurrentUser.AvatarUrl, Mode=OneWay}"
-                                           Width="32"
-                                           Height="32"
-                                        
-                                    ToolTipService.ToolTip="{x:Bind ViewModel.CurrentUser.AccountName, Mode=OneWay}"/>
-                <Button.Flyout>
+					<muxc:PersonPicture Width="32"
+										Height="32"
+										ToolTipService.ToolTip="{x:Bind ViewModel.CurrentUser.AccountName, Mode=OneWay}">
+						<muxc:PersonPicture.ProfilePicture>
+							<BitmapImage DecodePixelType="Logical"
+										 DecodePixelWidth="32"
+										 DecodePixelHeight="32"
+										 UriSource="{x:Bind ViewModel.CurrentUser.AvatarUrl, Mode=OneWay}"/>
+						</muxc:PersonPicture.ProfilePicture>
+					</muxc:PersonPicture>
+					<Button.Flyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Text="Logout" 
                                             Name="LogoutButton" 
