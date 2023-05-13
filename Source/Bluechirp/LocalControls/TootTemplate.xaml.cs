@@ -246,7 +246,7 @@ namespace Bluechirp.LocalControls
 
         private void UpdateAvatar(string avatarUrl)
         {
-            StatusAvatarImage.ImageSource = new BitmapImage(new Uri(avatarUrl));
+            StatusAvatarImage.UriSource = new Uri(avatarUrl);
         }
 
         private void UpdateNameTextBlocks(Account account)

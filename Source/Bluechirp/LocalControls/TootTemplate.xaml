@@ -45,16 +45,17 @@
                     Visibility="Collapsed"
                     Margin="0,0,0,12"/>
             <RelativePanel >
-
-                <Ellipse Width="60"
-                         Height="60"
-                         Margin="0,0,24,0"
-                         Name="StatusAvatar">
-                    <Ellipse.Fill>
-                        <ImageBrush x:Name="StatusAvatarImage">
-                        </ImageBrush>
-                    </Ellipse.Fill>
-                </Ellipse>
+	            <muxc:PersonPicture Width="60"
+	                                Height="60"
+	                                Margin="0,0,24,0"
+	                                Name="StatusAvatar">
+					<muxc:PersonPicture.ProfilePicture>
+						<BitmapImage x:Name="StatusAvatarImage"
+									 DecodePixelType="Logical"
+									 DecodePixelWidth="60"
+									 DecodePixelHeight="60"/>
+					</muxc:PersonPicture.ProfilePicture>
+				</muxc:PersonPicture>
                 <StackPanel Orientation="Horizontal" Name="NamesStackPanel"
                         RelativePanel.RightOf="StatusAvatar"
                         RelativePanel.LeftOf="StatusTimestamp">
