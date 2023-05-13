@@ -1,11 +1,12 @@
-﻿using Bluechirp.Parser.Interfaces;
+﻿using System;
+using Bluechirp.Parser.Interfaces;
 
 namespace Bluechirp.Parser.Model
 {
     /// <summary>
     /// An object that represents plain Mastodon text.
     /// </summary>
-    public class MastodonText : IMastodonContent
+    public class MastodonText : IMastodonContent, IEquatable<MastodonText>
     {
         /// <inheritdoc/>
         public string Content { get; set; }
@@ -18,6 +19,24 @@ namespace Bluechirp.Parser.Model
         {
             this.Content = Content;
             this.IsParagraph = IsParagraph;
+        }
+
+        public bool Equals(MastodonText Other)
+        {
+            if (Other == null)
+                return false;
+
+            return this.Content == Other.Content && this.ContentType == Other.ContentType && this.IsParagraph == Other.IsParagraph;
+        }
+
+        public override bool Equals(object Object)
+        {
+            return Equals(Object as MastodonText);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Content, ContentType, IsParagraph).GetHashCode();
         }
     }
 }

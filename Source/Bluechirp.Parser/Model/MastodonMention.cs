@@ -1,11 +1,12 @@
-﻿using Bluechirp.Parser.Interfaces;
+﻿using System;
+using Bluechirp.Parser.Interfaces;
 
 namespace Bluechirp.Parser.Model
 {
     /// <summary>
     /// An object that represents a Mastodon user mention.
     /// </summary>
-    public class MastodonMention : IMastodonContent
+    public class MastodonMention : IMastodonContent, IEquatable<MastodonMention>
     {
         /// <inheritdoc/>
         public string Content { get; set; }
@@ -16,6 +17,24 @@ namespace Bluechirp.Parser.Model
         public MastodonMention(string Content)
         {
             this.Content = Content;
+        }
+
+        public bool Equals(MastodonMention Other)
+        {
+            if (Other == null)
+                return false;
+
+            return this.Content == Other.Content && this.ContentType == Other.ContentType;
+        }
+
+        public override bool Equals(object Object)
+        {
+            return Equals(Object as MastodonMention);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Content, ContentType).GetHashCode();
         }
     }
 }
