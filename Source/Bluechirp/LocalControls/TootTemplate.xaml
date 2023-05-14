@@ -27,7 +27,7 @@
 		        Padding="16"
 		        BorderThickness="1"
 		        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-		        Background="{ThemeResource SystemControlAcrylicElementBrush}">
+		        Background="{ThemeResource LayerFillColorDefaultBrush}">
 		<Button Style="{ThemeResource NameTextBlockButton}"
 				Name="RebloggedByButton"
 				Visibility="Collapsed"
@@ -115,6 +115,12 @@
 				<ToggleButton Name="FavouriteButton" Style="{ThemeResource TextToggleButtonStyle}"
                                   Click="FavouriteButton_Click">
 					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE734;" />
+				</ToggleButton>
+				<ToggleButton Name="BookmarkButton" Style="{ThemeResource TextToggleButtonStyle}">
+					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74E;" />
+				</ToggleButton>
+				<ToggleButton Name="ShareButton" Style="{ThemeResource TextToggleButtonStyle}">
+					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72D;" />
 				</ToggleButton>
 				<Button Name="MoreButton">
 					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE10C;" />
