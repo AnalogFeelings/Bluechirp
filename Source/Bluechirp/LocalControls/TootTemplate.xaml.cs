@@ -251,7 +251,7 @@ namespace Bluechirp.LocalControls
         private void UpdateNameTextBlocks(Account account)
         {
             DisplayNameTextBlock.Text = account.DisplayName;
-            AccountNameTextBlock.Text = account.AccountName;
+            AccountNameTextBlock.Text = "@" + account.AccountName;
         }
 
         private void AddMediaToStatus(List<Attachment> mediaAttachments)

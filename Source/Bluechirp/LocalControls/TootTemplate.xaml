@@ -40,33 +40,31 @@
 			</StackPanel>
 		</Button>
 		<RelativePanel VerticalAlignment="Stretch">
-			<muxc:PersonPicture Width="60"
-	                            Height="60"
-	                            Margin="0,0,24,0"
+			<muxc:PersonPicture Width="64"
+	                            Height="64"
+	                            Margin="0,0,16,0"
 	                            Name="StatusAvatar">
 				<muxc:PersonPicture.ProfilePicture>
 					<BitmapImage x:Name="StatusAvatarImage"
 									 DecodePixelType="Logical"
-									 DecodePixelWidth="60"
-									 DecodePixelHeight="60"/>
+									 DecodePixelWidth="64"
+									 DecodePixelHeight="64"/>
 				</muxc:PersonPicture.ProfilePicture>
 			</muxc:PersonPicture>
-			<StackPanel Orientation="Horizontal" Name="NamesStackPanel"
+			<StackPanel Orientation="Vertical" Name="NamesStackPanel"
                         RelativePanel.RightOf="StatusAvatar"
-                        RelativePanel.LeftOf="StatusTimestamp">
-				<StackPanel.Resources>
-
-				</StackPanel.Resources>
+                        RelativePanel.LeftOf="StatusTimestamp"
+						RelativePanel.AlignVerticalCenterWith="StatusAvatar">
 				<Button Style="{ThemeResource NameTextBlockButton}">
-					<TextBlock Style="{ThemeResource FluentTitleTextStyle}"
+					<TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                                TextTrimming="CharacterEllipsis"
                                FontSize="20"
                                Name="DisplayNameTextBlock"/>
-
 				</Button>
-				<Button Margin="8,0,0,0" 
-                        Style="{StaticResource NameTextBlockButton}">
+				<Button Style="{StaticResource NameTextBlockButton}">
 					<TextBlock TextTrimming="CharacterEllipsis"
+							   Style="{ThemeResource CaptionTextBlockStyle}"
+							   Foreground="{ThemeResource SystemColorGrayTextColor}"
                                FontSize="20"
                                Name="AccountNameTextBlock"/>
 				</Button>
@@ -86,12 +84,13 @@
 			<RichTextBlock x:Name="StatusContent"
                        RelativePanel.RightOf="StatusAvatar"
                        RelativePanel.LeftOf="StatusTimestamp"
-                       RelativePanel.Below="StatusTimestamp"
+                       RelativePanel.Below="NamesStackPanel"
                        RelativePanel.AlignRightWithPanel="True"
                        TextWrapping="Wrap"
                        IsTextSelectionEnabled="True"
                        FontSize="22"
-                       Canvas.ZIndex="100"/>
+                       Canvas.ZIndex="100"
+                       Margin="0, 12, 0, 0"/>
 			<StackPanel Name="TootActionStackPanel" 
                         Orientation="Horizontal" 
                         RelativePanel.RightOf="StatusAvatar"
