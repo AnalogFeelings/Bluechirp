@@ -15,36 +15,33 @@
     xmlns:muxm="using:Microsoft.UI.Xaml.Media"
     xmlns:model="using:Bluechirp.Model"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+	muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
     <Page.DataContext>
         <vm:ShellViewModel x:Name="ViewModel"/>
     </Page.DataContext>
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-            <muxm:AcrylicBrush x:Key="SideBarAcrylic" FallbackColor="{ThemeResource FediChromeColor}"
+	<Page.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<muxm:AcrylicBrush x:Key="SideBarAcrylic" FallbackColor="{ThemeResource FediChromeColor}"
                               BackgroundSource="HostBackdrop" TintColor="{ThemeResource FediChromeColor}" 
                           TintOpacity="0.8" />
-        </ResourceDictionary>
+		</ResourceDictionary>
 
-    </Page.Resources>
+	</Page.Resources>
 
-
-
-
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Border Background="{ThemeResource SideBarAcrylic}"
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="auto"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Border Background="{ThemeResource SideBarAcrylic}"
                 Width="54"
                 Padding="0,64,0,0">
-            <StackPanel HorizontalAlignment="Stretch">
-                <Button 
+			<StackPanel HorizontalAlignment="Stretch">
+				<Button 
                         Style="{ThemeResource TextBlockButtonStyle}"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
@@ -53,12 +50,12 @@
                     Click="BackButton_Click"
                     Name="BackButton"
                     Padding="12">
-                    <Button.Content>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE830;" />
-                    </Button.Content>
+					<Button.Content>
+						<FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE830;" />
+					</Button.Content>
 
-                </Button>
-            <ListView 
+				</Button>
+				<ListView 
                 contract5Present:ItemContainerStyle="{ThemeResource MenuListViewItemRevealStyle}"
                 contract5NotPresent:ItemContainerStyle="{ThemeResource MenuListViewItemStyle}"
                 IsItemClickEnabled="True"
@@ -66,15 +63,15 @@
                 ItemClick="MenuListView_ItemClick"
                 ItemsSource="{x:Bind ViewModel.MenuListItems}"
                 Loaded="MenuListView_Loaded">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="model:ShellMenuItem">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind IconCharCode}"
+					<ListView.ItemTemplate>
+						<DataTemplate x:DataType="model:ShellMenuItem">
+							<FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind IconCharCode}"
                               FontSize="20"/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    
-                </ListView>
-                <Button Style="{StaticResource ProfilePictureButton}" Padding="0"
+						</DataTemplate>
+					</ListView.ItemTemplate>
+
+				</ListView>
+				<Button Style="{StaticResource ProfilePictureButton}" Padding="0"
                         Margin="0,4,0,0"
                         HorizontalAlignment="Center">
 					<muxc:PersonPicture Width="32"
@@ -88,44 +85,37 @@
 						</muxc:PersonPicture.ProfilePicture>
 					</muxc:PersonPicture>
 					<Button.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="Logout" 
+						<MenuFlyout>
+							<MenuFlyoutItem Text="Logout" 
                                             Name="LogoutButton" 
                                             Click="{x:Bind ViewModel.LogoutButton_Click}"/>
-                    </MenuFlyout>
-                </Button.Flyout>
-                </Button>
+						</MenuFlyout>
+					</Button.Flyout>
+				</Button>
 
 
-                <Button x:Name="TootButton" Style="{ThemeResource CircleButtonStyle}" Width="44" Height="44"
+				<Button x:Name="TootButton" Style="{ThemeResource CircleButtonStyle}" Width="44" Height="44"
                    HorizontalAlignment="Center"
                    Background="{ThemeResource SystemAccentColor}"
                    Foreground="White"
                    Command="{x:Bind ViewModel.OpenNewTootDialogCommand}"
                         Margin="0,16,0,0">
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" 
+					<FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" 
                                   FontSize="16"/>
-                    </Button>
+				</Button>
 
 
 
-            </StackPanel>
-        </Border>
+			</StackPanel>
+		</Border>
 
 
-        <controls:DropShadowPanel Grid.Column="1" HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch"
-                                  HorizontalContentAlignment="Stretch"
-                                  VerticalContentAlignment="Stretch">
-            <ContentPresenter x:Name="FrameArea"
-                   HorizontalAlignment="Stretch"
-                   VerticalAlignment="Stretch"
-                              HorizontalContentAlignment="Stretch"
-                              VerticalContentAlignment="Stretch"
-                              Content="{x:Bind ActiveFrame, Mode=OneWay}"/>
-        </controls:DropShadowPanel>
-    </Grid>
-
-
-
+		<ContentPresenter x:Name="FrameArea"
+						  Grid.Column="1"
+                          HorizontalAlignment="Stretch"
+						  VerticalAlignment="Stretch"
+						  HorizontalContentAlignment="Stretch"
+						  VerticalContentAlignment="Stretch"
+						  Content="{x:Bind ActiveFrame, Mode=OneWay}"/>
+	</Grid>
 </Page>

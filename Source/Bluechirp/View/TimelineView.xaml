@@ -6,12 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:localcontrols="using:Bluechirp.LocalControls"
-    mc:Ignorable="d"
-    Background="{ThemeResource FediBackgroundColor}">
+    mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
     </Page.Resources>
-    <Grid Padding="0" Background="{ThemeResource FediBackgroundColor}" Name="RootGrid">
+    <Grid Padding="0" Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
