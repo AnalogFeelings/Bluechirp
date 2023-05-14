@@ -170,14 +170,13 @@ namespace Bluechirp.LocalControls
                 UpdateNameTextBlocks(reblogAccount);
                 UpdateAvatar(reblogAccount.AvatarUrl);
                 RebloggedByButton.Visibility = Visibility.Visible;
-                RebloggedByButton.Content = $"Reblogged by: {mainAccount.DisplayName}";
+                RebloggedByText.Text = $"Boosted by {mainAccount.DisplayName}";
             }
             else
             {
                 UpdateNameTextBlocks(mainAccount);
                 UpdateAvatar(mainAccount.AvatarUrl);
                 RebloggedByButton.Visibility = Visibility.Collapsed;
-                RebloggedByButton.Content = "";
             }
         }
 
