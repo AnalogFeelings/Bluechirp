@@ -24,6 +24,8 @@ using Bluechirp.Model;
 using Bluechirp.Services;
 using Bluechirp.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.ViewManagement;
+using Windows.UI;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -68,10 +70,16 @@ namespace Bluechirp.View
             _cacheService = App.Services.GetRequiredService<CacheService>();
             _shortcutService = App.Services.GetRequiredService<GlobalKeyboardShortcutService>();
             _navService = App.Services.GetRequiredService<NavService>();
+            
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
             _homeFrame.Navigated += LinkNavToBackButton;
             _localFrame.Navigated += LinkNavToBackButton;
             _federatedFrame.Navigated += LinkNavToBackButton;
+
             SystemNavigationManager.GetForCurrentView().BackRequested += ShellView_BackRequested;
             _shortcutService.GlobalShortcutPressed += GlobalKeyboardShortcutService_GlobalShortcutPressed;
         }
