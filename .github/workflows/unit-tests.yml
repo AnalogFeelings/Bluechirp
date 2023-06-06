@@ -33,6 +33,13 @@ jobs:
     - name: Setup Build
       uses: microsoft/setup-msbuild@v1.3.1
       
+    - uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget
+          
     - name: Build Tests
       run: >
         msbuild ${{ env.TestProjectPath }} -t:restore /p:Platform=${{ matrix.targetplatform }} /p:Configuration=${{ matrix.configuration }};

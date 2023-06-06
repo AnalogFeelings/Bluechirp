@@ -50,5 +50,5 @@ Bluechirp is open to pull requests and issue tickets! Read the [contributing gui
 Any help is appreciated!
 
 # :balance_scale: License
-This project is licensed under the **GNU General Public License version 3.0** which you can read [here](LICENSE.txt).  
+This project is licensed under the **GNU General Public License version 3.0** which you can read [here](LICENSE).  
 The [Bluechirp logo](Branding/bluechirp.png) is also licensed under said license.
