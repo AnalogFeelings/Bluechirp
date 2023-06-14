@@ -23,6 +23,7 @@ using Bluechirp.Enums;
 using Bluechirp.Model;
 using Bluechirp.Services;
 using Bluechirp.ViewModel;
+using Microsoft.Extensions.DependencyInjection;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,6 +34,9 @@ namespace Bluechirp.View
     /// </summary>
     public sealed partial class ShellView : Page, INotifyPropertyChanged
     {
+        private CacheService _cacheService;
+        private GlobalKeyboardShortcutService _shortcutService;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Frame _activeFrame;
@@ -51,10 +55,6 @@ namespace Bluechirp.View
         Frame _localFrame = new Frame();
         Frame _federatedFrame = new Frame();
 
-
-
-
-
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -63,11 +63,15 @@ namespace Bluechirp.View
         public ShellView()
         {
             this.InitializeComponent();
+
+            _cacheService = App.Services.GetRequiredService<CacheService>();
+            _shortcutService = App.Services.GetRequiredService<GlobalKeyboardShortcutService>();
+
             _homeFrame.Navigated += LinkNavToBackButton;
             _localFrame.Navigated += LinkNavToBackButton;
             _federatedFrame.Navigated += LinkNavToBackButton;
             SystemNavigationManager.GetForCurrentView().BackRequested += ShellView_BackRequested;
-            GlobalKeyboardShortcutService.GlobalShortcutPressed += GlobalKeyboardShortcutService_GlobalShortcutPressed;
+            _shortcutService.GlobalShortcutPressed += GlobalKeyboardShortcutService_GlobalShortcutPressed;
         }
 
         private async void GlobalKeyboardShortcutService_GlobalShortcutPressed(object sender, ShortcutType e)
@@ -234,7 +238,7 @@ namespace Bluechirp.View
 
         private async Task TryCacheTimeline()
         {
-            await CacheService.CacheCurrentTimeline();
+            await _cacheService.CacheCurrentTimeline();
         }
 
         private void SwapTimeline()
@@ -250,7 +254,8 @@ namespace Bluechirp.View
             {
 
             }
-            CacheService.SwapCurrentTimeline(timelineToCache);
+            
+            _cacheService.SwapCurrentTimeline(timelineToCache);
         }
 
         private void UpdateBackButtonEvents()

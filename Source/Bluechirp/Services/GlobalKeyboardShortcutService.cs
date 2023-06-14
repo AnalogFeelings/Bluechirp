@@ -11,18 +11,18 @@ namespace Bluechirp.Services
     /// <summary>
     /// Class that handles shortcuts on all views.
     /// </summary>
-    public static class GlobalKeyboardShortcutService
+    public class GlobalKeyboardShortcutService
     {
         // Reference table: https://www.freepascal.org/docs-html/rtl/keyboard/kbdscancode.html
         private const int _FORWARD_SLASH_SCAN_CODE = 53;
 
-        internal static ShortcutMode CurrentShortcutMode { get; private set; } = ShortcutMode.Regular;
-        internal static event EventHandler<ShortcutType> GlobalShortcutPressed;
+        internal ShortcutMode CurrentShortcutMode { get; private set; } = ShortcutMode.Regular;
+        internal event EventHandler<ShortcutType> GlobalShortcutPressed;
 
         /// <summary>
         /// Adds the necessary event handlers to the <see cref="CoreWindow"/>.
         /// </summary>
-        internal static void Initialize()
+        internal void Initialize()
         {
             CoreWindow coreWindow = CoreApplication.GetCurrentView().CoreWindow;
             coreWindow.KeyDown += CoreWindow_KeyDown;
@@ -35,7 +35,7 @@ namespace Bluechirp.Services
         /// </summary>
         /// <param name="Sender">Sender object.</param>
         /// <param name="Args">Event arguments.</param>
-        private static async void Dispatcher_AcceleratorKeyActivated(CoreDispatcher Sender, AcceleratorKeyEventArgs Args)
+        private async void Dispatcher_AcceleratorKeyActivated(CoreDispatcher Sender, AcceleratorKeyEventArgs Args)
         {
             if (Args.KeyStatus.IsMenuKeyDown)
             {
@@ -59,7 +59,7 @@ namespace Bluechirp.Services
         /// </summary>
         /// <param name="Sender">Sender object.</param>
         /// <param name="Args">Event arguments.</param>
-        private static void CoreWindow_KeyUp(CoreWindow Sender, KeyEventArgs Args)
+        private void CoreWindow_KeyUp(CoreWindow Sender, KeyEventArgs Args)
         {
             switch (Args.VirtualKey)
             {
@@ -95,7 +95,7 @@ namespace Bluechirp.Services
         /// </summary>
         /// <param name="Sender">Sender object.</param>
         /// <param name="Args">Event arguments.</param>
-        private static void CoreWindow_KeyDown(CoreWindow Sender, KeyEventArgs Args)
+        private void CoreWindow_KeyDown(CoreWindow Sender, KeyEventArgs Args)
         {
             switch (Args.VirtualKey)
             {

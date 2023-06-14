@@ -5,7 +5,6 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
-using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,6 +14,7 @@ using Bluechirp.Library.Helpers;
 using Bluechirp.Library.Services;
 using Bluechirp.Services;
 using Bluechirp.View;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Bluechirp
 {
@@ -23,6 +23,24 @@ namespace Bluechirp
     /// </summary>
     sealed partial class App : Application
     {
+        private IServiceProvider _serviceProvider;
+        private GlobalKeyboardShortcutService _shortcutService;
+        private CacheService _cacheService;
+
+        /// <summary>
+        /// Gets the <see cref="IServiceProvider"/> instance for the running application.
+        /// </summary>
+        public static IServiceProvider Services
+        {
+            get
+            {
+                IServiceProvider serviceProvider = (Current as App)._serviceProvider ?? 
+                    throw new InvalidOperationException("Service provider was not initialized before retrieving.");
+
+                return serviceProvider;
+            }
+        }
+
         /// <inheritdoc/>
         public App()
         {
@@ -43,15 +61,14 @@ namespace Bluechirp
             // just ensure that the window is active
             if (rootFrame == null)
             {
+                _serviceProvider = ConfigureServices();
+
+                await SetupServicesAsync();
+
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (E.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
@@ -101,19 +118,18 @@ namespace Bluechirp
             {
                 Frame rootFrame = Window.Current.Content as Frame;
                 await SetupAppAsync();
+
                 // Do not repeat app initialization when the Window already has content,
                 // just ensure that the window is active
                 if (rootFrame == null)
                 {
+                    _serviceProvider = ConfigureServices();
+
+                    await SetupServicesAsync();
+
                     // Create a Frame to act as the navigation context and navigate to the first page
                     rootFrame = new Frame();
-
                     rootFrame.NavigationFailed += OnNavigationFailed;
-
-                    if (Args.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                    {
-                        //TODO: Load state from previously suspended application
-                    }
 
                     // Place the frame in the current Window
                     Window.Current.Content = rootFrame;
@@ -143,7 +159,31 @@ namespace Bluechirp
         }
 
         /// <summary>
-        ///     Initializes the application.
+        /// Invoked when Navigation to a certain page fails
+        /// </summary>
+        /// <param name="Sender">The Frame which failed navigation</param>
+        /// <param name="E">Details about the navigation failure</param>
+        private void OnNavigationFailed(object Sender, NavigationFailedEventArgs E)
+        {
+            throw new Exception("Failed to load Page " + E.SourcePageType.FullName);
+        }
+
+        /// <summary>
+        /// Invoked when application execution is being suspended. Application state is saved
+        /// without knowing whether the application will be terminated or resumed with the contents
+        /// of memory still intact.
+        /// </summary>
+        /// <param name="Sender">The source of the suspend request.</param>
+        /// <param name="E">Details about the suspend request.</param>
+        private void OnSuspending(object Sender, SuspendingEventArgs E)
+        {
+            SuspendingDeferral deferral = E.SuspendingOperation.GetDeferral();
+            //TODO: Save application state and stop any background activity
+            deferral.Complete();
+        }
+
+        /// <summary>
+        /// Initializes the application.
         /// </summary>
         /// <returns>An awaitable task.</returns>
         private async Task SetupAppAsync()
@@ -154,11 +194,22 @@ namespace Bluechirp
 
             appView.SetPreferredMinSize(new Size(400, 500));
             ApiConstants.SetApiConstants();
-            GlobalKeyboardShortcutService.Initialize();
+        }
+
+        /// <summary>
+        /// Retrieves and initializes the runtime services that need it.
+        /// </summary>
+        /// <returns>An awaitable task.</returns>
+        /// <remarks>Must not be called before <see cref="ConfigureServices"/></remarks>
+        private async Task SetupServicesAsync()
+        {
+            _shortcutService = _serviceProvider.GetRequiredService<GlobalKeyboardShortcutService>();
+            _cacheService = _serviceProvider.GetRequiredService<CacheService>();
 
             try
             {
-                await CacheService.LoadKeyboardShortcutsContent();
+                _shortcutService.Initialize();
+                await _cacheService.LoadKeyboardShortcutsContent();
             }
             catch (Exception ex)
             {
@@ -167,27 +218,20 @@ namespace Bluechirp
         }
 
         /// <summary>
-        ///     Invoked when Navigation to a certain page fails
+        /// Configures the <see cref="IServiceProvider"/> for the app instance.
         /// </summary>
-        /// <param name="Sender">The Frame which failed navigation</param>
-        /// <param name="E">Details about the navigation failure</param>
-        private void OnNavigationFailed(object Sender, NavigationFailedEventArgs E)
+        /// <returns>
+        /// A configured <see cref="IServiceProvider"/>.
+        /// </returns>
+        private static IServiceProvider ConfigureServices()
         {
-            throw new Exception("Failed to load Page " + E.SourcePageType.FullName);
-        }
+            IServiceCollection collection = new ServiceCollection()
+                .AddSingleton<CacheService>()
+                .AddSingleton<GlobalKeyboardShortcutService>();
 
-        /// <summary>
-        ///     Invoked when application execution is being suspended.  Application state is saved
-        ///     without knowing whether the application will be terminated or resumed with the contents
-        ///     of memory still intact.
-        /// </summary>
-        /// <param name="Sender">The source of the suspend request.</param>
-        /// <param name="E">Details about the suspend request.</param>
-        private void OnSuspending(object Sender, SuspendingEventArgs E)
-        {
-            SuspendingDeferral deferral = E.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
-            deferral.Complete();
+            IServiceProvider provider = collection.BuildServiceProvider(true);
+
+            return provider;
         }
     }
 }
