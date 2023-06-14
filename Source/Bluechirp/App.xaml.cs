@@ -26,6 +26,7 @@ namespace Bluechirp
         private IServiceProvider _serviceProvider;
         private GlobalKeyboardShortcutService _shortcutService;
         private CacheService _cacheService;
+        private NavService _navService;
 
         /// <summary>
         /// Gets the <see cref="IServiceProvider"/> instance for the running application.
@@ -90,7 +91,7 @@ namespace Bluechirp
                     rootFrame.Navigate(typeof(LoginView), E.Arguments);
                 }
 
-                NavService.CreateInstance(rootFrame);
+                _navService.CreateInstance(rootFrame);
             }
 
             if (E.PrelaunchActivated == false)
@@ -151,7 +152,7 @@ namespace Bluechirp
                         rootFrame.Navigate(typeof(LoginView), null);
                     }
 
-                    NavService.CreateInstance(rootFrame);
+                    _navService.CreateInstance(rootFrame);
                 }
 
                 Window.Current.Activate();
@@ -205,6 +206,7 @@ namespace Bluechirp
         {
             _shortcutService = _serviceProvider.GetRequiredService<GlobalKeyboardShortcutService>();
             _cacheService = _serviceProvider.GetRequiredService<CacheService>();
+            _navService = _serviceProvider.GetRequiredService<NavService>();
 
             try
             {
@@ -227,7 +229,8 @@ namespace Bluechirp
         {
             IServiceCollection collection = new ServiceCollection()
                 .AddSingleton<CacheService>()
-                .AddSingleton<GlobalKeyboardShortcutService>();
+                .AddSingleton<GlobalKeyboardShortcutService>()
+                .AddSingleton<NavService>();
 
             IServiceProvider provider = collection.BuildServiceProvider(true);
 

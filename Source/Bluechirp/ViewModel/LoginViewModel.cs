@@ -4,6 +4,7 @@ using Bluechirp.Library.Services;
 using Bluechirp.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 using Windows.System;
@@ -20,12 +21,15 @@ namespace Bluechirp.ViewModel
         /// </summary>
         [ObservableProperty]
         private string _instanceUrl;
+        private NavService _navService;
 
         /// <summary>
         /// Creates a new instance of the <see cref="LoginViewModel"/> class.
         /// </summary>
         public LoginViewModel()
         {
+            _navService = App.Services.GetRequiredService<NavService>();
+
             AuthHelper.AuthCompleted += AuthHelper_AuthCompleted;
         }
 
@@ -37,7 +41,7 @@ namespace Bluechirp.ViewModel
         private void AuthHelper_AuthCompleted(object Sender, EventArgs E)
         {
             AuthHelper.AuthCompleted -= AuthHelper_AuthCompleted;
-            NavService.Instance.Navigate(typeof(ShellView));
+            _navService.Navigate(typeof(ShellView));
         }
 
         /// <summary>

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
@@ -11,12 +6,11 @@ namespace Bluechirp.Library.Services
 {
     public sealed class NavService
     {
-        private static Frame _frame = null;
-        public static NavService Instance = new NavService();
-        public static void CreateInstance(Frame frame)
+        private Frame _frame = null;
+
+        public void CreateInstance(Frame frame)
         {
             _frame = frame;
-
         }
 
         public void GoBack()
