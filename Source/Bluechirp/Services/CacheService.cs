@@ -12,10 +12,10 @@ namespace Bluechirp.Services
     /// <summary>
     /// Class that handles caching of objects.
     /// </summary>
-    public static class CacheService
+    public class CacheService
     {
-        private static TimelineView _CurrentTimeline;
-        internal static string KeyboardShortuctsContent = "";
+        private TimelineView _CurrentTimeline;
+        internal string KeyboardShortuctsContent = "";
 
         /// <summary>
         /// Stores a timeline inside the app cache.
@@ -24,7 +24,7 @@ namespace Bluechirp.Services
         /// <param name="CurrentStatusMarker">I have to figure out what this does.</param>
         /// <param name="TimelineSettings">The timeline settings.</param>
         /// <returns>An awaitable task.</returns>
-        internal static async Task CacheTimeline(MastodonList<Status> Timeline, Status CurrentStatusMarker, TimelineSettings TimelineSettings)
+        internal async Task CacheTimeline(MastodonList<Status> Timeline, Status CurrentStatusMarker, TimelineSettings TimelineSettings)
         {
             TimelineCache cachedTimeline = new TimelineCache(Timeline, CurrentStatusMarker, TimelineSettings);
 
@@ -35,7 +35,7 @@ namespace Bluechirp.Services
         /// Swaps the current timeline with a new one.
         /// </summary>
         /// <param name="NewTimeline">The new timeline.</param>
-        internal static void SwapCurrentTimeline(TimelineView NewTimeline)
+        internal void SwapCurrentTimeline(TimelineView NewTimeline)
         {
             _CurrentTimeline = NewTimeline;
         }
@@ -44,7 +44,7 @@ namespace Bluechirp.Services
         /// Stores the current timeline in the app cache.
         /// </summary>
         /// <returns>An awaitable task.</returns>
-        internal static async Task CacheCurrentTimeline()
+        internal async Task CacheCurrentTimeline()
         {
             if (_CurrentTimeline != null) 
                 await _CurrentTimeline.TryCacheTimeline();
@@ -55,7 +55,7 @@ namespace Bluechirp.Services
         /// </summary>
         /// <param name="TimelineType">The timeline type to load.</param>
         /// <returns>The loaded timeline, and a bool indicating if the load was successful.</returns>
-        internal static async Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineCache(TimelineType TimelineType)
+        internal async Task<(bool wasTimelineLoaded, TimelineCache cacheToReturn)> LoadTimelineCache(TimelineType TimelineType)
         {
             // TODO: Replace these with null checks.
             (bool wasTimelineLoaded, TimelineCache cacheToReturn) cacheLoadResult = await ClientDataHelper.LoadTimelineFromFileAsync(TimelineType);
@@ -75,7 +75,7 @@ namespace Bluechirp.Services
         /// Loads the keyboard shortcuts list from the app storage.
         /// </summary>
         /// <returns>An awaitable task.</returns>
-        internal static async Task LoadKeyboardShortcutsContent()
+        internal async Task LoadKeyboardShortcutsContent()
         {
             StorageFile shortcutsFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/FediShortcuts.txt"));
 

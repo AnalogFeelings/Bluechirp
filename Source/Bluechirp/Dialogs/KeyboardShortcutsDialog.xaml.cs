@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Bluechirp.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -20,11 +21,15 @@ namespace Bluechirp.Dialogs
 {
     public sealed partial class KeyboardShortcutsDialog : ContentDialog
     {
+        private CacheService _cacheService;
 
         public KeyboardShortcutsDialog()
         {
             this.InitializeComponent();
-            MarkdownContent.Text = CacheService.KeyboardShortuctsContent;
+
+            _cacheService = App.Services.GetRequiredService<CacheService>();
+
+            MarkdownContent.Text = _cacheService.KeyboardShortuctsContent;
             this.Opened += KeyboardShortcutsDialog_Opened;
         }
 

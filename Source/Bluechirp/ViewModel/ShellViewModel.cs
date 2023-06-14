@@ -9,6 +9,7 @@ using Bluechirp.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Mastonet.Entities;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,12 +22,16 @@ namespace Bluechirp.ViewModel
     {
         [ObservableProperty]
         private Account _currentUser;
+        private CacheService _cacheService;
 
         public List<ShellMenuItem> MenuListItems { get; set; } = new List<ShellMenuItem>();
 
         public ShellViewModel()
         {
+            _cacheService = App.Services.GetRequiredService<CacheService>();
+
             App.Current.EnteredBackground += Current_EnteredBackground;
+
             CreateMenuListItems();
         }
 
@@ -64,7 +69,7 @@ namespace Bluechirp.ViewModel
         private async void Current_EnteredBackground(object sender, Windows.ApplicationModel.EnteredBackgroundEventArgs e)
         {
             var deferral = e.GetDeferral();
-            await CacheService.CacheCurrentTimeline();
+            await _cacheService.CacheCurrentTimeline();
             deferral.Complete();
         }
 

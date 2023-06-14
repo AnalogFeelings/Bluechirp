@@ -13,6 +13,7 @@ using Bluechirp.Library.Enums;
 using Bluechirp.Library.Helpers;
 using Bluechirp.Library.Model;
 using Bluechirp.Library.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Bluechirp.ViewModel
 {
@@ -29,6 +30,8 @@ namespace Bluechirp.ViewModel
 
         public event EventHandler TootsAdded;
         public event EventHandler<Status> StatusMarkerAdded;
+
+        private CacheService _cacheService;
 
         private ObservableCollection<Status> _tootTimelineCollection;
 
@@ -49,13 +52,15 @@ namespace Bluechirp.ViewModel
         public TimelineViewModelBase()
         {
             DeleteCommand = new RelayCommandWithParameter(DeleteToot);
+
+            _cacheService = App.Services.GetRequiredService<CacheService>();
         }
 
 
         protected async Task<bool> AttemptToLoadFromCache()
         {
             bool cacheWasLoaded = false;
-            var (wasTimelineLoaded, cacheToReturn) = await CacheService.LoadTimelineCache(timelineType);
+            var (wasTimelineLoaded, cacheToReturn) = await _cacheService.LoadTimelineCache(timelineType);
             if (wasTimelineLoaded)
             {
                 var cache = cacheToReturn;
@@ -78,7 +83,7 @@ namespace Bluechirp.ViewModel
         internal async Task CacheTimeline(Status currentTopVisibleStatus)
         {
             var timelineSettings = new TimelineSettings(nextPageMaxId, previousPageMinId, previousPageSinceId, timelineType);
-            await CacheService.CacheTimeline(tootTimelineData, currentTopVisibleStatus, timelineSettings);
+            await _cacheService.CacheTimeline(tootTimelineData, currentTopVisibleStatus, timelineSettings);
         }
 
         internal async Task CacheTimelineToRuntime(Status currentTopVisibleStatus)
