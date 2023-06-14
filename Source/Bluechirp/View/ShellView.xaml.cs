@@ -36,6 +36,7 @@ namespace Bluechirp.View
     {
         private CacheService _cacheService;
         private GlobalKeyboardShortcutService _shortcutService;
+        private NavService _navService;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -66,6 +67,7 @@ namespace Bluechirp.View
 
             _cacheService = App.Services.GetRequiredService<CacheService>();
             _shortcutService = App.Services.GetRequiredService<GlobalKeyboardShortcutService>();
+            _navService = App.Services.GetRequiredService<NavService>();
 
             _homeFrame.Navigated += LinkNavToBackButton;
             _localFrame.Navigated += LinkNavToBackButton;
@@ -134,7 +136,7 @@ namespace Bluechirp.View
 
             ActiveFrame = _homeFrame;
             ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
-            NavService.CreateInstance(ActiveFrame);
+            _navService.CreateInstance(ActiveFrame);
             SwapTimeline();
             await ViewModel.DoAsyncPrepartions();
         }

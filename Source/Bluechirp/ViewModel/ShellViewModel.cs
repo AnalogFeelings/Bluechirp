@@ -23,12 +23,14 @@ namespace Bluechirp.ViewModel
         [ObservableProperty]
         private Account _currentUser;
         private CacheService _cacheService;
+        private NavService _navService;
 
         public List<ShellMenuItem> MenuListItems { get; set; } = new List<ShellMenuItem>();
 
         public ShellViewModel()
         {
             _cacheService = App.Services.GetRequiredService<CacheService>();
+            _navService = App.Services.GetRequiredService<NavService>();
 
             App.Current.EnteredBackground += Current_EnteredBackground;
 
@@ -50,8 +52,8 @@ namespace Bluechirp.ViewModel
         internal async void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
             await ClientHelper.MakeLogoutPreprationsAsync();
-            NavService.CreateInstance((Frame)Window.Current.Content);
-            NavService.Instance.Navigate(typeof(LoginView));
+            _navService.CreateInstance((Frame)Window.Current.Content);
+            _navService.Navigate(typeof(LoginView));
         }
 
         private void CreateMenuListItems()
