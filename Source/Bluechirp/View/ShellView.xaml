@@ -2,19 +2,13 @@
     x:Class="Bluechirp.View.ShellView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Bluechirp.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:localcontrols="using:Bluechirp.LocalControls"
     xmlns:vm="using:Bluechirp.ViewModel"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
-    xmlns:contract7Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
-    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract, 5)"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:muxm="using:Microsoft.UI.Xaml.Media"
-    xmlns:model="using:Bluechirp.Model"
     mc:Ignorable="d"
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 	muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
     <Page.DataContext>
         <vm:ShellViewModel x:Name="ViewModel"/>
@@ -22,9 +16,7 @@
 
 	<Page.Resources>
 		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
-			</ResourceDictionary.MergedDictionaries>
+			<Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
 			<muxm:AcrylicBrush x:Key="SideBarAcrylic" FallbackColor="{ThemeResource FediChromeColor}"
                               BackgroundSource="HostBackdrop" TintColor="{ThemeResource FediChromeColor}" 
                           TintOpacity="0.8" />
@@ -33,7 +25,116 @@
 	</Page.Resources>
 
 	<Grid>
-		<Grid.ColumnDefinitions>
+		<Grid x:Name="AppTitleBar"
+		      VerticalAlignment="Top"
+		      Background="Transparent"
+		      Height="48"
+		      Canvas.ZIndex="1" 
+		      Margin="48,0,0,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="40"/>
+				<ColumnDefinition Width="220"/>
+			</Grid.ColumnDefinitions>
+
+			<Rectangle Grid.Column="0" Grid.ColumnSpan="4" 
+			           x:Name="TitleDragRegion"
+					   Fill="Transparent"
+			           HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+			<StackPanel x:Name="TitlePanel"
+						Grid.Column="0"
+			            Spacing="16"
+			            Orientation="Horizontal">
+				<Image x:Name="AppLogo"
+				       HorizontalAlignment="Left" 
+				       VerticalAlignment="Center"
+				       IsHitTestVisible="False"
+				       Source="/Assets/Icons/AppList/AppList.targetsize-64.png" 
+				       Width="24" Height="24"/>
+				<TextBlock x:Name="AppTitle"
+				           VerticalAlignment="Center"
+						   IsHitTestVisible="False"
+				           TextLineBounds="Tight"
+						   FontSize="12"
+				           Style="{StaticResource CaptionTextBlockStyle}">
+					Bluechirp
+				</TextBlock>
+			</StackPanel>
+
+			<muxc:PersonPicture Grid.Column="3" x:Name="ProfileIcon"
+			                    Width="32"/>
+		</Grid>
+		<muxc:NavigationView x:Name="NavigationViewControl"
+							 IsTitleBarAutoPaddingEnabled="False"
+							 IsBackEnabled="True">
+			<muxc:NavigationView.MenuItems>
+				<muxc:NavigationViewItem Icon="Home" Tag="home" Content="Home"/>
+
+				<muxc:NavigationViewItem Tag="explore" Content="Explore">
+					<muxc:NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF6FA;"/>
+					</muxc:NavigationViewItem.Icon>
+				</muxc:NavigationViewItem>
+
+				<muxc:NavigationViewItem Tag="local" Content="Local">
+					<muxc:NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE902;"/>
+					</muxc:NavigationViewItem.Icon>
+				</muxc:NavigationViewItem>
+
+				<muxc:NavigationViewItem Tag="federated" Content="Federated">
+					<muxc:NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE909;"/>
+					</muxc:NavigationViewItem.Icon>
+				</muxc:NavigationViewItem>
+
+				<muxc:NavigationViewItemSeparator></muxc:NavigationViewItemSeparator>
+
+				<muxc:NavigationViewItem Icon="Mail" Tag="messages" Content="Messages"/>
+
+				<muxc:NavigationViewItem Tag="notifications"  Content="Notifications">
+					<muxc:NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEA8F;"/>
+					</muxc:NavigationViewItem.Icon>
+					<muxc:NavigationViewItem.InfoBadge>
+						<muxc:InfoBadge x:Name="NotificationsBadge" Value="0" Opacity="0"/>
+					</muxc:NavigationViewItem.InfoBadge>
+				</muxc:NavigationViewItem>
+
+				<muxc:NavigationViewItem Icon="OutlineStar" Tag="favorites" Content="Favorites"/>
+
+				<muxc:NavigationViewItem Tag="bookmarks"  Content="Bookmarks">
+					<muxc:NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE7C1;"/>
+					</muxc:NavigationViewItem.Icon>
+				</muxc:NavigationViewItem>
+
+				<muxc:NavigationViewItem Tag="lists"  Content="Lists">
+					<muxc:NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8FD;"/>
+					</muxc:NavigationViewItem.Icon>
+				</muxc:NavigationViewItem>
+			</muxc:NavigationView.MenuItems>
+
+			<muxc:NavigationView.AutoSuggestBox>
+				<AutoSuggestBox QueryIcon="Find" 
+								AutomationProperties.Name="Search"
+								PlaceholderText="Search Mastodon..."/>
+			</muxc:NavigationView.AutoSuggestBox>
+
+			<muxc:NavigationView.FooterMenuItems>
+				<muxc:NavigationViewItem Tag="about" Content="About">
+					<muxc:NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE946;"/>
+					</muxc:NavigationViewItem.Icon>
+				</muxc:NavigationViewItem>
+			</muxc:NavigationView.FooterMenuItems>
+
+			<Frame x:Name="ContentFrame"/>
+		</muxc:NavigationView>
+		<!--<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="auto"/>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
@@ -116,6 +217,6 @@
 						  VerticalAlignment="Stretch"
 						  HorizontalContentAlignment="Stretch"
 						  VerticalContentAlignment="Stretch"
-						  Content="{x:Bind ActiveFrame, Mode=OneWay}"/>
+						  Content="{x:Bind ActiveFrame, Mode=OneWay}"/>-->
 	</Grid>
 </Page>
