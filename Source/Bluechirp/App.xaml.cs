@@ -230,6 +230,7 @@ namespace Bluechirp
             IServiceCollection collection = new ServiceCollection()
                 .AddSingleton<CacheService>()
                 .AddSingleton<GlobalKeyboardShortcutService>()
+                .AddSingleton<InstanceMatchService>()
                 .AddSingleton<NavService>();
 
             IServiceProvider provider = collection.BuildServiceProvider(true);

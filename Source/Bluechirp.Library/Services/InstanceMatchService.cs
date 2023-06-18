@@ -1,29 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Bluechirp.Library.Services
 {
-    public static class InstanceMatchService
+    public class InstanceMatchService
     {
-        const string InstanceNameRegularExpression = "^[A-Za-z0-9\\-]+\\.+[A-Za-z0-9\\-]+$";
+        private const string INSTANCE_REGEX_STRING = "^[A-Za-z0-9\\-]+\\.+[A-Za-z0-9\\-]+$";
+        private readonly Regex _instanceRegex = new Regex(INSTANCE_REGEX_STRING, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public static bool CheckIfInstanceNameIsProperlyFormatted(string instanceName)
+        public bool CheckIfInstanceNameIsProperlyFormatted(string instanceName)
         {
             bool wasFormattedProperly = false;
 
-            // Define a regular expression for repeated words.
-            Regex rx = new Regex(InstanceNameRegularExpression,
-              RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-
             // Find matches.
-            MatchCollection matches = rx.Matches(instanceName);
+            MatchCollection matches = _instanceRegex.Matches(instanceName);
 
-            if(matches.Count > 0)
+            if (matches.Count > 0)
             {
                 wasFormattedProperly = true;
             }

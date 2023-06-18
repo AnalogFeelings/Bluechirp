@@ -22,6 +22,7 @@ namespace Bluechirp.ViewModel
         [ObservableProperty]
         private string _instanceUrl;
         private NavService _navService;
+        private InstanceMatchService _instanceService;
 
         /// <summary>
         /// Creates a new instance of the <see cref="LoginViewModel"/> class.
@@ -29,6 +30,7 @@ namespace Bluechirp.ViewModel
         public LoginViewModel()
         {
             _navService = App.Services.GetRequiredService<NavService>();
+            _instanceService = App.Services.GetRequiredService<InstanceMatchService>();
 
             AuthHelper.AuthCompleted += AuthHelper_AuthCompleted;
         }
@@ -51,7 +53,7 @@ namespace Bluechirp.ViewModel
         [RelayCommand]
         private async Task LoginAsync()
         {
-            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(InstanceUrl))
+            if (_instanceService.CheckIfInstanceNameIsProperlyFormatted(InstanceUrl))
             {
                 await AuthHelper.Instance.LoginAsync(InstanceUrl);
             }
@@ -69,7 +71,7 @@ namespace Bluechirp.ViewModel
         [RelayCommand]
         private async Task SignUpAsync()
         {
-            if (InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(InstanceUrl))
+            if (_instanceService.CheckIfInstanceNameIsProperlyFormatted(InstanceUrl))
             {
                 // Concat the URIs safely.
                 Uri baseUri = new Uri($"https://{InstanceUrl}");
