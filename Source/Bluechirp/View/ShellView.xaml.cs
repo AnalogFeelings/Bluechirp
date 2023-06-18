@@ -26,6 +26,8 @@ using Bluechirp.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.ViewManagement;
 using Windows.UI;
+using Windows.ApplicationModel.Core;
+using System.Reflection;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -70,53 +72,78 @@ namespace Bluechirp.View
             _cacheService = App.Services.GetRequiredService<CacheService>();
             _shortcutService = App.Services.GetRequiredService<GlobalKeyboardShortcutService>();
             _navService = App.Services.GetRequiredService<NavService>();
-            
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
 
-            _homeFrame.Navigated += LinkNavToBackButton;
-            _localFrame.Navigated += LinkNavToBackButton;
-            _federatedFrame.Navigated += LinkNavToBackButton;
+            ApplicationViewTitleBar viewTitleBar = ApplicationView.GetForCurrentView().TitleBar;
 
-            SystemNavigationManager.GetForCurrentView().BackRequested += ShellView_BackRequested;
-            _shortcutService.GlobalShortcutPressed += GlobalKeyboardShortcutService_GlobalShortcutPressed;
+            viewTitleBar.ButtonBackgroundColor = Colors.Transparent;
+            viewTitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            viewTitleBar.ButtonInactiveForegroundColor = Colors.Gray;
+
+            Window.Current.SetTitleBar(TitleDragRegion);
+            Window.Current.CoreWindow.Activated += CoreWindowOnActivated;
+            coreTitleBar.LayoutMetricsChanged += CoreTitleBarOnLayoutMetricsChanged;
+
+            //_homeFrame.Navigated += LinkNavToBackButton;
+            //_localFrame.Navigated += LinkNavToBackButton;
+            //_federatedFrame.Navigated += LinkNavToBackButton;
+
+            //SystemNavigationManager.GetForCurrentView().BackRequested += ShellView_BackRequested;
+            //_shortcutService.GlobalShortcutPressed += GlobalKeyboardShortcutService_GlobalShortcutPressed;
+        }
+
+        private void CoreTitleBarOnLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+        {
+            ProfileIcon.Margin = new Thickness(0, 0, sender.SystemOverlayRightInset, 0);
+        }
+
+        private void CoreWindowOnActivated(CoreWindow sender, WindowActivatedEventArgs args)
+        {
+            if (args.WindowActivationState == CoreWindowActivationState.Deactivated)
+            {
+                AppTitle.Foreground = new SolidColorBrush(Colors.Gray);
+            }
+            else
+            {
+                AppTitle.Foreground = new SolidColorBrush(Colors.White);
+            }
         }
 
         private async void GlobalKeyboardShortcutService_GlobalShortcutPressed(object sender, ShortcutType e)
         {
-            switch (e)
-            {
-                case ShortcutType.Home:
-                    await DecideHowToSwap(ViewModel.MenuListItems[0]);
-                    MenuListView.SelectedIndex = 0;
-                    break;
-                case ShortcutType.Local:
-                    await DecideHowToSwap(ViewModel.MenuListItems[1]);
-                    MenuListView.SelectedIndex = 1;
-                    break;
-                case ShortcutType.Federated:
-                    await DecideHowToSwap(ViewModel.MenuListItems[2]);
-                    MenuListView.SelectedIndex = 2;
-                    break;
-                case ShortcutType.Help:
-                    // TODO: Show Keyboard shortcuts dialog
-                    //EmojiDebug.WriteLine(DebugEmoji.Celebrate, "Keyboard Shortcuts Help Key Combo!");
-                    var kbShortuctsDialog = new KeyboardShortcutsDialog();
-                    try
-                    {
-                        await kbShortuctsDialog.ShowAsync();
-                    }
-                    catch (Exception)
-                    {
+            //switch (e)
+            //{
+            //    case ShortcutType.Home:
+            //        await DecideHowToSwap(ViewModel.MenuListItems[0]);
+            //        MenuListView.SelectedIndex = 0;
+            //        break;
+            //    case ShortcutType.Local:
+            //        await DecideHowToSwap(ViewModel.MenuListItems[1]);
+            //        MenuListView.SelectedIndex = 1;
+            //        break;
+            //    case ShortcutType.Federated:
+            //        await DecideHowToSwap(ViewModel.MenuListItems[2]);
+            //        MenuListView.SelectedIndex = 2;
+            //        break;
+            //    case ShortcutType.Help:
+            //        // TODO: Show Keyboard shortcuts dialog
+            //        //EmojiDebug.WriteLine(DebugEmoji.Celebrate, "Keyboard Shortcuts Help Key Combo!");
+            //        var kbShortuctsDialog = new KeyboardShortcutsDialog();
+            //        try
+            //        {
+            //            await kbShortuctsDialog.ShowAsync();
+            //        }
+            //        catch (Exception)
+            //        {
 
                         
-                    }
-                    break;
-                default:
-                    break;
-            }
+            //        }
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
         private void ShellView_BackRequested(object sender, BackRequestedEventArgs e)
@@ -130,10 +157,10 @@ namespace Bluechirp.View
 
         private void LinkNavToBackButton(object sender, NavigationEventArgs e)
         {
-            if (sender is Frame navFrame)
-            {
-                BackButton.IsEnabled = navFrame.CanGoBack;
-            }
+            //if (sender is Frame navFrame)
+            //{
+            //    BackButton.IsEnabled = navFrame.CanGoBack;
+            //}
         }
 
 
@@ -270,7 +297,7 @@ namespace Bluechirp.View
 
         private void UpdateBackButtonEvents()
         {
-            BackButton.IsEnabled = ActiveFrame.CanGoBack;
+            //BackButton.IsEnabled = ActiveFrame.CanGoBack;
         }
 
         private bool CheckIfFrameHasContent()
@@ -288,18 +315,18 @@ namespace Bluechirp.View
 
         private void MenuListView_Loaded(object sender, RoutedEventArgs e)
         {
-            if (ActiveFrame == _homeFrame)
-            {
-                MenuListView.SelectedIndex = 0;
-            }
-            else if (ActiveFrame == _localFrame)
-            {
-                MenuListView.SelectedIndex = 1;
-            }
-            else if (ActiveFrame == _federatedFrame)
-            {
-                MenuListView.SelectedIndex = 2;
-            }
+            //if (ActiveFrame == _homeFrame)
+            //{
+            //    MenuListView.SelectedIndex = 0;
+            //}
+            //else if (ActiveFrame == _localFrame)
+            //{
+            //    MenuListView.SelectedIndex = 1;
+            //}
+            //else if (ActiveFrame == _federatedFrame)
+            //{
+            //    MenuListView.SelectedIndex = 2;
+            //}
         }
     }
 }
