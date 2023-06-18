@@ -6,12 +6,19 @@ namespace Bluechirp.Tests
     [TestClass]
     public class InstanceMatchingTests
     {
+        private InstanceMatchService instanceMatchService;
+
+        public InstanceMatchingTests() 
+        { 
+            instanceMatchService = new InstanceMatchService();
+        }
+
         [TestMethod]
         public void TestUrlFailingTest()
         {
             string testUrl = "https://www.google.com";
 
-            Assert.IsFalse(InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(testUrl));
+            Assert.IsFalse(instanceMatchService.CheckIfInstanceNameIsProperlyFormatted(testUrl));
         }
 
         [TestMethod]
@@ -19,7 +26,7 @@ namespace Bluechirp.Tests
         {
             string instanceName = "mastodon.technology";
 
-            Assert.IsTrue(InstanceMatchService.CheckIfInstanceNameIsProperlyFormatted(instanceName));
+            Assert.IsTrue(instanceMatchService.CheckIfInstanceNameIsProperlyFormatted(instanceName));
         }
     }
 }
