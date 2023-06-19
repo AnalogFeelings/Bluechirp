@@ -17,9 +17,6 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
-			<muxm:AcrylicBrush x:Key="SideBarAcrylic" FallbackColor="{ThemeResource FediChromeColor}"
-                              BackgroundSource="HostBackdrop" TintColor="{ThemeResource FediChromeColor}" 
-                          TintOpacity="0.8" />
 		</ResourceDictionary>
 
 	</Page.Resources>
@@ -63,8 +60,30 @@
 				</TextBlock>
 			</StackPanel>
 
-			<muxc:PersonPicture Grid.Column="3" x:Name="ProfileIcon"
-			                    Width="32"/>
+			<muxc:PersonPicture Grid.Column="3"
+								x:Name="ProfileIcon"
+								Width="32"
+								Height="32"
+								ToolTipService.ToolTip="{x:Bind ViewModel.CurrentUser.AccountName, Mode=OneWay}">
+				<muxc:PersonPicture.ProfilePicture>
+					<BitmapImage DecodePixelType="Logical"
+								 DecodePixelWidth="32"
+								 DecodePixelHeight="32"
+								 UriSource="{x:Bind ViewModel.CurrentUser.AvatarUrl, Mode=OneWay}"/>
+				</muxc:PersonPicture.ProfilePicture>
+				<muxc:PersonPicture.ContextFlyout>
+					<MenuFlyout>
+						<!--TODO: Replace with left-click flyout. -->
+						<MenuFlyoutItem Text="Logout"
+										Name="LogoutButton" 
+										Click="{x:Bind ViewModel.LogoutButton_Click}">
+							<MenuFlyoutItem.Icon>
+								<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF3B1;"/>
+							</MenuFlyoutItem.Icon>
+						</MenuFlyoutItem>
+					</MenuFlyout>
+				</muxc:PersonPicture.ContextFlyout>
+			</muxc:PersonPicture>
 		</Grid>
 		<muxc:NavigationView x:Name="NavigationViewControl"
 							 IsTitleBarAutoPaddingEnabled="False"
