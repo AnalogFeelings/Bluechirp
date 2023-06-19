@@ -11,17 +11,12 @@
         <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
     </Page.Resources>
     <Grid Padding="0" Name="RootGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
 
-            <TextBlock Style="{StaticResource FluentHeaderTextStyle}"
-                   Text="{x:Bind ViewModel.ViewTitle, Mode=OneWay}"
-                   Margin="40,60,40,0"
-                   FontSize="40"/>
-           
-        <ListView Grid.Row="1" ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
+		<ListView Grid.Row="1" ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
                   ItemsSource="{x:Bind ViewModel.TootTimelineCollection, Mode=OneWay}"
                   SelectionMode="None"
                   IsItemClickEnabled="True"

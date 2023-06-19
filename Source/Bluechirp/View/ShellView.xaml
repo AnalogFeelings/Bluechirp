@@ -6,7 +6,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Bluechirp.ViewModel"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:muxm="using:Microsoft.UI.Xaml.Media"
     mc:Ignorable="d"
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 	muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
@@ -86,8 +85,11 @@
 			</muxc:PersonPicture>
 		</Grid>
 		<muxc:NavigationView x:Name="NavigationViewControl"
-							 IsTitleBarAutoPaddingEnabled="False"
-							 IsBackEnabled="True">
+							 Loaded="NavigationViewControl_OnLoaded"
+							 ItemInvoked="NavigationViewControl_ItemInvoked"
+		                     IsTitleBarAutoPaddingEnabled="False"
+							 IsBackEnabled="True"
+							 AlwaysShowHeader="False">
 			<muxc:NavigationView.MenuItems>
 				<muxc:NavigationViewItem Icon="Home" Tag="home" Content="Home"/>
 

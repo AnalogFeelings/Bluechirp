@@ -132,6 +132,7 @@
     <Compile Include="Helpers\ClientDataHelper.cs" />
     <Compile Include="Helpers\ClientHelper.cs" />
     <Compile Include="Helpers\TimestampHelper.cs" />
+    <Compile Include="Model\Navigation\NavigationPage.cs" />
     <Compile Include="Model\Notifier.cs" />
     <Compile Include="Model\TimelineCache.cs" />
     <Compile Include="Model\TimelineSettings.cs" />
@@ -156,6 +157,7 @@
       <Version>13.0.3</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
