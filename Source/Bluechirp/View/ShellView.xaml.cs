@@ -28,6 +28,8 @@ using Windows.UI.ViewManagement;
 using Windows.UI;
 using Windows.ApplicationModel.Core;
 using System.Reflection;
+using Bluechirp.Library.Model.Navigation;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -38,6 +40,34 @@ namespace Bluechirp.View
     /// </summary>
     public sealed partial class ShellView : Page, INotifyPropertyChanged
     {
+        private readonly List<NavigationPage> _Pages = new List<NavigationPage>()
+        {
+            new NavigationPage()
+            {
+                Tag = "home",
+                Header = "Home",
+                ShowHeader = true,
+                Page = typeof(TimelineView),
+                ViewModel = typeof(HomeViewModel)
+            },
+            new NavigationPage()
+            {
+                Tag = "local",
+                Header = "Local Timeline",
+                ShowHeader = true,
+                Page = typeof(TimelineView),
+                ViewModel = typeof(LocalViewModel)
+            },
+            new NavigationPage()
+            {
+                Tag = "federated",
+                Header = "Federated Timeline",
+                ShowHeader = true,
+                Page = typeof(TimelineView),
+                ViewModel = typeof(FederatedViewModel)
+            }
+        };
+
         private CacheService _cacheService;
         private GlobalKeyboardShortcutService _shortcutService;
         private NavService _navService;
@@ -108,6 +138,55 @@ namespace Bluechirp.View
             else
             {
                 AppTitle.Foreground = new SolidColorBrush(Colors.White);
+            }
+        }
+
+        private void NavigationViewControl_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems[0];
+
+            NavigationViewControl_NavigateTo("home", new EntranceNavigationTransitionInfo());
+        }
+
+        private void NavigationViewControl_NavigateTo(string navigationItemTag, NavigationTransitionInfo transitionInfo)
+        {
+            NavigationPage pageItem = _Pages.FirstOrDefault(x => x.Tag == navigationItemTag);
+
+            if (pageItem == default) return;
+
+            Type targetPage = pageItem.Page;
+            Type targetViewModel = pageItem.ViewModel;
+
+            if (pageItem.ShowHeader)
+            {
+                NavigationViewControl.AlwaysShowHeader = true;
+                NavigationViewControl.Header = pageItem.Header;
+            }
+            else
+            {
+                NavigationViewControl.AlwaysShowHeader = false;
+            }
+
+            Type currentPage = ContentFrame.CurrentSourcePageType;
+
+            // HACK: This is cancer, gotta replace this system ASAP.
+            if (targetPage != null)
+            {
+                ContentFrame.Navigate(targetPage, targetViewModel, transitionInfo);
+            }
+        }
+
+        private void NavigationViewControl_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            if (args.IsSettingsInvoked)
+            {
+                NavigationViewControl_NavigateTo("settings", args.RecommendedNavigationTransitionInfo);
+            }
+            else if (args.InvokedItem != null)
+            {
+                string targetItemTag = args.InvokedItemContainer.Tag.ToString();
+
+                NavigationViewControl_NavigateTo(targetItemTag, args.RecommendedNavigationTransitionInfo);
             }
         }
 
