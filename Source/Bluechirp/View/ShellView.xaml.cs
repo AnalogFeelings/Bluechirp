@@ -1,37 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Bluechirp.Library.Helpers;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+﻿using Bluechirp.Enums;
+using Bluechirp.Library.Model.Navigation;
 using Bluechirp.Library.Services;
-using Windows.UI.Core;
-using Bluechirp.Dialogs;
-using Bluechirp.Enums;
 using Bluechirp.Model;
 using Bluechirp.Services;
 using Bluechirp.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
-using Windows.UI.ViewManagement;
-using Windows.UI;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
-using System.Reflection;
-using Bluechirp.Library.Model.Navigation;
+using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using Windows.UI.Xaml.Navigation;
 
 namespace Bluechirp.View
 {
@@ -229,7 +217,7 @@ namespace Bluechirp.View
             //        catch (Exception)
             //        {
 
-                        
+
             //        }
             //        break;
             //    default:
@@ -382,7 +370,7 @@ namespace Bluechirp.View
             {
 
             }
-            
+
             _cacheService.SwapCurrentTimeline(timelineToCache);
         }
 

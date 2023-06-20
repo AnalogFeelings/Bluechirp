@@ -12,58 +12,58 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 	<Page.DataContext>
-        <viewModel:LoginViewModel x:Name="ViewModel"/>
-    </Page.DataContext>
+		<viewModel:LoginViewModel x:Name="ViewModel"/>
+	</Page.DataContext>
 
 	<Page.Resources>
 		<ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
+			<ResourceDictionary.ThemeDictionaries>
 				<ResourceDictionary x:Key="Default">
 					<media:AcrylicBrush x:Key="BackgroundAcrylic" BackgroundSource="Backdrop"
 						TintOpacity="0" TintLuminosityOpacity="0" TintColor="White" FallbackColor="#563ACC" />
 				</ResourceDictionary>
 			</ResourceDictionary.ThemeDictionaries>
-        </ResourceDictionary>
+		</ResourceDictionary>
 	</Page.Resources>
 
 	<Grid HorizontalAlignment="Stretch"
           VerticalAlignment="Stretch"
           x:Name="MainGrid">
 
-        <Grid.Background>
-            <LinearGradientBrush x:Name="BackgroundBrush">
-                <LinearGradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#563ACC"
+		<Grid.Background>
+			<LinearGradientBrush x:Name="BackgroundBrush">
+				<LinearGradientBrush.GradientStops>
+					<GradientStopCollection>
+						<GradientStop Color="#563ACC"
                                       x:Name="LightStop"/>
-                        <GradientStop Offset="1" 
+						<GradientStop Offset="1" 
                                       Color="#17063B"
                                       x:Name="DarkStop"/>
-                    </GradientStopCollection>
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-        </Grid.Background>
+					</GradientStopCollection>
+				</LinearGradientBrush.GradientStops>
+			</LinearGradientBrush>
+		</Grid.Background>
 
-        <Grid.Triggers>
-            <EventTrigger RoutedEvent="Grid.Loaded">
-                <BeginStoryboard>
-                    <Storyboard x:Name="BackgroundAnimation" RepeatBehavior="Forever" SpeedRatio="0.03">
-                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="MainGrid" Storyboard.TargetProperty="(UIElement.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" EnableDependentAnimation="True">
-                            <LinearColorKeyFrame KeyTime="0:0:0" Value="#563ACC"/>
-                            <LinearColorKeyFrame KeyTime="0:0:1" Value="#17063B"/>
-                            <LinearColorKeyFrame KeyTime="0:0:2" Value="#563ACC"/>
-                        </ColorAnimationUsingKeyFrames>
-                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="MainGrid" Storyboard.TargetProperty="(UIElement.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" EnableDependentAnimation="True">
-                            <LinearColorKeyFrame KeyTime="0:0:0" Value="#17063B"/>
-                            <LinearColorKeyFrame KeyTime="0:0:1" Value="#563ACC"/>
-                            <LinearColorKeyFrame KeyTime="0:0:2" Value="#17063B"/>
-                        </ColorAnimationUsingKeyFrames>
-                    </Storyboard>
-                </BeginStoryboard>
-            </EventTrigger>
-        </Grid.Triggers>
+		<Grid.Triggers>
+			<EventTrigger RoutedEvent="Grid.Loaded">
+				<BeginStoryboard>
+					<Storyboard x:Name="BackgroundAnimation" RepeatBehavior="Forever" SpeedRatio="0.03">
+						<ColorAnimationUsingKeyFrames Storyboard.TargetName="MainGrid" Storyboard.TargetProperty="(UIElement.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" EnableDependentAnimation="True">
+							<LinearColorKeyFrame KeyTime="0:0:0" Value="#563ACC"/>
+							<LinearColorKeyFrame KeyTime="0:0:1" Value="#17063B"/>
+							<LinearColorKeyFrame KeyTime="0:0:2" Value="#563ACC"/>
+						</ColorAnimationUsingKeyFrames>
+						<ColorAnimationUsingKeyFrames Storyboard.TargetName="MainGrid" Storyboard.TargetProperty="(UIElement.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" EnableDependentAnimation="True">
+							<LinearColorKeyFrame KeyTime="0:0:0" Value="#17063B"/>
+							<LinearColorKeyFrame KeyTime="0:0:1" Value="#563ACC"/>
+							<LinearColorKeyFrame KeyTime="0:0:2" Value="#17063B"/>
+						</ColorAnimationUsingKeyFrames>
+					</Storyboard>
+				</BeginStoryboard>
+			</EventTrigger>
+		</Grid.Triggers>
 
-        <Border x:Name="AppTitleBar"
+		<Border x:Name="AppTitleBar"
 	            IsHitTestVisible="True"
 	            VerticalAlignment="Top"
 	            Background="Transparent"
@@ -124,5 +124,5 @@
 				                 Grid.Column="1"/>
 			</Grid>
 		</StackPanel>
-    </Grid>
+	</Grid>
 </Page>

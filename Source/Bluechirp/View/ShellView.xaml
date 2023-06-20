@@ -9,9 +9,9 @@
     mc:Ignorable="d"
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 	muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
-    <Page.DataContext>
-        <vm:ShellViewModel x:Name="ViewModel"/>
-    </Page.DataContext>
+	<Page.DataContext>
+		<vm:ShellViewModel x:Name="ViewModel"/>
+	</Page.DataContext>
 
 	<Page.Resources>
 		<ResourceDictionary>
