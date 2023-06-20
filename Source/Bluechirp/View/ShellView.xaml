@@ -41,21 +41,30 @@
 
 			<StackPanel x:Name="TitlePanel"
 						Grid.Column="0"
-			            Spacing="16"
 			            Orientation="Horizontal">
 				<Image x:Name="AppLogo"
 				       HorizontalAlignment="Left" 
 				       VerticalAlignment="Center"
 				       IsHitTestVisible="False"
 				       Source="/Assets/Icons/AppList/AppList.targetsize-64.png" 
-				       Width="24" Height="24"/>
+				       Width="24" Height="24"
+					   Margin="0,0,12,0"/>
 				<TextBlock x:Name="AppTitle"
 				           VerticalAlignment="Center"
 						   IsHitTestVisible="False"
-				           TextLineBounds="Tight"
 						   FontSize="12"
-				           Style="{StaticResource CaptionTextBlockStyle}">
+				           Style="{StaticResource BodyTextBlockStyle}"
+						   Margin="0,0,8,0">
 					Bluechirp
+				</TextBlock>
+				<TextBlock x:Name="AppDevBadge"
+						   VerticalAlignment="Center"
+						   IsHitTestVisible="False"
+						   FontSize="12"
+						   FontWeight="SemiLight"
+						   Foreground="{StaticResource SystemColorDisabledTextColor}"
+						   Visibility="{x:Bind ShowDevBadge}">
+					DEV
 				</TextBlock>
 			</StackPanel>
 
