@@ -6,8 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Bluechirp.Converters"
     xmlns:vm="using:Bluechirp.ViewModel"
-    mc:Ignorable="d"
-    Background="{ThemeResource FediBackgroundColor}">
+    mc:Ignorable="d">
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -17,31 +16,16 @@
 			<vm:ExpandedTootViewModel x:Name="ViewModel"/>
 		</ResourceDictionary>
 	</Page.Resources>
-	<Grid Background="{ThemeResource FediBackgroundColor}">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="auto"/>
-			<RowDefinition/>
-		</Grid.RowDefinitions>
-		<TextBlock Style="{StaticResource FluentHeaderTextStyle}"
-                   Text="Toot"
-                   Margin="40,60,40,0"
-                   FontSize="40"/>
-
-		<RelativePanel Grid.Row="1">
-			<ListView Name="ExpandedTootContextListView"
-                  ItemTemplateSelector="{StaticResource TemplateSelector}"
-                  ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
+	<Grid Padding="0">
+		<ListView Name="ExpandedTootContextListView"
+					  ItemTemplateSelector="{StaticResource TemplateSelector}"
+					  ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
                       IsItemClickEnabled="True"
-                  Padding="0,20"
-                  Margin="0,4,0,0"
-                  ItemsSource="{x:Bind ViewModel.ContextTootItems, Mode=OneWay}"
+					  Padding="0,20"
+					  Margin="0,4,0,0"
+					  ItemsSource="{x:Bind ViewModel.ContextTootItems, Mode=OneWay}"
                       ItemClick="ExpandedTootContextListView_ItemClick"
                       HorizontalAlignment="Stretch">
-
-
-			</ListView>
-
-		</RelativePanel>
-
+		</ListView>
 	</Grid>
 </Page>
