@@ -8,183 +8,178 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400"
+	d:DesignHeight="350"
+    d:DesignWidth="500"
     IsHitTestVisible="True"
     IsTabStop="True"
     Background="Transparent">
 
-    <UserControl.Resources>
-
-        <ResourceDictionary>
+	<UserControl.Resources>
+		<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///Styles/ControlStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <controls:DropShadowPanel 
-                              ShadowOpacity="0.25"
-                              BlurRadius="12"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Stretch"
-                              HorizontalContentAlignment="Stretch"
-                              VerticalContentAlignment="Stretch"
-        Background="{ThemeResource FediMainColor}"
-        MinWidth="0"
-        Name="RootPanel">
-
-
-        <StackPanel Background="{ThemeResource FediMainColor}"
-                       CornerRadius="4"
-                       Padding="24">
-            <Button Style="{ThemeResource NameTextBlockButton}"
-                        Content="Reblogged By:"
-                        Name="RebloggedByButton"
-                    Visibility="Collapsed"
-                    Margin="0,0,0,12"/>
-            <RelativePanel >
-				<muxc:PersonPicture Width="60"
-	                                Height="60"
-	                                Margin="0,0,24,0"
-	                                Name="StatusAvatar">
-					<muxc:PersonPicture.ProfilePicture>
-						<BitmapImage x:Name="StatusAvatarImage"
+	<StackPanel Translation="0, 0, 32"
+		        CornerRadius="8"
+		        Padding="16"
+		        BorderThickness="1"
+		        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+		        Background="{ThemeResource LayerFillColorDefaultBrush}">
+		<Button Style="{ThemeResource NameTextBlockButton}"
+				Name="RebloggedByButton"
+				Visibility="Collapsed"
+				Margin="0,0,0,12">
+			<StackPanel Orientation="Horizontal" Spacing="12">
+				<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8EB;" />
+				<TextBlock Name="RebloggedByText">
+					Boosted by
+				</TextBlock>
+			</StackPanel>
+		</Button>
+		<RelativePanel >
+			<muxc:PersonPicture Width="64"
+	                            Height="64"
+	                            Margin="0,0,16,0"
+	                            Name="StatusAvatar">
+				<muxc:PersonPicture.ProfilePicture>
+					<BitmapImage x:Name="StatusAvatarImage"
 									 DecodePixelType="Logical"
-									 DecodePixelWidth="60"
-									 DecodePixelHeight="60"/>
-					</muxc:PersonPicture.ProfilePicture>
-				</muxc:PersonPicture>
-				<StackPanel Orientation="Horizontal" Name="NamesStackPanel"
+									 DecodePixelWidth="64"
+									 DecodePixelHeight="64"/>
+				</muxc:PersonPicture.ProfilePicture>
+			</muxc:PersonPicture>
+			<StackPanel Orientation="Vertical" Name="NamesStackPanel"
                         RelativePanel.RightOf="StatusAvatar"
-                        RelativePanel.LeftOf="StatusTimestamp">
-                    <StackPanel.Resources>
-
-                    </StackPanel.Resources>
-                    <Button Style="{ThemeResource NameTextBlockButton}">
-                        <TextBlock Style="{ThemeResource FluentTitleTextStyle}"
+                        RelativePanel.LeftOf="StatusTimestamp"
+						RelativePanel.AlignVerticalCenterWith="StatusAvatar">
+				<Button Style="{ThemeResource NameTextBlockButton}">
+					<TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                                TextTrimming="CharacterEllipsis"
                                FontSize="20"
                                Name="DisplayNameTextBlock"/>
-
-                    </Button>
-                    <Button Margin="8,0,0,0" 
-                        Style="{StaticResource NameTextBlockButton}">
-                        <TextBlock
-           TextTrimming="CharacterEllipsis"
+				</Button>
+				<Button Style="{StaticResource NameTextBlockButton}">
+					<TextBlock TextTrimming="CharacterEllipsis"
+							   Style="{ThemeResource CaptionTextBlockStyle}"
+							   Foreground="{ThemeResource SystemColorGrayTextColor}"
                                FontSize="20"
                                Name="AccountNameTextBlock"/>
-                    </Button>
-                </StackPanel>
+				</Button>
+			</StackPanel>
 
-
-                <TextBlock FontSize="20"
+			<TextBlock FontSize="20"
                        TextAlignment="Left"
                        VerticalAlignment="Top"
-                           Foreground="{ThemeResource SystemChromeDisabledLowColor}"
+                       Foreground="{ThemeResource SystemChromeDisabledLowColor}"
                        x:Name="StatusTimestamp"
                        RelativePanel.AlignRightWithPanel="True"
                        RelativePanel.AlignTopWithPanel="True"
-                           Margin="8,0,0,0"/>
+                       Margin="8,0,0,0"/>
 
-
-                <RichTextBlock x:Name="StatusContent"
+			<RichTextBlock x:Name="StatusContent"
                        RelativePanel.RightOf="StatusAvatar"
                        RelativePanel.LeftOf="StatusTimestamp"
-                       RelativePanel.Below="StatusTimestamp"
+                       RelativePanel.Below="NamesStackPanel"
                        RelativePanel.AlignRightWithPanel="True"
                        TextWrapping="Wrap"
                        IsTextSelectionEnabled="True"
                        FontSize="22"
-                       Canvas.ZIndex="100"/>
-                <StackPanel Name="TootActionStackPanel" 
+                       Canvas.ZIndex="100"
+                       Margin="0, 12, 0, 0"/>
+			<StackPanel Name="TootActionStackPanel" 
                         Orientation="Horizontal" 
                         RelativePanel.RightOf="StatusAvatar"
                         RelativePanel.Below="StatusContent"
                         Margin="0,20,0,0">
-                    <StackPanel.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource TextBlockButtonStyle}">
-                            <Setter Property="Foreground"
+				<StackPanel.Resources>
+					<Style TargetType="Button" BasedOn="{StaticResource TextBlockButtonStyle}">
+						<Setter Property="Foreground"
                                 Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
-                        </Style>
-                        
-                        <Style TargetType="FontIcon">
-                            <Setter Property="FontSize" Value="28"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <Button Name="ReplyButton" Click="ReplyButton_Click">
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE97A;" />
-                    </Button>
-                    <ToggleButton Name="ReblogButton" Style="{ThemeResource TextToggleButtonStyle}"
-                                  Click="ReblogButton_Click">
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8EB;" />
-                    </ToggleButton>
-                    <ToggleButton Name="FavouriteButton" Style="{ThemeResource TextToggleButtonStyle}"
-                                  Click="FavouriteButton_Click">
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
-                    </ToggleButton>
-                    <Button Name="MoreButton">
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10C;" />
-                    </Button>
-                </StackPanel>
+					</Style>
+					<Style TargetType="FontIcon">
+						<Setter Property="FontSize" Value="28"/>
+					</Style>
+				</StackPanel.Resources>
+				<Button Name="ReplyButton" Click="ReplyButton_Click">
+					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE97A;" />
+				</Button>
+				<ToggleButton Name="ReblogButton" 
+							  Style="{ThemeResource TextToggleButtonStyle}"
+                              Click="ReblogButton_Click">
+					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8EB;" />
+				</ToggleButton>
+				<ToggleButton Name="FavouriteButton" 
+							  Style="{ThemeResource TextToggleButtonStyle}"
+                              Click="FavouriteButton_Click">
+					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE734;" />
+				</ToggleButton>
+				<ToggleButton Name="BookmarkButton" 
+							  Style="{ThemeResource TextToggleButtonStyle}">
+					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74E;" />
+				</ToggleButton>
+				<ToggleButton Name="ShareButton" 
+							  Style="{ThemeResource TextToggleButtonStyle}">
+					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72D;" />
+				</ToggleButton>
+				<Button Name="MoreButton">
+					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE10C;" />
+				</Button>
+			</StackPanel>
 
-                <StackPanel Orientation="Horizontal" RelativePanel.Below="TootActionStackPanel"
-                            RelativePanel.AlignLeftWith="TootActionStackPanel"
-                            Name="TootEngagementStackPanel"
-                            Margin="0,20,0,0">
-                    <StackPanel.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Foreground"
+			<StackPanel Orientation="Horizontal" RelativePanel.Below="TootActionStackPanel"
+                        RelativePanel.AlignLeftWith="TootActionStackPanel"
+                        Name="TootEngagementStackPanel"
+                        Margin="0,20,0,0">
+				<StackPanel.Resources>
+					<Style TargetType="TextBlock">
+						<Setter Property="Foreground" Value="{ThemeResource FediFadedColor}"/>
+					</Style>
+				</StackPanel.Resources>
+				<TextBlock Text="10 Favourites" Name="FavouritesCountTextBlock"/>
+				<TextBlock Text="•" Margin="4,0"/>
+				<TextBlock Text="9 Boosts" Name="BoostsCountTextBlock"/>
+			</StackPanel>
+
+			<StackPanel Name="ExtraTootDataStackPanel" RelativePanel.Below="TootEngagementStackPanel"
+                        RelativePanel.AlignLeftWith="TootActionStackPanel"
+                        Margin="0,20,0,0">
+				<StackPanel.Resources>
+					<Style TargetType="TextBlock">
+						<Setter Property="Foreground"
                                     Value="{ThemeResource FediFadedColor}"/>
-                        </Style>
+					</Style>
 
-                    </StackPanel.Resources>
-                    <TextBlock Text="10 Favourites"
-                               Name="FavouritesCountTextBlock"/>
-                    <TextBlock Text="•" Margin="4,0"/>
-                    <TextBlock Text="9 Boosts"
-                               Name="BoostsCountTextBlock"/>
-                </StackPanel>
-
-                <StackPanel Name="ExtraTootDataStackPanel" RelativePanel.Below="TootEngagementStackPanel"
-                            RelativePanel.AlignLeftWith="TootActionStackPanel"
-                            Margin="0,20,0,0">
-                    <StackPanel.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Foreground"
+					<Style TargetType="FontIcon">
+						<Setter Property="Foreground"
                                     Value="{ThemeResource FediFadedColor}"/>
-                        </Style>
+					</Style>
+				</StackPanel.Resources>
 
-                        <Style TargetType="FontIcon">
-                            <Setter Property="Foreground"
-                                    Value="{ThemeResource FediFadedColor}"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    
-                    <StackPanel Orientation="Horizontal">
-                        <FontIcon FontFamily="Segoe MDL2 Assets"
+				<StackPanel Orientation="Horizontal">
+					<FontIcon FontFamily="Segoe Fluent Icons"
                                   Glyph="&#xE909;"
                                   Name="TootVisibilityIcon"/>
-                        <TextBlock Text="Public"
-                                   Margin="4,0,0,0"
+					<TextBlock Text="Public"
+                                   Margin="8,0,0,0"
                                    Name="TootVisibilityTextBlock"/>
-                    </StackPanel>
+				</StackPanel>
 
-                    <TextBlock x:Name="TootPostDateTextBlock"
+				<TextBlock x:Name="TootPostDateTextBlock"
                                Text="29 Jul 2019 17:00"
                                Margin="0,8,0,0"/>
 
-                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0" Name="ApplicationStackPanel">
-                        <TextBlock Text="From"/>
-                        <HyperlinkButton Style="{ThemeResource TextBlockButtonStyle}"
-                                Content="Fedi"
+				<StackPanel Orientation="Horizontal" Margin="0,8,0,0" Name="ApplicationStackPanel">
+					<TextBlock Text="From"/>
+					<HyperlinkButton Style="{ThemeResource TextBlockButtonStyle}"
+                                Content="Bluechirp"
                                 Margin="4,0,0,0"
                                 Padding="0"
                                 Name="ApplicationLinkButton"/>
-                    </StackPanel>
-                </StackPanel>
-            </RelativePanel>
-        </StackPanel>
-        
-    </controls:DropShadowPanel>
+				</StackPanel>
+			</StackPanel>
+		</RelativePanel>
+	</StackPanel>
 </UserControl>

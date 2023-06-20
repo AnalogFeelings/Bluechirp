@@ -70,16 +70,14 @@
 				</Button>
 			</StackPanel>
 
-
 			<TextBlock FontSize="20"
                        TextAlignment="Left"
                        VerticalAlignment="Top"
-                           Foreground="{ThemeResource SystemChromeDisabledLowColor}"
+                       Foreground="{ThemeResource SystemChromeDisabledLowColor}"
                        x:Name="StatusTimestamp"
                        RelativePanel.AlignRightWithPanel="True"
                        RelativePanel.AlignTopWithPanel="True"
-                           Margin="8,0,0,0"/>
-
+                       Margin="8,0,0,0"/>
 
 			<RichTextBlock x:Name="StatusContent"
                        RelativePanel.RightOf="StatusAvatar"
@@ -108,18 +106,22 @@
 				<Button Name="ReplyButton" Click="ReplyButton_Click">
 					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE97A;" />
 				</Button>
-				<ToggleButton Name="ReblogButton" Style="{ThemeResource TextToggleButtonStyle}"
-                                  Click="ReblogButton_Click">
+				<ToggleButton Name="ReblogButton" 
+							  Style="{ThemeResource TextToggleButtonStyle}"
+                              Click="ReblogButton_Click">
 					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8EB;" />
 				</ToggleButton>
-				<ToggleButton Name="FavouriteButton" Style="{ThemeResource TextToggleButtonStyle}"
-                                  Click="FavouriteButton_Click">
+				<ToggleButton Name="FavouriteButton" 
+							  Style="{ThemeResource TextToggleButtonStyle}"
+                              Click="FavouriteButton_Click">
 					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE734;" />
 				</ToggleButton>
-				<ToggleButton Name="BookmarkButton" Style="{ThemeResource TextToggleButtonStyle}">
+				<ToggleButton Name="BookmarkButton" 
+							  Style="{ThemeResource TextToggleButtonStyle}">
 					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74E;" />
 				</ToggleButton>
-				<ToggleButton Name="ShareButton" Style="{ThemeResource TextToggleButtonStyle}">
+				<ToggleButton Name="ShareButton" 
+							  Style="{ThemeResource TextToggleButtonStyle}">
 					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72D;" />
 				</ToggleButton>
 				<Button Name="MoreButton">
