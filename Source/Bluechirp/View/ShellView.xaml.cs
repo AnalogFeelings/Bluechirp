@@ -86,6 +86,18 @@ namespace Bluechirp.View
             }
         }
 
+        public Visibility ShowDevBadge
+        {
+            get
+            {
+#if DEBUG
+                return Visibility.Visible;
+#else
+                return Visibility.Collapsed;
+#endif
+            }
+        }
+
         Frame _homeFrame = new Frame();
         Frame _localFrame = new Frame();
         Frame _federatedFrame = new Frame();
