@@ -24,7 +24,14 @@ namespace Bluechirp.LocalControls
 {
     public sealed partial class TootTemplate : UserControl
     {
-        public Status CurrentStatus { get { return this.DataContext as Status; } }
+        public Status CurrentStatus 
+        { 
+            get 
+            { 
+                return this.DataContext as Status; 
+            } 
+        }
+
         public TootTemplate()
         {
             this.InitializeComponent();
@@ -256,15 +263,8 @@ namespace Bluechirp.LocalControls
 
         private void AddMediaToStatus(List<Attachment> mediaAttachments)
         {
-            bool shouldNewParagraphBeCreated = false;
             for (int i = 0; i < mediaAttachments.Count; i++)
             {
-                if (i == 0)
-                {
-                    shouldNewParagraphBeCreated = true;
-                }
-
-                InlineUIContainer mediaContainer = new InlineUIContainer();
                 switch (mediaAttachments[i].Type)
                 {
                     case MediaConstants.VIDEO_TYPE:
@@ -275,7 +275,10 @@ namespace Bluechirp.LocalControls
                             AreTransportControlsEnabled = true
                         };
                         videoPlayer.TransportControls.IsCompact = true;
-                        mediaContainer.Child = videoPlayer;
+                        videoPlayer.Margin = new Thickness(0, 12, 0, 0);
+
+                        StatusMedia.Children.Add(videoPlayer);
+
                         break;
 
                     case MediaConstants.GIF_TYPE:
@@ -286,17 +289,25 @@ namespace Bluechirp.LocalControls
                             AreTransportControlsEnabled = false,
                         };
                         gifPlayer.MediaPlayer.IsLoopingEnabled = true;
-                        mediaContainer.Child = gifPlayer;
+                        gifPlayer.Margin = new Thickness(0, 12, 0, 0);
+
+                        StatusMedia.Children.Add(gifPlayer);
+
                         break;
 
                     default:
-                        BitmapImage img = new BitmapImage(new Uri(mediaAttachments[i].PreviewUrl));
-                        mediaContainer.Child = new Image { Source = img };
+                        BitmapImage bitmapImage = new BitmapImage(new Uri(mediaAttachments[i].Url));
+                        Image imageControl = new Image
+                        {
+                            Source = bitmapImage
+                        };
+
+                        StatusMedia.Children.Add(imageControl);
+
                         break;
                 }
 
-                AddContentToTextBlock(mediaContainer, shouldNewParagraphBeCreated);
-                shouldNewParagraphBeCreated = false;
+                StatusMedia.Visibility = Visibility.Visible;
             }
         }
 
