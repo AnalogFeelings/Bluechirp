@@ -87,10 +87,18 @@
                        FontSize="22"
                        Canvas.ZIndex="100"
                        Margin="0, 12, 0, 0"/>
+			<Grid x:Name="StatusMedia"
+				  RelativePanel.RightOf="StatusAvatar"
+				  RelativePanel.LeftOf="StatusTimestamp"
+				  RelativePanel.Below="StatusContent"
+				  RelativePanel.AlignRightWithPanel="True"
+				  Margin="0, 16, 0, 0"
+				  CornerRadius="8"
+				  Visibility="Collapsed"/>
 			<StackPanel Name="TootActionStackPanel" 
                         Orientation="Horizontal" 
                         RelativePanel.RightOf="StatusAvatar"
-                        RelativePanel.Below="StatusContent"
+                        RelativePanel.Below="StatusMedia"
                         Margin="0,20,0,0">
 				<StackPanel.Resources>
 					<Style TargetType="Button" BasedOn="{StaticResource TextBlockButtonStyle}">
