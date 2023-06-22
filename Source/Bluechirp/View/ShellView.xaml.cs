@@ -103,18 +103,10 @@ namespace Bluechirp.View
             _shortcutService = App.Services.GetRequiredService<GlobalKeyboardShortcutService>();
             _navService = App.Services.GetRequiredService<NavService>();
 
-            CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            coreTitleBar.ExtendViewIntoTitleBar = true;
-
-            ApplicationViewTitleBar viewTitleBar = ApplicationView.GetForCurrentView().TitleBar;
-
-            viewTitleBar.ButtonBackgroundColor = Colors.Transparent;
-            viewTitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-            viewTitleBar.ButtonInactiveForegroundColor = Colors.Gray;
-
-            Window.Current.SetTitleBar(TitleDragRegion);
+            CustomizeTitlebar(this.ActualTheme == ElementTheme.Dark);
+            
             Window.Current.CoreWindow.Activated += CoreWindowOnActivated;
-            coreTitleBar.LayoutMetricsChanged += CoreTitleBarOnLayoutMetricsChanged;
+            this.ActualThemeChanged += OnActualThemeChanged;
 
             //_homeFrame.Navigated += LinkNavToBackButton;
             //_localFrame.Navigated += LinkNavToBackButton;
@@ -124,6 +116,31 @@ namespace Bluechirp.View
             //_shortcutService.GlobalShortcutPressed += GlobalKeyboardShortcutService_GlobalShortcutPressed;
         }
 
+        private void OnActualThemeChanged(FrameworkElement sender, object args)
+        {
+            CustomizeTitlebar(this.ActualTheme == ElementTheme.Dark);
+        }
+
+        /// <summary>
+        /// Removes default titlebar and sets a custom one.
+        /// </summary>
+        /// <param name="isDarkTheme">Self-explanatory.</param>
+        private void CustomizeTitlebar(bool isDarkTheme)
+        {
+            CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+
+            ApplicationViewTitleBar viewTitleBar = ApplicationView.GetForCurrentView().TitleBar;
+
+            viewTitleBar.ButtonBackgroundColor = Colors.Transparent;
+            viewTitleBar.ButtonForegroundColor = isDarkTheme ? Colors.White : Colors.Black;
+            viewTitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            viewTitleBar.ButtonInactiveForegroundColor = Colors.Gray;
+
+            Window.Current.SetTitleBar(TitleDragRegion);
+            coreTitleBar.LayoutMetricsChanged += CoreTitleBarOnLayoutMetricsChanged;
+        }
+
         private void CoreTitleBarOnLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
         {
             ProfileIcon.Margin = new Thickness(0, 0, sender.SystemOverlayRightInset, 0);
@@ -131,13 +148,15 @@ namespace Bluechirp.View
 
         private void CoreWindowOnActivated(CoreWindow sender, WindowActivatedEventArgs args)
         {
+            bool isDarkTheme = this.ActualTheme == ElementTheme.Dark;
+
             if (args.WindowActivationState == CoreWindowActivationState.Deactivated)
             {
                 AppTitle.Foreground = new SolidColorBrush(Colors.Gray);
             }
             else
             {
-                AppTitle.Foreground = new SolidColorBrush(Colors.White);
+                AppTitle.Foreground = new SolidColorBrush(isDarkTheme ? Colors.White : Colors.Black);
             }
         }
 
