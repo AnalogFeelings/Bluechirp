@@ -1,12 +1,14 @@
-﻿using Mastonet.Entities;
+﻿using Bluechirp.Dialogs;
+using Bluechirp.Library.Helpers;
+using Bluechirp.Library.Services;
 using Bluechirp.Parser;
+using Bluechirp.Parser.Interfaces;
 using Bluechirp.Parser.Model;
+using Mastonet.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Bluechirp.Library.Helpers;
-using Bluechirp.Library.Services;
 using Windows.Media.Core;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -15,8 +17,6 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Bluechirp.Dialogs;
-using Bluechirp.Parser.Interfaces;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -24,12 +24,12 @@ namespace Bluechirp.LocalControls
 {
     public sealed partial class TootTemplate : UserControl
     {
-        public Status CurrentStatus 
-        { 
-            get 
-            { 
-                return this.DataContext as Status; 
-            } 
+        public Status CurrentStatus
+        {
+            get
+            {
+                return this.DataContext as Status;
+            }
         }
 
         public TootTemplate()
@@ -96,6 +96,7 @@ namespace Bluechirp.LocalControls
                             rootParagraph.Inlines.Add(run);
                         }
                         UpdateTootActions(reblogStatus);
+                        UpdateCounts(reblogStatus);
                         AddMediaToStatus(reblogStatus.MediaAttachments.ToList());
                     }
                 }
@@ -120,6 +121,7 @@ namespace Bluechirp.LocalControls
                             rootParagraph.Inlines.Add(run);
                         }
                         UpdateTootActions(updatedStatus);
+                        UpdateCounts(updatedStatus);
                         AddMediaToStatus(updatedStatus.MediaAttachments.ToList());
                     }
 
@@ -255,6 +257,13 @@ namespace Bluechirp.LocalControls
             StatusAvatarImage.UriSource = new Uri(avatarUrl);
         }
 
+        private void UpdateCounts(Status status)
+        {
+            RepliesCountText.Text = status.RepliesCount.ToString();
+            ReblogCountText.Text = status.ReblogCount.ToString();
+            FavoriteCountText.Text = status.FavouritesCount.ToString();
+        }
+
         private void UpdateNameTextBlocks(Account account)
         {
             DisplayNameTextBlock.Text = account.DisplayName;
@@ -346,6 +355,8 @@ namespace Bluechirp.LocalControls
                     reblogResult = await ClientHelper.Client.Reblog(statusToUse.Id);
                 }
                 statusToUse.Reblogged = reblogResult.Reblogged;
+
+                UpdateCounts(statusToUse);
             }
             catch (Exception ex)
             {
@@ -379,6 +390,8 @@ namespace Bluechirp.LocalControls
                     favResult = await ClientHelper.Client.Favourite(statusToUse.Id);
                 }
                 statusToUse.Favourited = favResult.Favourited;
+
+                UpdateCounts(statusToUse);
             }
             catch (Exception ex)
             {
@@ -413,6 +426,10 @@ namespace Bluechirp.LocalControls
             catch
             {
 
+            }
+            finally
+            {
+                UpdateCounts(statusToReturn);
             }
         }
 
