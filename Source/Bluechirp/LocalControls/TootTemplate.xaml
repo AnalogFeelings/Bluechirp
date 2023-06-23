@@ -5,6 +5,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="200"
     d:DesignWidth="500"
@@ -97,45 +98,70 @@
 				  Margin="0, 16, 0, 0"
 				  CornerRadius="8"
 				  Visibility="Collapsed"/>
-			<StackPanel Name="TootActionStackPanel" 
-                        Orientation="Horizontal" 
-                        RelativePanel.RightOf="StatusAvatar"
-                        RelativePanel.Below="StatusMedia"
-                        Margin="0,20,0,0">
-				<StackPanel.Resources>
-					<Style TargetType="Button" BasedOn="{StaticResource TextBlockButtonStyle}">
-						<Setter Property="Foreground"
-                                Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
-					</Style>
+			<controls:UniformGrid x:Name="TootActionStackPanel" 
+								  Orientation="Horizontal" 
+								  Rows="1"
+								  RelativePanel.RightOf="StatusAvatar"
+								  RelativePanel.Below="StatusMedia"
+								  RelativePanel.AlignRightWithPanel="True"
+								  Margin="0,20,0,0">
+				<controls:UniformGrid.Resources>
 					<Style TargetType="FontIcon">
-						<Setter Property="FontSize" Value="28"/>
+						<Setter Property="FontSize" Value="20"/>
 					</Style>
-				</StackPanel.Resources>
-				<Button Name="ReplyButton" Click="ReplyButton_Click">
-					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE97A;" />
+					<Style TargetType="TextBlock">
+						<Setter Property="FontSize" Value="20"/>
+					</Style>
+				</controls:UniformGrid.Resources>
+				<Button x:Name="ReplyButton" 
+						Click="ReplyButton_Click"
+						Background="Transparent"
+						BorderThickness="0">
+					<StackPanel Orientation="Horizontal" Spacing="16">
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE97A;" />
+						<TextBlock x:Name="RepliesCountText" FontSize="20"/>
+					</StackPanel>
 				</Button>
-				<ToggleButton Name="ReblogButton" 
-							  Style="{ThemeResource TextToggleButtonStyle}"
-                              Click="ReblogButton_Click">
-					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8EB;" />
+				<ToggleButton x:Name="ReblogButton" 
+                              Click="ReblogButton_Click"
+							  Background="Transparent"
+							  BorderThickness="0">
+					<StackPanel Orientation="Horizontal" Spacing="12">
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8EB;" />
+						<TextBlock x:Name="ReblogCountText"/>
+					</StackPanel>
 				</ToggleButton>
-				<ToggleButton Name="FavouriteButton" 
-							  Style="{ThemeResource TextToggleButtonStyle}"
-                              Click="FavouriteButton_Click">
-					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE734;" />
+				<ToggleButton x:Name="FavouriteButton"
+                              Click="FavouriteButton_Click"
+							  Background="Transparent"
+							  BorderThickness="0">
+					<StackPanel Orientation="Horizontal" Spacing="12">
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE734;" />
+						<TextBlock x:Name="FavoriteCountText"/>
+					</StackPanel>
 				</ToggleButton>
 				<ToggleButton Name="BookmarkButton" 
-							  Style="{ThemeResource TextToggleButtonStyle}">
-					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74E;" />
+							  Background="Transparent"
+							  BorderThickness="0">
+					<StackPanel Orientation="Horizontal" Spacing="12">
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74E;" />
+						<TextBlock>Save</TextBlock>
+					</StackPanel>
 				</ToggleButton>
 				<ToggleButton Name="ShareButton" 
-							  Style="{ThemeResource TextToggleButtonStyle}">
-					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72D;" />
+							  Background="Transparent"
+							  BorderThickness="0">
+					<StackPanel Orientation="Horizontal" Spacing="12">
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72D;" />
+						<TextBlock>Share</TextBlock>
+					</StackPanel>
 				</ToggleButton>
-				<Button Name="MoreButton">
+				<Button x:Name="MoreButton"
+						Background="Transparent"
+						BorderThickness="0">
 					<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE10C;" />
 				</Button>
-			</StackPanel>
+			</controls:UniformGrid>
 		</RelativePanel>
 	</StackPanel>
 </UserControl>
