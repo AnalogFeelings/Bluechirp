@@ -137,7 +137,7 @@
 
 				<muxc:NavigationViewItem Tag="bookmarks"  Content="Bookmarks">
 					<muxc:NavigationViewItem.Icon>
-						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE7C1;"/>
+						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74E;"/>
 					</muxc:NavigationViewItem.Icon>
 				</muxc:NavigationViewItem>
 
