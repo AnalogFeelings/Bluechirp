@@ -203,7 +203,9 @@ namespace Bluechirp.View
             }
             else if (args.InvokedItem != null)
             {
-                string targetItemTag = args.InvokedItemContainer.Tag.ToString();
+                string targetItemTag = args.InvokedItemContainer.Tag as string;
+
+                if (targetItemTag == null) return;
 
                 NavigationViewControl_NavigateTo(targetItemTag, args.RecommendedNavigationTransitionInfo);
             }
