@@ -102,10 +102,18 @@
 			<muxc:NavigationView.MenuItems>
 				<muxc:NavigationViewItem Icon="Home" Tag="home" Content="Home"/>
 
-				<muxc:NavigationViewItem Tag="explore" Content="Explore">
+				<muxc:NavigationViewItem Content="Explore" SelectsOnInvoked="False">
 					<muxc:NavigationViewItem.Icon>
 						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF6FA;"/>
 					</muxc:NavigationViewItem.Icon>
+					<muxc:NavigationViewItem.MenuItems>
+						<muxc:NavigationViewItem Icon="Globe" Tag="posts" Content="Posts"/>
+						<muxc:NavigationViewItem Icon="Tag" Tag="hashtags" Content="Hashtags"/>
+						<muxc:NavigationViewItem Icon="People" Tag="people" Content="People"/>
+						<!-- Placeholder Icon: REPLACE!!! -->
+						<muxc:NavigationViewItem Icon="Emoji" Tag="news" Content="News">
+						</muxc:NavigationViewItem>
+					</muxc:NavigationViewItem.MenuItems>
 				</muxc:NavigationViewItem>
 
 				<muxc:NavigationViewItem Tag="local" Content="Local">
