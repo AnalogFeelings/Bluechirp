@@ -130,9 +130,9 @@
 
 				<muxc:NavigationViewItemSeparator></muxc:NavigationViewItemSeparator>
 
-				<muxc:NavigationViewItem Icon="Mail" Tag="messages" Content="Messages"/>
+				<muxc:NavigationViewItem Icon="Message" Tag="messages" Content="Messages"/>
 
-				<muxc:NavigationViewItem Tag="notifications"  Content="Notifications">
+				<muxc:NavigationViewItem Tag="notifications" Content="Notifications">
 					<muxc:NavigationViewItem.Icon>
 						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEA8F;"/>
 					</muxc:NavigationViewItem.Icon>
@@ -143,7 +143,7 @@
 
 				<muxc:NavigationViewItem Icon="OutlineStar" Tag="favorites" Content="Favorites"/>
 
-				<muxc:NavigationViewItem Tag="bookmarks"  Content="Bookmarks">
+				<muxc:NavigationViewItem Tag="bookmarks" Content="Bookmarks">
 					<muxc:NavigationViewItem.Icon>
 						<FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74E;"/>
 					</muxc:NavigationViewItem.Icon>
