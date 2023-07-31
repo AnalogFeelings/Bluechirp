@@ -86,10 +86,6 @@ namespace Bluechirp.View
             }
         }
 
-        Frame _homeFrame = new Frame();
-        Frame _localFrame = new Frame();
-        Frame _federatedFrame = new Frame();
-
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -169,29 +165,10 @@ namespace Bluechirp.View
 
         private void NavigationViewControl_NavigateTo(string navigationItemTag, NavigationTransitionInfo transitionInfo)
         {
-            NavigationPage pageItem = _Pages.FirstOrDefault(x => x.Tag == navigationItemTag);
-
-            if (pageItem == default) return;
-
-            Type targetPage = pageItem.Page;
-            Type targetViewModel = pageItem.ViewModel;
-
-            if (pageItem.ShowHeader)
-            {
-                NavigationViewControl.AlwaysShowHeader = true;
-                NavigationViewControl.Header = pageItem.Header;
-            }
-            else
-            {
-                NavigationViewControl.AlwaysShowHeader = false;
-            }
-
             Type currentPage = ContentFrame.CurrentSourcePageType;
 
-            // HACK: This is cancer, gotta replace this system ASAP.
-            if (targetPage != null)
+            switch (navigationItemTag)
             {
-                ContentFrame.Navigate(targetPage, targetViewModel, transitionInfo);
             }
         }
 
@@ -255,23 +232,11 @@ namespace Bluechirp.View
             }
         }
 
-        private void LinkNavToBackButton(object sender, NavigationEventArgs e)
-        {
-            //if (sender is Frame navFrame)
-            //{
-            //    BackButton.IsEnabled = navFrame.CanGoBack;
-            //}
-        }
-
-
-
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            ActiveFrame = _homeFrame;
-            ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
-            _navService.CreateInstance(ActiveFrame);
+            //ActiveFrame = _homeFrame;
             SwapTimeline();
             await ViewModel.DoAsyncPrepartions();
         }
@@ -287,76 +252,76 @@ namespace Bluechirp.View
 
         private async Task DecideHowToSwap(ShellMenuItem menuItem)
         {
-            bool shouldSwapTimeline = false;
-            switch (menuItem.ItemType)
-            {
-                case ShellMenuItemType.HomeTimeline:
-                    if (ActiveFrame != _homeFrame)
-                    {
-                        shouldSwapTimeline = true;
+            //bool shouldSwapTimeline = false;
+            //switch (menuItem.ItemType)
+            //{
+            //    case ShellMenuItemType.HomeTimeline:
+            //        if (ActiveFrame != _homeFrame)
+            //        {
+            //            shouldSwapTimeline = true;
 
-                        await TryCacheTimeline();
+            //            await TryCacheTimeline();
 
-                        ActiveFrame = _homeFrame;
+            //            ActiveFrame = _homeFrame;
 
-                        if (!CheckIfFrameHasContent())
-                        {
-                            ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
-                        }
-                    }
-                    else
-                    {
-                        ScrollToTop(ActiveFrame);
-                    }
-                    break;
-                case ShellMenuItemType.LocalTimeline:
-                    if (ActiveFrame != _localFrame)
-                    {
-                        shouldSwapTimeline = true;
+            //            if (!CheckIfFrameHasContent())
+            //            {
+            //                ActiveFrame.Navigate(typeof(TimelineView), typeof(HomeViewModel));
+            //            }
+            //        }
+            //        else
+            //        {
+            //            ScrollToTop(ActiveFrame);
+            //        }
+            //        break;
+            //    case ShellMenuItemType.LocalTimeline:
+            //        if (ActiveFrame != _localFrame)
+            //        {
+            //            shouldSwapTimeline = true;
 
-                        await TryCacheTimeline();
+            //            await TryCacheTimeline();
 
-                        ActiveFrame = _localFrame;
+            //            ActiveFrame = _localFrame;
 
-                        if (!CheckIfFrameHasContent())
-                        {
-                            ActiveFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
+            //            if (!CheckIfFrameHasContent())
+            //            {
+            //                ActiveFrame.Navigate(typeof(TimelineView), typeof(LocalViewModel));
 
-                        }
+            //            }
 
-                    }
-                    else
-                    {
-                        ScrollToTop(ActiveFrame);
-                    }
-                    break;
-                case ShellMenuItemType.FederatedTimeline:
-                    if (ActiveFrame != _federatedFrame)
-                    {
-                        shouldSwapTimeline = true;
+            //        }
+            //        else
+            //        {
+            //            ScrollToTop(ActiveFrame);
+            //        }
+            //        break;
+            //    case ShellMenuItemType.FederatedTimeline:
+            //        if (ActiveFrame != _federatedFrame)
+            //        {
+            //            shouldSwapTimeline = true;
 
-                        await TryCacheTimeline();
+            //            await TryCacheTimeline();
 
-                        ActiveFrame = _federatedFrame;
+            //            ActiveFrame = _federatedFrame;
 
-                        if (!CheckIfFrameHasContent())
-                        {
-                            _federatedFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel));
-                        }
+            //            if (!CheckIfFrameHasContent())
+            //            {
+            //                _federatedFrame.Navigate(typeof(TimelineView), typeof(FederatedViewModel));
+            //            }
 
-                    }
-                    else
-                    {
-                        ScrollToTop(ActiveFrame);
-                    }
-                    break;
-            }
+            //        }
+            //        else
+            //        {
+            //            ScrollToTop(ActiveFrame);
+            //        }
+            //        break;
+            //}
 
 
-            if (shouldSwapTimeline)
-            {
-                SwapTimeline();
-            }
+            //if (shouldSwapTimeline)
+            //{
+            //    SwapTimeline();
+            //}
         }
 
         private void ScrollToTop(Frame activeFrame)
@@ -364,7 +329,7 @@ namespace Bluechirp.View
             TimelineView timelineToScrollUp = null;
             try
             {
-                timelineToScrollUp = (TimelineView)ActiveFrame.Content;
+                timelineToScrollUp = (TimelineView)NavigationViewControl.Content;
                 timelineToScrollUp.ScrollToTop();
             }
             catch (Exception)
@@ -384,8 +349,7 @@ namespace Bluechirp.View
             TimelineView timelineToCache = null;
             try
             {
-                timelineToCache = (TimelineView)ActiveFrame.Content;
-
+                timelineToCache = (TimelineView)NavigationViewControl.Content;
             }
             catch
             {
