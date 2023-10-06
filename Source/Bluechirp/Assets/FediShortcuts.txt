@@ -1,1 +1,0 @@
-## Contextual Shortcuts**R** - Reply**F** - Favourite**B** - BoostNote: The shortcuts above require you to "Tab" into a toot first**Enter, O** - Open Status## Global Shortcuts**Alt + N** - Create New Toot**G+H** - Open Home Timeline**G+L** - Open Local Timeline**G+T** - Open Federated Timeline**?** - Show this Keyboard Shortcuts Help Screen
