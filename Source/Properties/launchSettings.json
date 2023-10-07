@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Bluechirp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Bluechirp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
