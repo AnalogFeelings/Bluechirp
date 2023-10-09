@@ -9,9 +9,9 @@
    id="svg5"
    sodipodi:docname="bluechirp.svg"
    inkscape:export-filename="bluechirp.png"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
-   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   inkscape:export-xdpi="192"
+   inkscape:export-ydpi="192"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -31,8 +31,8 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.78710938"
-     inkscape:cx="511.36476"
+     inkscape:zoom="0.79589844"
+     inkscape:cx="511.37178"
      inkscape:cy="512"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
@@ -137,6 +137,58 @@
      id="title5040">Bluechirp Logo</title>
   <defs
      id="defs2">
+    <linearGradient
+       id="linearGradient25">
+      <stop
+         style="stop-color:#16d9bc;stop-opacity:1;"
+         offset="0"
+         id="stop24" />
+      <stop
+         style="stop-color:#43828b;stop-opacity:1;"
+         offset="1"
+         id="stop25" />
+    </linearGradient>
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect16"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,2.2728797,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect14"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,2.2728797,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 135.46667 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="270.93334 : 135.46667 : 1"
+       inkscape:persp3d-origin="135.46667 : 90.311113 : 1"
+       id="perspective2" />
     <linearGradient
        id="linearGradient3614">
       <stop
@@ -276,6 +328,71 @@
          xlink:href="#g4866"
          id="use4872" />
     </clipPath>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8185"
+       id="linearGradient2"
+       x1="55.968159"
+       y1="88.546646"
+       x2="214.96509"
+       y2="214.96509"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient25"
+       id="linearGradient16"
+       gradientUnits="userSpaceOnUse"
+       x1="214.96516"
+       y1="88.546646"
+       x2="55.968159"
+       y2="214.96516" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath17">
+      <use
+         x="0"
+         y="0"
+         xlink:href="#g16"
+         id="use17" />
+    </clipPath>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter24"
+       x="-0.12075699"
+       y="-0.11592738"
+       width="1.241514"
+       height="1.2318548">
+      <feFlood
+         result="flood"
+         in="SourceGraphic"
+         flood-opacity="0.24861878453038674"
+         flood-color="rgb(0,0,0)"
+         id="feFlood23" />
+      <feGaussianBlur
+         result="blur"
+         in="SourceGraphic"
+         stdDeviation="8.000000"
+         id="feGaussianBlur23" />
+      <feOffset
+         result="offset"
+         in="blur"
+         dx="0.000000"
+         dy="0.000000"
+         id="feOffset23" />
+      <feComposite
+         result="comp1"
+         operator="in"
+         in="flood"
+         in2="offset"
+         id="feComposite23" />
+      <feComposite
+         result="comp2"
+         operator="over"
+         in="SourceGraphic"
+         in2="comp1"
+         id="feComposite24" />
+    </filter>
   </defs>
   <g
      id="layer1"
@@ -285,7 +402,7 @@
        clip-path="url(#clipPath4870)"
        inkscape:label="clip_group"
        transform="translate(3.5080139,5.1270971)"
-       style="display:inline">
+       style="display:none">
       <g
          id="g4866"
          inkscape:label="clip">
@@ -328,6 +445,64 @@
              d="m 181.571,84.839 c 2.23,2.2295 2.23,5.8192 0,8.0487 L 147.609,126.85 c -2.23,2.23 -5.819,2.23 -8.049,0 -2.229,-2.229 -2.229,-5.819 0,-8.048 l 33.963,-33.963 c 2.229,-2.2294 5.819,-2.2294 8.048,0 z"
              inkscape:label="right" />
         </g>
+      </g>
+    </g>
+    <g
+       id="g17"
+       clip-path="url(#clipPath17)"
+       inkscape:label="clipgroup"
+       transform="matrix(1.157535,0,0,1.157535,-12.956095,-27.029552)">
+      <g
+         inkscape:label="Clip"
+         id="g16">
+        <path
+           id="path14"
+           style="display:inline;fill:url(#linearGradient16);fill-rule:evenodd;stroke-width:0.264583"
+           d="m 65.49316,88.546647 c -5.276844,0 -9.525,4.248156 -9.525,9.525 V 205.44017 c 0,5.27685 4.248156,9.525 9.525,9.525 h 86.54237 a 6.9871494,6.9871494 18.01941 0 1 4.11077,1.33721 l 50.77905,36.94573 c 3.14798,2.28941 7.56394,0.041 7.5644,-3.85145 v -34.43149 l 0.47542,-116.893523 c 0,-5.276844 -4.24815,-9.525 -9.525,-9.525 z"
+           transform="matrix(-0.45956538,0,0,0.45956538,155.41618,95.483524)"
+           sodipodi:nodetypes="sssscccccss"
+           inkscape:original-d="m 65.49316,88.546647 c -5.276844,0 -9.525,4.248156 -9.525,9.525 V 205.44017 c 0,5.27685 4.248156,9.525 9.525,9.525 h 88.81525 l 52.61694,38.28294 c 3.14798,2.28941 7.56394,0.041 7.5644,-3.85145 v -34.43149 l 0.47542,-116.893523 c 0,-5.276844 -4.24815,-9.525 -9.525,-9.525 z"
+           inkscape:path-effect="#path-effect16"
+           inkscape:label="smallchat" />
+        <path
+           id="path8"
+           style="fill:url(#linearGradient2);fill-rule:evenodd;stroke-width:0.264583;filter:url(#filter24)"
+           d="m 65.49316,88.546647 c -5.276844,0 -9.525,4.248156 -9.525,9.525 V 205.44017 c 0,5.27685 4.248156,9.525 9.525,9.525 h 86.54237 a 6.9871494,6.9871494 18.01941 0 1 4.11077,1.33721 l 50.77905,36.94573 c 3.14798,2.28941 7.56394,0.041 7.5644,-3.85145 v -34.43149 l 0.47542,-116.893523 c 0,-5.276844 -4.24815,-9.525 -9.525,-9.525 z"
+           transform="matrix(0.80276892,0,0,0.80276892,33.131925,-1.38366)"
+           sodipodi:nodetypes="sssscccccss"
+           inkscape:original-d="m 65.49316,88.546647 c -5.276844,0 -9.525,4.248156 -9.525,9.525 V 205.44017 c 0,5.27685 4.248156,9.525 9.525,9.525 h 88.81525 l 52.61694,38.28294 c 3.14798,2.28941 7.56394,0.041 7.5644,-3.85145 v -34.43149 l 0.47542,-116.893523 c 0,-5.276844 -4.24815,-9.525 -9.525,-9.525 z"
+           inkscape:path-effect="#path-effect14"
+           inkscape:label="bigchat" />
+        <rect
+           style="fill:#f9f9f9;fill-rule:evenodd;stroke-width:0.158774"
+           id="rect25"
+           width="87.756905"
+           height="11.785049"
+           x="98.0019"
+           y="90.511398"
+           rx="5.3069596"
+           ry="5.8925247"
+           inkscape:label="chatline1" />
+        <rect
+           style="fill:#f9f9f9;fill-rule:evenodd;stroke-width:0.158774"
+           id="rect26"
+           width="87.756905"
+           height="11.785049"
+           x="98.0019"
+           y="113.34395"
+           rx="5.3069596"
+           ry="5.8925247"
+           inkscape:label="chatline2" />
+        <rect
+           style="fill:#f9f9f9;fill-rule:evenodd;stroke-width:0.158774"
+           id="rect27"
+           width="87.756905"
+           height="11.785049"
+           x="98.0019"
+           y="136.1765"
+           rx="5.3069596"
+           ry="5.8925247"
+           inkscape:label="chatline3" />
       </g>
     </g>
   </g>
