@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using System;
+using System.Diagnostics;
 using AppActivationArguments = Microsoft.Windows.AppLifecycle.AppActivationArguments;
 using AppInstance = Microsoft.Windows.AppLifecycle.AppInstance;
 
@@ -10,7 +11,7 @@ namespace Bluechirp
     /// </summary>
     public partial class App : Application
     {
-        private Window appWindow;
+        private MainWindow appWindow;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -35,11 +36,15 @@ namespace Bluechirp
 
                 await mainInstance.RedirectActivationToAsync(appArgs);
 
-                this.Exit();
+                Process.GetCurrentProcess().Kill();
+
+                return;
             }
 
             appWindow = new MainWindow();
             appWindow.Activate();
+
+            appWindow.ShowSplash();
         }
     }
 }
