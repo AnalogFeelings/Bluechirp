@@ -1,5 +1,7 @@
 ﻿using Bluechirp.Library.Services.Environment;
+using Bluechirp.Library.Services.Security;
 using Bluechirp.Services.Environment;
+using Bluechirp.Services.Security;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -40,6 +42,7 @@ namespace Bluechirp
 #else
             collection.AddTransient<ILoggerService, DummyLoggerService>();
 #endif
+            collection.AddTransient<IEncryptionService, EncryptionService>();
 
             _serviceProvider = collection.BuildServiceProvider(true);
         }
