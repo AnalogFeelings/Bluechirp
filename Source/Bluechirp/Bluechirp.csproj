@@ -18,6 +18,7 @@
     <None Remove="Assets\Icons\Tiles\MedTile.scale-125.png" />
     <None Remove="Assets\Icons\Tiles\MedTile.scale-150.png" />
     <None Remove="Assets\Icons\Tiles\MedTile.scale-400.png" />
+    <None Remove="Views\LoginPage.xaml" />
     <None Remove="Views\SplashScreenPage.xaml" />
   </ItemGroup>
 
@@ -40,6 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bluechirp.Library\Bluechirp.Library.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\SplashScreenPage.xaml">

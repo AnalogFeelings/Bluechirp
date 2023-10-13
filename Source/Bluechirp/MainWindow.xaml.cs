@@ -13,8 +13,8 @@ namespace Bluechirp
         {
             this.InitializeComponent();
 
-            this.MinWidth = 320;
-            this.MinHeight = 569;
+            this.MinWidth = 380;
+            this.MinHeight = 570;
 
             AppWindow.Title = "Bluechirp";
             AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
