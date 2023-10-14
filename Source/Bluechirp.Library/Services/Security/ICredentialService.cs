@@ -11,25 +11,25 @@ namespace Bluechirp.Library.Services.Security
         /// <summary>
         /// Loads the user credentials from encrypted storage.
         /// </summary>
-        public Task LoadProfileData();
+        public Task LoadProfileDataAsync();
 
         /// <summary>
         /// Stores a user's credentials into the encrypted storage.
         /// </summary>
         /// <param name="credentials">The credentials to store.</param>
-        public Task StoreProfileData(ProfileCredentials credentials);
+        public Task StoreProfileDataAsync(ProfileCredentials credentials);
 
         /// <summary>
         /// Removes a user's credentials from storage and memory.
         /// </summary>
         /// <param name="credentials">The credentials to remove.</param>
-        public Task RemoveProfileData(ProfileCredentials credentials);
+        public Task RemoveProfileDataAsync(ProfileCredentials credentials);
 
         /// <summary>
         /// Gets a user's credentials from memory.
         /// </summary>
         /// <param name="profileId">The profile ID.</param>
         /// <returns>The user's credentials object.</returns>
-        public ProfileCredentials GetProfileDataAsync(string profileId);
+        public ProfileCredentials GetProfileData(string profileId);
     }
 }

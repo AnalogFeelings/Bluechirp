@@ -44,6 +44,7 @@ namespace Bluechirp
 #endif
             collection.AddTransient<IEncryptionService, EncryptionService>();
             collection.AddSingleton<ICredentialService, CredentialService>();
+            collection.AddSingleton<IAuthService, AuthService>();
 
             _serviceProvider = collection.BuildServiceProvider(true);
         }

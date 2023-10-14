@@ -30,7 +30,7 @@ namespace Bluechirp.Services.Security
         }
 
         /// <inheritdoc/>
-        public async Task LoadProfileData()
+        public async Task LoadProfileDataAsync()
         {
             StorageFile profilesFile = await GetProfilesFileAsync();
             ulong fileSize = await profilesFile.GetFileSizeAsync();
@@ -42,7 +42,7 @@ namespace Bluechirp.Services.Security
         }
 
         /// <inheritdoc/>
-        public async Task StoreProfileData(ProfileCredentials credentials)
+        public async Task StoreProfileDataAsync(ProfileCredentials credentials)
         {
             string profileId = credentials.AppRegistration.Instance + credentials.AppRegistration.Id;
 
@@ -58,7 +58,7 @@ namespace Bluechirp.Services.Security
         /// <exception cref="InvalidOperationException">
         /// Thrown if an attempt to remove credentials that aren't stored is made.
         /// </exception>
-        public async Task RemoveProfileData(ProfileCredentials credentials)
+        public async Task RemoveProfileDataAsync(ProfileCredentials credentials)
         {
             string profileId = credentials.AppRegistration.Instance + credentials.AppRegistration.Id;
 
@@ -74,7 +74,7 @@ namespace Bluechirp.Services.Security
         /// <exception cref="KeyNotFoundException">
         /// Thrown if the credentials don't exist in memory.
         /// </exception>
-        public ProfileCredentials GetProfileDataAsync(string profileId)
+        public ProfileCredentials GetProfileData(string profileId)
         {
             if (!_profileCredentials.ContainsKey(profileId))
                 throw new KeyNotFoundException("Could not find the requested profile data.");

@@ -67,7 +67,7 @@ namespace Bluechirp.Services.Security
                 AppRegistration = _appRegistration
             };
 
-            await _credentialService.StoreProfileData(CurrentProfile);
+            await _credentialService.StoreProfileDataAsync(CurrentProfile);
 
             OnAuthCompleted?.Invoke(null, EventArgs.Empty);
         }
