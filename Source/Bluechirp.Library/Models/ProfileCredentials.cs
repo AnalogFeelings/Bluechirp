@@ -4,7 +4,7 @@ namespace Bluechirp.Library.Models
 {
     public record ProfileCredentials
     {
-        public AppRegistration AppRegistration { get; }
-        public Auth AuthToken { get; }
+        public AppRegistration AppRegistration { get; init; }
+        public Auth AuthToken { get; init; }
     }
 }

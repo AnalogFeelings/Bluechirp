@@ -35,13 +35,6 @@ namespace Bluechirp.Services.Security
             StorageFile profilesFile = await GetProfilesFileAsync();
             ulong fileSize = await profilesFile.GetFileSizeAsync();
 
-            if (fileSize == 0)
-            {
-                _profileCredentials = new Dictionary<string, ProfileCredentials>();
-
-                return;
-            }
-
             IBuffer encryptedProfiles = await FileIO.ReadBufferAsync(profilesFile);
             string decryptedProfiles = await _encryptionService.DecryptBufferAsync(encryptedProfiles);
 
