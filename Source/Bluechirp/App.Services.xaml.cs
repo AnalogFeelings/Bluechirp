@@ -1,6 +1,8 @@
 ﻿using Bluechirp.Library.Services.Environment;
+using Bluechirp.Library.Services.Interface;
 using Bluechirp.Library.Services.Security;
 using Bluechirp.Services.Environment;
+using Bluechirp.Services.Interface;
 using Bluechirp.Services.Security;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -45,16 +47,9 @@ namespace Bluechirp
             collection.AddTransient<IEncryptionService, EncryptionService>();
             collection.AddSingleton<ICredentialService, CredentialService>();
             collection.AddSingleton<IAuthService, AuthService>();
+            collection.AddSingleton<INavigationService, NavigationService>();
 
             _serviceProvider = collection.BuildServiceProvider(true);
-        }
-
-        /// <summary>
-        /// Hydrates singleton services by retrieving them prematurely.
-        /// </summary>
-        private void HydrateServices()
-        {
-            // Nothing here yet.
         }
     }
 }
