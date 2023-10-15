@@ -1,11 +1,15 @@
 ﻿using Bluechirp.Library.Services.Environment;
+using Bluechirp.Library.Services.Security;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Activation;
 using AppActivationArguments = Microsoft.Windows.AppLifecycle.AppActivationArguments;
 using AppInstance = Microsoft.Windows.AppLifecycle.AppInstance;
+using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
 
 namespace Bluechirp
 {
@@ -17,6 +21,7 @@ namespace Bluechirp
         private MainWindow appWindow;
 
         private ILoggerService _loggerService;
+        private IAuthService _authService;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -33,31 +38,45 @@ namespace Bluechirp
         /// <param name="args">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
-            await CheckSingleInstanceAsync();
+            AppActivationArguments appArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
 
-            appWindow = new MainWindow();
-            appWindow.Activate();
-            appWindow.ShowSplash();
+            if(appArgs.Kind == ExtendedActivationKind.Protocol)
+            {
+                if (appWindow == null)
+                    Process.GetCurrentProcess().Kill();
 
-            InitializeServices();
+                _loggerService.Log("Received protocol activation.", LogSeverity.Information);
 
-            _loggerService = ServiceProvider.GetRequiredService<ILoggerService>();
+                ProtocolActivatedEventArgs protocolArgs = appArgs.Data as ProtocolActivatedEventArgs;
 
-            _loggerService.Log("Hello, Fediverse!", LogSeverity.Information);
+                await _authService.CompleteAuthAsync(protocolArgs.Uri.Query);
+            }
+            else
+            {
+                await CheckSingleInstanceAsync(appArgs);
+
+                appWindow = new MainWindow();
+                appWindow.Activate();
+                appWindow.ShowSplash();
+
+                InitializeServices();
+
+                _loggerService = ServiceProvider.GetRequiredService<ILoggerService>();
+                _authService = ServiceProvider.GetRequiredService<IAuthService>();
+            }
         }
 
         /// <summary>
         /// Checks if the current application is the main instance, if
         /// not, redirect and exit.
         /// </summary>
-        private async Task CheckSingleInstanceAsync()
+        /// <param name="appArgs">The activation parameters.</param>
+        private async Task CheckSingleInstanceAsync(AppActivationArguments appArgs)
         {
             AppInstance mainInstance = AppInstance.FindOrRegisterForKey("main");
 
             if (!mainInstance.IsCurrent)
             {
-                AppActivationArguments appArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
-
                 await mainInstance.RedirectActivationToAsync(appArgs);
 
                 Process.GetCurrentProcess().Kill();
