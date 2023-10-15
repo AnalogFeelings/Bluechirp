@@ -48,6 +48,7 @@ namespace Bluechirp
             collection.AddSingleton<ICredentialService, CredentialService>();
             collection.AddSingleton<IAuthService, AuthService>();
             collection.AddSingleton<INavigationService, NavigationService>();
+            collection.AddSingleton<ISettingsService, SettingsService>();
 
             _serviceProvider = collection.BuildServiceProvider(true);
         }
