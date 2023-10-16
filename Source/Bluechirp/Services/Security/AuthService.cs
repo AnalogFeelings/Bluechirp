@@ -71,5 +71,15 @@ namespace Bluechirp.Services.Security
 
             OnAuthCompleted?.Invoke(null, EventArgs.Empty);
         }
+
+        /// <inheritdoc/>
+        public void LoadClientFromCredentials(ProfileCredentials credentials)
+        {
+            if (Client != null)
+                return;
+
+            this.Client = new MastodonClient(credentials.AppRegistration.Instance, credentials.AuthToken.AccessToken);
+            this.CurrentProfile = credentials;
+        }
     }
 }

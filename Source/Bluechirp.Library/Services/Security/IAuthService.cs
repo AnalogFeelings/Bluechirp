@@ -38,5 +38,11 @@ namespace Bluechirp.Library.Services.Security
         /// </summary>
         /// <param name="urlQuery">The URL query returned by the OAuth process.</param>
         public Task CompleteAuthAsync(string urlQuery);
+
+        /// <summary>
+        /// Initializes the Mastodon client from existing credentials.
+        /// </summary>
+        /// <param name="credentials">The credentials to use.</param>
+        public void LoadClientFromCredentials(ProfileCredentials credentials);
     }
 }
