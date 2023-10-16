@@ -1,9 +1,11 @@
 ﻿using Bluechirp.Library.Services.Environment;
 using Bluechirp.Library.Services.Interface;
 using Bluechirp.Library.Services.Security;
+using Bluechirp.Library.Services.Utility;
 using Bluechirp.Services.Environment;
 using Bluechirp.Services.Interface;
 using Bluechirp.Services.Security;
+using Bluechirp.Services.Utility;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -49,6 +51,7 @@ namespace Bluechirp
             collection.AddSingleton<IAuthService, AuthService>();
             collection.AddSingleton<INavigationService, NavigationService>();
             collection.AddSingleton<ISettingsService, SettingsService>();
+            collection.AddSingleton<IInstanceUtilityService, InstanceUtilityService>();
 
             _serviceProvider = collection.BuildServiceProvider(true);
         }
