@@ -49,6 +49,8 @@ namespace Bluechirp
             {
                 ProfileCredentials credentials = credentialService.GetProfileData(lastProfile);
                 authService.LoadClientFromCredentials(credentials);
+
+                navService.Navigate(PageType.Shell, null, new DrillInNavigationTransitionInfo());
             }
             else
             {
