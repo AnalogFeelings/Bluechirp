@@ -106,7 +106,7 @@ namespace Bluechirp.Services.Security
         private async Task WriteProfilesAsync()
         {
             StorageFile profilesFile = await GetProfilesFileAsync();
-            string serializedProfiles = JsonSerializer.Serialize(profilesFile);
+            string serializedProfiles = JsonSerializer.Serialize(_profileCredentials);
             IBuffer encryptedProfiles = await _encryptionService.EncryptStringAsync(serializedProfiles, EncryptionService.USER_DESCRIPTOR);
 
             await FileIO.WriteBufferAsync(profilesFile, encryptedProfiles);
