@@ -1,8 +1,8 @@
-﻿using Bluechirp.Library.Extensions;
-using Bluechirp.Library.Models;
+﻿using Bluechirp.Library.Models;
 using Bluechirp.Library.Services.Security;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -77,15 +77,21 @@ namespace Bluechirp.Services.Security
         }
 
         /// <inheritdoc/>
-        /// <exception cref="KeyNotFoundException">
-        /// Thrown if the credentials don't exist in memory.
-        /// </exception>
         public ProfileCredentials GetProfileData(string profileId)
         {
             if (!_profileCredentials.ContainsKey(profileId))
-                throw new KeyNotFoundException("Could not find the requested profile data.");
+                return null;
 
             return _profileCredentials[profileId];
+        }
+
+        /// <inheritdoc/>
+        public ProfileCredentials GetDefaultProfileData()
+        {
+            if (_profileCredentials.Count == 0)
+                return null;
+
+            return _profileCredentials.First().Value;
         }
 
         /// <summary>

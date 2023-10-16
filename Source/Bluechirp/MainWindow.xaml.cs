@@ -45,16 +45,30 @@ namespace Bluechirp
             await credentialService.LoadProfileDataAsync();
             navService.TargetFrame = ContentFrame;
 
-            if(lastProfile != string.Empty)
-            {
-                ProfileCredentials credentials = credentialService.GetProfileData(lastProfile);
-                authService.LoadClientFromCredentials(credentials);
+            ProfileCredentials credentials = credentialService.GetProfileData(lastProfile);
 
-                navService.Navigate(PageType.Shell, null, new DrillInNavigationTransitionInfo());
+            // Hm. Let's check if there are profiles in storage.
+            if (credentials == null)
+            {
+                ProfileCredentials defaultCredentials = credentialService.GetDefaultProfileData();
+
+                // There aren't. Just show the login screen.
+                if (defaultCredentials == null)
+                    navService.Navigate(PageType.Login, null, new DrillInNavigationTransitionInfo());
+                // There is one! Use it.
+                else
+                    LoadCredentialsAndOpenShell(defaultCredentials);
             }
             else
             {
-                navService.Navigate(PageType.Login, null, new DrillInNavigationTransitionInfo());
+                LoadCredentialsAndOpenShell(credentials);
+            }
+
+            void LoadCredentialsAndOpenShell(ProfileCredentials credentials)
+            {
+                authService.LoadClientFromCredentials(credentials);
+
+                navService.Navigate(PageType.Shell, null, new DrillInNavigationTransitionInfo());
             }
         }
 

@@ -67,7 +67,7 @@ namespace Bluechirp
         {
             if(Application.Current is App app)
             {
-                AsyncHelper.RunSync(() => app.OnActivated(e));
+                AsyncHelper.RunSync(async () => await app.OnActivated(e));
             }
         }
     }

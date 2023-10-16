@@ -1,3 +1,7 @@
+using Bluechirp.Library.Helpers;
+using Bluechirp.Library.Services.Security;
+using Mastonet.Entities;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,6 +30,15 @@ namespace Bluechirp.Views
         public ShellPage()
         {
             this.InitializeComponent();
+
+            IAuthService service = App.ServiceProvider.GetRequiredService<IAuthService>();
+
+            this.test.Text = "You are logged in as " + AsyncHelper.RunSync<string>(async () =>
+            {
+                Account acc = await service.Client.GetCurrentUser();
+
+                return acc.AccountName;
+            });
         }
     }
 }
