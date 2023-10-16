@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using Bluechirp.Library.Enums;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using System;
 
@@ -35,7 +36,7 @@ namespace Bluechirp.Library.Services.Interface
         /// </summary>
         /// <param name="sourcePageType">The target page's type.</param>
         /// <returns><see langword="true"/> if the navigation was successful.</returns>
-        public bool Navigate(Type sourcePageType);
+        public bool Navigate(PageType sourcePageType);
 
         /// <summary>
         /// Navigates to the target page type with a parameter.
@@ -43,7 +44,7 @@ namespace Bluechirp.Library.Services.Interface
         /// <param name="sourcePageType">The target page's type.</param>
         /// <param name="parameter">The parameter to pass to the target page.</param>
         /// <returns><see langword="true"/> if the navigation was successful.</returns>
-        public bool Navigate(Type sourcePageType, object parameter);
+        public bool Navigate(PageType sourcePageType, object parameter);
 
         /// <summary>
         /// Navigates to the target page type with a parameter and a custom
@@ -53,6 +54,6 @@ namespace Bluechirp.Library.Services.Interface
         /// <param name="parameter">The parameter to pass to the target page.</param>
         /// <param name="infoOverride">The transition override.</param>
         /// <returns><see langword="true"/> if the navigation was successful.</returns>
-        public bool Navigate(Type sourcePageType, object parameter, NavigationTransitionInfo infoOverride);
+        public bool Navigate(PageType sourcePageType, object parameter, NavigationTransitionInfo infoOverride);
     }
 }

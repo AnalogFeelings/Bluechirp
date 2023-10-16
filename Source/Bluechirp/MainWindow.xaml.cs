@@ -1,4 +1,5 @@
 using Bluechirp.Library.Constants;
+using Bluechirp.Library.Enums;
 using Bluechirp.Library.Models;
 using Bluechirp.Library.Services.Environment;
 using Bluechirp.Library.Services.Interface;
@@ -51,7 +52,7 @@ namespace Bluechirp
             }
             else
             {
-                navService.Navigate(typeof(LoginPage), null, new DrillInNavigationTransitionInfo());
+                navService.Navigate(PageType.Login, null, new DrillInNavigationTransitionInfo());
             }
         }
 

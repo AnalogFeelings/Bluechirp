@@ -1,4 +1,6 @@
-﻿using Bluechirp.Library.Services.Interface;
+﻿using Bluechirp.Library.Enums;
+using Bluechirp.Library.Services.Interface;
+using Bluechirp.Views;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using System;
@@ -31,21 +33,42 @@ namespace Bluechirp.Services.Interface
         }
 
         /// <inheritdoc/>
-        public bool Navigate(Type sourcePageType)
+        public bool Navigate(PageType sourcePageType)
         {
-            return TargetFrame.Navigate(sourcePageType);
+            Type targetType = sourcePageType switch
+            {
+                PageType.Login => typeof(LoginPage),
+                PageType.Shell => typeof(ShellPage),
+                _ => throw new ArgumentOutOfRangeException("Attempted to navigate to non-existant page.")
+            };
+
+            return TargetFrame.Navigate(targetType);
         }
 
         /// <inheritdoc/>
-        public bool Navigate(Type sourcePageType, object parameter)
+        public bool Navigate(PageType sourcePageType, object parameter)
         {
-            return TargetFrame.Navigate(sourcePageType, parameter);
+            Type targetType = sourcePageType switch
+            {
+                PageType.Login => typeof(LoginPage),
+                PageType.Shell => typeof(ShellPage),
+                _ => throw new ArgumentOutOfRangeException("Attempted to navigate to non-existant page.")
+            };
+
+            return TargetFrame.Navigate(targetType, parameter);
         }
 
         /// <inheritdoc/>
-        public bool Navigate(Type sourcePageType, object parameter, NavigationTransitionInfo infoOverride)
+        public bool Navigate(PageType sourcePageType, object parameter, NavigationTransitionInfo infoOverride)
         {
-            return TargetFrame.Navigate(sourcePageType, parameter, infoOverride);
+            Type targetType = sourcePageType switch
+            {
+                PageType.Login => typeof(LoginPage),
+                PageType.Shell => typeof(ShellPage),
+                _ => throw new ArgumentOutOfRangeException("Attempted to navigate to non-existant page.")
+            };
+
+            return TargetFrame.Navigate(targetType, parameter, infoOverride);
         }
     }
 }
