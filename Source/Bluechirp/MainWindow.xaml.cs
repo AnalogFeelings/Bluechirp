@@ -1,12 +1,17 @@
+using Bluechirp.Library.Constants;
+using Bluechirp.Library.Models;
+using Bluechirp.Library.Services.Environment;
+using Bluechirp.Library.Services.Interface;
+using Bluechirp.Library.Services.Security;
 using Bluechirp.Views;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
+using Microsoft.UI.Xaml.Media.Animation;
+using System.Threading.Tasks;
 using WinUIEx;
 
 namespace Bluechirp
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainWindow : WindowEx
     {
         public MainWindow()
@@ -22,6 +27,37 @@ namespace Bluechirp
             AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
         }
 
+        /// <summary>
+        /// Checks if there are credentials stored in the disk.
+        /// If none are found, the content frame will navigate to <see cref="LoginPage"/>.
+        /// Otherwise, it will navigate to <see cref="ShellView"/>.
+        /// </summary>
+        public async Task CheckLoginAndNavigateAsync()
+        {
+            ISettingsService settingsService = App.ServiceProvider.GetRequiredService<ISettingsService>();
+            ICredentialService credentialService = App.ServiceProvider.GetRequiredService<ICredentialService>();
+            IAuthService authService = App.ServiceProvider.GetRequiredService<IAuthService>();
+            INavigationService navService = App.ServiceProvider.GetRequiredService<INavigationService>();
+
+            string lastProfile = settingsService.Get<string>(SettingsConstants.LAST_PROFILE_KEY);
+
+            await credentialService.LoadProfileDataAsync();
+            navService.TargetFrame = ContentFrame;
+
+            if(lastProfile != string.Empty)
+            {
+                ProfileCredentials credentials = credentialService.GetProfileData(lastProfile);
+                authService.LoadClientFromCredentials(credentials);
+            }
+            else
+            {
+                navService.Navigate(typeof(LoginPage), null, new DrillInNavigationTransitionInfo());
+            }
+        }
+
+        /// <summary>
+        /// Shows the splash screen.
+        /// </summary>
         public void ShowSplash()
         {
             ContentFrame.Navigate(typeof(SplashScreenPage));

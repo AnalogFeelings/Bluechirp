@@ -63,6 +63,8 @@ namespace Bluechirp
 
                 _loggerService = ServiceProvider.GetRequiredService<ILoggerService>();
                 _authService = ServiceProvider.GetRequiredService<IAuthService>();
+
+                await appWindow.CheckLoginAndNavigateAsync();
             }
         }
 
