@@ -53,11 +53,15 @@ namespace Bluechirp
             collection.AddSingleton<INavigationService, NavigationService>();
             collection.AddSingleton<ISettingsService, SettingsService>();
             collection.AddSingleton<IInstanceUtilityService, InstanceUtilityService>();
+            collection.AddSingleton<IDispatcherService, DispatcherService>();
 
             // Add view models.
             collection.AddTransient<LoginViewModel>();
 
             _serviceProvider = collection.BuildServiceProvider(true);
+
+            // Initialize singleton services that need it.
+            _ = _serviceProvider.GetRequiredService<IDispatcherService>();
         }
     }
 }
