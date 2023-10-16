@@ -86,7 +86,8 @@
 			<TextBox x:Name="InstanceTextBox" 
 			         Margin="0, 0, 0, 8" 
 			         Header="Instance"
-			         PlaceholderText="e.g: mastodon.social"/>
+			         PlaceholderText="e.g: mastodon.social"
+					 Text="{x:Bind ViewModel.InstanceUrl, Mode=TwoWay}"/>
 			<Grid Margin="0, 24, 0, 0"
 			      ColumnSpacing="8"
 			      HorizontalAlignment="Stretch">
@@ -100,10 +101,12 @@
 				        HorizontalAlignment="Stretch"
 				        Content="Login"
 				        Style="{StaticResource AccentButtonStyle}"
+						Command="{x:Bind ViewModel.LoginCommand}"
 				        Grid.Column="2"/>
 				<HyperlinkButton x:Name="SignUpHyperlink"
 				                 HorizontalAlignment="Stretch"
 				                 Content="Sign Up"
+								 Command="{x:Bind ViewModel.SignUpCommand}"
 				                 Grid.Column="1"/>
 			</Grid>
 		</StackPanel>

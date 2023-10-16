@@ -2,6 +2,7 @@
 using Bluechirp.Library.Services.Interface;
 using Bluechirp.Library.Services.Security;
 using Bluechirp.Library.Services.Utility;
+using Bluechirp.Library.ViewModel;
 using Bluechirp.Services.Environment;
 using Bluechirp.Services.Interface;
 using Bluechirp.Services.Security;
@@ -52,6 +53,9 @@ namespace Bluechirp
             collection.AddSingleton<INavigationService, NavigationService>();
             collection.AddSingleton<ISettingsService, SettingsService>();
             collection.AddSingleton<IInstanceUtilityService, InstanceUtilityService>();
+
+            // Add view models.
+            collection.AddTransient<LoginViewModel>();
 
             _serviceProvider = collection.BuildServiceProvider(true);
         }
