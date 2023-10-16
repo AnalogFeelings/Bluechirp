@@ -33,12 +33,18 @@ namespace Bluechirp.Services.Security
         public async Task LoadProfileDataAsync()
         {
             StorageFile profilesFile = await GetProfilesFileAsync();
-            ulong fileSize = await profilesFile.GetFileSizeAsync();
 
             IBuffer encryptedProfiles = await FileIO.ReadBufferAsync(profilesFile);
             string decryptedProfiles = await _encryptionService.DecryptBufferAsync(encryptedProfiles);
 
-            _profileCredentials = JsonSerializer.Deserialize<Dictionary<string, ProfileCredentials>>(decryptedProfiles);
+            if (string.IsNullOrEmpty(decryptedProfiles))
+            {
+                _profileCredentials = new Dictionary<string, ProfileCredentials>();
+            }
+            else
+            {
+                _profileCredentials = JsonSerializer.Deserialize<Dictionary<string, ProfileCredentials>>(decryptedProfiles);
+            }
         }
 
         /// <inheritdoc/>
