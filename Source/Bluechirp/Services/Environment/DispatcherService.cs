@@ -22,25 +22,25 @@ namespace Bluechirp.Services.Environment
             => _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
         /// <inheritdoc/>
-        public Task Enqueue(Action function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal)
+        public Task EnqueueAsync(Action function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal)
         {
             return _dispatcherQueue.EnqueueAsync(function, priority);
         }
 
         /// <inheritdoc/>
-        public Task Enqueue(Func<Task> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal)
+        public Task EnqueueAsync(Func<Task> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal)
         {
             return _dispatcherQueue.EnqueueAsync(function, priority);
         }
 
         /// <inheritdoc/>
-        public Task<T> Enqueue<T>(Func<T> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal)
+        public Task<T> EnqueueAsync<T>(Func<T> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal)
         {
             return _dispatcherQueue.EnqueueAsync(function, priority);
         }
 
         /// <inheritdoc/>
-        public Task<T> Enqueue<T>(Func<Task<T>> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal)
+        public Task<T> EnqueueAsync<T>(Func<Task<T>> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal)
         {
             return _dispatcherQueue.EnqueueAsync(function, priority);
         }

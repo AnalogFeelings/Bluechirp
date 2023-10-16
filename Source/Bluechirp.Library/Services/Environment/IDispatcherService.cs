@@ -14,7 +14,7 @@ namespace Bluechirp.Library.Services.Environment
         /// </summary>
         /// <param name="function">The action to enqueue.</param>
         /// <param name="priority">The action's priority in the queue.</param>
-        public Task Enqueue(Action function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal);
+        public Task EnqueueAsync(Action function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal);
 
         /// <summary>
         /// Enqueues a <see cref="Task"/> with a priority level.
@@ -22,7 +22,7 @@ namespace Bluechirp.Library.Services.Environment
         /// <param name="function">The task to enqueue.</param>
         /// <param name="priority">The task's priority in the queue.</param>
         /// <returns>A task that acts as a proxy for the one retured by the function.</returns>
-        public Task Enqueue(Func<Task> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal);
+        public Task EnqueueAsync(Func<Task> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal);
 
         /// <summary>
         /// Enqueues a function of return type <typeparamref name="T"/> with a priority.
@@ -31,7 +31,7 @@ namespace Bluechirp.Library.Services.Environment
         /// <param name="function">The function to enqueue.</param>
         /// <param name="priority">The function's priority in the queue.</param>
         /// <returns>The return value of the function.</returns>
-        public Task<T> Enqueue<T>(Func<T> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal);
+        public Task<T> EnqueueAsync<T>(Func<T> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal);
 
         /// <summary>
         /// Enqueues a <see cref="Task{TResult}"/> with a priority.
@@ -40,6 +40,6 @@ namespace Bluechirp.Library.Services.Environment
         /// <param name="function">The task to enqueue.</param>
         /// <param name="priority">The task's priority in the queue.</param>
         /// <returns>A task that acts as a proxy for the one returned by the function.</returns>
-        public Task<T> Enqueue<T>(Func<Task<T>> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal);
+        public Task<T> EnqueueAsync<T>(Func<Task<T>> function, DispatcherQueuePriority priority = DispatcherQueuePriority.Normal);
     }
 }

@@ -22,6 +22,7 @@ namespace Bluechirp
 
         private ILoggerService _loggerService;
         private IAuthService _authService;
+        private IDispatcherService _dispatcherService;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -40,31 +41,41 @@ namespace Bluechirp
         {
             AppActivationArguments appArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
 
-            if(appArgs.Kind == ExtendedActivationKind.Protocol)
+            await CheckSingleInstanceAsync(appArgs);
+
+            appWindow = new MainWindow();
+            appWindow.Activate();
+            appWindow.ShowSplash();
+
+            InitializeServices();
+
+            _loggerService = ServiceProvider.GetRequiredService<ILoggerService>();
+            _authService = ServiceProvider.GetRequiredService<IAuthService>();
+            _dispatcherService = ServiceProvider.GetRequiredService<IDispatcherService>();
+
+            await appWindow.CheckLoginAndNavigateAsync();
+        }
+
+        /// <summary>
+        /// Invoked when the application is activated.
+        /// </summary>
+        /// <param name="args">Details about the activation request.</param>
+        public async Task OnActivated(AppActivationArguments args)
+        {
+            if(args.Kind == ExtendedActivationKind.Protocol)
             {
                 if (appWindow == null)
                     Process.GetCurrentProcess().Kill();
 
                 _loggerService.Log("Received protocol activation.", LogSeverity.Information);
 
-                ProtocolActivatedEventArgs protocolArgs = appArgs.Data as ProtocolActivatedEventArgs;
+                ProtocolActivatedEventArgs protocolArgs = args.Data as ProtocolActivatedEventArgs;
 
-                await _authService.CompleteAuthAsync(protocolArgs.Uri.Query);
-            }
-            else
-            {
-                await CheckSingleInstanceAsync(appArgs);
-
-                appWindow = new MainWindow();
-                appWindow.Activate();
-                appWindow.ShowSplash();
-
-                InitializeServices();
-
-                _loggerService = ServiceProvider.GetRequiredService<ILoggerService>();
-                _authService = ServiceProvider.GetRequiredService<IAuthService>();
-
-                await appWindow.CheckLoginAndNavigateAsync();
+                await _dispatcherService.EnqueueAsync(async () =>
+                {
+                   await _authService.CompleteAuthAsync(protocolArgs.Uri.Query);
+                });
+                
             }
         }
 
