@@ -24,10 +24,29 @@ namespace Bluechirp.Services.Security
 
         public async Task<string> DecryptBufferAsync(IBuffer target)
         {
-            DataProtectionProvider provider = new DataProtectionProvider();
-            IBuffer decryptedBuffer = await provider.UnprotectAsync(target);
+            DataProtectionProvider Provider = new DataProtectionProvider();
 
-            string decryptedString = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf8, decryptedBuffer);
+            InMemoryRandomAccessStream inputData = new InMemoryRandomAccessStream();
+            InMemoryRandomAccessStream unprotectedData = new InMemoryRandomAccessStream();
+
+            IOutputStream outputStream = inputData.GetOutputStreamAt(0);
+            DataWriter writer = new DataWriter(outputStream);
+
+            writer.WriteBuffer(target);
+            await writer.StoreAsync();
+            await outputStream.FlushAsync();
+
+            IInputStream source = inputData.GetInputStreamAt(0);
+            IOutputStream dest = unprotectedData.GetOutputStreamAt(0);
+
+            await Provider.UnprotectStreamAsync(source, dest);
+            await dest.FlushAsync();
+
+            DataReader reader = new DataReader(unprotectedData.GetInputStreamAt(0));
+            await reader.LoadAsync((uint)unprotectedData.Size);
+
+            IBuffer buffUnprotectedData = reader.ReadBuffer((uint)unprotectedData.Size);
+            string decryptedString = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf8, buffUnprotectedData);
 
             return decryptedString;
         }
