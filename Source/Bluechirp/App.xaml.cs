@@ -5,10 +5,11 @@ using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
+using WinUIEx;
 using AppActivationArguments = Microsoft.Windows.AppLifecycle.AppActivationArguments;
-using AppInstance = Microsoft.Windows.AppLifecycle.AppInstance;
 using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
 
 namespace Bluechirp
@@ -18,6 +19,9 @@ namespace Bluechirp
     /// </summary>
     public partial class App : Application
     {
+        [DllImport("user32.dll")]
+        private static extern int ShowWindow(IntPtr hWnd, uint Msg);
+
         private MainWindow appWindow;
 
         private ILoggerService _loggerService;
@@ -39,10 +43,6 @@ namespace Bluechirp
         /// <param name="args">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
-            AppActivationArguments appArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
-
-            await CheckSingleInstanceAsync(appArgs);
-
             appWindow = new MainWindow();
             appWindow.Activate();
             appWindow.ShowSplash();
@@ -62,7 +62,15 @@ namespace Bluechirp
         /// <param name="args">Details about the activation request.</param>
         public async Task OnActivated(AppActivationArguments args)
         {
-            if(args.Kind == ExtendedActivationKind.Protocol)
+            await _dispatcherService.EnqueueAsync(() =>
+            {
+                // BUG WORKAROUND: microsoft-ui-xaml#7595
+                // Window.Activate() does not bring window to foreground.
+                // https://github.com/microsoft/microsoft-ui-xaml/issues/7595
+                ShowWindow(appWindow.GetWindowHandle(), 0x9);
+            });
+
+            if (args.Kind == ExtendedActivationKind.Protocol)
             {
                 if (appWindow == null)
                     Process.GetCurrentProcess().Kill();
@@ -73,28 +81,9 @@ namespace Bluechirp
 
                 await _dispatcherService.EnqueueAsync(async () =>
                 {
-                   await _authService.CompleteAuthAsync(protocolArgs.Uri.Query);
+                    await _authService.CompleteAuthAsync(protocolArgs.Uri.Query);
                 });
-                
-            }
-        }
 
-        /// <summary>
-        /// Checks if the current application is the main instance, if
-        /// not, redirect and exit.
-        /// </summary>
-        /// <param name="appArgs">The activation parameters.</param>
-        private async Task CheckSingleInstanceAsync(AppActivationArguments appArgs)
-        {
-            AppInstance mainInstance = AppInstance.FindOrRegisterForKey("main");
-
-            if (!mainInstance.IsCurrent)
-            {
-                await mainInstance.RedirectActivationToAsync(appArgs);
-
-                Process.GetCurrentProcess().Kill();
-
-                return;
             }
         }
     }
