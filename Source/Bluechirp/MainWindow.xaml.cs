@@ -31,7 +31,7 @@ namespace Bluechirp
         /// <summary>
         /// Checks if there are credentials stored in the disk.
         /// If none are found, the content frame will navigate to <see cref="LoginPage"/>.
-        /// Otherwise, it will navigate to <see cref="ShellView"/>.
+        /// Otherwise, it will navigate to <see cref="ShellPage"/>.
         /// </summary>
         public async Task CheckLoginAndNavigateAsync()
         {
