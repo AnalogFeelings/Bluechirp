@@ -39,6 +39,7 @@ namespace Bluechirp
             ICredentialService credentialService = App.ServiceProvider.GetRequiredService<ICredentialService>();
             IAuthService authService = App.ServiceProvider.GetRequiredService<IAuthService>();
             INavigationService navService = App.ServiceProvider.GetRequiredService<INavigationService>();
+            ILoggerService logService = App.ServiceProvider.GetRequiredService<ILoggerService>();
 
             string lastProfile = settingsService.Get<string>(SettingsConstants.LAST_PROFILE_KEY);
 
@@ -54,10 +55,16 @@ namespace Bluechirp
 
                 // There aren't. Just show the login screen.
                 if (defaultCredentials == null)
+                {
+                    logService.Log("No credentials found. Navigating to login page.", LogSeverity.Error);
+
                     navService.Navigate(PageType.Login, null, new DrillInNavigationTransitionInfo());
-                // There is one! Use it.
+                }
                 else
+                {
+                    // There is one! Use it.
                     LoadCredentialsAndOpenShell(defaultCredentials);
+                }
             }
             else
             {
@@ -66,6 +73,8 @@ namespace Bluechirp
 
             void LoadCredentialsAndOpenShell(ProfileCredentials credentials)
             {
+                logService.Log("Credentials found. Attempting to initialize client...", LogSeverity.Information);
+
                 authService.LoadClientFromCredentials(credentials);
 
                 navService.Navigate(PageType.Shell, null, new DrillInNavigationTransitionInfo());

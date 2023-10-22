@@ -53,6 +53,8 @@ namespace Bluechirp
             _authService = ServiceProvider.GetRequiredService<IAuthService>();
             _dispatcherService = ServiceProvider.GetRequiredService<IDispatcherService>();
 
+            _loggerService.Log("Bluechirp is initializing.", LogSeverity.Information);
+
             await appWindow.CheckLoginAndNavigateAsync();
         }
 
