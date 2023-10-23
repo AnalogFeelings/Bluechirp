@@ -18,6 +18,16 @@
 		<None Remove="Assets\Icons\Tiles\MedTile.scale-125.png" />
 		<None Remove="Assets\Icons\Tiles\MedTile.scale-150.png" />
 		<None Remove="Assets\Icons\Tiles\MedTile.scale-400.png" />
+		<None Remove="Assets\Icons\Tiles\SmallTile.scale-100.png" />
+		<None Remove="Assets\Icons\Tiles\SmallTile.scale-125.png" />
+		<None Remove="Assets\Icons\Tiles\SmallTile.scale-150.png" />
+		<None Remove="Assets\Icons\Tiles\SmallTile.scale-200.png" />
+		<None Remove="Assets\Icons\Tiles\SmallTile.scale-400.png" />
+		<None Remove="Assets\Icons\Tiles\WideTile.scale-100.png" />
+		<None Remove="Assets\Icons\Tiles\WideTile.scale-125.png" />
+		<None Remove="Assets\Icons\Tiles\WideTile.scale-150.png" />
+		<None Remove="Assets\Icons\Tiles\WideTile.scale-200.png" />
+		<None Remove="Assets\Icons\Tiles\WideTile.scale-400.png" />
 		<None Remove="Views\LoginPage.xaml" />
 		<None Remove="Views\ShellPage.xaml" />
 		<None Remove="Views\SplashScreenPage.xaml" />
