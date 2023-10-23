@@ -1,16 +1,178 @@
-<Page
-    x:Class="Bluechirp.Views.ShellPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Bluechirp.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+<Page x:Class="Bluechirp.Views.ShellPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:local="using:Bluechirp.Views"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  mc:Ignorable="d">
 
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-		<TextBlock x:Name="test"
-				   Style="{StaticResource HeaderTextBlockStyle}"
-				   HorizontalAlignment="Center"
-				   VerticalAlignment="Center"/>
+	<Page.Resources>
+		<ResourceDictionary>
+			<Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+			<SolidColorBrush x:Key="NavigationViewContentBackground"
+							 Color="Transparent" />
+			<SolidColorBrush x:Key="NavigationViewContentGridBorderBrush"
+							 Color="Transparent" />
+		</ResourceDictionary>
+	</Page.Resources>
+
+	<Grid HorizontalAlignment="Stretch"
+		  VerticalAlignment="Stretch">
+		<Grid x:Name="AppTitleBar"
+			  VerticalAlignment="Top"
+			  Background="Transparent"
+			  Height="48"
+			  Canvas.ZIndex="1"
+			  Margin="48,0,0,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="40" />
+				<ColumnDefinition Width="220" />
+			</Grid.ColumnDefinitions>
+
+			<Rectangle Grid.Column="0"
+					   Grid.ColumnSpan="4"
+					   x:Name="TitleDragRegion"
+					   Fill="Transparent"
+					   HorizontalAlignment="Stretch"
+					   VerticalAlignment="Stretch" />
+
+			<StackPanel x:Name="TitlePanel"
+						Grid.Column="0"
+						Orientation="Horizontal">
+				<Image x:Name="AppLogo"
+					   HorizontalAlignment="Left"
+					   VerticalAlignment="Center"
+					   IsHitTestVisible="False"
+					   Source="/Assets/Icons/AppList/AppList.targetsize-24.png"
+					   Width="24"
+					   Height="24"
+					   Margin="0,0,12,0" />
+				<TextBlock x:Name="AppTitle"
+						   VerticalAlignment="Center"
+						   IsHitTestVisible="False"
+						   FontSize="12"
+						   Style="{StaticResource BodyTextBlockStyle}"
+						   Margin="0,0,8,0">
+					Bluechirp
+				</TextBlock>
+				<TextBlock x:Name="AppDevBadge"
+						   VerticalAlignment="Center"
+						   IsHitTestVisible="False"
+						   FontSize="12"
+						   FontWeight="SemiLight"
+						   Foreground="{StaticResource SystemColorDisabledTextColor}">
+					DEV
+				</TextBlock>
+			</StackPanel>
+		</Grid>
+		<NavigationView x:Name="NavigationViewControl"
+						IsTitleBarAutoPaddingEnabled="False"
+						IsBackEnabled="True"
+						AlwaysShowHeader="False">
+			<NavigationView.MenuItems>
+				<NavigationViewItem Icon="Home"
+									Tag="home"
+									Content="Home" />
+
+				<NavigationViewItem Content="Explore"
+									SelectsOnInvoked="False">
+					<NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons"
+								  Glyph="&#xF6FA;" />
+					</NavigationViewItem.Icon>
+					<NavigationViewItem.MenuItems>
+						<NavigationViewItem Icon="Globe"
+											Tag="posts"
+											Content="Posts" />
+						<NavigationViewItem Icon="Tag"
+											Tag="hashtags"
+											Content="Hashtags" />
+						<NavigationViewItem Icon="People"
+											Tag="people"
+											Content="People" />
+						<!-- Placeholder Icon: REPLACE!!! -->
+						<NavigationViewItem Icon="Emoji"
+											Tag="news"
+											Content="News">
+						</NavigationViewItem>
+					</NavigationViewItem.MenuItems>
+				</NavigationViewItem>
+
+				<NavigationViewItem Tag="local"
+									Content="Local">
+					<NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons"
+								  Glyph="&#xE902;" />
+					</NavigationViewItem.Icon>
+				</NavigationViewItem>
+
+				<NavigationViewItem Tag="federated"
+									Content="Federated">
+					<NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons"
+								  Glyph="&#xE909;" />
+					</NavigationViewItem.Icon>
+				</NavigationViewItem>
+
+				<NavigationViewItemSeparator></NavigationViewItemSeparator>
+
+				<NavigationViewItem Icon="Message"
+									Tag="messages"
+									Content="Messages" />
+
+				<NavigationViewItem Tag="notifications"
+									Content="Notifications">
+					<NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons"
+								  Glyph="&#xEA8F;" />
+					</NavigationViewItem.Icon>
+					<NavigationViewItem.InfoBadge>
+						<InfoBadge x:Name="NotificationsBadge"
+								   Value="0"
+								   Opacity="0" />
+					</NavigationViewItem.InfoBadge>
+				</NavigationViewItem>
+
+				<NavigationViewItem Icon="OutlineStar"
+									Tag="favorites"
+									Content="Favorites" />
+
+				<NavigationViewItem Tag="bookmarks"
+									Content="Bookmarks">
+					<NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons"
+								  Glyph="&#xE74E;" />
+					</NavigationViewItem.Icon>
+				</NavigationViewItem>
+
+				<NavigationViewItem Tag="lists"
+									Content="Lists">
+					<NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons"
+								  Glyph="&#xE8FD;" />
+					</NavigationViewItem.Icon>
+				</NavigationViewItem>
+			</NavigationView.MenuItems>
+
+			<NavigationView.AutoSuggestBox>
+				<AutoSuggestBox QueryIcon="Find"
+								AutomationProperties.Name="Search"
+								PlaceholderText="Search Mastodon..." />
+			</NavigationView.AutoSuggestBox>
+
+			<NavigationView.FooterMenuItems>
+				<NavigationViewItem Tag="feedback"
+									Content="Feedback">
+					<NavigationViewItem.Icon>
+						<FontIcon FontFamily="Segoe Fluent Icons"
+								  Glyph="&#xED15;" />
+					</NavigationViewItem.Icon>
+				</NavigationViewItem>
+			</NavigationView.FooterMenuItems>
+
+			<Frame x:Name="ContentFrame" />
+		</NavigationView>
 	</Grid>
 </Page>

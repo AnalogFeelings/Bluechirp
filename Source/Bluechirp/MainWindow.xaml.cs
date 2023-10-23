@@ -15,9 +15,13 @@ namespace Bluechirp
 {
     public sealed partial class MainWindow : WindowEx
     {
+        public static new MainWindow Current;
+
         public MainWindow()
         {
             this.InitializeComponent();
+
+            Current = this;
 
             this.MinWidth = 380;
             this.MinHeight = 570;
