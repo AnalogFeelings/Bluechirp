@@ -68,6 +68,7 @@
 			</StackPanel>
 		</Grid>
 		<NavigationView x:Name="NavigationViewControl"
+						Loaded="NavigationViewControl_Loaded"
 						IsTitleBarAutoPaddingEnabled="False"
 						IsBackEnabled="True"
 						AlwaysShowHeader="False">

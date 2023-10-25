@@ -29,6 +29,7 @@
 		<None Remove="Assets\Icons\Tiles\WideTile.scale-200.png" />
 		<None Remove="Assets\Icons\Tiles\WideTile.scale-400.png" />
 		<None Remove="Views\LoginPage.xaml" />
+		<None Remove="Views\Navigation\HomeTimelinePage.xaml" />
 		<None Remove="Views\ShellPage.xaml" />
 		<None Remove="Views\SplashScreenPage.xaml" />
 	</ItemGroup>
@@ -68,6 +69,11 @@
 		<Page Update="Views\SplashScreenPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="Views\Navigation\HomeTimelinePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
