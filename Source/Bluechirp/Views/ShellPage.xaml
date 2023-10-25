@@ -62,7 +62,8 @@
 						   IsHitTestVisible="False"
 						   FontSize="12"
 						   FontWeight="SemiLight"
-						   Foreground="{StaticResource SystemColorDisabledTextColor}">
+						   Foreground="{StaticResource SystemColorDisabledTextColor}"
+						   Visibility="{x:Bind ViewModel.ShowDevBadge, Mode=OneTime, Converter={StaticResource BoolToVisibilityConverter}}">
 					DEV
 				</TextBlock>
 			</StackPanel>

@@ -1,5 +1,6 @@
 using Bluechirp.Library.Enums;
 using Bluechirp.Library.Services.Interface;
+using Bluechirp.Library.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -13,9 +14,12 @@ namespace Bluechirp.Views
     {
         private INavigationService _navigationService;
 
+        public ShellViewModel ViewModel => (ShellViewModel)this.DataContext;
+
         public ShellPage()
         {
             this.InitializeComponent();
+            this.DataContext = App.ServiceProvider.GetRequiredService<ShellViewModel>();
 
             _navigationService = App.ServiceProvider.GetRequiredService<INavigationService>();
         }

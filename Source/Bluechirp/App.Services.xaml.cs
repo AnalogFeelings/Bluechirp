@@ -57,6 +57,7 @@ namespace Bluechirp
 
             // Add view models.
             collection.AddTransient<LoginViewModel>();
+            collection.AddTransient<ShellViewModel>();
 
             _serviceProvider = collection.BuildServiceProvider(true);
 
