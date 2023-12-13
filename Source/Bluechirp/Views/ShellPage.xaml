@@ -1,6 +1,7 @@
 <Page x:Class="Bluechirp.Views.ShellPage"
 	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:controls="using:CommunityToolkit.WinUI.Controls"
 	  xmlns:local="using:Bluechirp.Views"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,7 +9,6 @@
 
 	<Page.Resources>
 		<ResourceDictionary>
-			<Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
 			<SolidColorBrush x:Key="NavigationViewContentBackground"
 							 Color="Transparent" />
 			<SolidColorBrush x:Key="NavigationViewContentGridBorderBrush"
@@ -16,68 +16,62 @@
 		</ResourceDictionary>
 	</Page.Resources>
 
-	<Grid HorizontalAlignment="Stretch"
-		  VerticalAlignment="Stretch">
-		<Grid x:Name="AppTitleBar"
-			  VerticalAlignment="Top"
-			  Background="Transparent"
-			  Height="48"
-			  Canvas.ZIndex="1"
-			  Margin="48,0,0,0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="40" />
-				<ColumnDefinition Width="220" />
-			</Grid.ColumnDefinitions>
-
-			<Rectangle Grid.Column="0"
-					   Grid.ColumnSpan="4"
-					   x:Name="TitleDragRegion"
-					   Fill="Transparent"
-					   HorizontalAlignment="Stretch"
-					   VerticalAlignment="Stretch" />
-
-			<StackPanel x:Name="TitlePanel"
-						Grid.Column="0"
-						Orientation="Horizontal">
-				<Image x:Name="AppLogo"
-					   HorizontalAlignment="Left"
-					   VerticalAlignment="Center"
-					   IsHitTestVisible="False"
-					   Source="/Assets/Icons/AppList/AppList.targetsize-24.png"
-					   Width="24"
-					   Height="24"
-					   Margin="0,0,12,0" />
-				<TextBlock x:Name="AppTitle"
-						   VerticalAlignment="Center"
-						   IsHitTestVisible="False"
-						   FontSize="12"
-						   Style="{StaticResource BodyTextBlockStyle}"
-						   Margin="0,0,8,0">
-					Bluechirp
-				</TextBlock>
-				<TextBlock x:Name="AppDevBadge"
-						   VerticalAlignment="Center"
-						   IsHitTestVisible="False"
-						   FontSize="12"
-						   FontWeight="SemiLight"
-						   Foreground="{StaticResource SystemColorDisabledTextColor}"
-						   Visibility="{x:Bind ViewModel.ShowDevBadge, Mode=OneTime, Converter={StaticResource BoolToVisibilityConverter}}">
-					DEV
-				</TextBlock>
-			</StackPanel>
-		</Grid>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		
+		<controls:TitleBar x:Name="AppTitleBar"
+						   Title="Bluechirp"
+						   Subtitle="DEV"
+						   AutoConfigureCustomTitleBar="True"
+						   DisplayMode="Tall"
+						   IsBackButtonVisible="True"
+						   IsPaneButtonVisible="True">
+			<controls:TitleBar.Icon>
+				<BitmapIcon ShowAsMonochrome="False"
+							Width="24"
+							Height="24"
+							UriSource="/Assets/Icons/AppList/AppList.targetsize-24.png" />
+			</controls:TitleBar.Icon>
+			<controls:TitleBar.Footer>
+				<PersonPicture x:Name="ProfileIcon"
+							   Width="32"
+							   Height="32"
+							   ToolTipService.ToolTip="{x:Bind ViewModel.CurrentAccount.AccountName, Mode=OneWay}">
+					<PersonPicture.ProfilePicture>
+						<BitmapImage DecodePixelType="Logical"
+									 DecodePixelWidth="32"
+									 DecodePixelHeight="32"
+									 UriSource="{x:Bind ViewModel.CurrentAccount.AvatarUrl, Mode=OneWay}" />
+					</PersonPicture.ProfilePicture>
+					<PersonPicture.ContextFlyout>
+						<MenuFlyout>
+							<!--TODO: Replace with left-click flyout. -->
+							<MenuFlyoutItem Text="Logout"
+											Name="LogoutButton">
+								<MenuFlyoutItem.Icon>
+									<FontIcon FontFamily="Segoe Fluent Icons"
+											  Glyph="&#xF3B1;" />
+								</MenuFlyoutItem.Icon>
+							</MenuFlyoutItem>
+						</MenuFlyout>
+					</PersonPicture.ContextFlyout>
+				</PersonPicture>
+			</controls:TitleBar.Footer>
+		</controls:TitleBar>
+			
 		<NavigationView x:Name="NavigationViewControl"
+						Grid.Row="1"
 						Loaded="NavigationViewControl_Loaded"
-						IsTitleBarAutoPaddingEnabled="False"
-						IsBackEnabled="True"
+						IsBackButtonVisible="Collapsed"
+						IsPaneToggleButtonVisible="False"
 						AlwaysShowHeader="False">
 			<NavigationView.MenuItems>
 				<NavigationViewItem Icon="Home"
 									Tag="home"
 									Content="Home" />
-
 				<NavigationViewItem Content="Explore"
 									SelectsOnInvoked="False">
 					<NavigationViewItem.Icon>
@@ -174,7 +168,8 @@
 				</NavigationViewItem>
 			</NavigationView.FooterMenuItems>
 
-			<Frame x:Name="ContentFrame" />
+			<Frame x:Name="ContentFrame"
+				   Padding="24,0,0,0"/>
 		</NavigationView>
 	</Grid>
 </Page>
