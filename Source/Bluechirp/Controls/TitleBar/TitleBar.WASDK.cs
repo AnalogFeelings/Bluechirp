@@ -2,12 +2,16 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using Bluechirp.Library.Interop;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Collections.Generic;
+using WinRT.Interop;
 
-namespace CommunityToolkit.App.Shared.Controls;
+namespace CommunityToolkit.WinUI.Controls;
 
 [TemplatePart(Name = nameof(PART_ButtonsHolderColumn), Type = typeof(ColumnDefinition))]
 [TemplatePart(Name = nameof(PART_IconColumn), Type = typeof(ColumnDefinition))]
@@ -166,5 +170,23 @@ public partial class TitleBar : Control
 
             Window.AppWindow.TitleBar.SetDragRectangles(dragRects);
         }
+    }
+
+    private double GetScaleAdjustment()
+    {
+        IntPtr hWnd = WindowNative.GetWindowHandle(this.Window);
+        WindowId wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
+        DisplayArea displayArea = DisplayArea.GetFromWindowId(wndId, DisplayAreaFallback.Primary);
+        IntPtr hMonitor = Win32Interop.GetMonitorFromDisplayId(displayArea.DisplayId);
+
+        // Get DPI.
+        int result = Native.GetDpiForMonitor(hMonitor, MonitorDpiType.Default, out uint dpiX, out uint _);
+        if (result != 0)
+        {
+            throw new Exception("Could not get DPI for monitor.");
+        }
+
+        uint scaleFactorPercent = (uint)(((long)dpiX * 100 + (96 >> 1)) / 96);
+        return scaleFactorPercent / 100.0;
     }
 }

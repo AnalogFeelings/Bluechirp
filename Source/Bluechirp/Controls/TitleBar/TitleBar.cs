@@ -5,7 +5,7 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
 
-namespace CommunityToolkit.App.Shared.Controls;
+namespace CommunityToolkit.WinUI.Controls;
 
 [TemplateVisualState(Name = BackButtonVisibleState, GroupName = BackButtonStates)]
 [TemplateVisualState(Name = BackButtonCollapsedState, GroupName = BackButtonStates)]

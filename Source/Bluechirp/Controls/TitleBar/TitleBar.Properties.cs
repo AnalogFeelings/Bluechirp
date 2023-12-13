@@ -6,7 +6,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
 using System;
 
-namespace CommunityToolkit.App.Shared.Controls;
+namespace CommunityToolkit.WinUI.Controls;
 
 public partial class TitleBar : Control
 {
