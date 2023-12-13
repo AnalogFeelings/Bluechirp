@@ -7,11 +7,15 @@ using Windows.Storage.Streams;
 
 namespace Bluechirp.Services.Security
 {
+    /// <summary>
+    /// Implements a data encryption service.
+    /// </summary>
     internal class EncryptionService : IEncryptionService
     {
         public const string USER_DESCRIPTOR = "LOCAL=user";
         public const string MACHINE_DESCRIPTOR = "LOCAL=machine";
 
+        /// <inheritdoc/>
         public async Task<IBuffer> EncryptStringAsync(string target, string descriptor)
         {
             DataProtectionProvider provider = new DataProtectionProvider(descriptor);
@@ -22,6 +26,7 @@ namespace Bluechirp.Services.Security
             return encryptedBuffer;
         }
 
+        /// <inheritdoc/>
         public async Task<string> DecryptBufferAsync(IBuffer target)
         {
             DataProtectionProvider Provider = new DataProtectionProvider();
