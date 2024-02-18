@@ -37,9 +37,9 @@ namespace Bluechirp.Services.Security
         {
             _authClient = new AuthenticationClient(instanceUrl);
             _appRegistration = await _authClient.CreateApp(ApiConstants.APP_NAME,
-                                                           Scope.Read | Scope.Write | Scope.Follow,
                                                            ApiConstants.APP_WEBSITE,
-                                                           ApiConstants.REDIRECT_URI);
+                                                           ApiConstants.REDIRECT_URI,
+                                                           GranularScope.Write, GranularScope.Read, GranularScope.Follow);
 
             return _authClient.OAuthUrl(ApiConstants.REDIRECT_URI);
         }
