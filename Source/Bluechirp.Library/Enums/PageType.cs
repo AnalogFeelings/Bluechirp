@@ -4,6 +4,6 @@
     {
         Login,
         Shell,
-        HomeTimeline
+        Timeline
     }
 }

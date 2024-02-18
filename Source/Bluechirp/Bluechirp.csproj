@@ -29,7 +29,7 @@
 		<None Remove="Assets\Icons\Tiles\WideTile.scale-200.png" />
 		<None Remove="Assets\Icons\Tiles\WideTile.scale-400.png" />
 		<None Remove="Views\LoginPage.xaml" />
-		<None Remove="Views\Navigation\HomeTimelinePage.xaml" />
+		<None Remove="Views\Navigation\TimelinePage.xaml" />
 		<None Remove="Views\ShellPage.xaml" />
 		<None Remove="Views\SplashScreenPage.xaml" />
 	</ItemGroup>
@@ -72,7 +72,7 @@
 		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="Views\Navigation\HomeTimelinePage.xaml">
+	  <Page Update="Views\Navigation\TimelinePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
 	</ItemGroup>

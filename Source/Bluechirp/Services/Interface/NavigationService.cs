@@ -72,7 +72,7 @@ namespace Bluechirp.Services.Interface
             {
                 PageType.Login => typeof(LoginPage),
                 PageType.Shell => typeof(ShellPage),
-                PageType.HomeTimeline => typeof(HomeTimelinePage),
+                PageType.Timeline => typeof(TimelinePage),
                 _ => throw new ArgumentOutOfRangeException("Attempted to navigate to non-existant page.")
             };
         }

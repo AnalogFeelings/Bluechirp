@@ -35,7 +35,7 @@ namespace Bluechirp.Views
         {
             NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems[0];
 
-            _navigationService.Navigate(PageType.HomeTimeline, new EntranceNavigationTransitionInfo());
+            _navigationService.Navigate(PageType.Timeline, null, new EntranceNavigationTransitionInfo());
         }
 
         private void AppTitleBar_BackButtonClick(object sender, RoutedEventArgs e)
