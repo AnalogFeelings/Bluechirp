@@ -15,14 +15,14 @@ namespace Bluechirp.Library.ViewModel
 
         private IAuthService _authService;
 
-        public bool ShowDevBadge
+        public string TitleBadgeText
         {
             get
             {
 #if DEBUG
-                return true;
+                return "DEV";
 #else
-                return false;
+                return string.Empty;
 #endif
             }
         }

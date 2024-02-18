@@ -24,7 +24,7 @@
 		
 		<controls:TitleBar x:Name="AppTitleBar"
 						   Title="Bluechirp"
-						   Subtitle="DEV"
+						   Subtitle="{x:Bind ViewModel.TitleBadgeText}"
 						   AutoConfigureCustomTitleBar="True"
 						   DisplayMode="Tall"
 						   IsBackButtonVisible="True"
