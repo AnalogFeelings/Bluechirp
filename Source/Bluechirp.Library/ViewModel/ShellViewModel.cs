@@ -31,7 +31,7 @@ namespace Bluechirp.Library.ViewModel
         {
             _authService = authService;
 
-            _currentAccount = AsyncHelper.RunSync(async () => await _authService.Client.GetCurrentUser()) ;
+            _currentAccount = AsyncHelper.RunSync(() => _authService.Client.GetCurrentUser());
         }
     }
 }

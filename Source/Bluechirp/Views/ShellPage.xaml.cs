@@ -37,5 +37,16 @@ namespace Bluechirp.Views
 
             _navigationService.Navigate(PageType.HomeTimeline, new EntranceNavigationTransitionInfo());
         }
+
+        private void AppTitleBar_BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            if(_navigationService.TargetFrame.CanGoBack)
+                _navigationService.TargetFrame.GoBack();
+        }
+
+        private void AppTitleBar_PaneButtonClick(object sender, RoutedEventArgs e)
+        {
+            NavigationViewControl.IsPaneOpen = !NavigationViewControl.IsPaneOpen;
+        }
     }
 }

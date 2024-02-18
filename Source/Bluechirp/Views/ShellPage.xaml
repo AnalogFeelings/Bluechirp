@@ -28,7 +28,9 @@
 						   AutoConfigureCustomTitleBar="True"
 						   DisplayMode="Tall"
 						   IsBackButtonVisible="True"
-						   IsPaneButtonVisible="True">
+						   IsPaneButtonVisible="True"
+						   BackButtonClick="AppTitleBar_BackButtonClick"
+						   PaneButtonClick="AppTitleBar_PaneButtonClick">
 			<controls:TitleBar.Icon>
 				<BitmapIcon ShowAsMonochrome="False"
 							Width="24"
