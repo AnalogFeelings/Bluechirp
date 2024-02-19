@@ -10,8 +10,8 @@ using WinRT;
 namespace Bluechirp
 {
     /// <summary>
-    /// Custom entry point for Bluechirp, needed
-    /// for rich activation and single-instancing.
+    /// Custom entry point for Bluechirp, needed for rich activation 
+    /// and single-instancing.
     /// </summary>
     internal class EntryPoint
     {
@@ -67,7 +67,7 @@ namespace Bluechirp
         {
             if(Application.Current is App app)
             {
-                AsyncHelper.RunSync(async () => await app.OnActivated(e));
+                AsyncHelper.RunSync(() => app.OnActivated(e));
             }
         }
     }
