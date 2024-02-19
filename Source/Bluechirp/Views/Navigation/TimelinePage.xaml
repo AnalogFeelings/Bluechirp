@@ -8,154 +8,155 @@
 	  xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
 	  mc:Ignorable="d">
 
-	<Grid MaxWidth="1000">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition />
-		</Grid.RowDefinitions>
+	<Page.Resources>
+		<Style x:Key="TimelineTootListViewItemStyle"
+			   TargetType="ListViewItem"
+			   BasedOn="{StaticResource DefaultListViewItemStyle}">
+			<Setter Property="Background"
+					Value="{ThemeResource LayerFillColorDefaultBrush}" />
+			<Setter Property="BorderBrush"
+					Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+			<Setter Property="BorderThickness"
+					Value="1" />
+			<Setter Property="CornerRadius"
+					Value="8" />
+			<Setter Property="Padding"
+					Value="16" />
+		</Style>
+	</Page.Resources>
 
-		<TextBlock Style="{StaticResource TitleTextBlockStyle}"
-				   Text="{x:Bind ViewModel.TimelineTitle}"
-				   Grid.Row="0" />
-
+	<ScrollViewer>
 		<ListView ItemsSource="{x:Bind ViewModel.TootTimelineCollection, Mode=OneWay}"
+				  ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
 				  SelectionMode="None"
 				  IsItemClickEnabled="True"
-				  Grid.Row="1">
+				  MaxWidth="1200">
 			<ListView.ItemTemplate>
 				<DataTemplate x:DataType="entities:Status">
-					<StackPanel Translation="0, 0, 32"
-								CornerRadius="8"
-								Padding="16"
-								BorderThickness="1"
-								BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-								Background="{ThemeResource LayerFillColorDefaultBrush}">
-						<RelativePanel VerticalAlignment="Stretch">
-							<PersonPicture x:Name="StatusAvatar"
-										   Width="48"
-										   Height="48"
-										   Margin="0,0,16,0">
-								<PersonPicture.ProfilePicture>
-									<BitmapImage x:Name="StatusAvatarImage"
-												 DecodePixelType="Logical"
-												 DecodePixelWidth="64"
-												 DecodePixelHeight="64"
-												 UriSource="{x:Bind Account.AvatarUrl, Mode=OneWay}" />
-								</PersonPicture.ProfilePicture>
-							</PersonPicture>
-							<StackPanel x:Name="NamesStackPanel"
-										Orientation="Vertical"
-										RelativePanel.RightOf="StatusAvatar"
-										RelativePanel.LeftOf="StatusTimestamp"
-										RelativePanel.AlignVerticalCenterWith="StatusAvatar"
-										VerticalAlignment="Stretch">
-								<TextBlock x:Name="DisplayNameTextBlock"
-										   Style="{ThemeResource SubtitleTextBlockStyle}"
-										   TextTrimming="CharacterEllipsis"
-										   Text="{x:Bind Account.DisplayName, Mode=OneWay}" />
-								<TextBlock x:Name="AccountNameTextBlock"
-										   TextTrimming="CharacterEllipsis"
-										   Style="{ThemeResource BodyStrongTextBlockStyle}"
-										   Foreground="{ThemeResource SystemColorGrayTextColor}"
-										   Text="{x:Bind Account.AccountName, Mode=OneWay}" />
-							</StackPanel>
+					<RelativePanel>
+						<PersonPicture x:Name="StatusAvatar"
+									   Width="48"
+									   Height="48"
+									   Margin="0,0,16,0">
+							<PersonPicture.ProfilePicture>
+								<BitmapImage x:Name="StatusAvatarImage"
+											 DecodePixelType="Logical"
+											 DecodePixelWidth="64"
+											 DecodePixelHeight="64"
+											 UriSource="{x:Bind Account.AvatarUrl, Mode=OneWay}" />
+							</PersonPicture.ProfilePicture>
+						</PersonPicture>
+						<StackPanel x:Name="NamesStackPanel"
+									Orientation="Vertical"
+									RelativePanel.RightOf="StatusAvatar"
+									RelativePanel.LeftOf="StatusTimestamp"
+									RelativePanel.AlignVerticalCenterWith="StatusAvatar"
+									VerticalAlignment="Stretch">
+							<TextBlock x:Name="DisplayNameTextBlock"
+									   Style="{ThemeResource BodyStrongTextBlockStyle}"
+									   TextTrimming="CharacterEllipsis"
+									   Text="{x:Bind Account.DisplayName, Mode=OneWay}" />
+							<TextBlock x:Name="AccountNameTextBlock"
+									   TextTrimming="CharacterEllipsis"
+									   Style="{ThemeResource BodyStrongTextBlockStyle}"
+									   Foreground="{ThemeResource SystemColorGrayTextColor}"
+									   Text="{x:Bind Account.AccountName, Mode=OneWay}" />
+						</StackPanel>
 
-							<TextBlock x:Name="StatusTimestamp"
-									   FontSize="20"
-									   TextAlignment="Left"
-									   VerticalAlignment="Top"
-									   Foreground="{ThemeResource SystemChromeDisabledLowColor}"
-									   RelativePanel.AlignRightWithPanel="True"
-									   RelativePanel.AlignTopWithPanel="True"
-									   Margin="8,0,0,0"
-									   Text="0d"/>
+						<TextBlock x:Name="StatusTimestamp"
+								   TextAlignment="Left"
+								   VerticalAlignment="Top"
+								   Foreground="{ThemeResource SystemChromeDisabledLowColor}"
+								   RelativePanel.AlignRightWithPanel="True"
+								   RelativePanel.AlignTopWithPanel="True"
+								   Margin="8,0,0,0"
+								   Text="0d" />
 
-							<TextBlock x:Name="StatusContent"
-									   RelativePanel.RightOf="StatusAvatar"
-									   RelativePanel.LeftOf="StatusTimestamp"
-									   RelativePanel.Below="NamesStackPanel"
-									   RelativePanel.AlignRightWithPanel="True"
-									   TextWrapping="Wrap"
-									   IsTextSelectionEnabled="True"
-									   Canvas.ZIndex="100"
-									   Margin="0, 12, 0, 0"
-									   Text="{x:Bind Content, Mode=OneWay}" />
-							<Grid x:Name="StatusMedia"
-								  RelativePanel.RightOf="StatusAvatar"
-								  RelativePanel.LeftOf="StatusTimestamp"
-								  RelativePanel.Below="StatusContent"
-								  RelativePanel.AlignRightWithPanel="True"
-								  Margin="0, 16, 0, 0"
-								  CornerRadius="8"
-								  Visibility="Collapsed" />
-							<controls:UniformGrid x:Name="TootActionStackPanel"
-										   RelativePanel.RightOf="StatusAvatar"
-										   RelativePanel.Below="StatusMedia"
-										   RelativePanel.AlignRightWithPanel="True"
-										   Margin="0,20,0,0"
-												  Rows="1">
-								<Button x:Name="ReplyButton"
-										Background="Transparent"
-										BorderThickness="0">
-									<StackPanel Orientation="Horizontal"
-												Spacing="16">
-										<FontIcon FontFamily="Segoe Fluent Icons"
-												  Glyph="&#xE97A;" />
-										<TextBlock x:Name="RepliesCountText"
-												   Text="{x:Bind RepliesCount, Mode=OneWay}"/>
-									</StackPanel>
-								</Button>
-								<ToggleButton x:Name="ReblogButton"
-											  Background="Transparent"
-											  BorderThickness="0">
-									<StackPanel Orientation="Horizontal"
-												Spacing="12">
-										<FontIcon FontFamily="Segoe Fluent Icons"
-												  Glyph="&#xE8EB;" />
-										<TextBlock x:Name="ReblogCountText"
-												   Text="{x:Bind ReblogCount, Mode=OneWay}"/>
-									</StackPanel>
-								</ToggleButton>
-								<ToggleButton x:Name="FavouriteButton"
-											  Background="Transparent"
-											  BorderThickness="0">
-									<StackPanel Orientation="Horizontal"
-												Spacing="12">
-										<FontIcon FontFamily="Segoe Fluent Icons"
-												  Glyph="&#xE734;" />
-										<TextBlock x:Name="FavoriteCountText"
-												   Text="{x:Bind FavouritesCount, Mode=OneWay}"/>
-									</StackPanel>
-								</ToggleButton>
-								<ToggleButton x:Name="BookmarkButton"
-											  Background="Transparent"
-											  BorderThickness="0">
-									<StackPanel Orientation="Horizontal"
-												Spacing="12">
-										<FontIcon FontFamily="Segoe Fluent Icons"
-												  Glyph="&#xE74E;" />
-										<TextBlock>Save</TextBlock>
-									</StackPanel>
-								</ToggleButton>
-								<ToggleButton x:Name="ShareButton"
-											  Background="Transparent"
-											  BorderThickness="0">
-									<StackPanel Orientation="Horizontal"
-												Spacing="12">
-										<FontIcon FontFamily="Segoe Fluent Icons"
-												  Glyph="&#xE72D;" />
-										<TextBlock>Share</TextBlock>
-									</StackPanel>
-								</ToggleButton>
-								<Button x:Name="MoreButton"
-										Background="Transparent"
-										BorderThickness="0">
+						<TextBlock x:Name="StatusContent"
+								   RelativePanel.RightOf="StatusAvatar"
+								   RelativePanel.LeftOf="StatusTimestamp"
+								   RelativePanel.Below="NamesStackPanel"
+								   RelativePanel.AlignRightWithPanel="True"
+								   TextWrapping="Wrap"
+								   IsTextSelectionEnabled="True"
+								   Canvas.ZIndex="100"
+								   Margin="0, 12, 0, 0"
+								   Text="{x:Bind Content, Mode=OneWay}" />
+						<Grid x:Name="StatusMedia"
+							  RelativePanel.RightOf="StatusAvatar"
+							  RelativePanel.LeftOf="StatusTimestamp"
+							  RelativePanel.Below="StatusContent"
+							  RelativePanel.AlignRightWithPanel="True"
+							  Margin="0, 16, 0, 0"
+							  CornerRadius="8"
+							  Visibility="Collapsed" />
+						<controls:UniformGrid x:Name="TootActionStackPanel"
+											  RelativePanel.RightOf="StatusAvatar"
+											  RelativePanel.Below="StatusMedia"
+											  RelativePanel.AlignRightWithPanel="True"
+											  Margin="0,20,0,0"
+											  Rows="1">
+							<Button x:Name="ReplyButton"
+									Background="Transparent"
+									BorderThickness="0">
+								<StackPanel Orientation="Horizontal"
+											Spacing="16">
 									<FontIcon FontFamily="Segoe Fluent Icons"
-											  Glyph="&#xE10C;" />
-								</Button>
-							</controls:UniformGrid>
-						</RelativePanel>
-					</StackPanel>
+											  Glyph="&#xE97A;" />
+									<TextBlock x:Name="RepliesCountText"
+											   Text="{x:Bind RepliesCount, Mode=OneWay}" />
+								</StackPanel>
+							</Button>
+							<ToggleButton x:Name="ReblogButton"
+										  Background="Transparent"
+										  BorderThickness="0">
+								<StackPanel Orientation="Horizontal"
+											Spacing="12">
+									<FontIcon FontFamily="Segoe Fluent Icons"
+											  Glyph="&#xE8EB;" />
+									<TextBlock x:Name="ReblogCountText"
+											   Text="{x:Bind ReblogCount, Mode=OneWay}" />
+								</StackPanel>
+							</ToggleButton>
+							<ToggleButton x:Name="FavouriteButton"
+										  Background="Transparent"
+										  BorderThickness="0">
+								<StackPanel Orientation="Horizontal"
+											Spacing="12">
+									<FontIcon FontFamily="Segoe Fluent Icons"
+											  Glyph="&#xE734;" />
+									<TextBlock x:Name="FavoriteCountText"
+											   Text="{x:Bind FavouritesCount, Mode=OneWay}" />
+								</StackPanel>
+							</ToggleButton>
+							<ToggleButton x:Name="BookmarkButton"
+										  Background="Transparent"
+										  BorderThickness="0">
+								<StackPanel Orientation="Horizontal"
+											Spacing="12">
+									<FontIcon FontFamily="Segoe Fluent Icons"
+											  Glyph="&#xE74E;" />
+									<TextBlock>Save</TextBlock>
+								</StackPanel>
+							</ToggleButton>
+							<ToggleButton x:Name="ShareButton"
+										  Background="Transparent"
+										  BorderThickness="0">
+								<StackPanel Orientation="Horizontal"
+											Spacing="12">
+									<FontIcon FontFamily="Segoe Fluent Icons"
+											  Glyph="&#xE72D;" />
+									<TextBlock>Share</TextBlock>
+								</StackPanel>
+							</ToggleButton>
+							<Button x:Name="MoreButton"
+									Background="Transparent"
+									BorderThickness="0">
+								<FontIcon FontFamily="Segoe Fluent Icons"
+										  Glyph="&#xE10C;" />
+							</Button>
+						</controls:UniformGrid>
+					</RelativePanel>
 				</DataTemplate>
 			</ListView.ItemTemplate>
 			<ListView.ItemsPanel>
@@ -164,5 +165,5 @@
 				</ItemsPanelTemplate>
 			</ListView.ItemsPanel>
 		</ListView>
-	</Grid>
+	</ScrollViewer>
 </Page>
