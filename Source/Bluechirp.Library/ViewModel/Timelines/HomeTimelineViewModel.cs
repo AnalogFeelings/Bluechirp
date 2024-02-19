@@ -1,29 +1,44 @@
 ﻿using Bluechirp.Library.Enums;
+using Bluechirp.Library.Services.Security;
 using Mastonet;
 using Mastonet.Entities;
-using System;
 using System.Threading.Tasks;
 
 namespace Bluechirp.Library.ViewModel.Timelines
 {
+    /// <summary>
+    /// The view model for the Home timeline.
+    /// </summary>
     public class HomeTimelineViewModel : BaseTimelineViewModel
     {
         public override string TimelineTitle { get; protected init; } = "Home Timeline";
         public override TimelineType TimelineType { get; protected init; } = TimelineType.Home;
 
-        protected override Task<MastodonList<Status>> GetNewerTimeline(ArrayOptions options)
+        private IAuthService _authService;
+
+        public HomeTimelineViewModel(IAuthService authService)
         {
-            throw new NotImplementedException();
+            _authService = authService;
         }
 
-        protected override Task<MastodonList<Status>> GetOlderTimeline()
+        protected override async Task<MastodonList<Status>> GetNewerTimeline(ArrayOptions options)
         {
-            throw new NotImplementedException();
+            return await _authService.Client.GetHomeTimeline(options);
         }
 
-        protected override Task<MastodonList<Status>> GetTimeline()
+        protected override async Task<MastodonList<Status>> GetOlderTimeline()
         {
-            throw new NotImplementedException();
+            ArrayOptions options = new ArrayOptions()
+            {
+                MaxId = NextPageMaxId
+            };
+
+            return await _authService.Client.GetHomeTimeline(options);
+        }
+
+        protected override async Task<MastodonList<Status>> GetTimeline()
+        {
+            return await _authService.Client.GetHomeTimeline();
         }
     }
 }

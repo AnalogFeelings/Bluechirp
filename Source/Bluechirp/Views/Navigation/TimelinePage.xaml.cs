@@ -18,7 +18,7 @@ namespace Bluechirp.Views.Navigation
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             TimelineType timelineType = (TimelineType)e.Parameter;
             BaseTimelineViewModel viewModel;
@@ -32,6 +32,8 @@ namespace Bluechirp.Views.Navigation
             }
 
             this.DataContext = viewModel;
+
+            await ViewModel.LoadFeedAsync();
         }
     }
 }
