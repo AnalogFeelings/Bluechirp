@@ -3,6 +3,7 @@ using Bluechirp.Library.Services.Interface;
 using Bluechirp.Library.Services.Security;
 using Bluechirp.Library.Services.Utility;
 using Bluechirp.Library.ViewModel;
+using Bluechirp.Library.ViewModel.Timelines;
 using Bluechirp.Services.Environment;
 using Bluechirp.Services.Interface;
 using Bluechirp.Services.Security;
@@ -58,6 +59,7 @@ namespace Bluechirp
             // Add view models.
             collection.AddTransient<LoginViewModel>();
             collection.AddTransient<ShellViewModel>();
+            collection.AddTransient<HomeTimelineViewModel>();
 
             _serviceProvider = collection.BuildServiceProvider(true);
 

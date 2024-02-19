@@ -1,13 +1,37 @@
+using Bluechirp.Library.Enums;
+using Bluechirp.Library.ViewModel.Timelines;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
-using System;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace Bluechirp.Views.Navigation
 {
+    /// <summary>
+    /// Generic page for timeline views.
+    /// </summary>
     public sealed partial class TimelinePage : Page
     {
-        public TimelinePage(Type viewModelType)
+        public BaseTimelineViewModel ViewModel => (BaseTimelineViewModel)this.DataContext;
+
+        public TimelinePage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            TimelineType timelineType = (TimelineType)e.Parameter;
+            BaseTimelineViewModel viewModel;
+
+            switch(timelineType)
+            {
+                default:
+                case TimelineType.Home:
+                    viewModel = App.ServiceProvider.GetRequiredService<HomeTimelineViewModel>();
+                    break;
+            }
+
+            this.DataContext = viewModel;
         }
     }
 }
