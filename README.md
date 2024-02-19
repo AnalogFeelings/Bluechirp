@@ -18,7 +18,7 @@
 
 Bluechirp is a free and open-source client for the Mastodon social network.
 
-Powered by UWP, WinUI 2, and battle-tested open source libraries, it guarantees that the user experience will be identical to the one in official "fluent" style apps.
+Powered by WASDK, WinUI 3, and battle-tested open source libraries, it guarantees that the user experience will be identical to the one in official "fluent" style apps.
 
 ## :open_book: Background Story
 This project once started as a custom Twitter client instead, but after what happened in October 27th 2022, it has become a Mastodon client.  
@@ -31,7 +31,7 @@ After a short conversation on [issue #1](https://github.com/AnalogFeelings/Bluec
 I rebranded it because the name Tooter has already been picked up by other Mastodon clients and social medias.
 
 # :package: Building
-First, install **Visual Studio 2022** with the .NET and UWP workloads. This step is crucial so don't skip it!  
+First, install **Visual Studio 2022** with the .NET workload. This step is crucial so don't skip it!  
 Then, follow these steps.
 
 1. Go to the package manifest file for the app, and head to the Packaging tab.
@@ -51,4 +51,4 @@ Any help is appreciated!
 
 # :balance_scale: License
 This project is licensed under the **GNU General Public License version 3.0** which you can read [here](LICENSE).  
-The [Bluechirp logo](Branding/bluechirp.png) is also licensed under said license.
+The [Bluechirp logo](Branding/bluechirp.png) is not licensed under said license.
