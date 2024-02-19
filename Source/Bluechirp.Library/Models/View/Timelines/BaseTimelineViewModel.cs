@@ -5,7 +5,7 @@ using Mastonet.Entities;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace Bluechirp.Library.ViewModel.Timelines
+namespace Bluechirp.Library.Models.View.Timelines
 {
     public abstract partial class BaseTimelineViewModel : ObservableObject
     {

@@ -25,12 +25,12 @@
 		</Style>
 	</Page.Resources>
 
-	<ScrollViewer>
+	<ScrollViewer Padding="16,0,16,0">
 		<ListView ItemsSource="{x:Bind ViewModel.TootTimelineCollection, Mode=OneWay}"
 				  ItemContainerStyle="{ThemeResource TimelineTootListViewItemStyle}"
 				  SelectionMode="None"
 				  IsItemClickEnabled="True"
-				  MaxWidth="1200">
+				  MaxWidth="1000">
 			<ListView.ItemTemplate>
 				<DataTemplate x:DataType="entities:Status">
 					<RelativePanel>

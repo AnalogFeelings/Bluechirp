@@ -8,7 +8,7 @@ using System;
 using System.Threading.Tasks;
 using Windows.System;
 
-namespace Bluechirp.Library.ViewModel
+namespace Bluechirp.Library.Models.View
 {
     /// <summary>
     /// Implements a view model for a login page.
@@ -34,7 +34,7 @@ namespace Bluechirp.Library.ViewModel
         }
 
         /// <summary>
-        /// Logs in to the instance defined in <see cref="InstanceUrl"/>.
+        /// Logs in to the instance defined in <see cref="ViewModel.LoginViewModel.InstanceUrl"/>.
         /// </summary>
         [RelayCommand]
         private async Task LoginAsync()
@@ -53,7 +53,7 @@ namespace Bluechirp.Library.ViewModel
         }
 
         /// <summary>
-        /// Opens a browser to the sign up page of the instance defined in <see cref="InstanceUrl"/>.
+        /// Opens a browser to the sign up page of the instance defined in <see cref="ViewModel.LoginViewModel.InstanceUrl"/>.
         /// </summary>
         [RelayCommand]
         private async Task SignUpAsync()

@@ -1,9 +1,9 @@
-﻿using Bluechirp.Library.Services.Environment;
+﻿using Bluechirp.Library.Models.View;
+using Bluechirp.Library.Models.View.Timelines;
+using Bluechirp.Library.Services.Environment;
 using Bluechirp.Library.Services.Interface;
 using Bluechirp.Library.Services.Security;
 using Bluechirp.Library.Services.Utility;
-using Bluechirp.Library.ViewModel;
-using Bluechirp.Library.ViewModel.Timelines;
 using Bluechirp.Services.Environment;
 using Bluechirp.Services.Interface;
 using Bluechirp.Services.Security;

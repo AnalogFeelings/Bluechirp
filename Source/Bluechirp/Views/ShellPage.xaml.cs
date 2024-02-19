@@ -1,6 +1,6 @@
 using Bluechirp.Library.Enums;
+using Bluechirp.Library.Models.View;
 using Bluechirp.Library.Services.Interface;
-using Bluechirp.Library.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

@@ -3,7 +3,7 @@ using Bluechirp.Library.Services.Security;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Mastonet.Entities;
 
-namespace Bluechirp.Library.ViewModel
+namespace Bluechirp.Library.Models.View
 {
     /// <summary>
     /// Implements a view model for a shell page.

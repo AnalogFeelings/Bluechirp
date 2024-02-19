@@ -1,4 +1,4 @@
-using Bluechirp.Library.ViewModel;
+using Bluechirp.Library.Models.View;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;

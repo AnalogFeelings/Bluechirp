@@ -4,7 +4,7 @@ using Mastonet;
 using Mastonet.Entities;
 using System.Threading.Tasks;
 
-namespace Bluechirp.Library.ViewModel.Timelines
+namespace Bluechirp.Library.Models.View.Timelines
 {
     /// <summary>
     /// The view model for the Home timeline.

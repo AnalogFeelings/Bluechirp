@@ -1,5 +1,5 @@
 using Bluechirp.Library.Enums;
-using Bluechirp.Library.ViewModel.Timelines;
+using Bluechirp.Library.Models.View.Timelines;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
