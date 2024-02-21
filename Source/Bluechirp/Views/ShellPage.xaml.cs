@@ -7,46 +7,45 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace Bluechirp.Views
+namespace Bluechirp.Views;
+
+public sealed partial class ShellPage : Page
 {
-    public sealed partial class ShellPage : Page
+    private INavigationService _navigationService;
+
+    public ShellViewModel ViewModel => (ShellViewModel)this.DataContext;
+
+    public ShellPage()
     {
-        private INavigationService _navigationService;
+        this.InitializeComponent();
+        this.DataContext = App.ServiceProvider.GetRequiredService<ShellViewModel>();
 
-        public ShellViewModel ViewModel => (ShellViewModel)this.DataContext;
+        _navigationService = App.ServiceProvider.GetRequiredService<INavigationService>();
 
-        public ShellPage()
-        {
-            this.InitializeComponent();
-            this.DataContext = App.ServiceProvider.GetRequiredService<ShellViewModel>();
+        _navigationService.TargetFrame = ContentFrame;
+        AppTitleBar.Window = MainWindow.Current;
+    }
 
-            _navigationService = App.ServiceProvider.GetRequiredService<INavigationService>();
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
 
-            _navigationService.TargetFrame = ContentFrame;
-            AppTitleBar.Window = MainWindow.Current;
-        }
+    }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
+    private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e)
+    {
+        NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems[0];
 
-        }
+        _navigationService.Navigate(PageType.Timeline, TimelineType.Home, new EntranceNavigationTransitionInfo());
+    }
 
-        private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems[0];
+    private void AppTitleBar_BackButtonClick(object sender, RoutedEventArgs e)
+    {
+        if (_navigationService.TargetFrame.CanGoBack)
+            _navigationService.TargetFrame.GoBack();
+    }
 
-            _navigationService.Navigate(PageType.Timeline, TimelineType.Home, new EntranceNavigationTransitionInfo());
-        }
-
-        private void AppTitleBar_BackButtonClick(object sender, RoutedEventArgs e)
-        {
-            if(_navigationService.TargetFrame.CanGoBack)
-                _navigationService.TargetFrame.GoBack();
-        }
-
-        private void AppTitleBar_PaneButtonClick(object sender, RoutedEventArgs e)
-        {
-            NavigationViewControl.IsPaneOpen = !NavigationViewControl.IsPaneOpen;
-        }
+    private void AppTitleBar_PaneButtonClick(object sender, RoutedEventArgs e)
+    {
+        NavigationViewControl.IsPaneOpen = !NavigationViewControl.IsPaneOpen;
     }
 }

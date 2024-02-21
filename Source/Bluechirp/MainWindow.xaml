@@ -5,12 +5,12 @@
     xmlns:local="using:Bluechirp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:winex="using:WinUIEx"
+    xmlns:winex="using:WinUIEx"
     mc:Ignorable="d">
 
-	<Window.SystemBackdrop>
-		<MicaBackdrop Kind="Base"/>
-	</Window.SystemBackdrop>
+    <Window.SystemBackdrop>
+        <MicaBackdrop Kind="Base" />
+    </Window.SystemBackdrop>
 
-	<Frame x:Name="ContentFrame"/>
+    <Frame x:Name="ContentFrame" />
 </winex:WindowEx>

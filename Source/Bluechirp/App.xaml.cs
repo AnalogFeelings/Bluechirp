@@ -12,81 +12,80 @@ using WinUIEx;
 using AppActivationArguments = Microsoft.Windows.AppLifecycle.AppActivationArguments;
 using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
 
-namespace Bluechirp
+namespace Bluechirp;
+
+/// <summary>
+/// Provides application-specific behavior to supplement the default Application class.
+/// </summary>
+public partial class App : Application
 {
+    [DllImport("user32.dll")]
+    private static extern int ShowWindow(IntPtr hWnd, uint msg);
+
+    private MainWindow _appWindow;
+
+    private ILoggerService _loggerService;
+    private IAuthService _authService;
+    private IDispatcherService _dispatcherService;
+
     /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
+    /// Initializes the singleton application object.  This is the first line of authored code
+    /// executed, and as such is the logical equivalent of main() or WinMain().
     /// </summary>
-    public partial class App : Application
+    public App()
     {
-        [DllImport("user32.dll")]
-        private static extern int ShowWindow(IntPtr hWnd, uint Msg);
+        this.InitializeComponent();
+    }
 
-        private MainWindow appWindow;
+    /// <summary>
+    /// Invoked when the application is launched.
+    /// </summary>
+    /// <param name="args">Details about the launch request and process.</param>
+    protected override async void OnLaunched(LaunchActivatedEventArgs args)
+    {
+        _appWindow = new MainWindow();
+        _appWindow.Activate();
+        _appWindow.ShowSplash();
 
-        private ILoggerService _loggerService;
-        private IAuthService _authService;
-        private IDispatcherService _dispatcherService;
+        InitializeServices();
 
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
-        public App()
+        _loggerService = ServiceProvider.GetRequiredService<ILoggerService>();
+        _authService = ServiceProvider.GetRequiredService<IAuthService>();
+        _dispatcherService = ServiceProvider.GetRequiredService<IDispatcherService>();
+
+        _loggerService.Log("Bluechirp is initializing.", LogSeverity.Information);
+
+        await _appWindow.CheckLoginAndNavigateAsync();
+    }
+
+    /// <summary>
+    /// Invoked when the application is activated.
+    /// </summary>
+    /// <param name="args">Details about the activation request.</param>
+    public async Task OnActivated(AppActivationArguments args)
+    {
+        await _dispatcherService.EnqueueAsync(() =>
         {
-            this.InitializeComponent();
-        }
+            // BUG WORKAROUND: microsoft-ui-xaml#7595
+            // Window.Activate() does not bring window to foreground.
+            // https://github.com/microsoft/microsoft-ui-xaml/issues/7595
+            ShowWindow(_appWindow.GetWindowHandle(), 0x9);
+        });
 
-        /// <summary>
-        /// Invoked when the application is launched.
-        /// </summary>
-        /// <param name="args">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs args)
+        if (args.Kind == ExtendedActivationKind.Protocol)
         {
-            appWindow = new MainWindow();
-            appWindow.Activate();
-            appWindow.ShowSplash();
+            if (_appWindow == null)
+                Process.GetCurrentProcess().Kill();
 
-            InitializeServices();
+            _loggerService.Log("Received protocol activation.", LogSeverity.Information);
 
-            _loggerService = ServiceProvider.GetRequiredService<ILoggerService>();
-            _authService = ServiceProvider.GetRequiredService<IAuthService>();
-            _dispatcherService = ServiceProvider.GetRequiredService<IDispatcherService>();
+            ProtocolActivatedEventArgs protocolArgs = args.Data as ProtocolActivatedEventArgs;
 
-            _loggerService.Log("Bluechirp is initializing.", LogSeverity.Information);
-
-            await appWindow.CheckLoginAndNavigateAsync();
-        }
-
-        /// <summary>
-        /// Invoked when the application is activated.
-        /// </summary>
-        /// <param name="args">Details about the activation request.</param>
-        public async Task OnActivated(AppActivationArguments args)
-        {
-            await _dispatcherService.EnqueueAsync(() =>
+            await _dispatcherService.EnqueueAsync(async () =>
             {
-                // BUG WORKAROUND: microsoft-ui-xaml#7595
-                // Window.Activate() does not bring window to foreground.
-                // https://github.com/microsoft/microsoft-ui-xaml/issues/7595
-                ShowWindow(appWindow.GetWindowHandle(), 0x9);
+                await _authService.CompleteAuthAsync(protocolArgs.Uri.Query);
             });
 
-            if (args.Kind == ExtendedActivationKind.Protocol)
-            {
-                if (appWindow == null)
-                    Process.GetCurrentProcess().Kill();
-
-                _loggerService.Log("Received protocol activation.", LogSeverity.Information);
-
-                ProtocolActivatedEventArgs protocolArgs = args.Data as ProtocolActivatedEventArgs;
-
-                await _dispatcherService.EnqueueAsync(async () =>
-                {
-                    await _authService.CompleteAuthAsync(protocolArgs.Uri.Query);
-                });
-
-            }
         }
     }
 }

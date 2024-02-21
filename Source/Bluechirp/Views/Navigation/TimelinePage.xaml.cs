@@ -4,36 +4,36 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace Bluechirp.Views.Navigation
+namespace Bluechirp.Views.Navigation;
+
+/// <summary>
+/// Generic page for timeline views.
+/// </summary>
+public sealed partial class TimelinePage : Page
 {
-    /// <summary>
-    /// Generic page for timeline views.
-    /// </summary>
-    public sealed partial class TimelinePage : Page
+    public BaseTimelineViewModel ViewModel => (BaseTimelineViewModel)this.DataContext;
+
+    public TimelinePage()
     {
-        public BaseTimelineViewModel ViewModel => (BaseTimelineViewModel)this.DataContext;
+        this.InitializeComponent();
+    }
 
-        public TimelinePage()
+    protected override async void OnNavigatedTo(NavigationEventArgs e)
+    {
+        TimelineType timelineType = (TimelineType)e.Parameter;
+        BaseTimelineViewModel viewModel;
+
+        switch(timelineType)
         {
-            this.InitializeComponent();
+            default:
+            case TimelineType.Home:
+                viewModel = App.ServiceProvider.GetRequiredService<HomeTimelineViewModel>();
+
+                break;
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            TimelineType timelineType = (TimelineType)e.Parameter;
-            BaseTimelineViewModel viewModel;
+        this.DataContext = viewModel;
 
-            switch(timelineType)
-            {
-                default:
-                case TimelineType.Home:
-                    viewModel = App.ServiceProvider.GetRequiredService<HomeTimelineViewModel>();
-                    break;
-            }
-
-            this.DataContext = viewModel;
-
-            await ViewModel.LoadFeedAsync();
-        }
+        await ViewModel.LoadFeedAsync();
     }
 }

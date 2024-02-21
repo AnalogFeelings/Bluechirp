@@ -8,114 +8,113 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
-namespace Bluechirp.Services.Security
+namespace Bluechirp.Services.Security;
+
+/// <summary>
+/// Implements a user credential storage service.
+/// </summary>
+/// <remarks>
+/// Depends on <see cref="IEncryptionService"/>.
+/// </remarks>
+internal class CredentialService : ICredentialService
 {
-    /// <summary>
-    /// Implements a user credential storage service.
-    /// </summary>
-    /// <remarks>
-    /// Depends on <see cref="IEncryptionService"/>.
-    /// </remarks>
-    internal class CredentialService : ICredentialService
+    private IEncryptionService _encryptionService;
+
+    private Dictionary<string, ProfileCredentials> _profileCredentials;
+
+    private const string _CREDENTIAL_FILENAME = "profiles.ebjson";
+
+    public CredentialService(IEncryptionService encryptionService)
     {
-        private IEncryptionService _encryptionService;
+        _encryptionService = encryptionService;
+    }
 
-        private Dictionary<string, ProfileCredentials> _profileCredentials;
+    /// <inheritdoc/>
+    public async Task LoadProfileDataAsync()
+    {
+        StorageFile profilesFile = await GetProfilesFileAsync();
 
-        private const string CREDENTIAL_FILENAME = "profiles.ebjson";
+        IBuffer encryptedProfiles = await FileIO.ReadBufferAsync(profilesFile);
+        string decryptedProfiles = await _encryptionService.DecryptBufferAsync(encryptedProfiles);
 
-        public CredentialService(IEncryptionService encryptionService)
+        if (string.IsNullOrEmpty(decryptedProfiles))
         {
-            _encryptionService = encryptionService;
+            _profileCredentials = new Dictionary<string, ProfileCredentials>();
         }
-
-        /// <inheritdoc/>
-        public async Task LoadProfileDataAsync()
+        else
         {
-            StorageFile profilesFile = await GetProfilesFileAsync();
-
-            IBuffer encryptedProfiles = await FileIO.ReadBufferAsync(profilesFile);
-            string decryptedProfiles = await _encryptionService.DecryptBufferAsync(encryptedProfiles);
-
-            if (string.IsNullOrEmpty(decryptedProfiles))
-            {
-                _profileCredentials = new Dictionary<string, ProfileCredentials>();
-            }
-            else
-            {
-                _profileCredentials = JsonSerializer.Deserialize<Dictionary<string, ProfileCredentials>>(decryptedProfiles);
-            }
+            _profileCredentials = JsonSerializer.Deserialize<Dictionary<string, ProfileCredentials>>(decryptedProfiles);
         }
+    }
 
-        /// <inheritdoc/>
-        public async Task StoreProfileDataAsync(ProfileCredentials credentials)
-        {
-            string profileId = credentials.AppRegistration.Instance + credentials.AppRegistration.Id;
+    /// <inheritdoc/>
+    public async Task StoreProfileDataAsync(ProfileCredentials credentials)
+    {
+        string profileId = credentials.AppRegistration.Instance + credentials.AppRegistration.Id;
 
-            if (_profileCredentials.ContainsKey(profileId))
-                return;
+        if (_profileCredentials.ContainsKey(profileId))
+            return;
 
-            _profileCredentials.Add(profileId, credentials);
+        _profileCredentials.Add(profileId, credentials);
 
-            await WriteProfilesAsync();
-        }
+        await WriteProfilesAsync();
+    }
 
-        /// <inheritdoc/>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if an attempt to remove credentials that aren't stored is made.
-        /// </exception>
-        public async Task RemoveProfileDataAsync(ProfileCredentials credentials)
-        {
-            string profileId = credentials.AppRegistration.Instance + credentials.AppRegistration.Id;
+    /// <inheritdoc/>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown if an attempt to remove credentials that aren't stored is made.
+    /// </exception>
+    public async Task RemoveProfileDataAsync(ProfileCredentials credentials)
+    {
+        string profileId = credentials.AppRegistration.Instance + credentials.AppRegistration.Id;
 
-            if (!_profileCredentials.ContainsKey(profileId))
-                throw new InvalidOperationException("Attempted to remove credentials that don't exist in storage.");
+        if (!_profileCredentials.ContainsKey(profileId))
+            throw new InvalidOperationException("Attempted to remove credentials that don't exist in storage.");
 
-            _profileCredentials.Remove(profileId);
+        _profileCredentials.Remove(profileId);
 
-            await WriteProfilesAsync();
-        }
+        await WriteProfilesAsync();
+    }
 
-        /// <inheritdoc/>
-        public ProfileCredentials GetProfileData(string profileId)
-        {
-            if (!_profileCredentials.ContainsKey(profileId))
-                return null;
+    /// <inheritdoc/>
+    public ProfileCredentials GetProfileData(string profileId)
+    {
+        if (!_profileCredentials.ContainsKey(profileId))
+            return null;
 
-            return _profileCredentials[profileId];
-        }
+        return _profileCredentials[profileId];
+    }
 
-        /// <inheritdoc/>
-        public ProfileCredentials GetDefaultProfileData()
-        {
-            if (_profileCredentials.Count == 0)
-                return null;
+    /// <inheritdoc/>
+    public ProfileCredentials GetDefaultProfileData()
+    {
+        if (_profileCredentials.Count == 0)
+            return null;
 
-            return _profileCredentials.First().Value;
-        }
+        return _profileCredentials.First().Value;
+    }
 
-        /// <summary>
-        /// Creates or opens the profiles storage file.
-        /// </summary>
-        /// <returns>The profile storage file handle.</returns>
-        private async Task<StorageFile> GetProfilesFileAsync()
-        {
-            StorageFolder folder = ApplicationData.Current.LocalFolder;
-            StorageFile profilesFile = await folder.CreateFileAsync(CREDENTIAL_FILENAME, CreationCollisionOption.OpenIfExists);
+    /// <summary>
+    /// Creates or opens the profiles storage file.
+    /// </summary>
+    /// <returns>The profile storage file handle.</returns>
+    private async Task<StorageFile> GetProfilesFileAsync()
+    {
+        StorageFolder folder = ApplicationData.Current.LocalFolder;
+        StorageFile profilesFile = await folder.CreateFileAsync(_CREDENTIAL_FILENAME, CreationCollisionOption.OpenIfExists);
 
-            return profilesFile;
-        }
+        return profilesFile;
+    }
 
-        /// <summary>
-        /// Writes the profile credentials to disk in encrypted form.
-        /// </summary>
-        private async Task WriteProfilesAsync()
-        {
-            StorageFile profilesFile = await GetProfilesFileAsync();
-            string serializedProfiles = JsonSerializer.Serialize(_profileCredentials);
-            IBuffer encryptedProfiles = await _encryptionService.EncryptStringAsync(serializedProfiles, EncryptionService.USER_DESCRIPTOR);
+    /// <summary>
+    /// Writes the profile credentials to disk in encrypted form.
+    /// </summary>
+    private async Task WriteProfilesAsync()
+    {
+        StorageFile profilesFile = await GetProfilesFileAsync();
+        string serializedProfiles = JsonSerializer.Serialize(_profileCredentials);
+        IBuffer encryptedProfiles = await _encryptionService.EncryptStringAsync(serializedProfiles, EncryptionService.USER_DESCRIPTOR);
 
-            await FileIO.WriteBufferAsync(profilesFile, encryptedProfiles);
-        }
+        await FileIO.WriteBufferAsync(profilesFile, encryptedProfiles);
     }
 }

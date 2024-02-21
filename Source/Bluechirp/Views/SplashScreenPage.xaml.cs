@@ -1,12 +1,11 @@
 using Microsoft.UI.Xaml.Controls;
 
-namespace Bluechirp.Views
+namespace Bluechirp.Views;
+
+public sealed partial class SplashScreenPage : Page
 {
-    public sealed partial class SplashScreenPage : Page
+    public SplashScreenPage()
     {
-        public SplashScreenPage()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
     }
 }

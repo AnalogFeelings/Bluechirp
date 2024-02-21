@@ -4,41 +4,40 @@ using Mastonet;
 using Mastonet.Entities;
 using System.Threading.Tasks;
 
-namespace Bluechirp.Library.Models.View.Timelines
+namespace Bluechirp.Library.Models.View.Timelines;
+
+/// <summary>
+/// The view model for the Home timeline.
+/// </summary>
+public class HomeTimelineViewModel : BaseTimelineViewModel
 {
-    /// <summary>
-    /// The view model for the Home timeline.
-    /// </summary>
-    public class HomeTimelineViewModel : BaseTimelineViewModel
+    public override string TimelineTitle { get; protected init; } = "Home Timeline";
+    public override TimelineType TimelineType { get; protected init; } = TimelineType.Home;
+
+    private IAuthService _authService;
+
+    public HomeTimelineViewModel(IAuthService authService)
     {
-        public override string TimelineTitle { get; protected init; } = "Home Timeline";
-        public override TimelineType TimelineType { get; protected init; } = TimelineType.Home;
+        _authService = authService;
+    }
 
-        private IAuthService _authService;
+    protected override async Task<MastodonList<Status>> GetNewerTimeline(ArrayOptions options)
+    {
+        return await _authService.Client.GetHomeTimeline(options);
+    }
 
-        public HomeTimelineViewModel(IAuthService authService)
+    protected override async Task<MastodonList<Status>> GetOlderTimeline()
+    {
+        ArrayOptions options = new ArrayOptions()
         {
-            _authService = authService;
-        }
+            MaxId = NextPageMaxId
+        };
 
-        protected override async Task<MastodonList<Status>> GetNewerTimeline(ArrayOptions options)
-        {
-            return await _authService.Client.GetHomeTimeline(options);
-        }
+        return await _authService.Client.GetHomeTimeline(options);
+    }
 
-        protected override async Task<MastodonList<Status>> GetOlderTimeline()
-        {
-            ArrayOptions options = new ArrayOptions()
-            {
-                MaxId = NextPageMaxId
-            };
-
-            return await _authService.Client.GetHomeTimeline(options);
-        }
-
-        protected override async Task<MastodonList<Status>> GetTimeline()
-        {
-            return await _authService.Client.GetHomeTimeline();
-        }
+    protected override async Task<MastodonList<Status>> GetTimeline()
+    {
+        return await _authService.Client.GetHomeTimeline();
     }
 }

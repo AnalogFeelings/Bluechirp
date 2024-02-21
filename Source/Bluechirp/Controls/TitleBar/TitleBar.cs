@@ -2,8 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace CommunityToolkit.WinUI.Controls;
 
@@ -27,7 +27,6 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = PartPaneButton, Type = typeof(Button))]
 [TemplatePart(Name = nameof(PART_LeftPaddingColumn), Type = typeof(ColumnDefinition))]
 [TemplatePart(Name = nameof(PART_RightPaddingColumn), Type = typeof(ColumnDefinition))]
-
 public partial class TitleBar : Control
 {
     private const string PartBackButton = "PART_BackButton";
@@ -89,7 +88,6 @@ public partial class TitleBar : Control
             paneButton.Click -= PaneButton_Click;
             paneButton.Click += PaneButton_Click;
         }
-
 
         SizeChanged -= this.TitleBar_SizeChanged;
         SizeChanged += this.TitleBar_SizeChanged;

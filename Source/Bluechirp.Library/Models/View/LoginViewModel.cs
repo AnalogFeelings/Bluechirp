@@ -8,77 +8,76 @@ using System;
 using System.Threading.Tasks;
 using Windows.System;
 
-namespace Bluechirp.Library.Models.View
+namespace Bluechirp.Library.Models.View;
+
+/// <summary>
+/// Implements a view model for a login page.
+/// </summary>
+public partial class LoginViewModel : ObservableObject, IDisposable
 {
-    /// <summary>
-    /// Implements a view model for a login page.
-    /// </summary>
-    public partial class LoginViewModel : ObservableObject, IDisposable
+    [ObservableProperty]
+    private string _instanceUrl;
+
+    private IInstanceUtilityService _instanceUtils;
+    private INavigationService _navigationService;
+    private IAuthService _authService;
+
+    public LoginViewModel(INavigationService navigationService,
+                          IAuthService authService,
+                          IInstanceUtilityService instanceUtils)
     {
-        [ObservableProperty]
-        private string _instanceUrl;
+        _instanceUtils = instanceUtils;
+        _navigationService = navigationService;
+        _authService = authService;
 
-        private IInstanceUtilityService _instanceUtils;
-        private INavigationService _navigationService;
-        private IAuthService _authService;
+        _authService.OnAuthCompleted += AuthService_OnAuthCompleted;
+    }
 
-        public LoginViewModel(INavigationService navigationService,
-                              IAuthService authService, 
-                              IInstanceUtilityService instanceUtils)
+    /// <summary>
+    /// Logs in to the instance defined in <see cref="ViewModel.LoginViewModel.InstanceUrl"/>.
+    /// </summary>
+    [RelayCommand]
+    private async Task LoginAsync()
+    {
+        if (_instanceUtils.CheckInstanceName(InstanceUrl))
         {
-            _instanceUtils = instanceUtils;
-            _navigationService = navigationService;
-            _authService = authService;
+            string rawUrl = await _authService.CreateAuthUrlAsync(InstanceUrl);
+            Uri oauthUri = new Uri(rawUrl);
 
-            _authService.OnAuthCompleted += AuthService_OnAuthCompleted;
+            await Launcher.LaunchUriAsync(oauthUri);
         }
-
-        /// <summary>
-        /// Logs in to the instance defined in <see cref="ViewModel.LoginViewModel.InstanceUrl"/>.
-        /// </summary>
-        [RelayCommand]
-        private async Task LoginAsync()
+        else
         {
-            if (_instanceUtils.CheckInstanceName(InstanceUrl))
-            {
-                string rawUrl = await _authService.CreateAuthUrlAsync(InstanceUrl);
-                Uri oauthUri = new Uri(rawUrl);
-
-                await Launcher.LaunchUriAsync(oauthUri);
-            }
-            else
-            {
-                InstanceUrl = string.Empty;
-            }
+            InstanceUrl = string.Empty;
         }
+    }
 
-        /// <summary>
-        /// Opens a browser to the sign up page of the instance defined in <see cref="ViewModel.LoginViewModel.InstanceUrl"/>.
-        /// </summary>
-        [RelayCommand]
-        private async Task SignUpAsync()
+    /// <summary>
+    /// Opens a browser to the sign up page of the instance defined in <see cref="ViewModel.LoginViewModel.InstanceUrl"/>.
+    /// </summary>
+    [RelayCommand]
+    private async Task SignUpAsync()
+    {
+        if (_instanceUtils.CheckInstanceName(InstanceUrl))
         {
-            if (_instanceUtils.CheckInstanceName(InstanceUrl))
-            {
-                // Concat the URIs safely.
-                Uri baseUri = new Uri($"https://{InstanceUrl}");
+            // Concat the URIs safely.
+            Uri baseUri = new Uri($"https://{InstanceUrl}");
 
-                await Launcher.LaunchUriAsync(new Uri(baseUri, "auth/sign_up"));
-            }
-            else
-            {
-                InstanceUrl = string.Empty;
-            }
+            await Launcher.LaunchUriAsync(new Uri(baseUri, "auth/sign_up"));
         }
-
-        private void AuthService_OnAuthCompleted(object sender, EventArgs e)
+        else
         {
-            _navigationService.Navigate(PageType.Shell);
+            InstanceUrl = string.Empty;
         }
+    }
 
-        public void Dispose()
-        {
-            _authService.OnAuthCompleted -= AuthService_OnAuthCompleted;
-        }
+    private void AuthService_OnAuthCompleted(object sender, EventArgs e)
+    {
+        _navigationService.Navigate(PageType.Shell);
+    }
+
+    public void Dispose()
+    {
+        _authService.OnAuthCompleted -= AuthService_OnAuthCompleted;
     }
 }

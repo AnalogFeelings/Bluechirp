@@ -1,177 +1,176 @@
 <Page x:Class="Bluechirp.Views.ShellPage"
-	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	  xmlns:controls="using:CommunityToolkit.WinUI.Controls"
-	  xmlns:local="using:Bluechirp.Views"
-	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	  mc:Ignorable="d">
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:local="using:Bluechirp.Views"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
 
-	<Page.Resources>
-		<ResourceDictionary>
-			<SolidColorBrush x:Key="NavigationViewContentBackground"
-							 Color="Transparent" />
-			<SolidColorBrush x:Key="NavigationViewContentGridBorderBrush"
-							 Color="Transparent" />
-		</ResourceDictionary>
-	</Page.Resources>
+    <Page.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="NavigationViewContentBackground"
+                             Color="Transparent" />
+            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush"
+                             Color="Transparent" />
+        </ResourceDictionary>
+    </Page.Resources>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		
-		<controls:TitleBar x:Name="AppTitleBar"
-						   Title="Bluechirp"
-						   Subtitle="{x:Bind ViewModel.TitleBadgeText}"
-						   AutoConfigureCustomTitleBar="True"
-						   DisplayMode="Tall"
-						   IsBackButtonVisible="True"
-						   IsPaneButtonVisible="True"
-						   BackButtonClick="AppTitleBar_BackButtonClick"
-						   PaneButtonClick="AppTitleBar_PaneButtonClick">
-			<controls:TitleBar.Icon>
-				<BitmapIcon ShowAsMonochrome="False"
-							Width="24"
-							Height="24"
-							UriSource="/Assets/Icons/AppList/AppList.targetsize-24.png" />
-			</controls:TitleBar.Icon>
-			<controls:TitleBar.Footer>
-				<PersonPicture x:Name="ProfileIcon"
-							   Width="32"
-							   Height="32"
-							   ToolTipService.ToolTip="{x:Bind ViewModel.CurrentAccount.AccountName, Mode=OneWay}">
-					<PersonPicture.ProfilePicture>
-						<BitmapImage DecodePixelType="Logical"
-									 DecodePixelWidth="32"
-									 DecodePixelHeight="32"
-									 UriSource="{x:Bind ViewModel.CurrentAccount.AvatarUrl, Mode=OneWay}" />
-					</PersonPicture.ProfilePicture>
-					<PersonPicture.ContextFlyout>
-						<MenuFlyout>
-							<!--TODO: Replace with left-click flyout. -->
-							<MenuFlyoutItem Text="Logout"
-											Name="LogoutButton">
-								<MenuFlyoutItem.Icon>
-									<FontIcon FontFamily="Segoe Fluent Icons"
-											  Glyph="&#xF3B1;" />
-								</MenuFlyoutItem.Icon>
-							</MenuFlyoutItem>
-						</MenuFlyout>
-					</PersonPicture.ContextFlyout>
-				</PersonPicture>
-			</controls:TitleBar.Footer>
-		</controls:TitleBar>
-			
-		<NavigationView x:Name="NavigationViewControl"
-						Grid.Row="1"
-						Loaded="NavigationViewControl_Loaded"
-						IsBackButtonVisible="Collapsed"
-						IsPaneToggleButtonVisible="False"
-						AlwaysShowHeader="False">
-			<NavigationView.MenuItems>
-				<NavigationViewItem Icon="Home"
-									Tag="home"
-									Content="Home" />
-				<NavigationViewItem Content="Explore"
-									SelectsOnInvoked="False">
-					<NavigationViewItem.Icon>
-						<FontIcon FontFamily="Segoe Fluent Icons"
-								  Glyph="&#xF6FA;" />
-					</NavigationViewItem.Icon>
-					<NavigationViewItem.MenuItems>
-						<NavigationViewItem Icon="Globe"
-											Tag="posts"
-											Content="Posts" />
-						<NavigationViewItem Icon="Tag"
-											Tag="hashtags"
-											Content="Hashtags" />
-						<NavigationViewItem Icon="People"
-											Tag="people"
-											Content="People" />
-						<!-- Placeholder Icon: REPLACE!!! -->
-						<NavigationViewItem Icon="Emoji"
-											Tag="news"
-											Content="News">
-						</NavigationViewItem>
-					</NavigationViewItem.MenuItems>
-				</NavigationViewItem>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-				<NavigationViewItem Tag="local"
-									Content="Local">
-					<NavigationViewItem.Icon>
-						<FontIcon FontFamily="Segoe Fluent Icons"
-								  Glyph="&#xE902;" />
-					</NavigationViewItem.Icon>
-				</NavigationViewItem>
+        <controls:TitleBar x:Name="AppTitleBar"
+                           Title="Bluechirp"
+                           Subtitle="{x:Bind ViewModel.TitleBadgeText}"
+                           AutoConfigureCustomTitleBar="True"
+                           DisplayMode="Tall"
+                           IsBackButtonVisible="True"
+                           IsPaneButtonVisible="True"
+                           BackButtonClick="AppTitleBar_BackButtonClick"
+                           PaneButtonClick="AppTitleBar_PaneButtonClick">
+            <controls:TitleBar.Icon>
+                <BitmapIcon ShowAsMonochrome="False"
+                            Width="24"
+                            Height="24"
+                            UriSource="/Assets/Icons/AppList/AppList.targetsize-24.png" />
+            </controls:TitleBar.Icon>
+            <controls:TitleBar.Footer>
+                <PersonPicture x:Name="ProfileIcon"
+                               Width="32"
+                               Height="32"
+                               ToolTipService.ToolTip="{x:Bind ViewModel.CurrentAccount.AccountName, Mode=OneWay}">
+                    <PersonPicture.ProfilePicture>
+                        <BitmapImage DecodePixelType="Logical"
+                                     DecodePixelWidth="32"
+                                     DecodePixelHeight="32"
+                                     UriSource="{x:Bind ViewModel.CurrentAccount.AvatarUrl, Mode=OneWay}" />
+                    </PersonPicture.ProfilePicture>
+                    <PersonPicture.ContextFlyout>
+                        <MenuFlyout>
+                            <!--TODO: Replace with left-click flyout. -->
+                            <MenuFlyoutItem Text="Logout"
+                                            Name="LogoutButton">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe Fluent Icons"
+                                              Glyph="&#xF3B1;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </PersonPicture.ContextFlyout>
+                </PersonPicture>
+            </controls:TitleBar.Footer>
+        </controls:TitleBar>
 
-				<NavigationViewItem Tag="federated"
-									Content="Federated">
-					<NavigationViewItem.Icon>
-						<FontIcon FontFamily="Segoe Fluent Icons"
-								  Glyph="&#xE909;" />
-					</NavigationViewItem.Icon>
-				</NavigationViewItem>
+        <NavigationView x:Name="NavigationViewControl"
+                        Grid.Row="1"
+                        Loaded="NavigationViewControl_Loaded"
+                        IsBackButtonVisible="Collapsed"
+                        IsPaneToggleButtonVisible="False"
+                        AlwaysShowHeader="False">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="Home"
+                                    Tag="home"
+                                    Content="Home" />
+                <NavigationViewItem Content="Explore"
+                                    SelectsOnInvoked="False">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe Fluent Icons"
+                                  Glyph="&#xF6FA;" />
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem Icon="Globe"
+                                            Tag="posts"
+                                            Content="Posts" />
+                        <NavigationViewItem Icon="Tag"
+                                            Tag="hashtags"
+                                            Content="Hashtags" />
+                        <NavigationViewItem Icon="People"
+                                            Tag="people"
+                                            Content="People" />
+                        <!-- Placeholder Icon: REPLACE!!! -->
+                        <NavigationViewItem Icon="Emoji"
+                                            Tag="news"
+                                            Content="News" />
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
 
-				<NavigationViewItemSeparator></NavigationViewItemSeparator>
+                <NavigationViewItem Tag="local"
+                                    Content="Local">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe Fluent Icons"
+                                  Glyph="&#xE902;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-				<NavigationViewItem Icon="Message"
-									Tag="messages"
-									Content="Messages" />
+                <NavigationViewItem Tag="federated"
+                                    Content="Federated">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe Fluent Icons"
+                                  Glyph="&#xE909;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-				<NavigationViewItem Tag="notifications"
-									Content="Notifications">
-					<NavigationViewItem.Icon>
-						<FontIcon FontFamily="Segoe Fluent Icons"
-								  Glyph="&#xEA8F;" />
-					</NavigationViewItem.Icon>
-					<NavigationViewItem.InfoBadge>
-						<InfoBadge x:Name="NotificationsBadge"
-								   Value="0"
-								   Opacity="0" />
-					</NavigationViewItem.InfoBadge>
-				</NavigationViewItem>
+                <NavigationViewItemSeparator />
 
-				<NavigationViewItem Icon="OutlineStar"
-									Tag="favorites"
-									Content="Favorites" />
+                <NavigationViewItem Icon="Message"
+                                    Tag="messages"
+                                    Content="Messages" />
 
-				<NavigationViewItem Tag="bookmarks"
-									Content="Bookmarks">
-					<NavigationViewItem.Icon>
-						<FontIcon FontFamily="Segoe Fluent Icons"
-								  Glyph="&#xE74E;" />
-					</NavigationViewItem.Icon>
-				</NavigationViewItem>
+                <NavigationViewItem Tag="notifications"
+                                    Content="Notifications">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe Fluent Icons"
+                                  Glyph="&#xEA8F;" />
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.InfoBadge>
+                        <InfoBadge x:Name="NotificationsBadge"
+                                   Value="0"
+                                   Opacity="0" />
+                    </NavigationViewItem.InfoBadge>
+                </NavigationViewItem>
 
-				<NavigationViewItem Tag="lists"
-									Content="Lists">
-					<NavigationViewItem.Icon>
-						<FontIcon FontFamily="Segoe Fluent Icons"
-								  Glyph="&#xE8FD;" />
-					</NavigationViewItem.Icon>
-				</NavigationViewItem>
-			</NavigationView.MenuItems>
+                <NavigationViewItem Icon="OutlineStar"
+                                    Tag="favorites"
+                                    Content="Favorites" />
 
-			<NavigationView.AutoSuggestBox>
-				<AutoSuggestBox QueryIcon="Find"
-								AutomationProperties.Name="Search"
-								PlaceholderText="Search Mastodon..." />
-			</NavigationView.AutoSuggestBox>
+                <NavigationViewItem Tag="bookmarks"
+                                    Content="Bookmarks">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe Fluent Icons"
+                                  Glyph="&#xE74E;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-			<NavigationView.FooterMenuItems>
-				<NavigationViewItem Tag="feedback"
-									Content="Feedback">
-					<NavigationViewItem.Icon>
-						<FontIcon FontFamily="Segoe Fluent Icons"
-								  Glyph="&#xED15;" />
-					</NavigationViewItem.Icon>
-				</NavigationViewItem>
-			</NavigationView.FooterMenuItems>
+                <NavigationViewItem Tag="lists"
+                                    Content="Lists">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe Fluent Icons"
+                                  Glyph="&#xE8FD;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
 
-			<Frame x:Name="ContentFrame"
-				   Padding="24,0,0,0"/>
-		</NavigationView>
-	</Grid>
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox QueryIcon="Find"
+                                AutomationProperties.Name="Search"
+                                PlaceholderText="Search Mastodon..." />
+            </NavigationView.AutoSuggestBox>
+
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Tag="feedback"
+                                    Content="Feedback">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe Fluent Icons"
+                                  Glyph="&#xED15;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
+
+            <Frame x:Name="ContentFrame"
+                   Padding="24,0,0,0" />
+        </NavigationView>
+    </Grid>
 </Page>

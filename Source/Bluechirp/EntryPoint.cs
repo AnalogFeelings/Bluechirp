@@ -7,68 +7,67 @@ using System.Threading;
 using System.Threading.Tasks;
 using WinRT;
 
-namespace Bluechirp
+namespace Bluechirp;
+
+/// <summary>
+/// Custom entry point for Bluechirp, needed for rich activation 
+/// and single-instancing.
+/// </summary>
+internal class EntryPoint
 {
-    /// <summary>
-    /// Custom entry point for Bluechirp, needed for rich activation 
-    /// and single-instancing.
-    /// </summary>
-    internal class EntryPoint
+    [STAThread]
+    private static async Task Main(string[] args)
     {
-        [STAThread]
-        private static async Task Main(string[] args)
+        ComWrappersSupport.InitializeComWrappers();
+        bool isMainInstance = await CheckSingleInstanceAsync();
+
+        if (!isMainInstance)
+            return;
+
+        Application.Start((x) =>
         {
-            ComWrappersSupport.InitializeComWrappers();
-            bool isMainInstance = await CheckSingleInstanceAsync();
+            DispatcherQueue threadQueue = DispatcherQueue.GetForCurrentThread();
+            DispatcherQueueSynchronizationContext syncContext = new DispatcherQueueSynchronizationContext(threadQueue);
 
-            if (!isMainInstance)
-                return;
+            SynchronizationContext.SetSynchronizationContext(syncContext);
 
-            Application.Start((x) =>
-            {
-                DispatcherQueue threadQueue = DispatcherQueue.GetForCurrentThread();
-                DispatcherQueueSynchronizationContext syncContext = new DispatcherQueueSynchronizationContext(threadQueue);
+            _ = new App();
+        });
+    }
 
-                SynchronizationContext.SetSynchronizationContext(syncContext);
+    /// <summary>
+    /// Check if there is one instance of Bluechirp running.
+    /// </summary>
+    /// <returns>
+    /// <see langword="true"/> if the current instance is the only one running.
+    /// </returns>
+    private static async Task<bool> CheckSingleInstanceAsync()
+    {
+        bool isMainInstance = true;
+        AppActivationArguments args = AppInstance.GetCurrent().GetActivatedEventArgs();
+        AppInstance keyInstance = AppInstance.FindOrRegisterForKey("bluechirp-main");
 
-                _ = new App();
-            });
+        if (keyInstance.IsCurrent)
+        {
+            keyInstance.Activated += KeyInstance_Activated;
+        }
+        else
+        {
+            isMainInstance = false;
+            await keyInstance.RedirectActivationToAsync(args);
         }
 
-        /// <summary>
-        /// Check if there is one instance of Bluechirp running.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/> if the current instance is the only one running.
-        /// </returns>
-        private static async Task<bool> CheckSingleInstanceAsync()
+        return isMainInstance;
+    }
+
+    /// <summary>
+    /// Ran when the application is activated.
+    /// </summary>
+    private static void KeyInstance_Activated(object sender, AppActivationArguments e)
+    {
+        if (Application.Current is App app)
         {
-            bool isMainInstance = true;
-            AppActivationArguments args = AppInstance.GetCurrent().GetActivatedEventArgs();
-            AppInstance keyInstance = AppInstance.FindOrRegisterForKey("bluechirp-main");
-
-            if (keyInstance.IsCurrent)
-            {
-                keyInstance.Activated += KeyInstance_Activated;
-            }
-            else
-            {
-                isMainInstance = false;
-                await keyInstance.RedirectActivationToAsync(args);
-            }
-
-            return isMainInstance;
-        }
-
-        /// <summary>
-        /// Ran when the application is activated.
-        /// </summary>
-        private static void KeyInstance_Activated(object sender, AppActivationArguments e)
-        {
-            if(Application.Current is App app)
-            {
-                AsyncHelper.RunSync(() => app.OnActivated(e));
-            }
+            AsyncHelper.RunSync(() => app.OnActivated(e));
         }
     }
 }

@@ -3,35 +3,34 @@ using Bluechirp.Library.Services.Security;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Mastonet.Entities;
 
-namespace Bluechirp.Library.Models.View
+namespace Bluechirp.Library.Models.View;
+
+/// <summary>
+/// Implements a view model for a shell page.
+/// </summary>
+public partial class ShellViewModel : ObservableObject
 {
-    /// <summary>
-    /// Implements a view model for a shell page.
-    /// </summary>
-    public partial class ShellViewModel : ObservableObject
+    [ObservableProperty]
+    private Account _currentAccount;
+
+    private IAuthService _authService;
+
+    public string TitleBadgeText
     {
-        [ObservableProperty]
-        private Account _currentAccount;
-
-        private IAuthService _authService;
-
-        public string TitleBadgeText
+        get
         {
-            get
-            {
 #if DEBUG
-                return "DEV";
+            return "DEV";
 #else
                 return string.Empty;
 #endif
-            }
         }
+    }
 
-        public ShellViewModel(IAuthService authService)
-        {
-            _authService = authService;
+    public ShellViewModel(IAuthService authService)
+    {
+        _authService = authService;
 
-            _currentAccount = AsyncHelper.RunSync(() => _authService.Client.GetCurrentUser());
-        }
+        _currentAccount = AsyncHelper.RunSync(() => _authService.Client.GetCurrentUser());
     }
 }

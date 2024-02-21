@@ -1,9 +1,8 @@
-﻿namespace Bluechirp.Library.Enums
+﻿namespace Bluechirp.Library.Enums;
+
+public enum PageType
 {
-    public enum PageType
-    {
-        Login,
-        Shell,
-        Timeline
-    }
+    Login,
+    Shell,
+    Timeline
 }

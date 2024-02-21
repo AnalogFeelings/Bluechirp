@@ -3,21 +3,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace Bluechirp.Views
+namespace Bluechirp.Views;
+
+public sealed partial class LoginPage : Page
 {
-    public sealed partial class LoginPage : Page
+    public LoginViewModel ViewModel => (LoginViewModel)this.DataContext;
+
+    public LoginPage()
     {
-        public LoginViewModel ViewModel => (LoginViewModel)this.DataContext;
+        this.InitializeComponent();
+        this.DataContext = App.ServiceProvider.GetRequiredService<LoginViewModel>();
+    }
 
-        public LoginPage()
-        {
-            this.InitializeComponent();
-            this.DataContext = App.ServiceProvider.GetRequiredService<LoginViewModel>();
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            ViewModel.Dispose();
-        }
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        ViewModel.Dispose();
     }
 }

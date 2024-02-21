@@ -21,7 +21,6 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = nameof(PART_FooterColumn), Type = typeof(ColumnDefinition))]
 [TemplatePart(Name = nameof(PART_RightDragColumn), Type = typeof(ColumnDefinition))]
 [TemplatePart(Name = nameof(PART_TitleHolder), Type = typeof(StackPanel))]
-
 public partial class TitleBar : Control
 {
     ColumnDefinition? PART_ButtonsHolderColumn;
@@ -40,6 +39,7 @@ public partial class TitleBar : Control
             return;
             // TO DO: Throw exception that window has not been set? 
         }
+
         if (AutoConfigureCustomTitleBar)
         {
             Window.AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
@@ -82,6 +82,7 @@ public partial class TitleBar : Control
             {
                 Window.AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Standard;
             }
+
             // Recalculate the drag region for the custom title bar 
             // if you explicitly defined new draggable areas.
             SetDragRegionForCustomTitleBar();
@@ -142,25 +143,16 @@ public partial class TitleBar : Control
             List<Windows.Graphics.RectInt32> dragRectsList = new();
 
             Windows.Graphics.RectInt32 dragRectL;
-            dragRectL.X = (int)((PART_LeftPaddingColumn.ActualWidth
-                            + PART_ButtonsHolderColumn!.ActualWidth)
-                            * scaleAdjustment);
+            dragRectL.X = (int)((PART_LeftPaddingColumn.ActualWidth + PART_ButtonsHolderColumn!.ActualWidth) * scaleAdjustment);
             dragRectL.Y = 0;
             dragRectL.Height = (int)(this.ActualHeight * scaleAdjustment);
-            dragRectL.Width = (int)((PART_IconColumn!.ActualWidth
-                                + PART_TitleColumn!.ActualWidth
-                                + PART_LeftDragColumn!.ActualWidth)
-                                * scaleAdjustment);
+            dragRectL.Width = (int)((PART_IconColumn!.ActualWidth + PART_TitleColumn!.ActualWidth + PART_LeftDragColumn!.ActualWidth) * scaleAdjustment);
             dragRectsList.Add(dragRectL);
 
             Windows.Graphics.RectInt32 dragRectR;
-            dragRectR.X = (int)((PART_LeftPaddingColumn.ActualWidth
-                                + PART_IconColumn.ActualWidth
-                                + PART_ButtonsHolderColumn!.ActualWidth
-                                + PART_TitleHolder!.ActualWidth
-                                + PART_LeftDragColumn.ActualWidth
-                                + PART_ContentColumn!.ActualWidth)
-                                * scaleAdjustment);
+            dragRectR.X = (int)((PART_LeftPaddingColumn.ActualWidth + PART_IconColumn.ActualWidth + PART_ButtonsHolderColumn!.ActualWidth + PART_TitleHolder!.ActualWidth + PART_LeftDragColumn.ActualWidth + PART_ContentColumn!.ActualWidth) *
+                scaleAdjustment);
+
             dragRectR.Y = 0;
             dragRectR.Height = (int)(this.ActualHeight * scaleAdjustment);
             dragRectR.Width = (int)(PART_RightDragColumn!.ActualWidth * scaleAdjustment);
@@ -187,6 +179,7 @@ public partial class TitleBar : Control
         }
 
         uint scaleFactorPercent = (uint)(((long)dpiX * 100 + (96 >> 1)) / 96);
+
         return scaleFactorPercent / 100.0;
     }
 }
