@@ -14,6 +14,18 @@ updates:
       - "analogfeelings"
     reviewers:
       - "analogfeelings"
+    commit-message:
+      prefix: "[Bot -> All]"
+      include: "scope"
+    groups:
+      community-toolkit:
+        patterns:
+          - "CommunityToolkit*"
+      wasdk:
+        patterns:
+          - "Microsoft.Windows.SDK.BuildTools"
+          - "Microsoft.WindowsAppSDK"
+          - "WinUIEx"
 
   # For the common library.
   - package-ecosystem: "nuget"
@@ -29,3 +41,15 @@ updates:
       - "analogfeelings"
     reviewers:
       - "analogfeelings"
+    commit-message:
+      prefix: "[Library -> All]"
+      include: "scope"
+    groups:
+      community-toolkit:
+        patterns:
+          - "CommunityToolkit*"
+      wasdk:
+        patterns:
+          - "Microsoft.Windows.SDK.BuildTools"
+          - "Microsoft.WindowsAppSDK"
+          - "WinUIEx"
