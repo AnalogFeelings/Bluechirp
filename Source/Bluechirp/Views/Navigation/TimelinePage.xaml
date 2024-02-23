@@ -6,7 +6,7 @@
       xmlns:entities="using:Mastonet.Entities"
       xmlns:localcontrols="using:Bluechirp.Controls"
       mc:Ignorable="d"
-      x:Name="Root">
+      x:Name="PageRoot">
 
     <Page.Resources>
         <Style x:Key="TimelineTootListViewItemStyle"
@@ -35,7 +35,7 @@
               IsItemClickEnabled="True">
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="entities:Status">
-                <localcontrols:TootControl ViewModel="{Binding ViewModel, ElementName=Root}"
+                <localcontrols:TootControl ViewModel="{Binding ViewModel, ElementName=PageRoot}"
                                            Status="{x:Bind Mode=OneWay}" />
             </DataTemplate>
         </ListView.ItemTemplate>
