@@ -69,7 +69,8 @@
                         Loaded="NavigationViewControl_Loaded"
                         IsBackButtonVisible="Collapsed"
                         IsPaneToggleButtonVisible="False"
-                        AlwaysShowHeader="False">
+                        AlwaysShowHeader="False"
+                        SelectionChanged="NavigationViewControl_SelectionChanged">
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home"
                                     Tag="home"
