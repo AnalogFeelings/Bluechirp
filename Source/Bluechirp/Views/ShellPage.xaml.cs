@@ -23,8 +23,6 @@ using Bluechirp.Views.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Animation;
-using System;
 
 namespace Bluechirp.Views;
 
@@ -127,6 +125,5 @@ public sealed partial class ShellPage : Page
         TimelinePage timeline = _navigationService.TargetFrame.Content as TimelinePage;
 
         return timeline!.ViewModel.TimelineType == timelineType;
-
     }
 }
