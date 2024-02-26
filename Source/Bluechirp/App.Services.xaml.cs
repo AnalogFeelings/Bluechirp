@@ -17,6 +17,7 @@
 #endregion
 
 using Bluechirp.Library.Models.View;
+using Bluechirp.Library.Models.View.Navigation;
 using Bluechirp.Library.Models.View.Timelines;
 using Bluechirp.Library.Services.Environment;
 using Bluechirp.Library.Services.Interface;
@@ -73,6 +74,7 @@ public partial class App
         collection.AddSingleton<ISettingsService, SettingsService>();
         collection.AddSingleton<IInstanceUtilityService, InstanceUtilityService>();
         collection.AddSingleton<IDispatcherService, DispatcherService>();
+        collection.AddSingleton<IInfoService, InfoService>();
 
         // Add view models.
         collection.AddTransient<LoginViewModel>();
