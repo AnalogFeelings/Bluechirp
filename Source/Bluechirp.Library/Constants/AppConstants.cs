@@ -18,12 +18,31 @@
 
 namespace Bluechirp.Library.Constants;
 
-public static class ApiConstants
+/// <summary>
+/// Contains application related constants such as auth URLs and
+/// the application's website URL.
+/// </summary>
+public static class AppConstants
 {
+    /// <summary>
+    /// The application's name.
+    /// </summary>
     public const string APP_NAME = "Bluechirp";
+    /// <summary>
+    /// The application's website URI string.
+    /// </summary>
     public const string APP_WEBSITE = "https://github.com/AnalogFeelings/Bluechirp";
+    /// <summary>
+    /// The application's OAuth 2 redirect URI string.
+    /// </summary>
     public const string REDIRECT_URI = "analogfeelings-bluechirp://auth-callback";
 
+    /// <summary>
+    /// The URI string to the app's feedback form.
+    /// </summary>
     public const string FEEDBACK_URI = "https://github.com/AnalogFeelings/Bluechirp/issues/new?template=enhancement-request.md";
+    /// <summary>
+    /// The URI string to the app's bug report form.
+    /// </summary>
     public const string BUG_URI = "https://github.com/AnalogFeelings/Bluechirp/issues/new?template=bug-report.md";
 }

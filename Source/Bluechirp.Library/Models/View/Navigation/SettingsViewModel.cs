@@ -14,8 +14,8 @@ public partial class SettingsViewModel
 {
     public string AppVersion => _infoService.AppVersion.ToString();
 
-    private Uri _feedbackUri = new Uri(ApiConstants.FEEDBACK_URI);
-    private Uri _bugUri = new Uri(ApiConstants.BUG_URI);
+    private Uri _feedbackUri = new Uri(AppConstants.FEEDBACK_URI);
+    private Uri _bugUri = new Uri(AppConstants.BUG_URI);
 
     private IInfoService _infoService;
 
@@ -25,13 +25,13 @@ public partial class SettingsViewModel
     }
 
     [RelayCommand]
-    public async Task OpenFeedbackPage()
+    private async Task OpenFeedbackPage()
     {
         await Launcher.LaunchUriAsync(_feedbackUri);
     }
 
     [RelayCommand]
-    public async Task OpenBugReportPage()
+    private async Task OpenBugReportPage()
     {
         await Launcher.LaunchUriAsync(_bugUri);
     }

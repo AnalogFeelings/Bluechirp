@@ -54,12 +54,12 @@ internal class AuthService : IAuthService
     public async Task<string> CreateAuthUrlAsync(string instanceUrl)
     {
         _authClient = new AuthenticationClient(instanceUrl);
-        _appRegistration = await _authClient.CreateApp(ApiConstants.APP_NAME,
-            ApiConstants.APP_WEBSITE,
-            ApiConstants.REDIRECT_URI,
+        _appRegistration = await _authClient.CreateApp(AppConstants.APP_NAME,
+            AppConstants.APP_WEBSITE,
+            AppConstants.REDIRECT_URI,
             GranularScope.Write, GranularScope.Read, GranularScope.Follow);
 
-        return _authClient.OAuthUrl(ApiConstants.REDIRECT_URI);
+        return _authClient.OAuthUrl(AppConstants.REDIRECT_URI);
     }
 
     /// <inheritdoc/>
@@ -76,7 +76,7 @@ internal class AuthService : IAuthService
         if (authCode == null)
             throw new UriFormatException("Could not acquire authentication code from provided URI.");
 
-        Auth authObject = await _authClient.ConnectWithCode(authCode, ApiConstants.REDIRECT_URI);
+        Auth authObject = await _authClient.ConnectWithCode(authCode, AppConstants.REDIRECT_URI);
 
         this.Client = new MastodonClient(_appRegistration.Instance, authObject.AccessToken);
         this.CurrentProfile = new ProfileCredentials
