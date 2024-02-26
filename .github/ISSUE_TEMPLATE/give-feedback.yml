@@ -1,0 +1,33 @@
+name: Give Feedback
+description: Give feedback to the developers to help us improve the app.
+title: '[Feedback]: '
+labels:
+  - needs investigation
+  - feedback
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Thank you so much for taking time to send us feedback!   
+
+        Bluechirp is a collaborative effort and any feedback is appreciated
+        greatly.
+  - type: textarea
+    id: description
+    attributes:
+      label: 'Related to an issue? Describe:'
+      description: If your feedback is related to an issue, describe it here.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What I'd Prefer
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Alternatives I've Considered
+      description: >-
+        A clear and concise description of any alternative solutions or features
+        you've considered.
