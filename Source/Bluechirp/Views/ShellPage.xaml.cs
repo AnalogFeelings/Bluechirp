@@ -62,6 +62,9 @@ public sealed partial class ShellPage : Page
     private void NavigationViewControl_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         string selectedTag = args.SelectedItemContainer.Tag as string;
+        
+        if(args.IsSettingsSelected)
+            selectedTag = "settings";
 
         switch(selectedTag)
         {
@@ -105,6 +108,10 @@ public sealed partial class ShellPage : Page
                     return;
 
                 _navigationService.Navigate(PageType.Timeline, TimelineType.Bookmarks, args.RecommendedNavigationTransitionInfo);
+
+                break;
+            case "settings":
+                _navigationService.Navigate(PageType.Settings, args.RecommendedNavigationTransitionInfo);
 
                 break;
             default:

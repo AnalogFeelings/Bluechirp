@@ -32,12 +32,14 @@
         <None Remove="Controls\TootControl.xaml" />
         <None Remove="Views\LoginPage.xaml" />
         <None Remove="Views\Navigation\TimelinePage.xaml" />
+        <None Remove="Views\SettingsPage.xaml" />
         <None Remove="Views\ShellPage.xaml" />
         <None Remove="Views\SplashScreenPage.xaml" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.0.240109" />
+        <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.240109" />
         <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.240109" />
         <PackageReference Include="Mastonet" Version="3.1.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
@@ -57,6 +59,11 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Bluechirp.Library\Bluechirp.Library.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Page Update="Views\SettingsPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
     </ItemGroup>
     <ItemGroup>
       <Page Update="Controls\TootControl.xaml">

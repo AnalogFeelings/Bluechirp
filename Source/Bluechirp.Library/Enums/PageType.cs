@@ -22,5 +22,6 @@ public enum PageType
 {
     Login,
     Shell,
-    Timeline
+    Timeline,
+    Settings
 }

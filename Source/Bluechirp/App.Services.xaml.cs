@@ -79,6 +79,8 @@ public partial class App
         // Add view models.
         collection.AddTransient<LoginViewModel>();
         collection.AddTransient<ShellViewModel>();
+        collection.AddTransient<SettingsViewModel>();
+
         collection.AddTransient<HomeTimelineViewModel>();
 
         _serviceProvider = collection.BuildServiceProvider(true);
