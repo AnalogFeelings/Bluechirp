@@ -20,7 +20,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 
-namespace CommunityToolkit.WinUI.Controls;
+namespace Bluechirp.Controls.TitleBar;
 
 public partial class TitleBar : Control
 {

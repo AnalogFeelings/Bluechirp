@@ -25,7 +25,7 @@ using System;
 using System.Collections.Generic;
 using WinRT.Interop;
 
-namespace CommunityToolkit.WinUI.Controls;
+namespace Bluechirp.Controls.TitleBar;
 
 [TemplatePart(Name = nameof(PART_ButtonsHolderColumn), Type = typeof(ColumnDefinition))]
 [TemplatePart(Name = nameof(PART_IconColumn), Type = typeof(ColumnDefinition))]

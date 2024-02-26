@@ -19,7 +19,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace CommunityToolkit.WinUI.Controls;
+namespace Bluechirp.Controls.TitleBar;
 
 [TemplateVisualState(Name = BackButtonVisibleState, GroupName = BackButtonStates)]
 [TemplateVisualState(Name = BackButtonCollapsedState, GroupName = BackButtonStates)]

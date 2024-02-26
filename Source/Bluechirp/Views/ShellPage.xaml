@@ -5,6 +5,7 @@
       xmlns:local="using:Bluechirp.Views"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:titleBar="using:Bluechirp.Controls.TitleBar"
       mc:Ignorable="d">
 
     <Page.Resources>
@@ -22,7 +23,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <controls:TitleBar x:Name="AppTitleBar"
+        <titleBar:TitleBar x:Name="AppTitleBar"
                            Title="Bluechirp"
                            Subtitle="{x:Bind ViewModel.TitleBadgeText}"
                            AutoConfigureCustomTitleBar="True"
@@ -31,13 +32,13 @@
                            IsPaneButtonVisible="True"
                            BackButtonClick="AppTitleBar_BackButtonClick"
                            PaneButtonClick="AppTitleBar_PaneButtonClick">
-            <controls:TitleBar.Icon>
+            <titleBar:TitleBar.Icon>
                 <BitmapIcon ShowAsMonochrome="False"
                             Width="24"
                             Height="24"
                             UriSource="/Assets/Icons/AppList/AppList.targetsize-24.png" />
-            </controls:TitleBar.Icon>
-            <controls:TitleBar.Footer>
+            </titleBar:TitleBar.Icon>
+            <titleBar:TitleBar.Footer>
                 <PersonPicture x:Name="ProfileIcon"
                                Width="32"
                                Height="32"
@@ -61,8 +62,8 @@
                         </MenuFlyout>
                     </PersonPicture.ContextFlyout>
                 </PersonPicture>
-            </controls:TitleBar.Footer>
-        </controls:TitleBar>
+            </titleBar:TitleBar.Footer>
+        </titleBar:TitleBar>
 
         <NavigationView x:Name="NavigationViewControl"
                         Grid.Row="1"
@@ -161,17 +162,16 @@
             </NavigationView.AutoSuggestBox>
 
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Tag="feedback"
-                                    Content="Feedback">
+                <NavigationViewItem Tag="changelog"
+                                    Content="What's New">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe Fluent Icons"
-                                  Glyph="&#xED15;" />
+                                  Glyph="&#xF133;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>
 
-            <Frame x:Name="ContentFrame"
-                   Padding="24,0,0,0" />
+            <Frame x:Name="ContentFrame" />
         </NavigationView>
     </Grid>
 </Page>
