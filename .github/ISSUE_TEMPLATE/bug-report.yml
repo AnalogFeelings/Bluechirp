@@ -1,0 +1,54 @@
+name: Report a Bug
+description: File a bug report to help us improve the app.
+title: '[Bug]: '
+labels:
+  - bug
+  - needs investigation
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Thank you for taking time to report a bug!  
+
+        Please remember to check these things first before submitting:
+
+        - Has this issue been reported before?
+
+        - Are you using some kind of emulator or virtual machine? (including
+        amd64 to aarch64 translation)
+  - type: input
+    id: bug-details
+    attributes:
+      label: Describe the Bug
+      description: Please describe the bug in detail here.
+    validations:
+      required: true
+  - type: textarea
+    id: dupe-steps
+    attributes:
+      label: Reproduce Steps
+      description: Please describe the steps needed to reproduce the bug here.
+    validations:
+      required: true
+  - type: input
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: Please describe what the expected behavior should be.
+    validations:
+      required: true
+  - type: textarea
+    id: sys-info
+    attributes:
+      label: System Information
+      description: Please tell us your hardware specifications.
+      value: |-
+        Windows 11 (version) (build number)
+        Bluechirp v(version)
+    validations:
+      required: true
+  - type: input
+    id: extra-context
+    attributes:
+      label: Additional Context
+      description: Please describe any additional context about the problem here.
