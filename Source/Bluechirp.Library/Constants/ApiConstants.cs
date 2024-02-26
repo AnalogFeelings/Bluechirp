@@ -23,4 +23,7 @@ public static class ApiConstants
     public const string APP_NAME = "Bluechirp";
     public const string APP_WEBSITE = "https://github.com/AnalogFeelings/Bluechirp";
     public const string REDIRECT_URI = "analogfeelings-bluechirp://auth-callback";
+
+    public const string FEEDBACK_URI = "https://github.com/AnalogFeelings/Bluechirp/issues/new?template=enhancement-request.md";
+    public const string BUG_URI = "https://github.com/AnalogFeelings/Bluechirp/issues/new?template=bug-report.md";
 }

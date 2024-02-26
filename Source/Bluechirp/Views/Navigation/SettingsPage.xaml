@@ -37,12 +37,14 @@
                                    Description="Give feedback to the developers of the app."
                                    HeaderIcon="{ui:FontIcon Glyph=&#xED15;}"
                                    ActionIcon="{ui:FontIcon Glyph=&#xE8A7;}"
-                                   IsClickEnabled="True" />
+                                   IsClickEnabled="True"
+                                   Command="{x:Bind ViewModel.OpenFeedbackPageCommand}" />
             <controls:SettingsCard Header="Report a Bug"
                                    Description="Report a bug to the developers of the app."
                                    HeaderIcon="{ui:FontIcon Glyph=&#xEBE8;}"
                                    ActionIcon="{ui:FontIcon Glyph=&#xE8A7;}"
-                                   IsClickEnabled="True" />
+                                   IsClickEnabled="True"
+                                   Command="{x:Bind ViewModel.OpenBugReportPageCommand}" />
 
             <controls:SettingsExpander Header="About Bluechirp"
                                        Description="Copyright Analog Feelings 2023-2024"
@@ -63,8 +65,7 @@
                     </controls:SettingsCard>
                     <controls:SettingsCard ContentAlignment="Left">
                         <StackPanel Orientation="Vertical"
-                                    VerticalAlignment="Center"
-                                    Spacing="8">
+                                    VerticalAlignment="Center">
                             <StackPanel.Resources>
                                 <Style TargetType="HyperlinkButton"
                                        BasedOn="{StaticResource DefaultHyperlinkButtonStyle}">
@@ -74,8 +75,7 @@
                             </StackPanel.Resources>
 
                             <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                       VerticalAlignment="Center"
-                                       Margin="0,0,8,0">
+                                       VerticalAlignment="Center">
                                 Links
                             </TextBlock>
                             <HyperlinkButton NavigateUri="https://github.com/AnalogFeelings/Bluechirp/tree/master">
