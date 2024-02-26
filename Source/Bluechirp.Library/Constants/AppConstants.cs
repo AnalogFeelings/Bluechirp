@@ -40,9 +40,9 @@ public static class AppConstants
     /// <summary>
     /// The URI string to the app's feedback form.
     /// </summary>
-    public const string FEEDBACK_URI = "https://github.com/AnalogFeelings/Bluechirp/issues/new?template=enhancement-request.md";
+    public const string FEEDBACK_URI = "https://github.com/AnalogFeelings/Bluechirp/issues/new?template=give-feedback.yml";
     /// <summary>
     /// The URI string to the app's bug report form.
     /// </summary>
-    public const string BUG_URI = "https://github.com/AnalogFeelings/Bluechirp/issues/new?template=bug-report.md";
+    public const string BUG_URI = "https://github.com/AnalogFeelings/Bluechirp/issues/new?template=bug-report.yml";
 }
