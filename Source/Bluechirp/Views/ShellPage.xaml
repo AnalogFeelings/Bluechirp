@@ -1,11 +1,10 @@
 <Page x:Class="Bluechirp.Views.ShellPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
-      xmlns:local="using:Bluechirp.Views"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:titleBar="using:Bluechirp.Controls.TitleBar"
+      xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
 
     <Page.Resources>
@@ -31,13 +30,8 @@
                            IsBackButtonVisible="True"
                            IsPaneButtonVisible="True"
                            BackButtonClick="AppTitleBar_BackButtonClick"
-                           PaneButtonClick="AppTitleBar_PaneButtonClick">
-            <titleBar:TitleBar.Icon>
-                <BitmapIcon ShowAsMonochrome="False"
-                            Width="24"
-                            Height="24"
-                            UriSource="/Assets/Icons/AppList/AppList.targetsize-24.png" />
-            </titleBar:TitleBar.Icon>
+                           PaneButtonClick="AppTitleBar_PaneButtonClick"
+                           Icon="{ui:BitmapIcon Source=/Assets/Icons/AppList/AppList.targetsize-24.png}">
             <titleBar:TitleBar.Footer>
                 <PersonPicture x:Name="ProfileIcon"
                                Width="32"
@@ -53,12 +47,7 @@
                         <MenuFlyout>
                             <!--TODO: Replace with left-click flyout. -->
                             <MenuFlyoutItem Text="Logout"
-                                            Name="LogoutButton">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon FontFamily="Segoe Fluent Icons"
-                                              Glyph="&#xF3B1;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
+                                            Icon="{ui:FontIcon Glyph=&#xF3B1;}" />
                         </MenuFlyout>
                     </PersonPicture.ContextFlyout>
                 </PersonPicture>
@@ -76,12 +65,9 @@
                 <NavigationViewItem Icon="Home"
                                     Tag="home"
                                     Content="Home" />
-                <NavigationViewItem Content="Explore"
+                <NavigationViewItem Icon="{ui:FontIcon Glyph=&#xF6FA;}"
+                                    Content="Explore"
                                     SelectsOnInvoked="False">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons"
-                                  Glyph="&#xF6FA;" />
-                    </NavigationViewItem.Icon>
                     <NavigationViewItem.MenuItems>
                         <NavigationViewItem Icon="Globe"
                                             Tag="posts"
@@ -92,28 +78,19 @@
                         <NavigationViewItem Icon="People"
                                             Tag="people"
                                             Content="People" />
-                        <!-- Placeholder Icon: REPLACE!!! -->
-                        <NavigationViewItem Icon="Emoji"
+                        <NavigationViewItem Icon="{ui:FontIcon Glyph=&#xE8A1;}"
                                             Tag="news"
                                             Content="News" />
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 
-                <NavigationViewItem Tag="local"
-                                    Content="Local">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons"
-                                  Glyph="&#xE902;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                <NavigationViewItem Icon="{ui:FontIcon Glyph=&#xE902;}"
+                                    Tag="local"
+                                    Content="Local" />
 
-                <NavigationViewItem Tag="federated"
-                                    Content="Federated">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons"
-                                  Glyph="&#xE909;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                <NavigationViewItem Icon="{ui:FontIcon Glyph=&#xE909;}"
+                                    Tag="federated"
+                                    Content="Federated" />
 
                 <NavigationViewItemSeparator />
 
@@ -121,12 +98,9 @@
                                     Tag="messages"
                                     Content="Messages" />
 
-                <NavigationViewItem Tag="notifications"
+                <NavigationViewItem Icon="{ui:FontIcon Glyph=&#xEA8F;}"
+                                    Tag="notifications"
                                     Content="Notifications">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons"
-                                  Glyph="&#xEA8F;" />
-                    </NavigationViewItem.Icon>
                     <NavigationViewItem.InfoBadge>
                         <InfoBadge x:Name="NotificationsBadge"
                                    Value="0"
@@ -138,21 +112,13 @@
                                     Tag="favorites"
                                     Content="Favorites" />
 
-                <NavigationViewItem Tag="bookmarks"
-                                    Content="Bookmarks">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons"
-                                  Glyph="&#xE74E;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                <NavigationViewItem Icon="{ui:FontIcon Glyph=&#xE74E;}"
+                                    Tag="bookmarks"
+                                    Content="Bookmarks" />
 
-                <NavigationViewItem Tag="lists"
-                                    Content="Lists">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons"
-                                  Glyph="&#xE8FD;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                <NavigationViewItem Icon="{ui:FontIcon Glyph=&#xE8FD;}"
+                                    Tag="lists"
+                                    Content="Lists" />
             </NavigationView.MenuItems>
 
             <NavigationView.AutoSuggestBox>
@@ -162,13 +128,9 @@
             </NavigationView.AutoSuggestBox>
 
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Tag="changelog"
-                                    Content="What's New">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons"
-                                  Glyph="&#xF133;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                <NavigationViewItem Icon="{ui:FontIcon Glyph=&#xF133;}"
+                                    Tag="changelog"
+                                    Content="What's New" />
             </NavigationView.FooterMenuItems>
 
             <Frame x:Name="ContentFrame" />
