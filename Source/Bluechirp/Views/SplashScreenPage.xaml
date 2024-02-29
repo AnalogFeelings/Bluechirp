@@ -10,7 +10,7 @@
 
     <Grid>
         <Image x:Name="MainSplashScreenImage"
-               Width="420"
+               Width="380"
                HorizontalAlignment="Center"
                Source="/Assets/Icons/Splash/SplashScreen.png" />
 
@@ -27,7 +27,7 @@
                         <AdaptiveTrigger MinWindowWidth="640" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="MainSplashScreenImage.Width" Value="480" />
+                        <Setter Target="MainSplashScreenImage.Width" Value="440" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
