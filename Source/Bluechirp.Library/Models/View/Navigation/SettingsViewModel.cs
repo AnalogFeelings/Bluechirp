@@ -3,6 +3,7 @@ using Bluechirp.Library.Services.Environment;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.System;
 
 namespace Bluechirp.Library.Models.View.Navigation;
@@ -34,5 +35,14 @@ public partial class SettingsViewModel
     private async Task OpenBugReportPage()
     {
         await Launcher.LaunchUriAsync(_bugUri);
+    }
+
+    [RelayCommand]
+    private async Task OpenLogFile()
+    {
+        StorageFolder folder = ApplicationData.Current.LocalFolder;
+        StorageFile logFile = await folder.GetFileAsync(AppConstants.LOG_FILE);
+
+        await Launcher.LaunchFileAsync(logFile);
     }
 }

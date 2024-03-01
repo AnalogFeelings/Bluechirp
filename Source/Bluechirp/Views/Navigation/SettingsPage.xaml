@@ -45,6 +45,12 @@
                                    ActionIcon="{ui:FontIcon Glyph=&#xE8A7;}"
                                    IsClickEnabled="True"
                                    Command="{x:Bind ViewModel.OpenBugReportPageCommand}" />
+            <controls:SettingsCard Header="View Logs"
+                                   Description="Open the app's debug log file."
+                                   HeaderIcon="{ui:FontIcon Glyph=&#xE8E5;}"
+                                   ActionIcon="{ui:FontIcon Glyph=&#xE8A7;}"
+                                   IsClickEnabled="True"
+                                   Command="{x:Bind ViewModel.OpenLogFileCommand}" />
 
             <controls:SettingsExpander Header="About Bluechirp"
                                        Description="Copyright Analog Feelings 2023-2024"
