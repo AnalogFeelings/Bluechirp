@@ -46,10 +46,12 @@ public partial class App
     {
         get
         {
-            IServiceProvider serviceProvider = (Current as App)._serviceProvider ??
+            App currentApp = (Current as App)!;
+
+            if(currentApp._serviceProvider == null)
                 throw new InvalidOperationException("Service provider was not initialized before accessing.");
 
-            return serviceProvider;
+            return currentApp._serviceProvider;
         }
     }
 
