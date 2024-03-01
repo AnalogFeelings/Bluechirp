@@ -16,18 +16,38 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #endregion
 
+using Bluechirp.Library.Constants;
+using Bluechirp.Library.Helpers;
 using Bluechirp.Library.Services.Environment;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
+using Windows.Storage;
 
 namespace Bluechirp.Services.Environment;
 
 /// <summary>
 /// A logger with a sink for the VS debugger.
 /// </summary>
-internal class LoggerService : ILoggerService
+internal class LoggerService : ILoggerService, IDisposable
 {
+    private readonly StreamWriter _logFileWriter;
+    private readonly object _logLock = new object();
+
+    public LoggerService()
+    {
+        StorageFolder folder = ApplicationData.Current.LocalFolder;
+        StorageFile logFile = AsyncHelper.RunSync(() => folder.CreateFileAsync(AppConstants.LOG_FILE, CreationCollisionOption.ReplaceExisting).AsTask());
+        Stream stream = AsyncHelper.RunSync(() => logFile.OpenStreamForWriteAsync());
+        
+        _logFileWriter = new StreamWriter(stream)
+        {
+            AutoFlush = true
+        };
+    }
+
+    /// <inheritdoc/>
     public void Log(string message, LogSeverity severity, [CallerMemberName] string callerFunction = "")
     {
         if (string.IsNullOrWhiteSpace(message))
@@ -40,31 +60,28 @@ internal class LoggerService : ILoggerService
             LogSeverity.Error => "ERR",
             _ => "???"
         };
+        string assembledMessage = $"[{severityText} :: {callerFunction}] {message}";
 
-        Debug.WriteLine($"[{severityText} :: {callerFunction}] {message}");
+        Debug.WriteLine(assembledMessage);
+
+        lock(_logLock)
+        {
+            _logFileWriter.WriteLine(assembledMessage);
+        }
     }
 
+    /// <inheritdoc/>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void LogException(Exception exception)
     {
-        this.Log(exception.Message, LogSeverity.Error);
+        this.Log(exception.ToString(), LogSeverity.Error);
 
         Debugger.Break();
     }
-}
 
-/// <summary>
-/// A dummy logger that doesn't execute code.
-/// </summary>
-internal class DummyLoggerService : ILoggerService
-{
-    public void Log(string message, LogSeverity severity, [CallerMemberName] string callerFunction = "")
+    /// <inheritdoc/>
+    public void Dispose()
     {
-        ;
-    }
-
-    public void LogException(Exception exception)
-    {
-        ;
+        _logFileWriter?.Dispose();
     }
 }

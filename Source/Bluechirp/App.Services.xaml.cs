@@ -62,13 +62,8 @@ public partial class App
     {
         IServiceCollection collection = new ServiceCollection();
 
-        // Add a dummy logger when on release mode, to prevent wasting cycles
-        // on something the user is never going to see.
-#if DEBUG
-        collection.AddTransient<ILoggerService, LoggerService>();
-#else
-            collection.AddTransient<ILoggerService, DummyLoggerService>();
-#endif
+        // Add services.
+        collection.AddSingleton<ILoggerService, LoggerService>();
         collection.AddTransient<IEncryptionService, EncryptionService>();
         collection.AddSingleton<ICredentialService, CredentialService>();
         collection.AddSingleton<IAuthService, AuthService>();
@@ -82,12 +77,12 @@ public partial class App
         collection.AddTransient<LoginViewModel>();
         collection.AddTransient<ShellViewModel>();
         collection.AddTransient<SettingsViewModel>();
-
         collection.AddTransient<HomeTimelineViewModel>();
 
         _serviceProvider = collection.BuildServiceProvider(true);
 
         // Initialize singleton services that need it.
         _ = _serviceProvider.GetRequiredService<IDispatcherService>();
+        _ = _serviceProvider.GetRequiredService<ILoggerService>();
     }
 }

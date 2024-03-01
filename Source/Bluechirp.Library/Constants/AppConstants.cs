@@ -45,4 +45,9 @@ public static class AppConstants
     /// The URI string to the app's bug report form.
     /// </summary>
     public const string BUG_URI = "https://github.com/AnalogFeelings/Bluechirp/issues/new?template=bug-report.yml";
+
+    /// <summary>
+    /// The filename used for the app's log file.
+    /// </summary>
+    public const string LOG_FILE = "ProgramLog.txt";
 }
