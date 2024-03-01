@@ -16,14 +16,13 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #endregion
 
+using Bluechirp.Library.Interop;
 using Bluechirp.Library.Services.Environment;
 using Bluechirp.Library.Services.Security;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
-using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using WinUIEx;
@@ -37,9 +36,6 @@ namespace Bluechirp;
 /// </summary>
 public partial class App : Application
 {
-    [DllImport("user32.dll")]
-    private static extern int ShowWindow(IntPtr hWnd, uint msg);
-
     private MainWindow _appWindow;
 
     private ILoggerService _loggerService;
@@ -87,7 +83,7 @@ public partial class App : Application
             // BUG WORKAROUND: microsoft-ui-xaml#7595
             // Window.Activate() does not bring window to foreground.
             // https://github.com/microsoft/microsoft-ui-xaml/issues/7595
-            ShowWindow(_appWindow.GetWindowHandle(), 0x9);
+            Native.ShowWindow(_appWindow.GetWindowHandle(), 0x9);
         });
 
         if (args.Kind == ExtendedActivationKind.Protocol)

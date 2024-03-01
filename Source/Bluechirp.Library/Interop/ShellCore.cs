@@ -48,6 +48,6 @@ public static partial class Native
     /// The value of the DPI along the Y axis. This value always refers to the vertical edge, even when the screen is rotated.
     /// </param>
     /// <returns>Non-zero if unsuccessful.</returns>
-    [DllImport("Shcore.dll", SetLastError = true)]
-    public static extern int GetDpiForMonitor(IntPtr hmonitor, MonitorDpiType dpiType, out uint dpiX, out uint dpiY);
+    [LibraryImport("Shcore.dll", SetLastError = true)]
+    public static partial int GetDpiForMonitor(IntPtr hmonitor, MonitorDpiType dpiType, out uint dpiX, out uint dpiY);
 }
