@@ -17,16 +17,23 @@
 #endregion
 
 using Bluechirp.Library.Models.View.Timelines;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Mastonet.Entities;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Imaging;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Windows.Media.Core;
 
 namespace Bluechirp.Controls;
 
+[INotifyPropertyChanged]
 public sealed partial class TootControl : UserControl
 {
     public static readonly DependencyProperty StatusProperty = DependencyProperty.Register(nameof(Status),
-        typeof(Status), typeof(TootControl), null);
+        typeof(Status), typeof(TootControl), new PropertyMetadata(null, StatusUpdated));
 
     public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(nameof(ViewModel),
         typeof(BaseTimelineViewModel), typeof(TootControl), null);
@@ -43,8 +50,67 @@ public sealed partial class TootControl : UserControl
         set => SetValue(ViewModelProperty, value);
     }
 
+    public ObservableCollection<FrameworkElement> MediaItems { get; set; } = new ObservableCollection<FrameworkElement>();
+
     public TootControl()
     {
         this.InitializeComponent();
+    }
+
+    private void UpdateMedia()
+    {
+        foreach(Attachment attachment in Status.MediaAttachments)
+        {
+            switch(attachment.Type)
+            {
+                case "video":
+                    MediaPlayerElement videoPlayer = new MediaPlayerElement
+                    {
+                        PosterSource = new BitmapImage(new Uri(attachment.PreviewUrl)),
+                        Source = MediaSource.CreateFromUri(new Uri(attachment.Url)),
+                        AreTransportControlsEnabled = true,
+                        TransportControls =
+                        {
+                            IsCompact = true
+                        }
+                    };
+
+                    MediaItems.Add(videoPlayer);
+
+                    break;
+                case "gifv":
+                    MediaPlayerElement gifPlayer = new MediaPlayerElement
+                    {
+                        Source = MediaSource.CreateFromUri(new Uri(attachment.Url)),
+                        AreTransportControlsEnabled = false,
+                        AutoPlay = true,
+                        MediaPlayer =
+                        {
+                            IsLoopingEnabled = true,
+                        }
+                    };
+
+                    MediaItems.Add(gifPlayer);
+
+                    break;
+                default:
+                    BitmapImage bitmapImage = new BitmapImage(new Uri(attachment.Url));
+                    Image imageControl = new Image
+                    {
+                        Source = bitmapImage
+                    };
+
+                    MediaItems.Add(imageControl);
+
+                    break;
+            }
+        }
+    }
+
+    private static void StatusUpdated(DependencyObject @object,  DependencyPropertyChangedEventArgs e)
+    {
+        TootControl control = (@object as TootControl)!;
+
+        control.UpdateMedia();
     }
 }

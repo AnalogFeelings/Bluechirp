@@ -29,6 +29,7 @@
         <None Remove="Assets\Icons\Tiles\WideTile.scale-150.png" />
         <None Remove="Assets\Icons\Tiles\WideTile.scale-200.png" />
         <None Remove="Assets\Icons\Tiles\WideTile.scale-400.png" />
+        <None Remove="Controls\MastodonTextControl.xaml" />
         <None Remove="Controls\TootControl.xaml" />
         <None Remove="Views\LoginPage.xaml" />
         <None Remove="Views\Navigation\TimelinePage.xaml" />
@@ -61,6 +62,11 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Bluechirp.Library\Bluechirp.Library.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Page Update="Controls\MastodonTextControl.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
     </ItemGroup>
     <ItemGroup>
       <Page Update="Views\SettingsPage.xaml">
