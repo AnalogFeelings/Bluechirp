@@ -13,7 +13,7 @@
                TargetType="ListViewItem"
                BasedOn="{StaticResource DefaultListViewItemStyle}">
             <Setter Property="Background"
-                    Value="{ThemeResource LayerFillColorDefaultBrush}" />
+                    Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
             <Setter Property="BorderBrush"
                     Value="{ThemeResource CardStrokeColorDefaultBrush}" />
             <Setter Property="BorderThickness"
@@ -23,7 +23,7 @@
             <Setter Property="Padding"
                     Value="16" />
             <Setter Property="MaxWidth"
-                    Value="1000" />
+                    Value="650" />
             <Setter Property="Margin"
                     Value="0,0,0,1" />
         </Style>
