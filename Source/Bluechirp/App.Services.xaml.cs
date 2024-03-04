@@ -21,10 +21,12 @@ using Bluechirp.Library.Models.View.Navigation;
 using Bluechirp.Library.Models.View.Timelines;
 using Bluechirp.Library.Services.Environment;
 using Bluechirp.Library.Services.Interface;
+using Bluechirp.Library.Services.Mastodon;
 using Bluechirp.Library.Services.Security;
 using Bluechirp.Library.Services.Utility;
 using Bluechirp.Services.Environment;
 using Bluechirp.Services.Interface;
+using Bluechirp.Services.Mastodon;
 using Bluechirp.Services.Security;
 using Bluechirp.Services.Utility;
 using Microsoft.Extensions.DependencyInjection;
@@ -65,6 +67,7 @@ public partial class App
         // Add services.
         collection.AddSingleton<ILoggerService, LoggerService>();
         collection.AddTransient<IEncryptionService, EncryptionService>();
+        collection.AddTransient<IMastodonTextParserService, MastodonTextParserService>();
         collection.AddSingleton<ICredentialService, CredentialService>();
         collection.AddSingleton<IAuthService, AuthService>();
         collection.AddSingleton<INavigationService, NavigationService>();

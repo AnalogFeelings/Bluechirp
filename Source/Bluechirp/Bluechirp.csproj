@@ -38,6 +38,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="AngleSharp" Version="1.1.1" />
         <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.0.240109" />
         <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.240109" />
         <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.240109" />
