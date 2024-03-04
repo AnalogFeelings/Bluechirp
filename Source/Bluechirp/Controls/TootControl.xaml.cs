@@ -21,6 +21,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Mastonet.Entities;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.Collections.Generic;
@@ -97,7 +98,8 @@ public sealed partial class TootControl : UserControl
                     BitmapImage bitmapImage = new BitmapImage(new Uri(attachment.Url));
                     Image imageControl = new Image
                     {
-                        Source = bitmapImage
+                        Source = bitmapImage,
+                        HorizontalAlignment = HorizontalAlignment.Stretch
                     };
 
                     MediaItems.Add(imageControl);

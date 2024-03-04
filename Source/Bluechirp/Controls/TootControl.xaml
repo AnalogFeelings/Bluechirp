@@ -9,12 +9,6 @@
              mc:Ignorable="d"
              x:Name="RootControl">
 
-    <UserControl.Resources>
-        <UniformGridLayout x:Name="UniformGridLayout"
-                           MinRowSpacing="2"
-                           MinColumnSpacing="2" />
-    </UserControl.Resources>
-    
     <RelativePanel>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="StatusMediaStates">
@@ -75,21 +69,29 @@
                                    RelativePanel.AlignRightWithPanel="True"
                                    Margin="0, 12, 0, 0"
                                    Html="{x:Bind Status.Content, Mode=OneWay}" />
-
-        <ItemsRepeater x:Name="StatusMedia"
-                       RelativePanel.RightOf="StatusAvatar"
-                       RelativePanel.LeftOf="StatusTimestamp"
-                       RelativePanel.Below="StatusContent"
-                       RelativePanel.AlignRightWithPanel="True"
-                       Margin="0, 12, 0, 0"
-                       Layout="{StaticResource UniformGridLayout}"
-                       ItemsSource="{x:Bind MediaItems, Mode=OneWay}">
-            <ItemsRepeater.ItemTemplate>
-                <DataTemplate x:DataType="FrameworkElement">
-                    <ContentPresenter Content="{x:Bind}" />
-                </DataTemplate>
-            </ItemsRepeater.ItemTemplate>
-        </ItemsRepeater>
+        
+        <StackPanel x:Name="StatusMedia"
+                    RelativePanel.RightOf="StatusAvatar"
+                    RelativePanel.LeftOf="StatusTimestamp"
+                    RelativePanel.Below="StatusContent"
+                    RelativePanel.AlignRightWithPanel="True"
+                    Margin="0, 12, 0, 0">
+            <FlipView x:Name="MediaFlipView"
+                      ItemsSource="{x:Bind MediaItems, Mode=OneWay}"
+                      MaxHeight="350">
+                <FlipView.ItemTemplate>
+                    <DataTemplate x:DataType="FrameworkElement">
+                        <ContentPresenter Content="{x:Bind}"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch" />
+                    </DataTemplate>
+                </FlipView.ItemTemplate>
+            </FlipView>
+            <PipsPager HorizontalAlignment="Center"
+                       Margin="0,12,0,0"
+                       NumberOfPages="{x:Bind MediaItems.Count, Mode=OneWay}"
+                       SelectedPageIndex="{x:Bind MediaFlipView.SelectedIndex, Mode=TwoWay}" />
+        </StackPanel>
 
         <controls:UniformGrid x:Name="TootActionStackPanel"
                               RelativePanel.RightOf="StatusAvatar"
