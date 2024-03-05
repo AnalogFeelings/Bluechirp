@@ -27,6 +27,13 @@ I then found Tooter, an unfinished, also abandoned UWP client for Mastodon that 
 After a short conversation on [issue #1](https://github.com/AnalogFeelings/Bluechirp/issues/1), I became the owner of Tooter, which I've since rebranded to Bluechirp.  
 I rebranded it because the name Tooter has already been picked up by other Mastodon clients and social medias.
 
+## :camera_flash: Screenshot
+
+> [!NOTE]
+> This screenshot is from an early development build: may change!
+
+![bluechirp_screenshot](Assets/bchirp.png)
+
 # :package: Building
 First, install **Visual Studio 2022** with the .NET workload. This step is crucial so don't skip it!  
 Then, follow these steps.
