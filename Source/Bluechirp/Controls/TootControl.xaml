@@ -6,8 +6,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="using:CommunityToolkit.WinUI.Controls"
              xmlns:triggers="using:CommunityToolkit.WinUI"
+             xmlns:converters="using:CommunityToolkit.WinUI.Converters"
              mc:Ignorable="d"
              x:Name="RootControl">
+    
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
 
     <RelativePanel>
         <VisualStateManager.VisualStateGroups>
@@ -90,7 +95,8 @@
             <PipsPager HorizontalAlignment="Center"
                        Margin="0,12,0,0"
                        NumberOfPages="{x:Bind MediaItems.Count, Mode=OneWay}"
-                       SelectedPageIndex="{x:Bind MediaFlipView.SelectedIndex, Mode=TwoWay}" />
+                       SelectedPageIndex="{x:Bind MediaFlipView.SelectedIndex, Mode=TwoWay}"
+                       Visibility="{x:Bind ShowMediaPips, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
         </StackPanel>
 
         <controls:UniformGrid x:Name="TootActionStackPanel"

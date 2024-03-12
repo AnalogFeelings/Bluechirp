@@ -21,11 +21,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Mastonet.Entities;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using Windows.Media.Core;
 
 namespace Bluechirp.Controls;
@@ -51,11 +50,21 @@ public sealed partial class TootControl : UserControl
         set => SetValue(ViewModelProperty, value);
     }
 
-    public ObservableCollection<FrameworkElement> MediaItems { get; set; } = new ObservableCollection<FrameworkElement>();
+    public ObservableCollection<FrameworkElement> MediaItems { get; set; }
+
+    public bool ShowMediaPips => MediaItems.Count > 1;
 
     public TootControl()
     {
         this.InitializeComponent();
+        this.MediaItems = new ObservableCollection<FrameworkElement>();
+
+        this.MediaItems.CollectionChanged += MediaItems_CollectionChanged;
+    }
+
+    private void MediaItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        OnPropertyChanged(nameof(ShowMediaPips));
     }
 
     private void UpdateMedia()
