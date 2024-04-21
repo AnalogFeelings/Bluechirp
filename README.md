@@ -4,13 +4,13 @@
     Bluechirp for Mastodon
   </h1>
 
-  [![GitHub issues](https://img.shields.io/github/issues/analogfeelings/bluechirp?label=Issues&style=flat-square)](https://github.com/AnalogFeelings/Bluechirp/issues)
-  [![GitHub pull requests](https://img.shields.io/github/issues-pr/analogfeelings/bluechirp?label=Pull%20Requests&style=flat-square)](https://github.com/AnalogFeelings/Bluechirp/pulls)
-  [![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/analogfeelings/bluechirp/unit-tests.yml?branch=master&label=Build&style=flat-square)](https://github.com/AnalogFeelings/Bluechirp/actions)
-  [![GitHub](https://img.shields.io/github/license/analogfeelings/bluechirp?label=License&style=flat-square)](https://github.com/AnalogFeelings/Bluechirp/blob/master/LICENSE)
-  [![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/analogfeelings/bluechirp/master?label=Commit%20Activity&style=flat-square)](https://github.com/AnalogFeelings/Bluechirp/graphs/commit-activity)
-  [![GitHub Repo stars](https://img.shields.io/github/stars/analogfeelings/bluechirp?label=Stargazers&style=flat-square)](https://github.com/AnalogFeelings/Bluechirp/stargazers)
-  [![Mastodon Follow](https://img.shields.io/mastodon/follow/109309123442839534?domain=https%3A%2F%2Ftech.lgbt&style=social)](https://tech.lgbt/@analog_feelings)
+  [![GitHub issues](https://img.shields.io/github/issues/analogfeelings/bluechirp?style=flat-square&logo=github&label=Issues)](https://github.com/AnalogFeelings/Bluechirp/issues)
+  [![GitHub pull requests](https://img.shields.io/github/issues-pr/analogfeelings/bluechirp?label=Pull%20Requests&style=flat-square&logo=github)](https://github.com/AnalogFeelings/Bluechirp/pulls)
+  [![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/analogfeelings/bluechirp/unit-tests.yml?branch=master&label=Unit%20Tests&style=flat-square&logo=githubactions&logoColor=white)](https://github.com/AnalogFeelings/Bluechirp/actions)
+  [![GitHub](https://img.shields.io/github/license/analogfeelings/bluechirp?label=License&style=flat-square&logo=opensourceinitiative&logoColor=white)](https://github.com/AnalogFeelings/Bluechirp/blob/master/LICENSE)
+  [![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/analogfeelings/bluechirp/master?label=Commit%20Activity&style=flat-square&logo=github)](https://github.com/AnalogFeelings/Bluechirp/graphs/commit-activity)
+  [![GitHub Repo stars](https://img.shields.io/github/stars/analogfeelings/bluechirp?label=Stargazers&style=flat-square&logo=github)](https://github.com/AnalogFeelings/Bluechirp/stargazers)
+  [![Mastodon Follow](https://img.shields.io/mastodon/follow/109309123442839534?domain=https%3A%2F%2Ftech.lgbt%2F&style=flat-square&logo=mastodon&logoColor=white&label=Follow%20Me!&color=6364ff)](https://tech.lgbt/@analog_feelings)
 </div>
 
 Bluechirp is a free and open-source client for the federated Mastodon social network written in C#.
