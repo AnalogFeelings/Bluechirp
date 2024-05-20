@@ -88,7 +88,8 @@
                     <DataTemplate x:DataType="FrameworkElement">
                         <ContentPresenter Content="{x:Bind}"
                                           HorizontalAlignment="Stretch"
-                                          VerticalAlignment="Stretch" />
+                                          VerticalAlignment="Stretch"
+                                          CornerRadius="8" />
                     </DataTemplate>
                 </FlipView.ItemTemplate>
             </FlipView>
