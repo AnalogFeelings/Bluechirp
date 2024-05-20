@@ -53,7 +53,7 @@
                                    Command="{x:Bind ViewModel.OpenLogFileCommand}" />
 
             <controls:SettingsExpander Header="About Bluechirp"
-                                       Description="Copyright Analog Feelings 2023-2024"
+                                       Description="© Copyright Analog Feelings 2023-2024"
                                        HeaderIcon="{ui:BitmapIcon Source=/Assets/Icons/Store/StoreLogo.scale-100.png}">
 
                 <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
