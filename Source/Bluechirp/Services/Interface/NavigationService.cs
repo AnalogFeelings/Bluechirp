@@ -92,7 +92,7 @@ internal class NavigationService : INavigationService
             PageType.Shell => typeof(ShellPage),
             PageType.Timeline => typeof(TimelinePage),
             PageType.Settings => typeof(SettingsPage),
-            _ => throw new ArgumentOutOfRangeException("Attempted to navigate to non-existant page.")
+            _ => throw new ArgumentOutOfRangeException(nameof(pageType), "Attempted to navigate to non-existant page.")
         };
     }
 }
