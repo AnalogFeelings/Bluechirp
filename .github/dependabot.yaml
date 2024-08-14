@@ -15,7 +15,7 @@ updates:
     reviewers:
       - "analogfeelings"
     commit-message:
-      prefix: "[Bot -> All]"
+      prefix: "[App -> All]"
       include: "scope"
     groups:
       community-toolkit:
