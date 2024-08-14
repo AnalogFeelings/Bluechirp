@@ -60,7 +60,7 @@ internal class NavigationService : INavigationService
     }
 
     /// <inheritdoc/>
-    public bool Navigate(PageType sourcePageType, object parameter)
+    public bool Navigate(PageType sourcePageType, object? parameter)
     {
         Type targetType = AgnosticPageToAppPage(sourcePageType);
 
@@ -68,7 +68,7 @@ internal class NavigationService : INavigationService
     }
 
     /// <inheritdoc/>
-    public bool Navigate(PageType sourcePageType, object parameter, NavigationTransitionInfo infoOverride)
+    public bool Navigate(PageType sourcePageType, object? parameter, NavigationTransitionInfo infoOverride)
     {
         Type targetType = AgnosticPageToAppPage(sourcePageType);
 
