@@ -46,7 +46,7 @@
                                    IsClickEnabled="True"
                                    Command="{x:Bind ViewModel.OpenBugReportPageCommand}" />
             <controls:SettingsCard Header="View Logs"
-                                   Description="Open the app's debug log file."
+                                   Description="Open the app's debug log folder."
                                    HeaderIcon="{ui:FontIcon Glyph=&#xE8E5;}"
                                    ActionIcon="{ui:FontIcon Glyph=&#xE8A7;}"
                                    IsClickEnabled="True"

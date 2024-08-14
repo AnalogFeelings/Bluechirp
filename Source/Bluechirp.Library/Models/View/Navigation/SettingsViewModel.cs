@@ -40,9 +40,8 @@ public partial class SettingsViewModel
     [RelayCommand]
     private async Task OpenLogFile()
     {
-        StorageFolder folder = ApplicationData.Current.LocalFolder;
-        StorageFile logFile = await folder.GetFileAsync(AppConstants.LOG_FILE);
+        StorageFolder folder = await ApplicationData.Current.LocalFolder.GetFolderAsync(AppConstants.LOG_FOLDER);
 
-        await Launcher.LaunchFileAsync(logFile);
+        await Launcher.LaunchFolderAsync(folder);
     }
 }

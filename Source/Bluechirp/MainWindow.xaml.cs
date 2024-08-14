@@ -16,6 +16,8 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #endregion
 
+using AnalogFeelings.Matcha;
+using AnalogFeelings.Matcha.Enums;
 using Bluechirp.Library.Constants;
 using Bluechirp.Library.Enums;
 using Bluechirp.Library.Models;
@@ -61,7 +63,7 @@ public sealed partial class MainWindow : WindowEx
         ICredentialService credentialService = App.ServiceProvider.GetRequiredService<ICredentialService>();
         IAuthService authService = App.ServiceProvider.GetRequiredService<IAuthService>();
         INavigationService navService = App.ServiceProvider.GetRequiredService<INavigationService>();
-        ILoggerService logService = App.ServiceProvider.GetRequiredService<ILoggerService>();
+        MatchaLogger logService = App.ServiceProvider.GetRequiredService<MatchaLogger>();
 
         string lastProfile = settingsService.Get<string>(SettingsConstants.LAST_PROFILE_KEY);
 
@@ -78,24 +80,24 @@ public sealed partial class MainWindow : WindowEx
             // There aren't. Just show the login screen.
             if (defaultCredentials == null)
             {
-                logService.Log("No credentials found. Navigating to login page.", LogSeverity.Error);
+                await logService.LogAsync(LogSeverity.Error, "No credentials found. Navigating to login page.");
 
                 navService.Navigate(PageType.Login, null, new DrillInNavigationTransitionInfo());
             }
             else
             {
                 // There is one! Use it.
-                LoadCredentialsAndOpenShell(defaultCredentials);
+                await LoadCredentialsAndOpenShell(defaultCredentials);
             }
         }
         else
         {
-            LoadCredentialsAndOpenShell(credentials);
+            await LoadCredentialsAndOpenShell(credentials);
         }
 
-        void LoadCredentialsAndOpenShell(ProfileCredentials credentials)
+        async Task LoadCredentialsAndOpenShell(ProfileCredentials credentials)
         {
-            logService.Log("Credentials found. Attempting to initialize client...", LogSeverity.Information);
+            await logService.LogAsync(LogSeverity.Information, "Credentials found. Attempting to initialize client...");
 
             authService.LoadClientFromCredentials(credentials);
 

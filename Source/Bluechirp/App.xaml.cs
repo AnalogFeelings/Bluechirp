@@ -16,6 +16,8 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #endregion
 
+using AnalogFeelings.Matcha;
+using AnalogFeelings.Matcha.Enums;
 using Bluechirp.Library.Interop;
 using Bluechirp.Library.Services.Environment;
 using Bluechirp.Library.Services.Security;
@@ -38,7 +40,7 @@ public partial class App : Application
 {
     private MainWindow _appWindow;
 
-    private ILoggerService _loggerService;
+    private MatchaLogger _loggerService;
     private IAuthService _authService;
     private IDispatcherService _dispatcherService;
 
@@ -63,11 +65,11 @@ public partial class App : Application
 
         InitializeServices();
 
-        _loggerService = ServiceProvider.GetRequiredService<ILoggerService>();
+        _loggerService = ServiceProvider.GetRequiredService<MatchaLogger>();
         _authService = ServiceProvider.GetRequiredService<IAuthService>();
         _dispatcherService = ServiceProvider.GetRequiredService<IDispatcherService>();
 
-        _loggerService.Log("Bluechirp is initializing.", LogSeverity.Information);
+        await _loggerService.LogAsync(LogSeverity.Information, "Bluechirp is initializing.");
 
         await _appWindow.CheckLoginAndNavigateAsync();
     }
@@ -91,7 +93,7 @@ public partial class App : Application
             if (_appWindow == null)
                 Process.GetCurrentProcess().Kill();
 
-            _loggerService.Log("Received protocol activation.", LogSeverity.Information);
+            await _loggerService.LogAsync(LogSeverity.Information, "Received protocol activation.");
 
             ProtocolActivatedEventArgs protocolArgs = args.Data as ProtocolActivatedEventArgs;
 

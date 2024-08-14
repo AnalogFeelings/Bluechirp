@@ -14,6 +14,7 @@
         <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
         <SupportedOSPlatformVersion>10.0.20348.0</SupportedOSPlatformVersion>
         <UseRidGraph>true</UseRidGraph>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
         <None Remove="Assets\Icons\Tiles\MedTile.scale-125.png" />
@@ -39,6 +40,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="AnalogFeelings.Matcha" Version="2.1.0" />
         <PackageReference Include="AngleSharp" Version="1.1.2" />
         <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.0.240109" />
         <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.240109" />

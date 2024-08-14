@@ -16,6 +16,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #endregion
 
+using AnalogFeelings.Matcha;
+using AnalogFeelings.Matcha.Enums;
+using AnalogFeelings.Matcha.Sinks.Debugger;
+using AnalogFeelings.Matcha.Sinks.File;
+using Bluechirp.Library.Constants;
 using Bluechirp.Library.Models.View;
 using Bluechirp.Library.Models.View.Navigation;
 using Bluechirp.Library.Models.View.Timelines;
@@ -30,7 +35,10 @@ using Bluechirp.Services.Mastodon;
 using Bluechirp.Services.Security;
 using Bluechirp.Services.Utility;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic;
 using System;
+using System.IO;
+using Windows.Storage;
 
 namespace Bluechirp;
 
@@ -64,8 +72,38 @@ public partial class App
     {
         IServiceCollection collection = new ServiceCollection();
 
+        LogSeverity filterLevel;
+
+#if DEBUG
+        filterLevel = LogSeverity.Debug;
+#else
+        filterLevel = LogSeverity.Information;
+#endif
+
+        FileSinkConfig fileConfig = new FileSinkConfig()
+        {
+            SeverityFilterLevel = filterLevel,
+            FilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, AppConstants.LOG_FOLDER),
+            Overwrite = true
+        };
+        DebuggerSinkConfig debuggerConfig = new DebuggerSinkConfig()
+        {
+            SeverityFilterLevel = filterLevel
+        };
+
+        FileSink fileSink = new FileSink()
+        {
+            Config = fileConfig
+        };
+        DebuggerSink debuggerSink = new DebuggerSink()
+        {
+            Config = debuggerConfig
+        };
+
+        MatchaLogger logger = new MatchaLogger(fileSink, debuggerSink);
+
         // Add services.
-        collection.AddSingleton<ILoggerService, LoggerService>();
+        collection.AddSingleton(logger);
         collection.AddTransient<IEncryptionService, EncryptionService>();
         collection.AddTransient<IMastodonTextParserService, MastodonTextParserService>();
         collection.AddSingleton<ICredentialService, CredentialService>();
@@ -86,6 +124,5 @@ public partial class App
 
         // Initialize singleton services that need it.
         _ = _serviceProvider.GetRequiredService<IDispatcherService>();
-        _ = _serviceProvider.GetRequiredService<ILoggerService>();
     }
 }
