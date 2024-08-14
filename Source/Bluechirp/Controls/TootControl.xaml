@@ -53,7 +53,7 @@
                        Text="{x:Bind Status.Account.DisplayName, Mode=OneWay}" />
             <TextBlock x:Name="AccountNameTextBlock"
                        TextTrimming="CharacterEllipsis"
-                       Style="{ThemeResource BodyStrongTextBlockStyle}"
+                       Style="{ThemeResource BodyTextBlockStyle}"
                        Foreground="{ThemeResource SystemColorGrayTextColor}"
                        Text="{x:Bind Status.Account.AccountName, Mode=OneWay}" />
         </StackPanel>
