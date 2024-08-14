@@ -16,10 +16,12 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #endregion
 
+using Bluechirp.Library.Constants;
 using Bluechirp.Library.Models;
 using Bluechirp.Library.Services.Security;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -40,14 +42,13 @@ internal class CredentialService : ICredentialService
 
     private Dictionary<string, ProfileCredentials> _profileCredentials;
 
-    private const string _CREDENTIAL_FILENAME = "profiles.ebjson";
-
     public CredentialService(IEncryptionService encryptionService)
     {
         _encryptionService = encryptionService;
     }
 
     /// <inheritdoc/>
+    [MemberNotNull(nameof(_profileCredentials))]
     public async Task LoadProfileDataAsync()
     {
         StorageFile profilesFile = await GetProfilesFileAsync();
@@ -116,7 +117,7 @@ internal class CredentialService : ICredentialService
     private async Task<StorageFile> GetProfilesFileAsync()
     {
         StorageFolder folder = ApplicationData.Current.LocalFolder;
-        StorageFile profilesFile = await folder.CreateFileAsync(_CREDENTIAL_FILENAME, CreationCollisionOption.OpenIfExists);
+        StorageFile profilesFile = await folder.CreateFileAsync(AppConstants.CREDENTIAL_FILENAME, CreationCollisionOption.OpenIfExists);
 
         return profilesFile;
     }

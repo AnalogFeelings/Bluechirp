@@ -50,4 +50,9 @@ public static class AppConstants
     /// The folder name used for the app's log folder.
     /// </summary>
     public const string LOG_FOLDER = "Logs";
+
+    /// <summary>
+    /// The filename used for the credentials storage file.
+    /// </summary>
+    public const string CREDENTIAL_FILENAME = "profiles.ebjson";
 }
