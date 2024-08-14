@@ -48,11 +48,11 @@ public interface ICredentialService
     /// </summary>
     /// <param name="profileId">The profile ID.</param>
     /// <returns>The user's credentials object.</returns>
-    public ProfileCredentials GetProfileData(string profileId);
+    public ProfileCredentials? GetProfileData(string profileId);
 
     /// <summary>
     /// Gets the first profile in memory, for emergency purposes.
     /// </summary>
     /// <returns>A user's credentials object.</returns>
-    public ProfileCredentials GetDefaultProfileData();
+    public ProfileCredentials? GetDefaultProfileData();
 }

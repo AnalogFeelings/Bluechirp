@@ -28,6 +28,7 @@ using Bluechirp.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Xaml.Media.Animation;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using WinUIEx;
 
@@ -70,12 +71,12 @@ public sealed partial class MainWindow : WindowEx
         await credentialService.LoadProfileDataAsync();
         navService.TargetFrame = ContentFrame;
 
-        ProfileCredentials credentials = credentialService.GetProfileData(lastProfile);
+        ProfileCredentials? credentials = credentialService.GetProfileData(lastProfile);
 
         // Hm. Let's check if there are profiles in storage.
         if (credentials == null)
         {
-            ProfileCredentials defaultCredentials = credentialService.GetDefaultProfileData();
+            ProfileCredentials? defaultCredentials = credentialService.GetDefaultProfileData();
 
             // There aren't. Just show the login screen.
             if (defaultCredentials == null)

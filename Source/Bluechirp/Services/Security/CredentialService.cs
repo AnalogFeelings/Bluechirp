@@ -95,16 +95,13 @@ internal class CredentialService : ICredentialService
     }
 
     /// <inheritdoc/>
-    public ProfileCredentials GetProfileData(string profileId)
+    public ProfileCredentials? GetProfileData(string profileId)
     {
-        if (!_profileCredentials.ContainsKey(profileId))
-            return null;
-
-        return _profileCredentials[profileId];
+        return _profileCredentials.GetValueOrDefault(profileId);
     }
 
     /// <inheritdoc/>
-    public ProfileCredentials GetDefaultProfileData()
+    public ProfileCredentials? GetDefaultProfileData()
     {
         if (_profileCredentials.Count == 0)
             return null;
