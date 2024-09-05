@@ -7,14 +7,15 @@
     <UseWinUI>true</UseWinUI>
     <UseRidGraph>true</UseRidGraph>
     <SupportedOSPlatformVersion>10.0.20348.0</SupportedOSPlatformVersion>
+    <WindowsSdkPackageVersion>10.0.22621.38</WindowsSdkPackageVersion>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0" />
       <PackageReference Include="Mastonet" Version="3.1.1" />
-      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" />
+      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240829007" />
       <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
   </ItemGroup>
 </Project>

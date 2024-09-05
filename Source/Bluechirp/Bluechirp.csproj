@@ -13,6 +13,7 @@
         <PackageCertificateThumbprint>8CFA06D7348A95A9E98CEEC2BDF400820F1E340D</PackageCertificateThumbprint>
         <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
         <SupportedOSPlatformVersion>10.0.20348.0</SupportedOSPlatformVersion>
+        <WindowsSdkPackageVersion>10.0.22621.38</WindowsSdkPackageVersion>
         <UseRidGraph>true</UseRidGraph>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -42,13 +43,13 @@
     <ItemGroup>
         <PackageReference Include="AnalogFeelings.Matcha" Version="2.1.0" />
         <PackageReference Include="AngleSharp" Version="1.1.2" />
-        <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.0.240109" />
-        <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.240109" />
-        <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.240109" />
-        <PackageReference Include="CommunityToolkit.WinUI.Extensions" Version="8.0.240109" />
+        <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.1.240821" />
+        <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.1.240821" />
+        <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.1.240821" />
+        <PackageReference Include="CommunityToolkit.WinUI.Extensions" Version="8.1.240821" />
         <PackageReference Include="Mastonet" Version="3.1.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240829007" />
         <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
         <PackageReference Include="WinUIEx" Version="2.3.4" />
         <Manifest Include="$(ApplicationManifest)" />
