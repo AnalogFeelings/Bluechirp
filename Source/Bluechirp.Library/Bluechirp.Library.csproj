@@ -15,7 +15,7 @@
   <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
       <PackageReference Include="Mastonet" Version="3.1.2" />
-      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.241106002" />
+      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.241114003" />
       <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
   </ItemGroup>
 </Project>
