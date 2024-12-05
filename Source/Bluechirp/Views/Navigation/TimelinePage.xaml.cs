@@ -1,6 +1,6 @@
 #region License Information (GPLv3)
 // Bluechirp - A modern, native client for the Mastodon social media.
-// Copyright (C) 2023-2024 Analog Feelings and contributors.
+// Copyright (C) 2023 Analog Feelings and contributors.
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

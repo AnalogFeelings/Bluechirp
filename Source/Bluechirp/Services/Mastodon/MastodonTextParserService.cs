@@ -1,4 +1,22 @@
-﻿using AngleSharp;
+﻿#region License Information (GPLv3)
+// Bluechirp - A modern, native client for the Mastodon social media.
+// Copyright (C) 2023 Analog Feelings and contributors.
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#endregion
+
+using AngleSharp;
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using Bluechirp.Library.Enums;
@@ -41,21 +59,34 @@ internal class MastodonTextParserService : IMastodonTextParserService
 
             foreach (IElement topLevelElement in topLevelElements)
             {
-                if(topLevelElement is not IHtmlParagraphElement paragraph)
-                    throw new InvalidDataException("A top level element was not a paragraph tag.");
-
-                HandleParagraphTag(paragraph, ref contentList);
-
-                // HACK: Maybe this is ugly?
-                if (!paragraph.IsLastChild())
+                switch(topLevelElement.NodeName.ToLower())
                 {
-                    MastodonContent newLineText = new MastodonContent()
-                    {
-                        Content = "\n\n",
-                        ContentType = MastodonContentType.Text
-                    };
+                    case "p":
+                        HandleParagraphTag(topLevelElement as IHtmlParagraphElement, ref contentList);
 
-                    contentList.Add(newLineText);
+                        if (!topLevelElement.IsLastChild())
+                        {
+                            MastodonContent newLineText = new MastodonContent()
+                            {
+                                Content = "\n\n",
+                                ContentType = MastodonContentType.Text
+                            };
+
+                            contentList.Add(newLineText);
+                        }
+                        break;
+                    case "#text":
+                        HandleRawText(topLevelElement as IText, ref contentList); 
+                        break;
+                    case "a":
+                        HandleAnchorTag(topLevelElement as IHtmlAnchorElement, ref contentList);
+                        break;
+                    case "br":
+                        HandleLineBreak(ref contentList);
+                        break;
+                    case "span":
+                        HandleSpanTag(topLevelElement as IHtmlSpanElement, ref contentList);
+                        break;
                 }
             }
         }
